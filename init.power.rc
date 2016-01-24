@@ -15,6 +15,8 @@
 #
 
 on property:sys.boot_completed=1
+    setprop sys.io.scheduler "bfq"
+
     # Enable bus-dcvs
     write /sys/class/devfreq/soc:qcom,cpubw/governor "bw_hwmon"
     write /sys/class/devfreq/soc:qcom,cpubw/polling_interval 50
