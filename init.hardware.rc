@@ -692,7 +692,6 @@ service bugreport /system/bin/dumpstate -d -p -z
     class main
     disabled
     oneshot
-    keycodes 114 115 116
 
 service devstart_sh /vendor/bin/init.qcom.devstart.sh
     class main
