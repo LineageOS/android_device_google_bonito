@@ -13,9 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 cc_binary {
-    name: "android.hardware.vr@1.0-service.crosshatch",
+    name: "android.hardware.vr@1.0-service.bonito",
     relative_install_path: "hw",
-    init_rc: ["android.hardware.vr@1.0-service.crosshatch.rc"],
+    init_rc: ["android.hardware.vr@1.0-service.bonito.rc"],
     srcs: ["service.cpp", "VrDevice.cpp"],
     cflags: ["-Werror", "-Wall"],
     shared_libs: [

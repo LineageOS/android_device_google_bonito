@@ -166,7 +166,7 @@ void InitializeThresholdsFromThermalConfig(
     ThrottlingThresholds *thresholds,
     ThrottlingThresholds *shutdown_thresholds,
     ThrottlingThresholds *vr_thresholds) {
-    // For now just read the blueline configs but it would be easy to make this
+    // For now just read the sargo configs but it would be easy to make this
     // platform specific.
     std::vector<SensorConfig> sensor_configs;
     std::vector<SensorConfig> shutdown_configs;

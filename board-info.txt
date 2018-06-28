@@ -1,1 +1,1 @@
-require board=crosshatch|blueline
+require board=bonito|sargo

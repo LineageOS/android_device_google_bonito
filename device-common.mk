@@ -16,12 +16,12 @@
 
 TARGET_USERIMAGES_USE_F2FS := true
 
-LOCAL_PATH := device/google/crosshatch
+LOCAL_PATH := device/google/bonito
 
 # define hardware platform
-PRODUCT_PLATFORM := sdm845
+PRODUCT_PLATFORM := sdm710
 
-include device/google/crosshatch/device.mk
+include device/google/bonito/device.mk
 
 # Audio fluence, ns, aec property, voice volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -96,8 +96,8 @@ persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac
 
 # Modem loging file
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/init.logging.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).logging.rc
+    device/google/bonito/init.logging.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).logging.rc
 
 # Dumpstate HAL
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0-service.crosshatch
+    android.hardware.dumpstate@1.0-service.bonito

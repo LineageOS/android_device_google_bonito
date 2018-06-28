@@ -104,7 +104,7 @@
     </pcm_ids>
     <config_params>
         <param key="input_mic_max_count" value="3"/>
-        <param key="snd_card_name" value="sdm845-tavil-c1-snd-card"/>
+        <param key="snd_card_name" value="sdm710-tavil-c1-snd-card"/>
     </config_params>
 
     <gain_db_to_level_mapping>

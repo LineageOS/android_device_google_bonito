@@ -31,7 +31,7 @@ const effect_descriptor_t qcom_product_aec_descriptor = {
         0,
         0,
         "Acoustic Echo Canceler",
-        "Qualcomm Fluence for Blueline/Crosshatch"
+        "Qualcomm Fluence for Sargo/Bonito"
 };
 
 // Noise suppression 27dab6d2-23f8-11e8-b467-0ed5f89f718b
@@ -43,5 +43,5 @@ const effect_descriptor_t qcom_product_ns_descriptor = {
         0,
         0,
         "Noise Suppression",
-        "Qualcomm Fluence for Blueline/Crosshatch"
+        "Qualcomm Fluence for Sargo/Bonito"
 };

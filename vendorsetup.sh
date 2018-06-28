@@ -14,5 +14,5 @@
 # limitations under the License.
 #
 
-add_lunch_combo aosp_crosshatch-userdebug
-add_lunch_combo aosp_blueline-userdebug
+add_lunch_combo aosp_bonito-userdebug
+add_lunch_combo aosp_sargo-userdebug

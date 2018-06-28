@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 cc_binary {
-    name: "android.hardware.health@2.0-service.crosshatch",
-    init_rc: ["android.hardware.health@2.0-service.crosshatch.rc"],
+    name: "android.hardware.health@2.0-service.bonito",
+    init_rc: ["android.hardware.health@2.0-service.bonito.rc"],
     proprietary: true,
     relative_install_path: "hw",
     srcs: [

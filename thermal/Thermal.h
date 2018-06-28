@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef ANDROID_HARDWARE_THERMAL_V1_1_CROSSHATCH_THERMAL_H
-#define ANDROID_HARDWARE_THERMAL_V1_1_CROSSHATCH_THERMAL_H
+#ifndef ANDROID_HARDWARE_THERMAL_V1_1_BONITO_THERMAL_H
+#define ANDROID_HARDWARE_THERMAL_V1_1_BONITO_THERMAL_H
 
 #include <future>
 #include <thread>
@@ -85,4 +85,4 @@ class Thermal : public IThermal, public hidl_death_recipient {
 }  // namespace hardware
 }  // namespace android
 
-#endif  // ANDROID_HARDWARE_THERMAL_V1_1_CROSSHATCH_THERMAL_H
+#endif  // ANDROID_HARDWARE_THERMAL_V1_1_BONITO_THERMAL_H

@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<!-- Generated file for blueline using measurements between PPR1.180419.002 and PPR1.180514.002 -->
+<!-- Generated file for sargo using measurements between PPR1.180419.002 and PPR1.180514.002 -->
 <MediaCodecs>
     <Encoders>
         <MediaCodec name="OMX.qcom.video.encoder.avc" type="video/avc" update="true">

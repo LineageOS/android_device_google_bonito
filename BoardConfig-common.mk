@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-TARGET_BOARD_PLATFORM := sdm845
-TARGET_BOARD_INFO_FILE := device/google/crosshatch/board-info.txt
+TARGET_BOARD_PLATFORM := sdm710
+TARGET_BOARD_INFO_FILE := device/google/bonito/board-info.txt
 USES_DEVICE_GOOGLE_B1C1 := true
 TARGET_NO_BOOTLOADER := true
 
@@ -31,7 +31,7 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a73
 
-TARGET_BOARD_COMMON_PATH := device/google/crosshatch/sdm845
+TARGET_BOARD_COMMON_PATH := device/google/bonito/sdm710
 
 BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200n8 androidboot.console=ttyMSM0 printk.devkmsg=on
 BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237
@@ -44,7 +44,7 @@ BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
 
 BOARD_KERNEL_BASE        := 0x00000000
 BOARD_KERNEL_PAGESIZE    := 4096
-ifeq ($(filter-out crosshatch_kasan blueline_kasan, $(TARGET_PRODUCT)),)
+ifeq ($(filter-out bonito_kasan sargo_kasan, $(TARGET_PRODUCT)),)
 BOARD_KERNEL_OFFSET      := 0x80000
 BOARD_KERNEL_TAGS_OFFSET := 0x02500000
 BOARD_RAMDISK_OFFSET     := 0x02700000
@@ -58,7 +58,7 @@ BOARD_BOOT_HEADER_VERSION := 1
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 # DTBO partition definitions
-BOARD_PREBUILT_DTBOIMAGE := device/google/crosshatch-kernel/dtbo.img
+BOARD_PREBUILT_DTBOIMAGE := device/google/bonito-kernel/dtbo.img
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 
 TARGET_NO_BOOTLOADER ?= true
@@ -69,11 +69,11 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_USES_METADATA_PARTITION := true
 
 # Partitions (listed in the file) to be wiped under recovery.
-TARGET_RECOVERY_WIPE := device/google/crosshatch/recovery.wipe
-TARGET_RECOVERY_FSTAB := device/google/crosshatch/fstab.hardware
+TARGET_RECOVERY_WIPE := device/google/bonito/recovery.wipe
+TARGET_RECOVERY_FSTAB := device/google/bonito/fstab.hardware
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_LIB := \
-  librecovery_ui_crosshatch \
+  librecovery_ui_bonito \
   libnos_citadel_for_recovery \
   libnos_for_recovery
 
@@ -121,11 +121,11 @@ BOARD_ROOT_EXTRA_FOLDERS := persist firmware
 
 include device/google/bonito-sepolicy/bonito-sepolicy.mk
 
-TARGET_FS_CONFIG_GEN := device/google/crosshatch/config.fs
+TARGET_FS_CONFIG_GEN := device/google/bonito/config.fs
 
-QCOM_BOARD_PLATFORMS += sdm845
+QCOM_BOARD_PLATFORMS += sdm710
 BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/google/crosshatch/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/google/bonito/bluetooth
 
 # Enable dex pre-opt to speed up initial boot
 ifeq ($(HOST_OS),linux)
@@ -201,10 +201,10 @@ TARGET_USES_DRM_PP := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Vendor Interface Manifest
-DEVICE_MANIFEST_FILE := device/google/crosshatch/manifest.xml
-DEVICE_MATRIX_FILE := device/google/crosshatch/compatibility_matrix.xml
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/google/crosshatch/device_framework_matrix.xml
-DEVICE_FRAMEWORK_MANIFEST_FILE := device/google/crosshatch/framework_manifest.xml
+DEVICE_MANIFEST_FILE := device/google/bonito/manifest.xml
+DEVICE_MATRIX_FILE := device/google/bonito/compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/google/bonito/device_framework_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := device/google/bonito/framework_manifest.xml
 
 # Remove health /backup instance
 DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
@@ -215,33 +215,33 @@ BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 TARGET_USES_MKE2FS := true
 
 # Kernel modules
-ifeq (,$(filter-out blueline_gcc crosshatch_gcc, $(TARGET_PRODUCT)))
+ifeq (,$(filter-out sargo_gcc bonito_gcc, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/crosshatch-kernel/gcc/*.ko)
-else ifeq (,$(filter-out blueline_kasan crosshatch_kasan, $(TARGET_PRODUCT)))
+    $(wildcard device/google/bonito-kernel/gcc/*.ko)
+else ifeq (,$(filter-out sargo_kasan bonito_kasan, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/crosshatch-kernel/kasan/*.ko)
-else ifeq (,$(filter-out blueline_kcfi crosshatch_kcfi, $(TARGET_PRODUCT)))
+    $(wildcard device/google/bonito-kernel/kasan/*.ko)
+else ifeq (,$(filter-out sargo_kcfi bonito_kcfi, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/crosshatch-kernel/kcfi/*.ko)
-else ifeq (,$(filter-out blueline_kernel_debug_memory crosshatch_kernel_debug_memory, $(TARGET_PRODUCT)))
+    $(wildcard device/google/bonito-kernel/kcfi/*.ko)
+else ifeq (,$(filter-out sargo_kernel_debug_memory bonito_kernel_debug_memory, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/crosshatch-kernel/debug_memory/*.ko)
-else ifeq (,$(filter-out blueline_kernel_debug_locking crosshatch_kernel_debug_locking, $(TARGET_PRODUCT)))
+    $(wildcard device/google/bonito-kernel/debug_memory/*.ko)
+else ifeq (,$(filter-out sargo_kernel_debug_locking bonito_kernel_debug_locking, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/crosshatch-kernel/debug_locking/*.ko)
-else ifeq (,$(filter-out blueline_kernel_debug_hang crosshatch_kernel_debug_hang, $(TARGET_PRODUCT)))
+    $(wildcard device/google/bonito-kernel/debug_locking/*.ko)
+else ifeq (,$(filter-out sargo_kernel_debug_hang bonito_kernel_debug_hang, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/crosshatch-kernel/debug_hang/*.ko)
-else ifeq (,$(filter-out blueline_kernel_debug_api crosshatch_kernel_debug_api, $(TARGET_PRODUCT)))
+    $(wildcard device/google/bonito-kernel/debug_hang/*.ko)
+else ifeq (,$(filter-out sargo_kernel_debug_api bonito_kernel_debug_api, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/crosshatch-kernel/debug_api/*.ko)
+    $(wildcard device/google/bonito-kernel/debug_api/*.ko)
 else
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/crosshatch-kernel/*.ko)
+    $(wildcard device/google/bonito-kernel/*.ko)
 endif
 
 # Testing related defines
 BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b1c1-setup.sh
 
--include vendor/google_devices/crosshatch/proprietary/BoardConfigVendor.mk
+-include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk

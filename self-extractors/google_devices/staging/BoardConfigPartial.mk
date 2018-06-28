@@ -12,4 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-BOARD_PREBUILT_VENDORIMAGE := vendor/google_devices/crosshatch/proprietary/vendor.img
+BOARD_PREBUILT_VENDORIMAGE := vendor/google_devices/bonito/proprietary/vendor.img

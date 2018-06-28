@@ -15,7 +15,7 @@
 //
 
 cc_library_static {
-    name: "librecovery_ui_crosshatch",
+    name: "librecovery_ui_bonito",
     owner: "google",
     cflags: [
         "-Wall",

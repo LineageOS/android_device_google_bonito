@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define LOG_TAG "android.hardware.vr@1.0-service.crosshatch"
+#define LOG_TAG "android.hardware.vr@1.0-service.bonito"
 
 #include <android-base/logging.h>
 #include <hidl/HidlSupport.h>

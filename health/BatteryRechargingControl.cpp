@@ -18,7 +18,7 @@
 
 namespace device {
 namespace google {
-namespace crosshatch {
+namespace bonito {
 namespace health {
 
 static const std::string kChargerStatus = "sys/class/power_supply/battery/status";
@@ -161,6 +161,6 @@ void BatteryRechargingControl::updateBatteryProperties(struct android::BatteryPr
 }
 
 }  // namespace health
-}  // namespace crosshatch
+}  // namespace bonito
 }  // namespace google
 }  // namespace device

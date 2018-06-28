@@ -13,9 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 cc_binary {
-    name: "android.hardware.power@1.2-service.crosshatch-libperfmgr",
+    name: "android.hardware.power@1.2-service.bonito-libperfmgr",
     relative_install_path: "hw",
-    init_rc: ["android.hardware.power@1.2-service.crosshatch-libperfmgr.rc"],
+    init_rc: ["android.hardware.power@1.2-service.bonito-libperfmgr.rc"],
     srcs: ["service.cpp", "Power.cpp", "InteractionHandler.cpp", "power-helper.c",
             "display-helper.c"],
     cflags: [

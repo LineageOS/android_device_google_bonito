@@ -27,7 +27,7 @@
 namespace android {
 namespace device {
 namespace google {
-namespace crosshatch {
+namespace bonito {
 
 namespace {
 
@@ -59,10 +59,10 @@ bool WipeTitanM() {
 
 } // namespace
 
-class CrosshatchDevice : public ::Device
+class BonitoDevice : public ::Device
 {
 public:
-    CrosshatchDevice(::ScreenRecoveryUI* const ui) : ::Device(ui) {}
+    BonitoDevice(::ScreenRecoveryUI* const ui) : ::Device(ui) {}
 
     /** Hook to wipe user data not stored in /data */
     bool PostWipeData() override {
@@ -81,12 +81,12 @@ public:
     }
 };
 
-} // namespace crosshatch
+} // namespace bonito
 } // namespace google
 } // namespace device
 } // namespace android
 
 Device *make_device()
 {
-    return new ::android::device::google::crosshatch::CrosshatchDevice(new ::ScreenRecoveryUI);
+    return new ::android::device::google::bonito::BonitoDevice(new ::ScreenRecoveryUI);
 }

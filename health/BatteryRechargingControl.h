@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef DEVICE_GOOGLE_CROSSHATCH_HEALTH_BATTERYRECHARGINGCONTROL_H
-#define DEVICE_GOOGLE_CROSSHATCH_HEALTH_BATTERYRECHARGINGCONTROL_H
+#ifndef DEVICE_GOOGLE_BONITO_HEALTH_BATTERYRECHARGINGCONTROL_H
+#define DEVICE_GOOGLE_BONITO_HEALTH_BATTERYRECHARGINGCONTROL_H
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -27,7 +27,7 @@
 
 namespace device {
 namespace google {
-namespace crosshatch {
+namespace bonito {
 namespace health {
 
 enum RechargeState {
@@ -72,7 +72,7 @@ class BatteryRechargingControl {
 };
 
 }  // namespace health
-}  // namespace crosshatch
+}  // namespace bonito
 }  // namespace google
 }  // namespace device
 

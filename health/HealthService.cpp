@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define LOG_TAG "android.hardware.health@2.0-service.crosshatch"
+#define LOG_TAG "android.hardware.health@2.0-service.bonito"
 #include <android-base/logging.h>
 
 #include <android-base/file.h>
@@ -36,7 +36,7 @@ namespace {
 using android::hardware::health::V2_0::DiskStats;
 using android::hardware::health::V2_0::StorageAttribute;
 using android::hardware::health::V2_0::StorageInfo;
-using ::device::google::crosshatch::health::BatteryRechargingControl;
+using ::device::google::bonito::health::BatteryRechargingControl;
 
 static BatteryRechargingControl battRechargingControl;
 

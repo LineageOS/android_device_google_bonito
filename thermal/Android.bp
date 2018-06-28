@@ -1,12 +1,12 @@
 cc_binary {
-  name: "android.hardware.thermal@1.1-service.crosshatch",
+  name: "android.hardware.thermal@1.1-service.bonito",
   defaults: [
     "hidl_defaults",
   ],
   vendor: true,
   relative_install_path: "hw",
   init_rc: [
-    "android.hardware.thermal@1.1-service.crosshatch.rc",
+    "android.hardware.thermal@1.1-service.bonito.rc",
   ],
   srcs: [
     "service.cpp",

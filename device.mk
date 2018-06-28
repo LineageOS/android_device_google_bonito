@@ -17,7 +17,7 @@
 PRODUCT_SOONG_NAMESPACES += \
     hardware/google/av \
     hardware/google/interfaces \
-    hardware/qcom/sdm845/display
+    hardware/qcom/sdm710/display
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
@@ -32,14 +32,14 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     masterclear.allow_retain_esim_profiles_after_fdr=true
 
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml \
+    device/google/bonito/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
 
 # Enforce privapp-permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.control_privapp_permissions=enforce
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/permissions/privapp-permissions-aosp.xml:system/etc/permissions/privapp-permissions-aosp.xml
+    device/google/bonito/permissions/privapp-permissions-aosp.xml:system/etc/permissions/privapp-permissions-aosp.xml
 
 # Enable on-access verification of priv apps. This requires fs-verity support in kernel.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
@@ -48,20 +48,20 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 PRODUCT_PACKAGES += \
     messaging
 
-LOCAL_PATH := device/google/crosshatch
-SRC_MEDIA_HAL_DIR := hardware/qcom/media/sdm845
-SRC_DISPLAY_HAL_DIR := hardware/qcom/display/sdm845
+LOCAL_PATH := device/google/bonito
+SRC_MEDIA_HAL_DIR := hardware/qcom/media/sdm710
+SRC_DISPLAY_HAL_DIR := hardware/qcom/display/sdm710
 
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
 $(call inherit-product, $(LOCAL_PATH)/utils.mk)
 
-ifeq ($(wildcard vendor/google_devices/crosshatch/proprietary/device-vendor-crosshatch.mk),)
+ifeq ($(wildcard vendor/google_devices/bonito/proprietary/device-vendor-bonito.mk),)
     BUILD_WITHOUT_VENDOR := true
 endif
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/google/crosshatch-kernel/Image.lz4-dtb
+    LOCAL_KERNEL := device/google/bonito-kernel/Image.lz4-dtb
 else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
@@ -86,10 +86,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.qcom.wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.wlan.sh \
     $(LOCAL_PATH)/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     $(LOCAL_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
-    $(LOCAL_PATH)/thermal-engine-blueline.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-blueline.conf \
-    $(LOCAL_PATH)/thermal-engine-blueline-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-blueline-vr.conf \
-    $(LOCAL_PATH)/thermal-engine-crosshatch.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-crosshatch.conf \
-    $(LOCAL_PATH)/thermal-engine-crosshatch-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-crosshatch-vr.conf
+    $(LOCAL_PATH)/thermal-engine-sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sargo.conf \
+    $(LOCAL_PATH)/thermal-engine-sargo-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sargo-vr.conf \
+    $(LOCAL_PATH)/thermal-engine-bonito.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-bonito.conf \
+    $(LOCAL_PATH)/thermal-engine-bonito-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-bonito-vr.conf
 
 # Edge Sense initialization script.
 # TODO: b/67205273
@@ -112,14 +112,14 @@ endif
 
 #per device
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/crosshatch/init.crosshatch.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.crosshatch.rc \
-    $(LOCAL_PATH)/blueline/init.blueline.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.blueline.rc \
+    $(LOCAL_PATH)/bonito/init.bonito.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bonito.rc \
+    $(LOCAL_PATH)/sargo/init.sargo.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.sargo.rc \
     $(LOCAL_PATH)/init.common.rc:root/init.$(PRODUCT_HARDWARE).rc \
-    $(LOCAL_PATH)/init.recovery.hardware.device.rc:root/init.recovery.crosshatch.rc \
-    $(LOCAL_PATH)/init.recovery.hardware.device.rc:root/init.recovery.blueline.rc \
+    $(LOCAL_PATH)/init.recovery.hardware.device.rc:root/init.recovery.bonito.rc \
+    $(LOCAL_PATH)/init.recovery.hardware.device.rc:root/init.recovery.sargo.rc \
 
-MSM_VIDC_TARGET_LIST := sdm845 # Get the color format from kernel headers
-MASTER_SIDE_CP_TARGET_LIST := sdm845 # ION specific settings
+MSM_VIDC_TARGET_LIST := sdm710 # Get the color format from kernel headers
+MASTER_SIDE_CP_TARGET_LIST := sdm710 # ION specific settings
 
 # A/B support
 PRODUCT_PACKAGES += \
@@ -133,14 +133,14 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.sys.sdcardfs=1
 
 PRODUCT_PACKAGES += \
-    bootctrl.sdm845
+    bootctrl.sdm710
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.cp_system_other_odex=1
 
 # Script that copies preloads directory from system_other to data partition
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/preloads_copy.sh:system/bin/preloads_copy.sh
+    device/google/bonito/preloads_copy.sh:system/bin/preloads_copy.sh
 
 AB_OTA_UPDATER := true
 
@@ -160,7 +160,7 @@ AB_OTA_POSTINSTALL_CONFIG += \
 # Enable update engine sideloading by including the static version of the
 # boot_control HAL and its dependencies.
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-    bootctrl.sdm845 \
+    bootctrl.sdm710 \
     libgptutils \
     libz \
     libcutils
@@ -215,7 +215,7 @@ PRODUCT_COPY_FILES += \
 
 # power HAL
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.2-service.crosshatch-libperfmgr
+    android.hardware.power@1.2-service.bonito-libperfmgr
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
@@ -317,9 +317,9 @@ PRODUCT_COPY_FILES += \
     hardware/qcom/data/ipacfg-mgr/msm8998/ipacm/src/IPACM_cfg.xml:$(TARGET_COPY_OUT_VENDOR)/etc/IPACM_cfg.xml
 
 PRODUCT_PACKAGES += \
-    hwcomposer.sdm845 \
+    hwcomposer.sdm710 \
     android.hardware.graphics.composer@2.2-service \
-    gralloc.sdm845 \
+    gralloc.sdm710 \
     android.hardware.graphics.mapper@2.0-impl-qti-display \
     vendor.qti.hardware.display.allocator@1.0-service
 
@@ -329,7 +329,7 @@ PRODUCT_PACKAGES += \
 
 # Health HAL
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.0-service.crosshatch
+    android.hardware.health@2.0-service.bonito
 
 # Light HAL
 PRODUCT_PACKAGES += \
@@ -339,7 +339,7 @@ PRODUCT_PACKAGES += \
 
 # Memtrack HAL
 PRODUCT_PACKAGES += \
-    memtrack.sdm845 \
+    memtrack.sdm710 \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service
 
@@ -377,11 +377,11 @@ PRODUCT_PACKAGES += \
     android.hardware.secure_element@1.0-service
 
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/libnfc-nci.conf \
-    device/google/crosshatch/nfc/libese-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libese-nxp.conf
+    device/google/bonito/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/libnfc-nci.conf \
+    device/google/bonito/nfc/libese-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libese-nxp.conf
 
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.1-service.crosshatch
+    android.hardware.usb@1.1-service.bonito
 
 PRODUCT_PACKAGES += \
     libmm-omxcore \
@@ -403,7 +403,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service_64 \
     camera.device@3.2-impl \
-    camera.sdm845 \
+    camera.sdm710 \
     libqomx_core \
     libmmjpeg_interface \
     libmmcamera_interface \
@@ -419,7 +419,7 @@ PRODUCT_COPY_FILES += \
 
 # Default permission grant exceptions
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml
+    device/google/bonito/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml
 
 PRODUCT_PACKAGES += \
     fs_config_dirs \
@@ -437,11 +437,11 @@ PRODUCT_PACKAGES += \
 
 # Vibrator HAL
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.2-service.crosshatch \
+    android.hardware.vibrator@1.2-service.bonito \
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.1-service.crosshatch \
+    android.hardware.thermal@1.1-service.bonito \
 
 #GNSS HAL
 PRODUCT_PACKAGES += \
@@ -457,7 +457,7 @@ PRODUCT_PACKAGES += \
 
 # VR HAL
 PRODUCT_PACKAGES += \
-    android.hardware.vr@1.0-service.crosshatch \
+    android.hardware.vr@1.0-service.bonito \
 
 ENABLE_VENDOR_RIL_SERVICE := true
 
@@ -497,7 +497,7 @@ PRODUCT_PACKAGES += \
     libqcompostprocbundle
 
 PRODUCT_PACKAGES += \
-    audio.primary.sdm845 \
+    audio.primary.sdm710 \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
@@ -548,7 +548,7 @@ PRODUCT_COPY_FILES += \
 
 # configures both aac and xaac decoders
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
+    device/google/bonito/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
 # and ensure that the xaac decoder is built
 PRODUCT_PACKAGES += \
     libstagefright_soft_xaacdec.vendor
@@ -586,7 +586,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_PLATFORM)
+    device/google/bonito/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_PLATFORM)
 
 # Use the default charger mode images
 PRODUCT_PACKAGES += \
@@ -600,7 +600,7 @@ endif
 
 # Dumpstate HAL
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0-service.crosshatch
+    android.hardware.dumpstate@1.0-service.bonito
 
 # Citadel
 PRODUCT_PACKAGES += \
@@ -628,10 +628,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapgrowthlimit=256m
 
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/hidl/android.hidl.base@1.0.so-32:system/lib/android.hidl.base@1.0.so \
-    device/google/crosshatch/hidl/android.hidl.base@1.0.so-64:system/lib64/android.hidl.base@1.0.so \
-    device/google/crosshatch/hidl/android.hidl.base@1.0.so-32:vendor/lib/android.hidl.base@1.0.so \
-    device/google/crosshatch/hidl/android.hidl.base@1.0.so-64:vendor/lib64/android.hidl.base@1.0.so \
+    device/google/bonito/hidl/android.hidl.base@1.0.so-32:system/lib/android.hidl.base@1.0.so \
+    device/google/bonito/hidl/android.hidl.base@1.0.so-64:system/lib64/android.hidl.base@1.0.so \
+    device/google/bonito/hidl/android.hidl.base@1.0.so-32:vendor/lib/android.hidl.base@1.0.so \
+    device/google/bonito/hidl/android.hidl.base@1.0.so-64:vendor/lib64/android.hidl.base@1.0.so \
 
 PRODUCT_PACKAGES += \
     ipacm
@@ -647,7 +647,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Easel device feature
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/permissions/com.google.hardware.camera.easel_2018.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.google.hardware.camera.easel_2018.xml
+    device/google/bonito/permissions/com.google.hardware.camera.easel_2018.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.google.hardware.camera.easel_2018.xml
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -662,57 +662,57 @@ PRODUCT_COPY_FILES += \
 
 # DRV2624 Haptics Waveform
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/vibrator/drv2624/drv2624.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
+    device/google/bonito/vibrator/drv2624/drv2624.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
 
 # CS40L20 Haptics Waveform & Firmware
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/vibrator/cs40l20/cs40l20.wmfw:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.wmfw \
-    device/google/crosshatch/vibrator/cs40l20/cs40l20.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.bin
+    device/google/bonito/vibrator/cs40l20/cs40l20.wmfw:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.wmfw \
+    device/google/bonito/vibrator/cs40l20/cs40l20.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.bin
 
-PRODUCT_VENDOR_KERNEL_HEADERS := device/google/crosshatch/sdm845/kernel-headers
+PRODUCT_VENDOR_KERNEL_HEADERS := device/google/bonito/sdm710/kernel-headers
 
 # Audio ACDB data
 PRODUCT_COPY_FILES += \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/Bluetooth_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/General_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/Global_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/Handset_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/Hdmi_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/Headset_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/Speaker_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/Codec_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/Bluetooth_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/General_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/Global_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/Handset_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/Hdmi_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/Headset_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/Speaker_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/Codec_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/Bluetooth_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/General_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/Global_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/Handset_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/Hdmi_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/Headset_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/Speaker_cal.acdb \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/Codec_cal.acdb \
-     device/google/crosshatch/acdbdata/adsp_avs_config.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/adsp_avs_config.acdb
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Bluetooth_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/General_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Global_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Handset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Hdmi_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Headset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Speaker_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Codec_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Bluetooth_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/General_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Global_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Handset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Hdmi_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Headset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Speaker_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Codec_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Bluetooth_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/General_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Global_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Handset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Hdmi_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Headset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Speaker_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Codec_cal.acdb \
+     device/google/bonito/acdbdata/adsp_avs_config.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/adsp_avs_config.acdb
 
 # Audio ACDB workspace files for QACT
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_COPY_FILES += \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-snd-card/workspaceFile.qwsp \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-b1-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-b1-snd-card/workspaceFile.qwsp \
-     device/google/crosshatch/acdbdata/OEM/sdm845-tavil-c1-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm845-tavil-c1-snd-card/workspaceFile.qwsp
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/workspaceFile.qwsp \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/workspaceFile.qwsp \
+     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/workspaceFile.qwsp
 endif
 
 # CS35L36 Speaker Tuning
 PRODUCT_COPY_FILES += \
-    device/google/crosshatch/audio/crus_sp_config_b1_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_b1_rx.bin \
-    device/google/crosshatch/audio/crus_sp_config_b1_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_b1_tx.bin \
-    device/google/crosshatch/audio/crus_sp_config_c1_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_c1_rx.bin \
-    device/google/crosshatch/audio/crus_sp_config_c1_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_c1_tx.bin
+    device/google/bonito/audio/crus_sp_config_b1_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_b1_rx.bin \
+    device/google/bonito/audio/crus_sp_config_b1_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_b1_tx.bin \
+    device/google/bonito/audio/crus_sp_config_c1_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_c1_rx.bin \
+    device/google/bonito/audio/crus_sp_config_c1_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_c1_tx.bin
 
 # Keymaster configuration
 PRODUCT_COPY_FILES += \
