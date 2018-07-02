@@ -16,7 +16,7 @@
 
 TARGET_BOARD_PLATFORM := sdm710
 TARGET_BOARD_INFO_FILE := device/google/bonito/board-info.txt
-USES_DEVICE_GOOGLE_B1C1 := true
+USES_DEVICE_GOOGLE_B4S4 := true
 TARGET_NO_BOOTLOADER := true
 
 TARGET_ARCH := arm64
