@@ -1,1 +1,1 @@
-../crosshatch/AndroidBoard.mk
+../bonito/AndroidBoard.mk
