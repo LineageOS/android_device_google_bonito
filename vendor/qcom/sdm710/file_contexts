@@ -1,7 +1,6 @@
 # Dev block nodes
 
 #common block which are not going to change
-/dev/block/mmcblk0rpmb                                                          u:object_r:rpmb_device:s0
 /dev/block/mmcblk0                                                              u:object_r:root_block_device:s0
 
 #for eMMC
@@ -45,7 +44,6 @@
 ##################################
 # non-hlos mount points
 /firmware                  u:object_r:firmware_file:s0
-/bt_firmware               u:object_r:bt_firmware_file:s0
 
 #################################
 # libs
