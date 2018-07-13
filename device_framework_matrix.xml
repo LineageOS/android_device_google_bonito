@@ -171,6 +171,14 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="hidl" optional="true">
+        <name>hardware.google.light</name>
+        <version>1.0</version>
+        <interface>
+            <name>ILight</name>
+            <instance>default</instance>
+        </interface>
+      </hal>
     <hal format="aidl" optional="true">
         <name>vendor.google.wifi_ext</name>
         <version>1-3</version>
