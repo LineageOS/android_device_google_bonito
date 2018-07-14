@@ -298,9 +298,6 @@ on post-fs-data
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
-    # Wait until the system time is set
-    wait_for_prop vendor.qcom.time.set true
-
     # Wait qseecomd started
     wait_for_prop vendor.sys.listeners.registered true
 
@@ -603,8 +600,6 @@ on property:sys.boot_completed=1
 
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
-
-    start per_proxy
 
 on property:sys.shutdown.requested=*
     stop per_proxy
