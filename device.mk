@@ -734,3 +734,6 @@ ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 endif
 
 BUILD_BROKEN_DUP_RULES := true
+
+#Enable QTI KEYMASTER and GATEKEEPER HIDLs
+KMGK_USE_QTI_SERVICE := true
