@@ -23,7 +23,6 @@ import /vendor/etc/init/hw/init.${ro.boot.hardware.platform}.mpssrfs.rc
 
 on charger
     stop vendor.qseecomd
-    stop keymaster-4-0
     # Lock to lowest freqency on charger mode
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor powersave
@@ -66,7 +65,6 @@ on init
     # start qseecomd early as we mount system/ vendor/ early
     # vold needs keymaster that needs qseecomd
     start vendor.qseecomd
-    start keymaster-4-0
 
     # Boot time fs tune
     write /sys/block/sda/queue/iostats 0
@@ -245,7 +243,7 @@ on late-fs
     start bootanim
     start vendor.hwcomposer-2-2
     start vendor.configstore-hal
-    start vendor.gralloc-2-0
+    start vendor.qti.hardware.display.allocator
 
     # Wait for hwservicemanager ready since fsck might be triggered in mount_all --late
     # In such case, init won't responce the property_set from hwservicemanager and then
@@ -299,9 +297,6 @@ on post-fs-data
     # keep that at the end of on post-fs-data
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
-
-    # Wait until the system time is set
-    wait_for_prop vendor.qcom.time.set true
 
     # Wait qseecomd started
     wait_for_prop vendor.sys.listeners.registered true
@@ -605,8 +600,6 @@ on property:sys.boot_completed=1
 
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
-
-    start per_proxy
 
 on property:sys.shutdown.requested=*
     stop per_proxy
