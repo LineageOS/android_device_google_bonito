@@ -19,7 +19,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 LOCAL_PATH := device/google/bonito
 
 # define hardware platform
-PRODUCT_PLATFORM := sdm710
+PRODUCT_PLATFORM := sdm670
 
 include device/google/bonito/device.mk
 

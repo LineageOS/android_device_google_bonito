@@ -331,7 +331,7 @@ PRODUCT_PACKAGES += \
 
 # Health HAL
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.0-service.bonito
+    android.hardware.health@2.0-service
 
 # Light HAL
 PRODUCT_PACKAGES += \
@@ -400,16 +400,6 @@ PRODUCT_PACKAGES += \
     libqcodec2_sdm710 \
     libstagefright_ccodec \
     vendor.qti.media.c2@1.0-service \
-
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.4-service_64 \
-    camera.device@3.2-impl \
-    camera.sdm710 \
-    libqomx_core \
-    libmmjpeg_interface \
-    libmmcamera_interface \
-    libcameradepthcalibrator
 
 PRODUCT_PACKAGES += \
     sensors.$(PRODUCT_HARDWARE) \
@@ -747,3 +737,6 @@ ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 endif
 
 BUILD_BROKEN_DUP_RULES := true
+
+#Enable QTI KEYMASTER and GATEKEEPER HIDLs
+KMGK_USE_QTI_SERVICE := true
