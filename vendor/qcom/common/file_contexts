@@ -234,7 +234,7 @@
 
 # files in firmware
 /firmware(/.*)?         u:object_r:firmware_file:s0
-/vendor/firmware_mnt(/.*)?           u:object_r:firmware_file:s0
+/vendor/firmware_mnt(/.*)?           u:object_r:vendor_firmware_file:s0
 
 # TODO: Remove them once no need to maintain the backward compatibility. (b/111219177)
 /persist                             u:object_r:rootfs:s0
