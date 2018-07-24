@@ -26,4 +26,7 @@ allow rild radio_vendor_data_file:file create_file_perms;
 get_prop(rild, factory_ota_prop)
 set_prop(rild, vendor_radio_prop)
 
+# Allow vendor native process to read the proc file of xt_qtaguid
+allow rild proc_qtaguid_stat:file r_file_perms;
+
 hal_server_domain(rild, hal_secure_element)
