@@ -74,6 +74,9 @@
 /dev/block/zram0                                u:object_r:swap_block_device:s0
 
 # files in /vendor
+/vendor/firmware(/.*)?          u:object_r:vendor_firmware_file:s0
+/bt_firmware(/.*)?              u:object_r:bt_firmware_file:s0
+
 /vendor/bin/hw/android\.hardware\.dumpstate@1\.0-service.bonito      u:object_r:hal_dumpstate_impl_exec:s0
 /vendor/bin/hw/android\.hardware\.vr@1\.0-service.bonito      u:object_r:hal_vr_default_exec:s0
 /vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service\.fpc u:object_r:hal_fingerprint_default_exec:s0
@@ -230,11 +233,11 @@
 /vendor/dsp(/.*)?       u:object_r:adsprpcd_file:s0
 
 # files in firmware
+/firmware(/.*)?         u:object_r:firmware_file:s0
 /vender/firmware_mnt(/.*)?           u:object_r:firmware_file:s0
 
 # TODO: Remove them once no need to maintain the backward compatibility. (b/111219177)
 /persist                             u:object_r:rootfs:s0
-/firmware                            u:object_r:rootfs:s0
 /dsp                                 u:object_r:rootfs:s0
 
 # /persist
