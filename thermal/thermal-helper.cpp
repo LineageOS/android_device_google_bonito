@@ -52,10 +52,10 @@ kValidThermalSensorTypeMap = {
     {"cpu1-silver-usr", TemperatureType::CPU},  // CPU1
     {"cpu2-silver-usr", TemperatureType::CPU},  // CPU2
     {"cpu3-silver-usr", TemperatureType::CPU},  // CPU3
-    {"cpu0-gold-usr", TemperatureType::CPU},    // CPU4
-    {"cpu1-gold-usr", TemperatureType::CPU},    // CPU5
-    {"cpu2-gold-usr", TemperatureType::CPU},    // CPU6
-    {"cpu3-gold-usr", TemperatureType::CPU},    // CPU7
+    {"cpu4-silver-usr", TemperatureType::CPU},  // CPU4
+    {"cpu5-silver-usr", TemperatureType::CPU},  // CPU5
+    {"cpu0-gold-usr", TemperatureType::CPU},    // CPU6
+    {"cpu1-gold-usr", TemperatureType::CPU},    // CPU7
     // GPU thermal sensors.
     {"gpu0-usr", TemperatureType::GPU},
     {"gpu1-usr", TemperatureType::GPU},
@@ -63,8 +63,6 @@ kValidThermalSensorTypeMap = {
     {"battery", TemperatureType::BATTERY},
     // Skin thermal sensor.
     {kSkinSensorType, TemperatureType::SKIN},
-    // USBC thermal sensor.
-    {"usbc-therm-adc", TemperatureType::UNKNOWN},
 };
 
 namespace {
@@ -255,7 +253,6 @@ bool ThermalHelper::initializeSensorMap() {
                   }
             }
         }
-
         if (kValidThermalSensorTypeMap.size()
                 == thermal_sensors_.getNumSensors()) {
             return true;
