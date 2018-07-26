@@ -523,7 +523,7 @@ service vendor.per_mgr /vendor/bin/pm-service
     group system
     ioprio rt 4
 
-service per_proxy /vendor/bin/pm-proxy
+service vendor.per_proxy /vendor/bin/pm-proxy
     class core
     user system
     group system
@@ -601,8 +601,11 @@ on property:sys.boot_completed=1
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
 
+on property:init.svc.vendor.per_mgr=running
+    start vendor.per_proxy
+
 on property:sys.shutdown.requested=*
-    stop per_proxy
+    stop vendor.per_proxy
 
 service vendor.qseecomd /vendor/bin/qseecomd
    class core
