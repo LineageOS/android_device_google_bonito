@@ -90,6 +90,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     $(LOCAL_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
     $(LOCAL_PATH)/thermal-engine-$(PRODUCT_HARDWARE).conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-$(PRODUCT_HARDWARE).conf \
+    $(LOCAL_PATH)/init.firstboot.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.firstboot.sh \
     $(LOCAL_PATH)/init.ramoops.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.ramoops.sh
 
 # Edge Sense initialization script.
