@@ -14,10 +14,12 @@
 # limitations under the License.
 #
 
+TARGET_CHIPSET := sdm710
+
 PRODUCT_SOONG_NAMESPACES += \
     hardware/google/av \
     hardware/google/interfaces \
-    hardware/qcom/sdm710/display
+    hardware/qcom/$(TARGET_CHIPSET)/display
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
@@ -49,8 +51,6 @@ PRODUCT_PACKAGES += \
     messaging
 
 LOCAL_PATH := device/google/bonito
-SRC_MEDIA_HAL_DIR := hardware/qcom/media/sdm710
-SRC_DISPLAY_HAL_DIR := hardware/qcom/display/sdm710
 
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
@@ -316,9 +316,9 @@ PRODUCT_COPY_FILES += \
     hardware/qcom/data/ipacfg-mgr/msm8998/ipacm/src/IPACM_cfg.xml:$(TARGET_COPY_OUT_VENDOR)/etc/IPACM_cfg.xml
 
 PRODUCT_PACKAGES += \
-    hwcomposer.sdm710 \
+    hwcomposer.$(TARGET_CHIPSET) \
     android.hardware.graphics.composer@2.2-service \
-    gralloc.sdm710 \
+    gralloc.$(TARGET_CHIPSET) \
     android.hardware.graphics.mapper@2.0-impl-qti-display \
     vendor.qti.hardware.display.allocator@1.0-service
 
@@ -332,13 +332,13 @@ PRODUCT_PACKAGES += \
 
 # Light HAL
 PRODUCT_PACKAGES += \
-    lights.$(PRODUCT_PLATFORM) \
+    lights.$(TARGET_CHIPSET) \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
 
 # Memtrack HAL
 PRODUCT_PACKAGES += \
-    memtrack.sdm710 \
+    memtrack.$(TARGET_CHIPSET) \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service
 
@@ -747,3 +747,6 @@ BUILD_BROKEN_DUP_RULES := true
 
 #Enable QTI KEYMASTER and GATEKEEPER HIDLs
 KMGK_USE_QTI_SERVICE := true
+
+#Clear the variable
+TARGET_CHIPSET := ""
