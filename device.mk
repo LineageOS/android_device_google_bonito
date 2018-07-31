@@ -402,6 +402,16 @@ PRODUCT_PACKAGES += \
     vendor.qti.media.c2@1.0-service \
 
 PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-service_64 \
+    camera.device@3.2-impl \
+    camera.$(TARGET_BOARD_PLATFORM) \
+    libqomx_core \
+    libmmjpeg_interface \
+    libmmcamera_interface \
+    libcameradepthcalibrator
+
+PRODUCT_PACKAGES += \
     sensors.$(PRODUCT_HARDWARE) \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service
