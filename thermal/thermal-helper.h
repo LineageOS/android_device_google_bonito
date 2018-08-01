@@ -53,7 +53,7 @@ using ::android::hardware::thermal::V1_0::CpuUsage;
 using ::android::hardware::thermal::V1_0::Temperature;
 using ::android::hardware::thermal::V1_0::TemperatureType;
 
-constexpr char kSkinSensorType[] = "quiet-therm-adc";
+constexpr char kSkinSensorType[] = "mb-therm-adc";
 constexpr float kMultiplier = .001;
 
 struct ThrottlingThresholds {
