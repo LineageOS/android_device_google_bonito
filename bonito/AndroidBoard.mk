@@ -2,15 +2,8 @@ LOCAL_PATH := $(call my-dir)
 
 #A/B builds require us to create the mount points at compile time.
 #Just creating it for all cases since it does not hurt.
-BT_FIRMWARE_MOUNT_POINT := $(TARGET_ROOT_OUT)/bt_firmware
 DSP_MOUNT_POINT := $(TARGET_ROOT_OUT)/dsp
-ALL_DEFAULT_INSTALLED_MODULES += $(BT_FIRMWARE_MOUNT_POINT) \
-				 $(DSP_MOUNT_POINT)
-
-$(BT_FIRMWARE_MOUNT_POINT):
-	@echo "Creating $(BT_FIRMWARE_MOUNT_POINT)"
-	@mkdir -p $(TARGET_OUT_VENDOR)/bt_firmware
-	@ln -sf /vendor/bt_firmware $(TARGET_ROOT_OUT)/bt_firmware
+ALL_DEFAULT_INSTALLED_MODULES += $(DSP_MOUNT_POINT)
 
 $(DSP_MOUNT_POINT):
 	@echo "Creating $(DSP_MOUNT_POINT)"
