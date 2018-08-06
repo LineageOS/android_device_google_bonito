@@ -19,7 +19,8 @@ TARGET_CHIPSET := sdm710
 PRODUCT_SOONG_NAMESPACES += \
     hardware/google/av \
     hardware/google/interfaces \
-    hardware/qcom/$(TARGET_CHIPSET)/display
+    hardware/qcom/sdm710 \
+    vendor/qcom/sdm710
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
