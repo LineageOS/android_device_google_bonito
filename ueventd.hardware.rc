@@ -113,4 +113,4 @@
 /dev/mnh_sm               0666   cameraserver camera
 
 # Storage: for factory reset protection feature
-/dev/block/platform/soc/1d84000.ufshc/by-name/frp       0660   system     system
+/dev/block/platform/soc/7c4000.sdhci/by-name/frp       0660   system     system
