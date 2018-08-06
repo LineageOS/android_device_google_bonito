@@ -18,25 +18,15 @@ on property:sys.boot_completed=1
     # Enable bus-dcvs
     write /sys/class/devfreq/soc:qcom,cpubw/governor "bw_hwmon"
     write /sys/class/devfreq/soc:qcom,cpubw/polling_interval 50
-    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/mbps_zones "2288 4577 6500 8132 9155 10681"
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/mbps_zones "1144 1720 2086 2929 3879 5931 6881"
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/sample_ms 4
-    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent 40
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent 68
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hist_memory 20
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/hyst_length 10
+    write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/down_thres 80
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/guard_band_mbps 0
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/up_scale 250
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/idle_mbps 1600
-
-    write /sys/class/devfreq/soc:qcom,llccbw/governor "bw_hwmon"
-    write /sys/class/devfreq/soc:qcom,llccbw/polling_interval 50
-    write /sys/class/devfreq/soc:qcom,llccbw/bw_hwmon/mbps_zones "1720 2929 4943 5931 6881"
-    write /sys/class/devfreq/soc:qcom,llccbw/bw_hwmon/sample_ms 4
-    write /sys/class/devfreq/soc:qcom,llccbw/bw_hwmon/io_percent 80
-    write /sys/class/devfreq/soc:qcom,llccbw/bw_hwmon/hist_memory 20
-    write /sys/class/devfreq/soc:qcom,llccbw/bw_hwmon/hyst_length 10
-    write /sys/class/devfreq/soc:qcom,llccbw/bw_hwmon/guard_band_mbps 0
-    write /sys/class/devfreq/soc:qcom,llccbw/bw_hwmon/up_scale 250
-    write /sys/class/devfreq/soc:qcom,llccbw/bw_hwmon/idle_mbps 1600
 
     write /sys/class/devfreq/soc:qcom,mincpubw/governor "cpufreq"
 
@@ -44,16 +34,19 @@ on property:sys.boot_completed=1
     write /sys/class/devfreq/soc:qcom,memlat-cpu0/governor "mem_latency"
     write /sys/class/devfreq/soc:qcom,memlat-cpu0/polling_interval 10
     write /sys/class/devfreq/soc:qcom,memlat-cpu0/mem_latency/ratio_ceil 400
-    write /sys/class/devfreq/soc:qcom,memlat-cpu4/governor "mem_latency"
-    write /sys/class/devfreq/soc:qcom,memlat-cpu4/polling_interval 10
-    write /sys/class/devfreq/soc:qcom,memlat-cpu4/mem_latency/ratio_ceil 400
+    write /sys/class/devfreq/soc:qcom,memlat-cpu6/governor "mem_latency"
+    write /sys/class/devfreq/soc:qcom,memlat-cpu6/polling_interval 10
+    write /sys/class/devfreq/soc:qcom,memlat-cpu6/mem_latency/ratio_ceil 400
 
     write /sys/class/devfreq/soc:qcom,l3-cpu0/governor "mem_latency"
     write /sys/class/devfreq/soc:qcom,l3-cpu0/polling_interval 10
     write /sys/class/devfreq/soc:qcom,l3-cpu0/mem_latency/ratio_ceil 400
-    write /sys/class/devfreq/soc:qcom,l3-cpu4/governor "mem_latency"
-    write /sys/class/devfreq/soc:qcom,l3-cpu4/polling_interval 10
-    write /sys/class/devfreq/soc:qcom,l3-cpu4/mem_latency/ratio_ceil 4000
+    write /sys/class/devfreq/soc:qcom,l3-cpu6/governor "mem_latency"
+    write /sys/class/devfreq/soc:qcom,l3-cpu6/polling_interval 10
+    write /sys/class/devfreq/soc:qcom,l3-cpu6/mem_latency/ratio_ceil 400
+
+    # Limit the min frequency to 720MHz
+    write /sys/devices/system/cpu/cpu6/cpufreq/scaling_min_freq 720000
 
     # Turn on sleep modes.
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
