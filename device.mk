@@ -19,7 +19,8 @@ TARGET_CHIPSET := sdm710
 PRODUCT_SOONG_NAMESPACES += \
     hardware/google/av \
     hardware/google/interfaces \
-    hardware/qcom/$(TARGET_CHIPSET)/display
+    hardware/qcom/sdm710 \
+    vendor/qcom/sdm710
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
@@ -672,38 +673,43 @@ PRODUCT_VENDOR_KERNEL_HEADERS := device/google/bonito/sdm710/kernel-headers
 
 # Audio ACDB data
 PRODUCT_COPY_FILES += \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Bluetooth_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/General_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Global_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Handset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Hdmi_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Headset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Speaker_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/Codec_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Bluetooth_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/General_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Global_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Handset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Hdmi_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Headset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Speaker_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/Codec_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Bluetooth_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/General_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Global_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Handset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Hdmi_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Headset_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Speaker_cal.acdb \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/Codec_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/Codec_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4-snd-card/Bluetooth_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4-snd-card/General_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4-snd-card/Global_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4-snd-card/Handset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4-snd-card/Hdmi_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4-snd-card/Headset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4-snd-card/Speaker_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4-snd-card/Bluetooth_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4-snd-card/General_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4-snd-card/Global_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4-snd-card/Handset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4-snd-card/Hdmi_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4-snd-card/Headset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4-snd-card/Speaker_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4dev-snd-card/Bluetooth_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4dev-snd-card/General_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4dev-snd-card/Global_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4dev-snd-card/Handset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4dev-snd-card/Hdmi_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4dev-snd-card/Headset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4dev-snd-card/Speaker_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Bluetooth_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4dev-snd-card/Bluetooth_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/General_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4dev-snd-card/General_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Global_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4dev-snd-card/Global_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Handset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4dev-snd-card/Handset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Hdmi_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4dev-snd-card/Hdmi_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Headset_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4dev-snd-card/Headset_cal.acdb \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/Speaker_cal.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4dev-snd-card/Speaker_cal.acdb \
      device/google/bonito/acdbdata/adsp_avs_config.acdb:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/adsp_avs_config.acdb
 
 # Audio ACDB workspace files for QACT
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_COPY_FILES += \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-snd-card/workspaceFile.qwsp \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-b1-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-b1-snd-card/workspaceFile.qwsp \
-     device/google/bonito/acdbdata/OEM/sdm710-tavil-c1-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm710-tavil-c1-snd-card/workspaceFile.qwsp
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4-snd-card/workspaceFile.qwsp \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4-snd-card/workspaceFile.qwsp \
+     device/google/bonito/acdbdata/OEM/sdm670-b4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-b4dev-snd-card/workspaceFile.qwsp \
+     device/google/bonito/acdbdata/OEM/sdm670-s4-snd-card/workspaceFile.qwsp:$(TARGET_COPY_OUT_VENDOR)/etc/acdbdata/OEM/sdm670-s4dev-snd-card/workspaceFile.qwsp
 endif
 
 # CS35L36 Speaker Tuning
