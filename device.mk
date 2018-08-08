@@ -395,7 +395,7 @@ PRODUCT_PACKAGES += \
 # Enable Codec 2.0
 PRODUCT_PACKAGES += \
     libmedia_codecserviceregistrant \
-    libqcodec2_sdm710 \
+    libqcodec2 \
     libstagefright_ccodec \
     vendor.qti.media.c2@1.0-service \
 
