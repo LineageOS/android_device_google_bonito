@@ -26,10 +26,10 @@ DEVICE_PACKAGE_OVERLAYS += device/google/bonito/sargo/overlay
 
 # Audio XMLs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/mixer_paths_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_s4.xml \
-    $(LOCAL_PATH)/mixer_paths_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_s4dev.xml \
-    $(LOCAL_PATH)/audio_platform_info_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_s4.xml \
-    $(LOCAL_PATH)/audio_platform_info_s4dev.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_s4dev.xml
+    $(LOCAL_PATH)/mixer_paths_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_s4.xml \
+    $(LOCAL_PATH)/mixer_paths_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_s4dev.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_s4dev.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4dev.xml
 
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
