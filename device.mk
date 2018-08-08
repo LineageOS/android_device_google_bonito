@@ -62,7 +62,7 @@ ifeq ($(wildcard vendor/google_devices/bonito/proprietary/device-vendor-bonito.m
 endif
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/google/bonito-kernel/Image.gz-dtb
+    LOCAL_KERNEL := device/google/bonito-kernel/Image.lz4-dtb
 else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
@@ -149,6 +149,7 @@ AB_OTA_PARTITIONS += \
     boot \
     system \
     vbmeta \
+    dtbo \
     product
 
 AB_OTA_POSTINSTALL_CONFIG += \
