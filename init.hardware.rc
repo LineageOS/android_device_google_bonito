@@ -222,10 +222,8 @@ on fs
     restorecon_recursive /persist
 
 on late-fs
-    # Start devices by sysfs trigger, including SLPI. SLPI waits for sscrpcd to
-    # read /persist, so to prevent SLPI startup delays, start both here.
+    # Start devices by sysfs trigger, including sensor related script.
     start devstart_sh
-    start vendor.sscrpcd
 
     # Start services for bootanim
     start surfaceflinger
@@ -625,15 +623,20 @@ service sensors.qti /vendor/bin/sensors.qti
     # register QMI services
     capabilities NET_BIND_SERVICE
 
-service vendor.sscrpcd  /vendor/bin/sscrpcd
-    class core
-    user system
-    group system
+service adsprpcd /vendor/bin/adsprpcd rootpd
+   class main
+   user system
+   group system
 
-service adsprpcd /vendor/bin/adsprpcd
+service adsprpcd_audiopd /vendor/bin/adsprpcd audiopd
    class main
    user media
    group media
+
+service adsprpcd_sensorspd /vendor/bin/adsprpcd sensorspd
+   class main
+   user system
+   group system
 
 service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class core
