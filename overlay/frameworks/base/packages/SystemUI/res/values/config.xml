@@ -36,4 +36,11 @@
 
     <!-- Doze: whether the double tap sensor reports 2D touch coordinates -->
     <bool name="doze_double_tap_reports_touch_coordinates">true</bool>
+
+    <!-- Whether to show a warning notification when the device reaches a certain temperature. -->
+    <integer name="config_showTemperatureWarning">1</integer>
+
+    <!-- Fudge factor for how much below the shutdown temp to show the warning. -->
+    <integer name="config_warningTemperatureTolerance">4</integer>
+
 </resources>
