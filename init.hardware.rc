@@ -339,7 +339,7 @@ on zygote-start
     mkdir /data/vendor/audio/acdbdata/delta 0770 media audio
 
     # Create directory for radio
-    mkdir /data/vendor/radio 0771 system radio
+    mkdir /data/vendor/radio 0773 system radio
 
     # Set up sensors-related directories and permissions
     chmod 775 /persist/sensors
