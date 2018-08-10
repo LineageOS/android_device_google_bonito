@@ -481,6 +481,10 @@
         <ctl name="AUDIO_REF_EC_UL1 MUX" value="SEC_TDM_RX_0" />
     </path>
 
+    <path name="echo-reference handset">
+        <ctl name="AUDIO_REF_EC_UL10 MUX" value="SEC_TDM_RX_0"/>
+    </path>
+
     <path name="echo-reference speaker">
         <ctl name="AUDIO_REF_EC_UL10 MUX" value="SEC_TDM_RX_0"/>
     </path>
@@ -493,6 +497,10 @@
     </path>
 
     <path name="deep-buffer-playback">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia1" value="1" />
+    </path>
+
+    <path name="deep-buffer-playback handset">
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia1" value="1" />
     </path>
 
@@ -564,6 +572,10 @@
     </path>
 
     <path name="low-latency-playback">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia5" value="1" />
+    </path>
+
+    <path name="low-latency-playback handset">
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia5" value="1" />
     </path>
 
@@ -642,6 +654,10 @@
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia8" value="1" />
     </path>
 
+    <path name="audio-ull-playback handset">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia8" value="1" />
+    </path>
+
     <path name="audio-ull-playback speaker">
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia8" value="1" />
     </path>
@@ -713,6 +729,11 @@
     </path>
 
     <path name="compress-offload-playback">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia4" value="1" />
+    </path>
+
+    <path name="compress-offload-playback handset">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia4" value="1" />
     </path>
 
     <path name="compress-offload-playback speaker">
@@ -1076,6 +1097,11 @@
         <ctl name="Voip_Tx Mixer PRI_TDM_0_TX_Voip" value="1"/>
     </path>
 
+    <path name="compress-voip-call handset">
+        <ctl name="SEC_TDM_RX_0_Voice Mixer Voip" value="1"/>
+        <ctl name="Voip_Tx Mixer PRI_TDM_0_TX_Voip" value="1"/>
+    </path>
+
     <path name="compress-voip-call speaker">
         <ctl name="SEC_TDM_RX_0_Voice Mixer Voip" value="1"/>
         <ctl name="Voip_Tx Mixer PRI_TDM_0_TX_Voip" value="1"/>
@@ -1122,6 +1148,11 @@
         <ctl name="VoiceMMode1_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
     </path>
 
+    <path name="voicemmode1-call handset">
+        <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode1" value="1" />
+        <ctl name="VoiceMMode1_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
+    </path>
+
     <path name="voicemmode1-call speaker">
         <ctl name="VOC_EXT_EC MUX" value="SEC_TDM_RX_0" />
         <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode1" value="1" />
@@ -1159,6 +1190,11 @@
     </path>
 
     <path name="voicemmode2-call">
+        <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode2" value="1" />
+        <ctl name="VoiceMMode2_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
+    </path>
+
+    <path name="voicemmode2-call handset">
         <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode2" value="1" />
         <ctl name="VoiceMMode2_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
     </path>
@@ -1201,6 +1237,10 @@
 
     <!-- VOIP Rx settings -->
     <path name="audio-playback-voip">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia10" value="1"/>
+    </path>
+
+    <path name="audio-playback-voip handset">
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia10" value="1"/>
     </path>
 
@@ -1906,6 +1946,10 @@
     </path>
 
     <path name="mmap-playback">
+        <ctl name="SEC_MI2S_RX Audio Mixer MultiMedia16" value="1" />
+    </path>
+
+    <path name="mmap-playback handset">
         <ctl name="SEC_MI2S_RX Audio Mixer MultiMedia16" value="1" />
     </path>
 
