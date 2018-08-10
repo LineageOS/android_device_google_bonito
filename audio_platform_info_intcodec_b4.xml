@@ -120,13 +120,16 @@
         <device name="SND_DEVICE_OUT_HEADPHONES" backend="headphones" interface="INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_BT_A2DP" backend="bt-a2dp" interface="SLIMBUS_7_RX"/>
         <device name="SND_DEVICE_OUT_LINE" backend="headphones" interface="INT0_MI2S_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_HEADPHONES" backend="speaker-and-headphones" interface="INT4_MI2S_RX-and-INT0_MI2S_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_LINE" backend="speaker-and-headphones" interface="INT4_MI2S_RX-and-INT0_MI2S_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_HEADPHONES" backend="speaker-and-headphones" interface="SEC_TDM_RX_0-and-INT0_MI2S_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_LINE" backend="speaker-and-headphones" interface="SEC_TDM_RX_0-and-INT0_MI2S_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_HEADPHONES" backend="speaker-and-headphones" interface="SEC_TDM_RX_0-and-INT0_MI2S_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_LINE" backend="speaker-and-headphones" interface="SEC_TDM_RX_0-and-INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" backend="headphones" interface="INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_LINE" backend="headphones" interface="INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_TTY_FULL_HEADPHONES" backend="headphones" interface="INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_TTY_VCO_HEADPHONES" backend="headphones" interface="INT0_MI2S_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_BT_A2DP" interface="INT4_MI2S_RX-and-SLIMBUS_7_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_BT_A2DP" backend="speaker-and-bt-a2dp" interface="SEC_TDM_RX_0-and-SLIMBUS_7_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_BT_A2DP" backend="speaker-and-bt-a2dp" interface="SEC_TDM_RX_0-and-SLIMBUS_7_RX"/>
         <device name="SND_DEVICE_IN_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
         <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
     </backend_names>
