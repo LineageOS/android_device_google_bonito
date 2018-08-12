@@ -29,3 +29,6 @@ allow tee persist_data_file:file create_file_perms;
 allow tee time_daemon:unix_stream_socket connectto;
 
 allow tee hal_graphics_allocator_default:fd use;
+
+# TODO: Replace KM3 with KM4 (b/112339903)
+allow tee rpmb_device:blk_file rw_file_perms;
