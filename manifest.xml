@@ -570,21 +570,6 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>hardware.google.media.c2</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IComponentStore</name>
-            <instance>default</instance>
-            <instance>software</instance>
-        </interface>
-        <interface>
-            <name>IConfigurable</name>
-            <instance>default</instance>
-            <instance>software</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>vendor.google_paintbox</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
