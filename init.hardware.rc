@@ -193,6 +193,9 @@ on init
     # Allow PAI targeting per hardware SKU
     setprop ro.oem.key1 ${ro.boot.hardware.sku}
 
+    # Property used by vintf for sku specific manifests
+    setprop ro.boot.product.hardware.sku ${ro.boot.hardware.sku}
+
 on late-init
    write /sys/devices/virtual/thermal/tz-by-name/quiet-therm-adc/mode enabled
 
@@ -817,14 +820,32 @@ on property:wlan.driver.status=ok
 on property:ro.boot.mode=sota
     setprop ro.boot.sota enabled
 
-on property:ro.boot.hardware.sku=G013A
+on property:ro.boot.hardware.sku=G020A
     setprop persist.nfc.uicc_enabled true
-on property:ro.boot.hardware.sku=G013B
-    setprop persist.nfc.uicc_enabled false
-on property:ro.boot.hardware.sku=G013C
+    setprop persist.vendor.radio.uicc_se_enabled true
+on property:ro.boot.hardware.sku=G020B
     setprop persist.nfc.uicc_enabled true
-on property:ro.boot.hardware.sku=G013D
+    setprop persist.vendor.radio.uicc_se_enabled true
+on property:ro.boot.hardware.sku=G020C
+    setprop persist.nfc.uicc_enabled true
+    setprop persist.vendor.radio.uicc_se_enabled true
+on property:ro.boot.hardware.sku=G020D
     setprop persist.nfc.uicc_enabled false
+    setprop persist.vendor.radio.uicc_se_enabled false
+    interface_start android.hardware.secure_element@1.0::ISecureElement/eSE1
+on property:ro.boot.hardware.sku=G020E
+    setprop persist.nfc.uicc_enabled true
+    setprop persist.vendor.radio.uicc_se_enabled true
+on property:ro.boot.hardware.sku=G020F
+    setprop persist.nfc.uicc_enabled true
+    setprop persist.vendor.radio.uicc_se_enabled true
+on property:ro.boot.hardware.sku=G020G
+    setprop persist.nfc.uicc_enabled true
+    setprop persist.vendor.radio.uicc_se_enabled true
+on property:ro.boot.hardware.sku=G020H
+    setprop persist.nfc.uicc_enabled false
+    setprop persist.vendor.radio.uicc_se_enabled false
+    interface_start android.hardware.secure_element@1.0::ISecureElement/eSE1
 
 # charger driver exposes now finer grain control, map demo mode to those properties
 # demo mode can only be exit wipping data which will also reset the persist properties
