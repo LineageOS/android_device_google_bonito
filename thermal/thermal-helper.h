@@ -121,7 +121,7 @@ class ThermalHelper {
     ThrottlingThresholds vr_thresholds_;
     ThrottlingThresholds shutdown_thresholds_;
     const bool is_initialized_;
-    const BatteryThresholdLUT mLowTempThresholdAdjuster;
+    const BatteryThresholdLUT low_temp_threshold_adjuster_;
 };
 
 }  // namespace implementation
