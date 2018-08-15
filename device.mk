@@ -375,11 +375,21 @@ PRODUCT_PACKAGES += \
     Tag \
     SecureElement \
     android.hardware.nfc@1.1-service \
-    android.hardware.secure_element@1.0-service
+    android.hardware.secure_element@1.0-service-disabled
 
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/libnfc-nci.conf \
     device/google/bonito/nfc/libese-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libese-nxp.conf
+
+PRODUCT_COPY_FILES += \
+    device/google/bonito/nfc/manifest_se_SIM1.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_G020A.xml \
+    device/google/bonito/nfc/manifest_se_SIM1.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_G020B.xml \
+    device/google/bonito/nfc/manifest_se_SIM1.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_G020C.xml \
+    device/google/bonito/nfc/manifest_se_eSE1.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_G020D.xml \
+    device/google/bonito/nfc/manifest_se_SIM1.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_G020E.xml \
+    device/google/bonito/nfc/manifest_se_SIM1.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_G020F.xml \
+    device/google/bonito/nfc/manifest_se_SIM1.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_G020G.xml \
+    device/google/bonito/nfc/manifest_se_eSE1.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_G020H.xml
 
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.1-service.bonito
@@ -394,11 +404,11 @@ PRODUCT_PACKAGES += \
     libc2dcolorconvert
 
 # Enable Codec 2.0
-PRODUCT_PACKAGES += \
-    libmedia_codecserviceregistrant \
-    libqcodec2 \
-    libstagefright_ccodec \
-    vendor.qti.media.c2@1.0-service \
+#PRODUCT_PACKAGES += \
+#    libmedia_codecserviceregistrant \
+#    libqcodec2 \
+#    libstagefright_ccodec \
+#    vendor.qti.media.c2@1.0-service \
 
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
