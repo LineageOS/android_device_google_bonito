@@ -204,6 +204,7 @@ on fs
     start hwservicemanager
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --early
 
+    mkdir /persist/audio 0770 media audio
     mkdir /persist/data 0700 system system
     mkdir /persist/display 0770 system graphics
     mkdir /persist/rfs 0770 root system
