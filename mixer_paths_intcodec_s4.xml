@@ -508,6 +508,10 @@
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia1" value="1" />
     </path>
 
+    <path name="deep-buffer-playback speaker-safe">
+        <path name="deep-buffer-playback speaker" />
+    </path>
+
     <path name="deep-buffer-playback speaker-protected">
         <path name="deep-buffer-playback" />
     </path>
@@ -581,6 +585,10 @@
 
     <path name="low-latency-playback speaker">
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia5" value="1" />
+    </path>
+
+    <path name="low-latency-playback speaker-safe">
+        <path name="low-latency-playback speaker" />
     </path>
 
     <path name="low-latency-playback speaker-protected">
@@ -662,6 +670,10 @@
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia8" value="1" />
     </path>
 
+    <path name="audio-ull-playback speaker-safe">
+        <path name="audio-ull-playback speaker" />
+    </path>
+
     <path name="audio-ull-playback speaker-protected">
         <path name="audio-ull-playback speaker" />
     </path>
@@ -738,6 +750,10 @@
 
     <path name="compress-offload-playback speaker">
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia4" value="1" />
+    </path>
+
+    <path name="compress-offload-playback speaker-safe">
+        <path name="compress-offload-playback speaker" />
     </path>
 
     <path name="compress-offload-playback speaker-protected">
@@ -1392,6 +1408,10 @@
         <ctl name="SpkrRight VISENSE Switch" value="1" />
         <ctl name="SpkrRight SWR DAC_Port Switch" value="1" />
         <ctl name="SpkrRight WSA PA Mute" value="0" />
+    </path>
+
+    <path name="speaker-safe">
+        <path name="speaker-mono"/>
     </path>
 
     <path name="speaker-fluid">
