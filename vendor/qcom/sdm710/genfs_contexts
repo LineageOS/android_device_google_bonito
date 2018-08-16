@@ -1,0 +1,1 @@
+genfscon sysfs /devices/platform/soc/62400000.qcom,lpass                         u:object_r:sysfs_msm_subsys:s0
