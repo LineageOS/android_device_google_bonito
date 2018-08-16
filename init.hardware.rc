@@ -204,6 +204,7 @@ on fs
     start hwservicemanager
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --early
 
+    restorecon /mnt/vendor/persist
     mkdir /persist/audio 0770 media audio
     mkdir /persist/data 0700 system system
     mkdir /persist/display 0770 system graphics
@@ -223,7 +224,9 @@ on fs
     chmod 0770 /persist/rfs/apq
     chmod 0770 /persist/rfs/apq/gnss
     chmod 0770 /persist/hlos_rfs
-    restorecon_recursive /persist
+    restorecon /persist/rfs
+    restorecon /persist/hlos_rfs
+    restorecon_recursive /mnt/vendor/persist/
 
 on late-fs
     # Start devices by sysfs trigger, including sensor related script.
