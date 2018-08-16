@@ -115,7 +115,8 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 # Install odex files into the other system image
 BOARD_USES_SYSTEM_OTHER_ODEX := true
 
-BOARD_ROOT_EXTRA_FOLDERS := persist firmware
+BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
+BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt:/firmware
 
 include device/google/bonito-sepolicy/bonito-sepolicy.mk
 
