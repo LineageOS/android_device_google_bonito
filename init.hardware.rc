@@ -224,6 +224,8 @@ on fs
     chmod 0770 /persist/rfs/apq
     chmod 0770 /persist/rfs/apq/gnss
     chmod 0770 /persist/hlos_rfs
+    restorecon /persist/rfs
+    restorecon /persist/hlos_rfs
     restorecon_recursive /mnt/vendor/persist/
 
 on late-fs
