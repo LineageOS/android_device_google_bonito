@@ -39,7 +39,6 @@ genfscon sysfs /devices/platform/soc/894000.i2c                                 
 genfscon sysfs /devices/platform/soc/soc:qcom,gpubw                              u:object_r:sysfs_msm_subsys:s0
 genfscon sysfs /devices/platform/soc/c440000.qcom,spmi                           u:object_r:sysfs_msm_subsys:s0
 genfscon sysfs /devices/platform/soc/4080000.qcom,mss                            u:object_r:sysfs_msm_subsys:s0
-genfscon sysfs /devices/platform/soc/17300000.qcom,lpass                         u:object_r:sysfs_msm_subsys:s0
 genfscon sysfs /devices/platform/soc/188101c.qcom,spss                           u:object_r:sysfs_msm_subsys:s0
 genfscon sysfs /devices/platform/soc/5c00000.qcom,ssc                            u:object_r:sysfs_msm_subsys:s0
 genfscon sysfs /devices/platform/soc/ae00000.qcom,mdss_rotator                   u:object_r:sysfs_msm_subsys:s0
