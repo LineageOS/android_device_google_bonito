@@ -33,7 +33,6 @@ TARGET_2ND_CPU_VARIANT := cortex-a73
 
 TARGET_BOARD_COMMON_PATH := device/google/bonito/sdm710
 
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200n8 androidboot.console=ttyMSM0 printk.devkmsg=on
 BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237
 BOARD_KERNEL_CMDLINE += ehci-hcd.park=3
@@ -116,7 +115,8 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 # Install odex files into the other system image
 BOARD_USES_SYSTEM_OTHER_ODEX := true
 
-BOARD_ROOT_EXTRA_FOLDERS := persist firmware
+BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
+BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt:/firmware
 
 include device/google/bonito-sepolicy/bonito-sepolicy.mk
 
