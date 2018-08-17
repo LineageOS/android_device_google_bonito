@@ -268,8 +268,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.gzoom.at=0
 
 # camera google face detection
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.googfd.enable=1
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    persist.camera.googfd.enable=1
 
 # Enable logical camera as default (camera id 1)
 PRODUCT_PROPERTY_OVERRIDES += \
