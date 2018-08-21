@@ -7,8 +7,7 @@ init_daemon_domain(rfs_access)
 allow rfs_access self:capability { chown setgid setpcap setuid net_bind_service };
 
 wakelock_use(rfs_access)
-
-r_dir_file(rfs_access, firmware_file);
+r_dir_file(rfs_access, vendor_firmware_file);
 
 # For tftp server file access
 allow rfs_access mnt_vendor_file:dir search;
