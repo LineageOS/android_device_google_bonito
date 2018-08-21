@@ -67,8 +67,6 @@ type hal_bootctl_socket, file_type;
 type pps_socket, file_type;
 type location_socket, file_type;
 
-type firmware_file, fs_type, contextmount_type;
-
 type cnd_data_file, file_type, data_file_type;
 type location_data_file, file_type, data_file_type;
 
@@ -132,3 +130,4 @@ type sysfs_irq, fs_type, sysfs_type;
 type irqbalance_socket, file_type;
 
 allow rootfs labeledfs:filesystem associate;
+allow vendor_firmware_file self:filesystem associate;
