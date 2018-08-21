@@ -71,7 +71,6 @@ struct Power : public IPower {
 
     std::shared_ptr<HintManager> mHintManager;
     std::unique_ptr<InteractionHandler> mInteractionHandler;
-    std::atomic<bool> mVRModeOn;
     std::atomic<bool> mSustainedPerfModeOn;
     std::atomic<bool> mCameraStreamingModeOn;
     std::atomic<bool> mReady;
