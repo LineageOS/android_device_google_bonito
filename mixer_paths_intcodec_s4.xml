@@ -171,6 +171,9 @@
     <ctl name="PRI TDM TX Channel Offset" id="2" value="12" />
     <!-- ALC5513 config end-->
 
+    <!-- 24-bit ASM config -->
+    <ctl name="ASM Bit Width" value="24"/>
+
     <!-- Cirrus TDM config -->
     <ctl name="SEC_TDM_RX_0 Channels" value="Two"/>
     <ctl name="SEC_TDM_RX_0 Format" value="S32_LE"/>
