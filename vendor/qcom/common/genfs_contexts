@@ -88,11 +88,6 @@ genfscon sysfs /kernel/boot_adsp/boot                                   u:object
 genfscon sysfs /kernel/boot_slpi/boot                                   u:object_r:sysfs_msm_subsys:s0
 genfscon sysfs /kernel/irq_helper/irq_blacklist_on                      u:object_r:sysfs_irq:s0
 genfscon sysfs /kernel/wifi/wlan                                        u:object_r:sysfs_msm_wlan:s0
-genfscon sysfs /class/typec                                             u:object_r:sysfs_usb_c:s0
-genfscon sysfs /class/typec/usbc0                                       u:object_r:sysfs_usb_c:s0
-genfscon sysfs /devices/platform/soc/a800000.ssusb/a800000.dwc3/xhci-hcd.0.auto/usb1 u:object_r:sysfs_usb_device:s0
-genfscon sysfs /devices/platform/soc/a800000.ssusb/a800000.dwc3/xhci-hcd.0.auto/usb2 u:object_r:sysfs_usb_device:s0
-genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pmi8998@2:qcom,usb-pdphy@1700/usbpd0/typec     u:object_r:sysfs_usb_c:s0
 
 genfscon sysfs /module/diagchar                                         u:object_r:sysfs_diag:s0
 genfscon sysfs /module/msm_poweroff                                     u:object_r:sysfs_poweroff:s0
@@ -113,8 +108,6 @@ genfscon debugfs /mnh_sm                              u:object_r:debugfs_easel:s
 
 genfscon debugfs /ion                                 u:object_r:debugfs_ion:s0
 genfscon debugfs /ipc_logging                         u:object_r:debugfs_ipc:s0
-genfscon debugfs /tcpm/usbpd0                         u:object_r:debugfs_usb:s0
-genfscon debugfs /pd_engine/usbpd0                    u:object_r:debugfs_usb:s0
 genfscon debugfs /ipc_logging/smblib/log              u:object_r:debugfs_usb:s0
 genfscon debugfs /msm_ipc_router                      u:object_r:debugfs_ipc:s0
 genfscon debugfs /mdp                                 u:object_r:debugfs_mdp:s0
