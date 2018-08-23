@@ -39,7 +39,7 @@
 
 #define DIAG_MDLOG_NUMBER_BUGREPORT "persist.vendor.sys.modem.diag.mdlog_br_num"
 
-#define UFS_BOOTDEVICE "ro.boot.bootdevice"
+#define EMMC_BOOTDEVICE "ro.boot.bootdevice"
 
 using android::os::dumpstate::CommandOptions;
 using android::os::dumpstate::DumpFileToFd;
@@ -233,22 +233,16 @@ static void DumpF2FS(int fd) {
     DumpFileToFd(fd, "F2FS - fragmentation", "/proc/fs/f2fs/dm-3/segment_info");
 }
 
-static void DumpUFS(int fd) {
-    DumpFileToFd(fd, "UFS model", "/sys/block/sda/device/model");
-    DumpFileToFd(fd, "UFS rev", "/sys/block/sda/device/rev");
-    DumpFileToFd(fd, "UFS size", "/sys/block/sda/size");
-    DumpFileToFd(fd, "UFS show_hba", "/sys/kernel/debug/ufshcd0/show_hba");
-    DumpFileToFd(fd, "UFS err_stats", "/sys/kernel/debug/ufshcd0/stats/err_stats");
-    DumpFileToFd(fd, "UFS io_stats", "/sys/kernel/debug/ufshcd0/stats/io_stats");
-    DumpFileToFd(fd, "UFS req_stats", "/sys/kernel/debug/ufshcd0/stats/req_stats");
-
-    std::string bootdev = android::base::GetProperty(UFS_BOOTDEVICE, "");
-    if (!bootdev.empty()) {
-        DumpFileToFd(fd, "UFS Slow IO", "/sys/devices/platform/soc/" + bootdev + "/slowio_cnt");
-
-        std::string ufs_health = "for f in $(find /sys/devices/platform/soc/" + bootdev + "/health -type f); do if [[ -r $f && -f $f ]]; then echo --- $f; cat $f; echo ''; fi; done";
-        RunCommandToFd(fd, "UFS health", {"/vendor/bin/sh", "-c", ufs_health.c_str()});
-    }
+static void DumpeMMC(int fd) {
+    DumpFileToFd(fd, "eMMC model", "/sys/block/mmcblk0/device/name");
+    DumpFileToFd(fd, "eMMC prv", "/sys/block/mmcblk0/device/prv");
+    DumpFileToFd(fd, "eMMC fwrev", "/sys/block/mmcblk0/device/fwrev");
+    DumpFileToFd(fd, "eMMC size", "/sys/block/mmcblk0/size");
+    DumpFileToFd(fd, "eMMC ext_csd", "/sys/kernel/debug/mmc0/mmc0:0001/ext_csd");
+    DumpFileToFd(fd, "eMMC err_stats", "/sys/kernel/debug/mmc0/err_stats");
+    DumpFileToFd(fd, "eMMC ring_buffer", "/sys/kernel/debug/mmc0/ring_buffer");
+    DumpFileToFd(fd, "eMMC pre_eol_info", "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/mmc0:0001/pre_eol_info");
+    DumpFileToFd(fd, "eMMC life_time", "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/mmc0:0001/life_time");
 }
 
 // Methods from ::android::hardware::dumpstate::V1_0::IDumpstateDevice follow.
@@ -276,7 +270,7 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "CPU online", "/sys/devices/system/cpu/online");
 
     DumpF2FS(fd);
-    DumpUFS(fd);
+    DumpeMMC(fd);
 
     DumpFileToFd(fd, "INTERRUPTS", "/proc/interrupts");
     DumpFileToFd(fd, "Sleep Stats", "/sys/power/system_sleep/stats");
