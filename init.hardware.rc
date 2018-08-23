@@ -35,9 +35,6 @@ on charger
     write /sys/devices/system/cpu/cpu6/online 0
     write /sys/devices/system/cpu/cpu7/online 0
     wait /dev/block/bootdevice
-    # Enable UFS powersaving
-    write /sys/devices/platform/soc/${ro.boot.bootdevice}/clkgate_enable 1
-    write /sys/devices/platform/soc/${ro.boot.bootdevice}/hibern8_on_idle_enable 1
     write /sys/class/typec/port0/port_type sink
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
     # Disable sched_boost
@@ -75,10 +72,6 @@ on init
     write /sys/block/dm-0/queue/read_ahead_kb 2048
     write /sys/block/dm-1/queue/read_ahead_kb 2048
     write /sys/block/dm-2/queue/read_ahead_kb 2048
-
-    # Disable UFS powersaving
-    write /sys/devices/platform/soc/${ro.boot.bootdevice}/clkgate_enable 0
-    write /sys/devices/platform/soc/${ro.boot.bootdevice}/hibern8_on_idle_enable 0
 
     # Disable powersaving
     write /sys/module/lpm_levels/parameters/sleep_disabled 1
@@ -523,10 +516,6 @@ on property:sys.boot_completed=1
     # Set the default IRQ affinity to the silver cluster.
     write /proc/irq/default_smp_affinity 3f
 
-    # Enable UFS powersaving
-    write /sys/devices/platform/soc/${ro.boot.bootdevice}/clkgate_enable 1
-    write /sys/devices/platform/soc/${ro.boot.bootdevice}/hibern8_on_idle_enable 1
-
     # Enable ZRAM on boot_complete
     swapon_all /vendor/etc/fstab.${ro.boot.hardware.platform}
 
@@ -572,12 +561,12 @@ on property:sys.boot_completed=1
     # HardwareInfo needs to be able to read CC bins
     chmod 644 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pmi8998@2:qpnp,fg/cycle_counts_bins
 
-    # UFS health
-    chmod 755 /sys/kernel/debug/ufshcd0
-    chmod 644 /sys/kernel/debug/ufshcd0/show_hba
-    chmod 644 /sys/kernel/debug/ufshcd0/stats/err_stats
-    chmod 644 /sys/kernel/debug/ufshcd0/stats/io_stats
-    chmod 644 /sys/kernel/debug/ufshcd0/stats/req_stats
+    # eMMC health
+    chmod 755 /sys/kernel/debug/mmc0
+    chmod 755 /sys/kernel/debug/mmc0/mmc0:0001
+    chmod 644 /sys/kernel/debug/mmc0/mmc0:0001/ext_csd
+    chmod 644 /sys/kernel/debug/mmc0/ring_buffer
+    chmod 644 /sys/kernel/debug/mmc0/err_stats
 
     # Disable sched_boost
     write /proc/sys/kernel/sched_boost 0
