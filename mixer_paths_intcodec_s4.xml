@@ -1386,8 +1386,8 @@
         <ctl name="SpkrRight SWR DAC_Port Switch" value="1" />
         <ctl name="SpkrLeft WSA PA Mute" value="0" />
         <ctl name="SpkrRight WSA PA Mute" value="0" />
-        <ctl name="AMP PCM Gain" value="9"/>
-        <ctl name="R AMP PCM Gain" value="9"/>
+        <ctl name="AMP PCM Gain" value="17"/>
+        <ctl name="R AMP PCM Gain" value="17"/>
         <ctl name="Digital PCM Volume" value="740"/>
     </path>
 
@@ -1487,27 +1487,29 @@
     </path>
 
     <path name="handset">
+        <ctl name="R Boost Control" value="Off"/>
+        <ctl name="Boost Control" value="Off"/>
         <ctl name="R AMP Enable Switch" value="0"/>
         <ctl name="AMP Enable Switch" value="1"/>
         <ctl name="R AMP PCM Gain" value="17"/>
-        <ctl name="AMP PCM Gain" value="17"/>
+        <ctl name="AMP PCM Gain" value="10"/>
     </path>
 
     <path name="speaker-dmic-endfire">
-        <ctl name="ADC1 Capture Volume" value="53"/>
-        <ctl name="ADC2 Capture Volume" value="53"/>
-        <ctl name="PRI TDM TX Channel Offset" id="0" value="12" />
-        <ctl name="PRI TDM TX Channel Offset" id="1" value="8" />
-        <ctl name="PRI TDM TX Channel Offset" id="2" value="0" />
-        <ctl name="PRI_TDM_TX_0 Channels" value="Four"/>
+        <ctl name="ADC1 Capture Volume" value="45"/>
+        <ctl name="ADC2 Capture Volume" value="45"/>
+        <ctl name="PRI TDM TX Channel Offset" id="0" value="8" />
+        <ctl name="PRI TDM TX Channel Offset" id="1" value="0" />
+        <ctl name="PRI TDM TX Channel Offset" id="2" value="12" />
+        <ctl name="PRI_TDM_TX_0 Channels" value="Two"/>
         <ctl name="Sto1 ADC MIXL DMIC Switch" value="1" />
         <ctl name="Sto2 ADC MIXL DMIC Switch" value="1" />
-        <ctl name="Sto2 ADC MIXR DMIC Switch" value="1" />
+        <ctl name="Sto2 ADC MIXR DMIC Switch" value="0" />
     </path>
 
     <path name="dmic-endfire">
-        <ctl name="ADC1 Capture Volume" value="53"/>
-        <ctl name="ADC2 Capture Volume" value="53"/>
+        <ctl name="ADC1 Capture Volume" value="45"/>
+        <ctl name="ADC2 Capture Volume" value="45"/>
         <ctl name="PRI_TDM_TX_0 Channels" value="Two"/>
         <ctl name="Sto1 ADC MIXL DMIC Switch" value="1" />
         <ctl name="Sto2 ADC MIXL DMIC Switch" value="1" />
@@ -1579,6 +1581,10 @@
 
     <path name="voice-handset">
         <path name="handset" />
+    </path>
+
+    <path name="voice-hac-handset">
+        <path name="handset"/>
     </path>
 
     <path name="voice-handset-tmus">
