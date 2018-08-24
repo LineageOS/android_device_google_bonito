@@ -278,47 +278,6 @@ static int get_wlan_low_power_stats(struct PowerStateSubsystem *subsystem) {
     return 0;
 }
 
-static const std::string get_easel_state_name(int state) {
-    if (state == EASEL_OFF) {
-        return "Off";
-    } else if (state == EASEL_ACTIVE) {
-        return "Active";
-    } else if (state == EASEL_SUSPEND) {
-        return "Suspend";
-    } else {
-        return "Unknown";
-    }
-}
-
-// Get low power stats for easel subsystem
-static int get_easel_low_power_stats(struct PowerStateSubsystem *subsystem) {
-    uint64_t stats[EASEL_SLEEP_STATE_COUNT * EASEL_STATS_COUNT] = {0};
-    uint64_t *state_stats;
-    struct PowerStateSubsystemSleepState *state;
-
-    subsystem->name = "Easel";
-
-    if (extract_easel_stats(stats, ARRAY_SIZE(stats)) != 0) {
-        subsystem->states.resize(0);
-        return -1;
-    }
-
-    subsystem->states.resize(EASEL_SLEEP_STATE_COUNT);
-
-    for (int easel_state = 0; easel_state < EASEL_SLEEP_STATE_COUNT; easel_state++) {
-        state = &subsystem->states[easel_state];
-        state_stats = &stats[easel_state * EASEL_STATS_COUNT];
-
-        state->name = get_easel_state_name(easel_state);
-        state->residencyInMsecSinceBoot = state_stats[CUMULATIVE_DURATION_MS];
-        state->totalTransitions = state_stats[CUMULATIVE_COUNT];
-        state->lastEntryTimestampMs = state_stats[LAST_ENTRY_TSTAMP_MS];
-        state->supportedOnlyInSuspend = false;
-    }
-
-    return 0;
-}
-
 // Methods from ::android::hardware::power::V1_1::IPower follow.
 Return<void> Power::getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl_cb) {
     hidl_vec<PowerStateSubsystem> subsystems;
@@ -333,11 +292,6 @@ Return<void> Power::getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl
     // Get WLAN subsystem low power stats.
     if (get_wlan_low_power_stats(&subsystems[SUBSYSTEM_WLAN]) != 0) {
         ALOGE("%s: failed to process wlan stats", __func__);
-    }
-
-    // Get Easel subsystem low power stats.
-    if (get_easel_low_power_stats(&subsystems[SUBSYSTEM_EASEL]) != 0) {
-        ALOGE("%s: failed to process Easel stats", __func__);
     }
 
     _hidl_cb(subsystems, Status::SUCCESS);
