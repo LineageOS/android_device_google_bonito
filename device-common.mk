@@ -21,6 +21,7 @@ LOCAL_PATH := device/google/bonito
 # define hardware platform
 PRODUCT_PLATFORM := sdm670
 
+include device/google/bonito/device-audio-mfg.mk
 include device/google/bonito/device.mk
 
 # Bug 77867216
