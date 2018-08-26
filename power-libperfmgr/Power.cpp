@@ -15,7 +15,7 @@
  */
 
 #define ATRACE_TAG (ATRACE_TAG_POWER | ATRACE_TAG_HAL)
-#define LOG_TAG "android.hardware.power@1.2-service.bonito-libperfmgr"
+#define LOG_TAG "android.hardware.power@1.3-service.bonito-libperfmgr"
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -40,7 +40,7 @@ extern struct stats_section master_sections[];
 namespace android {
 namespace hardware {
 namespace power {
-namespace V1_2 {
+namespace V1_3 {
 namespace implementation {
 
 using ::android::hardware::power::V1_0::Feature;
@@ -82,6 +82,12 @@ Power::Power() :
                             if (state == "LOW_LATENCY") {
                                 ALOGI("Initialize with AUDIO_LOW_LATENCY on");
                                 mHintManager->DoHint("AUDIO_LOW_LATENCY");
+                            }
+
+                            state = android::base::GetProperty(kPowerHalRenderingProp, "");
+                            if (state == "EXPENSIVE_RENDERING") {
+                                ALOGI("Initialize with EXPENSIVE_RENDERING on");
+                                mHintManager->DoHint("EXPENSIVE_RENDERING");
                             }
                             // Now start to take powerhint
                             mReady.store(true);
@@ -272,47 +278,6 @@ static int get_wlan_low_power_stats(struct PowerStateSubsystem *subsystem) {
     return 0;
 }
 
-static const std::string get_easel_state_name(int state) {
-    if (state == EASEL_OFF) {
-        return "Off";
-    } else if (state == EASEL_ACTIVE) {
-        return "Active";
-    } else if (state == EASEL_SUSPEND) {
-        return "Suspend";
-    } else {
-        return "Unknown";
-    }
-}
-
-// Get low power stats for easel subsystem
-static int get_easel_low_power_stats(struct PowerStateSubsystem *subsystem) {
-    uint64_t stats[EASEL_SLEEP_STATE_COUNT * EASEL_STATS_COUNT] = {0};
-    uint64_t *state_stats;
-    struct PowerStateSubsystemSleepState *state;
-
-    subsystem->name = "Easel";
-
-    if (extract_easel_stats(stats, ARRAY_SIZE(stats)) != 0) {
-        subsystem->states.resize(0);
-        return -1;
-    }
-
-    subsystem->states.resize(EASEL_SLEEP_STATE_COUNT);
-
-    for (int easel_state = 0; easel_state < EASEL_SLEEP_STATE_COUNT; easel_state++) {
-        state = &subsystem->states[easel_state];
-        state_stats = &stats[easel_state * EASEL_STATS_COUNT];
-
-        state->name = get_easel_state_name(easel_state);
-        state->residencyInMsecSinceBoot = state_stats[CUMULATIVE_DURATION_MS];
-        state->totalTransitions = state_stats[CUMULATIVE_COUNT];
-        state->lastEntryTimestampMs = state_stats[LAST_ENTRY_TSTAMP_MS];
-        state->supportedOnlyInSuspend = false;
-    }
-
-    return 0;
-}
-
 // Methods from ::android::hardware::power::V1_1::IPower follow.
 Return<void> Power::getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl_cb) {
     hidl_vec<PowerStateSubsystem> subsystems;
@@ -327,11 +292,6 @@ Return<void> Power::getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl
     // Get WLAN subsystem low power stats.
     if (get_wlan_low_power_stats(&subsystems[SUBSYSTEM_WLAN]) != 0) {
         ALOGE("%s: failed to process wlan stats", __func__);
-    }
-
-    // Get Easel subsystem low power stats.
-    if (get_easel_low_power_stats(&subsystems[SUBSYSTEM_EASEL]) != 0) {
-        ALOGE("%s: failed to process Easel stats", __func__);
     }
 
     _hidl_cb(subsystems, Status::SUCCESS);
@@ -386,15 +346,19 @@ Return<void> Power::powerHintAsync_1_2(PowerHint_1_2 hint, int32_t data) {
             break;
         case PowerHint_1_2::AUDIO_STREAMING:
             ATRACE_BEGIN("audio_streaming");
-            if (data) {
-                // Hint until canceled
-                ATRACE_INT("audio_streaming_lock", 1);
-                mHintManager->DoHint("AUDIO_STREAMING");
-                ALOGD("AUDIO STREAMING ON");
+            if (mSustainedPerfModeOn) {
+                ALOGV("%s: ignoring due to other active perf hints", __func__);
             } else {
-                ATRACE_INT("audio_streaming_lock", 0);
-                mHintManager->EndHint("AUDIO_STREAMING");
-                ALOGD("AUDIO STREAMING OFF");
+                if (data) {
+                    // Hint until canceled
+                    ATRACE_INT("audio_streaming_lock", 1);
+                    mHintManager->DoHint("AUDIO_STREAMING");
+                    ALOGD("AUDIO STREAMING ON");
+                } else {
+                    ATRACE_INT("audio_streaming_lock", 0);
+                    mHintManager->EndHint("AUDIO_STREAMING");
+                    ALOGD("AUDIO STREAMING OFF");
+                }
             }
             ATRACE_END();
             break;
@@ -428,6 +392,8 @@ Return<void> Power::powerHintAsync_1_2(PowerHint_1_2 hint, int32_t data) {
             } else if (data == 0) {
                 ATRACE_INT("camera_streaming_lock", 0);
                 mHintManager->EndHint("CAMERA_STREAMING");
+                // Boost 1s for tear down
+                mHintManager->DoHint("CAMERA_LAUNCH", std::chrono::seconds(1));
                 ALOGD("CAMERA STREAMING OFF");
                 if (!android::base::SetProperty(kPowerHalStateProp, "")) {
                     ALOGE("%s: could not clear powerHAL state property", __func__);
@@ -459,6 +425,39 @@ Return<void> Power::powerHintAsync_1_2(PowerHint_1_2 hint, int32_t data) {
     return Void();
 }
 
+// Methods from ::android::hardware::power::V1_3::IPower follow.
+Return<void> Power::powerHintAsync_1_3(PowerHint_1_3 hint, int32_t data) {
+    if (!isSupportedGovernor() || !mReady) {
+        return Void();
+    }
+
+    if (hint == PowerHint_1_3::EXPENSIVE_RENDERING) {
+        if (mSustainedPerfModeOn) {
+            ALOGV("%s: ignoring due to other active perf hints", __func__);
+            return Void();
+        }
+
+        if (data > 0) {
+            ATRACE_INT("EXPENSIVE_RENDERING", 1);
+            mHintManager->DoHint("EXPENSIVE_RENDERING");
+            if (!android::base::SetProperty(kPowerHalRenderingProp, "EXPENSIVE_RENDERING")) {
+                ALOGE("%s: could not set powerHAL rendering property to EXPENSIVE_RENDERING",
+                      __func__);
+            }
+        } else {
+            ATRACE_INT("EXPENSIVE_RENDERING", 0);
+            mHintManager->EndHint("EXPENSIVE_RENDERING");
+            if (!android::base::SetProperty(kPowerHalRenderingProp, "")) {
+                ALOGE("%s: could not clear powerHAL rendering property", __func__);
+            }
+        }
+    } else {
+        return powerHintAsync_1_2(static_cast<PowerHint_1_2>(hint), data);
+    }
+
+    return Void();
+}
+
 constexpr const char* boolToString(bool b) {
     return b ? "true" : "false";
 }
@@ -484,7 +483,7 @@ Return<void> Power::debug(const hidl_handle& handle, const hidl_vec<hidl_string>
 }
 
 }  // namespace implementation
-}  // namespace V1_2
+}  // namespace V1_3
 }  // namespace power
 }  // namespace hardware
 }  // namespace android
