@@ -1389,6 +1389,8 @@
         <ctl name="SpkrRight SWR DAC_Port Switch" value="1" />
         <ctl name="SpkrLeft WSA PA Mute" value="0" />
         <ctl name="SpkrRight WSA PA Mute" value="0" />
+        <ctl name="AMP Enable Switch" value="1"/>
+        <ctl name="R AMP Enable Switch" value="1"/>
         <ctl name="AMP PCM Gain" value="9"/>
         <ctl name="R AMP PCM Gain" value="9"/>
         <ctl name="Digital PCM Volume" value="740"/>
