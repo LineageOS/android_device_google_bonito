@@ -578,6 +578,10 @@
         <path name="deep-buffer-playback speaker" />
     </path>
 
+    <path name="deep-buffer-playback voice-tty-hco-handset">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia1" value="1"/>
+    </path>
+
     <path name="low-latency-playback">
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia5" value="1" />
     </path>
@@ -661,6 +665,10 @@
         <path name="low-latency-playback speaker" />
     </path>
 
+	<path name="low-latency-playback voice-tty-hco-handset">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia5" value="1"/>
+    </path>
+
     <path name="audio-ull-playback">
         <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia8" value="1" />
     </path>
@@ -735,6 +743,10 @@
         <path name="audio-ull-playback speaker" />
     </path>
 
+    <path name="audio-ull-playback voice-tty-hco-handset">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia8" value="1"/>
+    </path>
+
     <path name="multi-channel-playback display-port">
         <ctl name="DISPLAY_PORT Mixer MultiMedia2" value="1" />
     </path>
@@ -778,6 +790,10 @@
     <path name="compress-offload-playback bt-sco-wb">
         <ctl name="BT SampleRate" value="KHZ_16" />
         <path name="compress-offload-playback bt-sco" />
+    </path>
+
+    <path name="compress-offload-playback voice-tty-hco-handset">
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia4" value="1"/>
     </path>
 
     <path name="compress-offload-playback speaker-and-hdmi">
@@ -1208,6 +1224,11 @@
         <ctl name="VoiceMMode1_Tx Mixer USB_AUDIO_TX_MMode1" value="1" />
     </path>
 
+    <path name="voicemmode1-call voice-tty-hco-handset">
+       <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode1" value="1" />
+       <ctl name="VoiceMMode1_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
+    </path>
+
     <path name="voicemmode2-call">
         <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode2" value="1" />
         <ctl name="VoiceMMode2_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
@@ -1252,6 +1273,11 @@
     <path name="voicemmode2-call usb-headset">
         <ctl name="USB_AUDIO_RX_Voice Mixer VoiceMMode2" value="1" />
         <ctl name="VoiceMMode2_Tx Mixer USB_AUDIO_TX_MMode2" value="1" />
+    </path>
+
+    <path name="voicemmode2-call voice-tty-hco-handset">
+       <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode2" value="1" />
+       <ctl name="VoiceMMode2_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
     </path>
 
     <!-- VOIP Rx settings -->
@@ -1862,7 +1888,7 @@
 
     <path name="voice-tty-hco-handset">
         <ctl name="TTY Mode" value="HCO" />
-        <path name="handset" />
+        <path name="voice-speaker" />
     </path>
 
     <path name="voice-tty-full-headset-mic">
