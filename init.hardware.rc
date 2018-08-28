@@ -349,9 +349,9 @@ on zygote-start
     chown audioserver audio /persist/audio/audio.cal
 
     chmod 770 /persist/haptics
-    chmod 440 /persist/haptics/cs40l20.cal
+    chmod 440 /persist/haptics/drv2624.cal
     chown system system /persist/haptics
-    chown system system /persist/haptics/cs40l20.cal
+    chown system system /persist/haptics/drv2624.cal
 
     # Mark the copy complete flag to not completed
     write /data/vendor/radio/copy_complete 0
@@ -404,11 +404,16 @@ on early-boot
     chmod 0660 /dev/vd6281
 
     # Permission for Vibrator
-    chown system system /sys/class/leds/vibrator/device/cp_trigger_index
-    chown system system /sys/class/leds/vibrator/device/cp_trigger_queue
-    chown system system /sys/class/leds/vibrator/device/dig_scale
-    chown system system /sys/class/leds/vibrator/device/f0_stored
-    chown system system /sys/class/leds/vibrator/device/redc_stored
+    chown system system /sys/class/leds/vibrator/device/mode
+    chown system system /sys/class/leds/vibrator/device/od_clamp
+    chown system system /sys/class/leds/vibrator/device/rtp_input
+    chown system system /sys/class/leds/vibrator/device/scale
+    chown system system /sys/class/leds/vibrator/device/set_sequencer
+    chown system system /sys/class/leds/vibrator/device/autocal_result
+    chown system system /sys/class/leds/vibrator/device/ctrl_loop
+    chown system system /sys/class/leds/vibrator/device/ol_lra_period
+    chown system system /sys/class/leds/vibrator/device/autocal
+    chown system system /sys/class/leds/vibrator/device/lp_trigger_effect
 
     # Permission for LED driver
     chown system system /sys/class/leds/red/on_off_ms
