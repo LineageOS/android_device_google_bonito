@@ -29,22 +29,26 @@ using android::hardware::vibrator::V1_2::IVibrator;
 using android::hardware::vibrator::V1_2::implementation::Vibrator;
 using namespace android;
 
+// Refer to Documentation/ABI/testing/sysfs-class-led-driver-drv2624
+// kernel documentation on the detail usages for ABIs below
 static constexpr char ACTIVATE_PATH[] = "/sys/class/leds/vibrator/activate";
 static constexpr char DURATION_PATH[] = "/sys/class/leds/vibrator/duration";
 static constexpr char STATE_PATH[] = "/sys/class/leds/vibrator/state";
-static constexpr char EFFECT_INDEX_PATH[] = "/sys/class/leds/vibrator/device/cp_trigger_index";
-static constexpr char EFFECT_QUEUE_PATH[] = "/sys/class/leds/vibrator/device/cp_trigger_queue";
-static constexpr char DIGI_SCALE_PATH[] = "/sys/class/leds/vibrator/device/dig_scale";
+static constexpr char RTP_INPUT_PATH[] = "/sys/class/leds/vibrator/device/rtp_input";
+static constexpr char MODE_PATH[] = "/sys/class/leds/vibrator/device/mode";
+static constexpr char SEQUENCER_PATH[] = "/sys/class/leds/vibrator/device/set_sequencer";
+static constexpr char SCALE_PATH[] = "/sys/class/leds/vibrator/device/scale";
+static constexpr char CTRL_LOOP_PATH[] = "/sys/class/leds/vibrator/device/ctrl_loop";
+static constexpr char LP_TRIGGER_PATH[] = "/sys/class/leds/vibrator/device/lp_trigger_effect";
 
 // File path to the calibration file
-static constexpr char CALIBRATION_FILEPATH[] = "/persist/haptics/cs40l20.cal";
+static constexpr char CALIBRATION_FILEPATH[] = "/persist/haptics/drv2624.cal";
 
 // Kernel ABIs for updating the calibration data
-static constexpr char F0_CONFIG[] = "f0_measured";
-static constexpr char REDC_CONFIG[] = "redc_measured";
-static constexpr char F0_FILEPATH[] = "/sys/class/leds/vibrator/device/f0_stored";
-static constexpr char REDC_FILEPATH[] = "/sys/class/leds/vibrator/device/redc_stored";
-
+static constexpr char AUTOCAL_CONFIG[] = "autocal";
+static constexpr char LRA_PERIOD_CONFIG[] = "lra_period";
+static constexpr char AUTOCAL_FILEPATH[] = "/sys/class/leds/vibrator/device/autocal";
+static constexpr char OL_LRA_PERIOD_FILEPATH[] = "/sys/class/leds/vibrator/device/ol_lra_period";
 
 static std::string trim(const std::string& str,
         const std::string& whitespace = " \t") {
@@ -62,26 +66,33 @@ static std::string trim(const std::string& str,
 static bool loadCalibrationData() {
     std::map<std::string, std::string> config_data;
 
-    std::ofstream f0{F0_FILEPATH};
-    if (!f0) {
-        ALOGE("Failed to open %s (%d): %s", F0_FILEPATH, errno,
-                strerror(errno));
+    std::ofstream autocal{AUTOCAL_FILEPATH};
+    if (!autocal) {
+        int error = errno;
+        ALOGE("Failed to open %s (%d): %s", AUTOCAL_FILEPATH, error,
+                strerror(error));
+        return false;
     }
 
-    std::ofstream redc{REDC_FILEPATH};
-    if (!redc) {
-        ALOGE("Failed to open %s (%d): %s", REDC_FILEPATH, errno,
-                strerror(errno));
+    std::ofstream ol_lra_period{OL_LRA_PERIOD_FILEPATH};
+    if (!ol_lra_period) {
+        int error = errno;
+        ALOGE("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error,
+                strerror(error));
+        return false;
     }
 
     std::ifstream cal_data{CALIBRATION_FILEPATH};
     if (!cal_data) {
-        ALOGE("Failed to open %s (%d): %s", CALIBRATION_FILEPATH, errno,
-                strerror(errno));
+        int error = errno;
+        ALOGE("Failed to open %s (%d): %s", CALIBRATION_FILEPATH, error,
+                strerror(error));
         return false;
     }
 
-    for (std::string line; std::getline(cal_data, line);) {
+    std::string line;
+
+    while (std::getline(cal_data, line)) {
         if (line.empty() || line[0] == '#') {
             continue;
         }
@@ -96,12 +107,12 @@ static bool loadCalibrationData() {
         }
     }
 
-    if(config_data.find(F0_CONFIG) != config_data.end()) {
-        f0 << config_data[F0_CONFIG] << std::endl;
+    if(config_data.find(AUTOCAL_CONFIG) != config_data.end()) {
+        autocal << config_data[AUTOCAL_CONFIG] << std::endl;
     }
 
-    if(config_data.find(REDC_CONFIG) != config_data.end()) {
-        redc << config_data[REDC_CONFIG] << std::endl;
+    if(config_data.find(LRA_PERIOD_CONFIG) != config_data.end()) {
+        ol_lra_period << config_data[LRA_PERIOD_CONFIG] << std::endl;
     }
 
     return true;
@@ -111,45 +122,76 @@ status_t registerVibratorService() {
     // ostreams below are required
     std::ofstream activate{ACTIVATE_PATH};
     if (!activate) {
-        ALOGE("Failed to open %s (%d): %s", ACTIVATE_PATH, errno, strerror(errno));
+        int error = errno;
+        ALOGE("Failed to open %s (%d): %s", ACTIVATE_PATH, error, strerror(error));
+        return -error;
     }
 
     std::ofstream duration{DURATION_PATH};
     if (!duration) {
-        ALOGE("Failed to open %s (%d): %s", DURATION_PATH, errno, strerror(errno));
+        int error = errno;
+        ALOGE("Failed to open %s (%d): %s", DURATION_PATH, error, strerror(error));
+        return -error;
     }
 
     std::ofstream state{STATE_PATH};
     if (!state) {
-        ALOGE("Failed to open %s (%d): %s", STATE_PATH, errno, strerror(errno));
-    }
-
-    std::ofstream effect{EFFECT_INDEX_PATH};
-    if (!state) {
-        ALOGE("Failed to open %s (%d): %s", EFFECT_INDEX_PATH, errno, strerror(errno));
-    }
-
-    std::ofstream queue{EFFECT_QUEUE_PATH};
-    if (!state) {
-        ALOGE("Failed to open %s (%d): %s", EFFECT_QUEUE_PATH, errno, strerror(errno));
-    }
-
-    std::ofstream scale{DIGI_SCALE_PATH};
-    if (!scale) {
-        ALOGE("Failed to open %s (%d): %s", DIGI_SCALE_PATH, errno, strerror(errno));
+        int error = errno;
+        ALOGE("Failed to open %s (%d): %s", STATE_PATH, error, strerror(error));
+        return -error;
     }
 
     state << 1 << std::endl;
     if (!state) {
+        int error = errno;
         ALOGE("Failed to set state (%d): %s", errno, strerror(errno));
+        return -error;
+    }
+
+    // ostreams below are optional
+    std::ofstream rtpinput{RTP_INPUT_PATH};
+    if (!rtpinput) {
+        int error = errno;
+        ALOGW("Failed to open %s (%d): %s", RTP_INPUT_PATH, error, strerror(error));
+    }
+
+    std::ofstream mode{MODE_PATH};
+    if (!mode) {
+        int error = errno;
+        ALOGW("Failed to open %s (%d): %s", MODE_PATH, error, strerror(error));
+    }
+
+    std::ofstream sequencer{SEQUENCER_PATH};
+    if (!sequencer) {
+        int error = errno;
+        ALOGW("Failed to open %s (%d): %s", SEQUENCER_PATH, error, strerror(error));
+    }
+
+    std::ofstream scale{SCALE_PATH};
+    if (!scale) {
+        int error = errno;
+        ALOGW("Failed to open %s (%d): %s", SCALE_PATH, error, strerror(error));
+    }
+
+    std::ofstream ctrlloop{CTRL_LOOP_PATH};
+    if (!ctrlloop) {
+        int error = errno;
+        ALOGW("Failed to open %s (%d): %s", CTRL_LOOP_PATH, error, strerror(error));
+    }
+
+    std::ofstream lptrigger{LP_TRIGGER_PATH};
+    if (!lptrigger) {
+        int error = errno;
+        ALOGW("Failed to open %s (%d): %s", LP_TRIGGER_PATH, error, strerror(error));
     }
 
     if (!loadCalibrationData()) {
-        ALOGW("Failed to load calibration data");
+        ALOGW("Failed load calibration data");
     }
 
     sp<IVibrator> vibrator = new Vibrator(std::move(activate), std::move(duration),
-        std::move(effect), std::move(queue), std::move(scale));
+            std::move(state), std::move(rtpinput), std::move(mode),
+            std::move(sequencer), std::move(scale), std::move(ctrlloop), std::move(lptrigger));
 
     return vibrator->registerAsService();
 }
