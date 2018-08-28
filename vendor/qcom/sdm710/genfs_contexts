@@ -1,4 +1,6 @@
 genfscon sysfs /devices/platform/soc/62400000.qcom,lpass                         u:object_r:sysfs_msm_subsys:s0
+genfscon sysfs /devices/platform/soc/7c4000.sdhci                       u:object_r:sysfs_mmc:s0
+genfscon sysfs /block/mmcblk0                                           u:object_r:sysfs_mmc:s0
 
 genfscon sysfs /devices/platform/soc/a600000.ssusb/a600000.dwc3/xhci-hcd.0.auto/usb1 u:object_r:sysfs_usb_device:s0
 genfscon sysfs /devices/platform/soc/a600000.ssusb/a600000.dwc3/xhci-hcd.0.auto/usb2 u:object_r:sysfs_usb_device:s0
