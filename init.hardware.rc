@@ -526,10 +526,10 @@ on property:sys.boot_completed=1
 
     # Setup final cpuset
     write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/foreground/cpus 0-3,6-7
-    write /dev/cpuset/background/cpus 0-1
-    write /dev/cpuset/system-background/cpus 0-3
-    write /dev/cpuset/restricted/cpus 0-3
+    write /dev/cpuset/foreground/cpus 2-7
+    write /dev/cpuset/background/cpus 4-5
+    write /dev/cpuset/system-background/cpus 2-5
+    write /dev/cpuset/restricted/cpus 2-5
 
     # Update DVR cpusets to runtime values.
     # Kernel cpuset will be apply on PowerHAL
