@@ -29,8 +29,10 @@ namespace implementation {
 
 class Vibrator : public IVibrator {
 public:
-    Vibrator(std::ofstream&& activate, std::ofstream&& duration, std::ofstream&& effect,
-            std::ofstream&& queue, std::ofstream&& scale);
+    Vibrator(std::ofstream&& activate, std::ofstream&& duration,
+            std::ofstream&& state, std::ofstream&& rtpinput,
+            std::ofstream&& mode, std::ofstream&& sequencer,
+            std::ofstream&& scale, std::ofstream&& ctrlloop, std::ofstream&& lptrigger);
 
     // Methods from ::android::hardware::vibrator::V1_0::IVibrator follow.
     using Status = ::android::hardware::vibrator::V1_0::Status;
@@ -47,16 +49,23 @@ public:
     Return<void> perform_1_2(Effect effect, EffectStrength strength, perform_cb _hidl_cb) override;
 
 private:
-    Return<Status> on(uint32_t timeoutMs, uint32_t effectIndex);
+    Return<Status> on(uint32_t timeoutMs, bool forceOpenLoop, bool isWaveform);
     Return<void> performEffect(Effect effect, EffectStrength strength, perform_cb _hidl_cb);
     std::ofstream mActivate;
     std::ofstream mDuration;
-    std::ofstream mEffectIndex;
-    std::ofstream mEffectQueue;
+    std::ofstream mState;
+    std::ofstream mRtpInput;
+    std::ofstream mMode;
+    std::ofstream mSequencer;
     std::ofstream mScale;
+    std::ofstream mCtrlLoop;
+    std::ofstream mLpTriggerEffect;
+    int32_t mClickDuration;
+    int32_t mTickDuration;
+    int32_t mHeavyClickDuration;
 };
 }  // namespace implementation
-}  // namespace V1_1
+}  // namespace V1_2
 }  // namespace vibrator
 }  // namespace hardware
 }  // namespace android
