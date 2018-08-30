@@ -24,6 +24,7 @@ on post-fs-data
     # WLAN logging collection
     mkdir /data/vendor/wifi 0777 system system
     mkdir /data/vendor/wifi/cnss_diag 0777 system system
+	mkdir /data/vendor/wifi/wlan_logs 0770 wifi wifi
 
 service diag_mdlog_start /vendor/bin/diag_mdlog
     class late_start

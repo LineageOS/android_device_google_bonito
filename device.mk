@@ -224,7 +224,7 @@ PRODUCT_COPY_FILES += \
 
 # Audio fluence, ns, aec property, voice and media volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=fluencepro \
+    ro.vendor.audio.sdk.fluencetype=fluencepro \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.speaker=true \
     persist.audio.fluence.voicecomm=true \
@@ -624,7 +624,9 @@ PRODUCT_PACKAGES += \
     citadel_updater \
     android.hardware.authsecret@1.0-service.citadel \
     android.hardware.oemlock@1.0-service.citadel \
-    android.hardware.weaver@1.0-service.citadel
+    android.hardware.weaver@1.0-service.citadel \
+    android.hardware.keymaster@4.0-service.citadel \
+    wait_for_strongbox
 
 # Citadel debug stuff
 PRODUCT_PACKAGES_DEBUG += \
