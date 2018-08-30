@@ -23,15 +23,6 @@ PRODUCT_PLATFORM := sdm670
 
 include device/google/bonito/device.mk
 
-# Audio fluence, ns, aec property, voice volume steps
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=fluencepro \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.speaker=true \
-    persist.audio.fluence.voicecomm=true \
-    persist.audio.fluence.voicerec=false \
-    ro.config.vc_call_vol_steps=7
-
 # Bug 77867216
 PRODUCT_PROPERTY_OVERRIDES += audio.adm.buffering.ms=3
 PRODUCT_PROPERTY_OVERRIDES += vendor.audio.adm.buffering.ms=3
