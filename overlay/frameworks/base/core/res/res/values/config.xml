@@ -192,9 +192,8 @@
 
 
     <!-- Vibrator pattern for feedback about a long screen/key press -->
-    <!-- TODO(b/78128429): increase duration to account for the long latency -->
     <integer-array name="config_longPressVibePattern">
-        <item>23</item>
+        <item>8</item>
     </integer-array>
 
     <!-- The URI to associate with each ringtone effect constant, intended to be used with the
