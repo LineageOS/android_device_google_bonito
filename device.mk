@@ -224,7 +224,7 @@ PRODUCT_COPY_FILES += \
 
 # Audio fluence, ns, aec property, voice and media volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=fluencepro \
+    ro.vendor.audio.sdk.fluencetype=fluencepro \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.speaker=true \
     persist.audio.fluence.voicecomm=true \
