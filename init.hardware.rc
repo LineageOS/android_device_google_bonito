@@ -65,6 +65,11 @@ on init
     start vendor.qseecomd
     start keymaster-4-0
 
+    # start Citadel keymaster (StrongBox) early
+    start vndservicemanager
+    start citadeld
+    start vendor.keymaster-4-0-citadel
+
     # Boot time fs tune
     write /sys/block/mmcblk0/queue/iostats 0
     write /sys/block/mmcblk0/queue/scheduler cfq
@@ -239,7 +244,7 @@ on late-fs
     wait_for_prop hwservicemanager.ready true
 
     # Wait for keymaster
-    exec_start wait_for_keymaster
+    exec_start wait_for_strongbox
 
     # Mount RW partitions which need run fsck
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --late
@@ -793,6 +798,12 @@ service ppd /vendor/bin/mm-pp-dpps
     group graphics
     socket pps stream 0660 system system
     disabled
+
+service wait_for_strongbox /vendor/bin/hw/wait_for_strongbox
+    user root
+    group root system
+    priority -20
+    ioprio rt 0
 
 on property:init.svc.vendor.hwcomposer-2-2=stopped
     stop ppd
