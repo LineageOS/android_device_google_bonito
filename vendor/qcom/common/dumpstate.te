@@ -15,5 +15,7 @@ allow dumpstate sysfs_devices_block:file r_file_perms;
 allow dumpstate sysfs_mmc:file r_file_perms;
 allow dumpstate debugfs_mmc:dir search;
 allow dumpstate debugfs_mmc:file r_file_perms;
+allow dumpstate vendor_firmware_file:dir getattr;
+allow dumpstate vendor_firmware_file:filesystem getattr;
 
 dontaudit dumpstate kernel:system module_request;
