@@ -67,7 +67,7 @@ on init
 
     # start Citadel keymaster (StrongBox) early
     start vndservicemanager
-    start citadeld
+    start vendor.citadeld
     start vendor.keymaster-4-0-citadel
 
     # Boot time fs tune
@@ -243,7 +243,7 @@ on late-fs
     # cause services for bootanim not running.
     wait_for_prop hwservicemanager.ready true
 
-    # Wait for keymaster
+    # Wait for keymaster HALs (TEE and StrongBox)
     exec_start wait_for_strongbox
 
     # Mount RW partitions which need run fsck
