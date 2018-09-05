@@ -42,6 +42,8 @@ static constexpr int8_t MIN_RTP_INPUT = 0;
 static constexpr char RTP_MODE[] = "rtp";
 static constexpr char WAVEFORM_MODE[] = "waveform";
 
+static constexpr uint32_t LOOP_MODE_OPEN = 1;
+
 // Use effect #1 in the waveform library for CLICK effect
 static constexpr char WAVEFORM_CLICK_EFFECT_SEQ[] = "1 0";
 static constexpr int32_t WAVEFORM_CLICK_EFFECT_MS = 6;
@@ -57,9 +59,6 @@ static constexpr uint32_t WAVEFORM_DOUBLE_CLICK_EFFECT_MS = 135;
 // Use effect #4 in the waveform library for HEAVY_CLICK effect
 static constexpr char WAVEFORM_HEAVY_CLICK_EFFECT_SEQ[] = "4 0";
 static constexpr uint32_t WAVEFORM_HEAVY_CLICK_EFFECT_MS = 8;
-
-// Timeout threshold for selecting open or closed loop mode
-static constexpr int8_t LOOP_MODE_THRESHOLD_MS = 20;
 
 using Status = ::android::hardware::vibrator::V1_0::Status;
 using EffectStrength = ::android::hardware::vibrator::V1_0::EffectStrength;
@@ -91,16 +90,9 @@ Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
     }
 }
 
-Return<Status> Vibrator::on(uint32_t timeoutMs, bool forceOpenLoop, bool isWaveform) {
-    uint32_t loopMode = 1;
-
-    // Open-loop mode is used for short click for over-drive
-    // Close-loop mode is used for long notification for stability
-    if (!forceOpenLoop && timeoutMs > LOOP_MODE_THRESHOLD_MS) {
-        loopMode = 0;
-    }
-
-    mCtrlLoop << loopMode << std::endl;
+Return<Status> Vibrator::on(uint32_t timeoutMs, bool isWaveform) {
+    // Bonito / Sargo only support open-loop mode
+    mCtrlLoop << LOOP_MODE_OPEN << std::endl;
     mDuration << timeoutMs << std::endl;
     if (!mDuration) {
         ALOGE("Failed to set duration (%d): %s", errno, strerror(errno));
@@ -124,7 +116,7 @@ Return<Status> Vibrator::on(uint32_t timeoutMs, bool forceOpenLoop, bool isWavef
 
 // Methods from ::android::hardware::vibrator::V1_2::IVibrator follow.
 Return<Status> Vibrator::on(uint32_t timeoutMs) {
-    return on(timeoutMs, false /* forceOpenLoop */, false /* isWaveform */);
+    return on(timeoutMs, false /* isWaveform */);
 }
 
 Return<Status> Vibrator::off()  {
@@ -214,7 +206,7 @@ Return<void> Vibrator::performEffect(Effect effect, EffectStrength strength, per
         return Void();
     }
     mScale << convertEffectStrength(strength) << std::endl;
-    on(timeMS, true /* forceOpenLoop */, true /* isWaveform */);
+    on(timeMS, true /* isWaveform */);
     _hidl_cb(status, timeMS);
     return Void();
 }
