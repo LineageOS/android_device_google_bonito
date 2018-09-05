@@ -32,8 +32,6 @@ allow google_camera_app qdsp_device:chr_file { r_file_perms };
 # Read adsp files
 
 allow google_camera_app adsprpcd_file:lnk_file r_file_perms;
-allow google_camera_app adsprpcd_file:dir search;
-allow google_camera_app adsprpcd_file:file r_file_perms;
 
 # Read and write system app data files passed over Binder.
 # Motivating case was /data/data/com.android.settings/cache/*.jpg for
