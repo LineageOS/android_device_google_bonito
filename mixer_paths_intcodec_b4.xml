@@ -1194,9 +1194,14 @@
         <ctl name="VoiceMMode1_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
     </path>
 
-    <path name="voicemmode1-call headphones">
+    <path name="voicemmode1-call headset-mic">
         <ctl name="INT0_MI2S_RX_Voice Mixer VoiceMMode1" value="1" />
         <ctl name="VoiceMMode1_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
+    </path>
+
+    <path name="voicemmode1-call headphones">
+        <ctl name="INT0_MI2S_RX_Voice Mixer VoiceMMode1" value="1" />
+        <ctl name="VoiceMMode1_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
     </path>
 
     <path name="voicemmode1-call bt-sco">
@@ -1399,6 +1404,14 @@
         <ctl name="DEC1 MUX" value="DMIC4" />
     </path>
 
+    <path name="dmic-endfire">
+        <ctl name="ADC1 Capture Volume" value="45"/>
+        <ctl name="ADC2 Capture Volume" value="45"/>
+        <ctl name="PRI_TDM_TX_0 Channels" value="Two"/>
+        <ctl name="Sto1 ADC MIXL DMIC Switch" value="1" />
+        <ctl name="Sto2 ADC MIXL DMIC Switch" value="1" />
+    </path>
+
     <path name="speaker">
         <ctl name="INT4_MI2S_RX Channels" value="Two" />
         <ctl name="RX4 MIX1 INP1" value="RX4" />
@@ -1474,7 +1487,7 @@
     </path>
 
     <path name="speaker-mic">
-        <path name="dmic2" />
+        <path name="dmic-endfire" />
     </path>
 
     <path name="speaker-mic-liquid">
@@ -1535,14 +1548,6 @@
         <ctl name="Sto1 ADC MIXL DMIC Switch" value="1" />
         <ctl name="Sto2 ADC MIXL DMIC Switch" value="1" />
         <ctl name="Sto2 ADC MIXR DMIC Switch" value="0" />
-    </path>
-
-    <path name="dmic-endfire">
-        <ctl name="ADC1 Capture Volume" value="45"/>
-        <ctl name="ADC2 Capture Volume" value="45"/>
-        <ctl name="PRI_TDM_TX_0 Channels" value="Two"/>
-        <ctl name="Sto1 ADC MIXL DMIC Switch" value="1" />
-        <ctl name="Sto2 ADC MIXL DMIC Switch" value="1" />
     </path>
 
     <path name="handset-mic">
