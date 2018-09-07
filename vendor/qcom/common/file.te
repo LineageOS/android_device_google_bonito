@@ -101,6 +101,7 @@ type audio_vendor_data_file, file_type, data_file_type;
 type modem_fdr_file, file_type, data_file_type;
 type mediadrm_vendor_data_file, file_type, data_file_type;
 type data_qsee_file, file_type, data_file_type;
+type tcpdump_vendor_data_file, file_type, data_file_type;
 
 type vendor_firmware_file, vendor_file_type, file_type;
 type bt_firmware_file, fs_type, contextmount_type;
