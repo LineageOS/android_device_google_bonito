@@ -1194,14 +1194,9 @@
         <ctl name="VoiceMMode1_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
     </path>
 
-    <path name="voicemmode1-call headset-mic">
-        <ctl name="INT0_MI2S_RX_Voice Mixer VoiceMMode1" value="1" />
-        <ctl name="VoiceMMode1_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
-    </path>
-
     <path name="voicemmode1-call headphones">
         <ctl name="INT0_MI2S_RX_Voice Mixer VoiceMMode1" value="1" />
-        <ctl name="VoiceMMode1_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
+        <ctl name="VoiceMMode1_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
     </path>
 
     <path name="voicemmode1-call bt-sco">
@@ -1535,7 +1530,7 @@
         <ctl name="R AMP Enable Switch" value="0"/>
         <ctl name="AMP Enable Switch" value="1"/>
         <ctl name="R AMP PCM Gain" value="17"/>
-        <ctl name="AMP PCM Gain" value="10"/>
+        <ctl name="AMP PCM Gain" value="0"/>
     </path>
 
     <path name="speaker-dmic-endfire">
@@ -1628,7 +1623,15 @@
         <path name="handset" />
     </path>
 
+    <path name="voice-handset-att">
+        <path name="handset" />
+    </path>
+
     <path name="voice-speaker">
+        <path name="speaker-mono" />
+    </path>
+
+    <path name="voice-speaker-att">
         <path name="speaker-mono" />
     </path>
 
@@ -1642,6 +1645,16 @@
 
     <path name="voice-headphones">
         <path name="headphones" />
+        <ctl name="RX1 Digital Volume" value="80" />
+        <ctl name="RX2 Digital Volume" value="80" />
+    </path>
+
+    <path name="voice-headphones-tmus">
+        <path name="headphones" />
+    </path>
+
+    <path name="voice-headphones-att">
+        <path name="headphones" />
     </path>
 
     <path name="voice-line">
@@ -1649,6 +1662,14 @@
     </path>
 
     <path name="voice-headset-mic">
+        <path name="headset-mic" />
+    </path>
+
+    <path name="voice-headset-mic-tmus">
+        <path name="headset-mic" />
+    </path>
+
+    <path name="voice-headset-mic-att">
         <path name="headset-mic" />
     </path>
 
@@ -1790,11 +1811,19 @@
         <path name="dmic-endfire" />
     </path>
 
+    <path name="voice-dmic-ef-att">
+        <path name="dmic-endfire" />
+    </path>
+
     <path name="voice-dmic-ef">
         <path name="dmic-endfire" />
     </path>
 
     <path name="voice-speaker-dmic-ef">
+        <path name="speaker-dmic-endfire" />
+    </path>
+
+    <path name="voice-speaker-dmic-ef-att">
         <path name="speaker-dmic-endfire" />
     </path>
 
