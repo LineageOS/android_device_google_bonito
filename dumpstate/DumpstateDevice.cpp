@@ -41,6 +41,9 @@
 
 #define EMMC_BOOTDEVICE "ro.boot.bootdevice"
 
+#define TCPDUMP_NUMBER_BUGREPORT "persist.vendor.tcpdump.log.br_num"
+#define TCPDUMP_PERSIST_PROPERTY "persist.vendor.tcpdump.log.alwayson"
+
 using android::os::dumpstate::CommandOptions;
 using android::os::dumpstate::DumpFileToFd;
 using android::os::dumpstate::PropertiesHelper;
@@ -53,8 +56,10 @@ namespace V1_0 {
 namespace implementation {
 
 #define DIAG_LOG_PREFIX "diag_log_"
+#define TCPDUMP_LOG_PREFIX "tcpdump"
 
-void DumpstateDevice::dumpDiagLogs(int fd, std::string srcDir, std::string destDir) {
+void DumpstateDevice::dumpLogs(int fd, std::string srcDir, std::string destDir,
+                               int maxFileNum, const char *logPrefix) {
     struct dirent **dirent_list = NULL;
     int num_entries = scandir(srcDir.c_str(),
                               &dirent_list,
@@ -66,13 +71,12 @@ void DumpstateDevice::dumpDiagLogs(int fd, std::string srcDir, std::string destD
         return;
     }
 
-    int maxFileNum = android::base::GetIntProperty(DIAG_MDLOG_NUMBER_BUGREPORT, 100);
     int copiedFiles = 0;
 
     for (int i = num_entries - 1; i >= 0; i--) {
         ALOGD("Found %s\n", dirent_list[i]->d_name);
 
-        if (0 != strncmp(dirent_list[i]->d_name, DIAG_LOG_PREFIX, strlen(DIAG_LOG_PREFIX))) {
+        if (0 != strncmp(dirent_list[i]->d_name, logPrefix, strlen(logPrefix))) {
             continue;
         }
 
@@ -119,6 +123,7 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
 
         std::string modemLogAllDir = modemLogDir + "/modem_log";
         std::string diagLogDir = "/data/vendor/radio/diag_logs/logs";
+        std::string tcpdumpLogDir = "/data/vendor/tcpdump_logger/logs";
         std::vector<std::string> rilAndNetmgrLogs
             {
               "/data/vendor/radio/ril_log",
@@ -140,6 +145,7 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
             !access("/vendor/bin/smlog_dump", X_OK);
 
         bool diagLogEnabled = android::base::GetBoolProperty(DIAG_MDLOG_PERSIST_PROPERTY, false);
+        bool tcpdumpEnabled = android::base::GetBoolProperty(TCPDUMP_PERSIST_PROPERTY, false);
 
         if (smlogEnabled) {
             RunCommandToFd(fd, "SMLOG DUMP", { "smlog_dump", "-d", "-o", modemLogAllDir.c_str() }, options);
@@ -163,12 +169,16 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
                 sleep(1);
             }
 
-            dumpDiagLogs(fd, diagLogDir, modemLogAllDir);
+            dumpLogs(fd, diagLogDir, modemLogAllDir, android::base::GetIntProperty(DIAG_MDLOG_NUMBER_BUGREPORT, 100), DIAG_LOG_PREFIX);
 
             if (diagLogStarted) {
                 ALOGD("Restarting diag_mdlog...\n");
                 android::base::SetProperty(DIAG_MDLOG_PROPERTY, "true");
             }
+        }
+
+        if (tcpdumpEnabled) {
+            dumpLogs(fd, tcpdumpLogDir, modemLogAllDir, android::base::GetIntProperty(TCPDUMP_NUMBER_BUGREPORT, 5), TCPDUMP_LOG_PREFIX);
         }
 
         for (const auto& logFile : rilAndNetmgrLogs)
