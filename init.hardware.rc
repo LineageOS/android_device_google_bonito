@@ -50,6 +50,7 @@ on early-init
     chmod 0755 /sys/kernel/debug
     # Enable sched_boost
     write /proc/sys/kernel/sched_boost 1
+    mount_all /vendor/etc/fstab.persist --early
 
 # We need vold early for metadata encryption
 on early-fs
