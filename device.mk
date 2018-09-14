@@ -274,10 +274,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.googfd.enable=1
 
-# camera disable HVX
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.hdr_hvx=0
-
 # Enable logical camera as default (camera id 1)
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.logical.default=1
