@@ -272,10 +272,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.googfd.enable=1
 
-# camera disable HVX
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.hdr_hvx=0
-
 # Enable logical camera as default (camera id 1)
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.logical.default=1
@@ -409,11 +405,11 @@ PRODUCT_PACKAGES += \
     libc2dcolorconvert
 
 # Enable Codec 2.0
-#PRODUCT_PACKAGES += \
-#    libmedia_codecserviceregistrant \
-#    libqcodec2 \
-#    libstagefright_ccodec \
-#    vendor.qti.media.c2@1.0-service \
+PRODUCT_PACKAGES += \
+    libmedia_codecserviceregistrant \
+    libqcodec2 \
+    libstagefright_ccodec \
+    vendor.qti.media.c2@1.0-service \
 
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
@@ -545,6 +541,17 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/hearing_aid_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/hearing_aid_audio_policy_configuration.xml \
+
+# Audio XMLs
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/mixer_paths_intcodec_b4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_b4.xml \
+    $(LOCAL_PATH)/mixer_paths_intcodec_b4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_b4dev.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_b4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_b4.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_b4dev.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_b4dev.xml \
+    $(LOCAL_PATH)/mixer_paths_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_s4.xml \
+    $(LOCAL_PATH)/mixer_paths_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_s4dev.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_s4dev.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4dev.xml
 
 # audio hal tables
 PRODUCT_COPY_FILES += \
@@ -785,3 +792,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.early_gl_phase_offset_ns=3000000
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.early_gl_app_phase_offset_ns=15000000
+
+# Do not skip init trigger by default
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    vendor.skip.init=0
