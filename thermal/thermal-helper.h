@@ -55,7 +55,14 @@ using ::android::hardware::thermal::V1_0::Temperature;
 using ::android::hardware::thermal::V1_0::TemperatureType;
 
 constexpr char kSkinSensorType[] = "mb-therm-adc";
-constexpr float kMultiplier = .001;
+
+struct SensorInfo {
+    TemperatureType type;
+    bool is_override;
+    float throttling;
+    float shutdown;
+    float multiplier;
+};
 
 struct ThrottlingThresholds {
     ThrottlingThresholds() : cpu(NAN), gpu(NAN), ss(NAN), battery(NAN) {}
@@ -111,6 +118,9 @@ class ThermalHelper {
     // cooling_device_path_to_throttling_level_map_ and return the maximum level
     // of throttling.
     int getMaxThrottlingLevelFromMap() const;
+
+    // Update setting not in thermal config
+    void updateOverideThresholds();
 
     Sensors thermal_sensors_;
     CoolingDevices cooling_devices_;
