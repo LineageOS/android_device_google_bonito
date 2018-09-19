@@ -46,7 +46,7 @@ type debugfs_ufs, debugfs_type, fs_type;
 type debugfs_dma_bufinfo, debugfs_type, fs_type;
 type debugfs_tzdbg, debugfs_type, fs_type;
 type debugfs_fg_sram, debugfs_type, fs_type;
-type debugfs_pmic_votable, debugfs_type, fs_type;
+type debugfs_pmic, debugfs_type, fs_type;
 type debugfs_maxfg, debugfs_type, fs_type;
 type debugfs_sched_features, debugfs_type, fs_type;
 
