@@ -242,4 +242,7 @@ endif
 # Testing related defines
 BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b1c1-setup.sh
 
+# Single vendor RIL with SDM845
+BOARD_USES_SDM845_QCRIL := true
+
 -include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk
