@@ -169,7 +169,6 @@
     <ctl name="PRI TDM TX Channel Offset" id="0" value="0" />
     <ctl name="PRI TDM TX Channel Offset" id="1" value="8" />
     <ctl name="PRI TDM TX Channel Offset" id="2" value="12" />
-    <ctl name="Voice Sidetone Enable" value="0" />
     <!-- ALC5513 config end-->
 
     <!-- 24-bit ASM config -->
@@ -1341,14 +1340,6 @@
         <ctl name="MultiMedia10 Mixer INT3_MI2S_TX" value="1" />
     </path>
 
-    <path name="audio-record-voip handset-mic">
-        <ctl name="MultiMedia10 Mixer PRI_TDM_TX_0" value="1" />
-    </path>
-
-    <path name="audio-record-voip speaker-mic">
-        <ctl name="MultiMedia10 Mixer PRI_TDM_TX_0" value="1" />
-    </path>
-
     <path name="audio-record-voip usb-headset-mic">
         <ctl name="MultiMedia10 Mixer USB_AUDIO_TX" value="1" />
     </path>
@@ -1482,7 +1473,6 @@
         <ctl name="RX1 MIX2 INP1" value="IIR1" />
         <ctl name="RX2 MIX2 INP1" value="IIR1" />
         <ctl name="IIR1 INP1 Volume" value="53" />
-        <ctl name="Voice Sidetone Enable" value="1" />
     </path>
 
     <path name="sidetone-handset">
@@ -1556,11 +1546,10 @@
     </path>
 
     <path name="handset-mic">
-        <path name="dmic-endfire" />
-    </path>
-
-    <path name="audio-record handset">
-        <ctl name="MultiMedia1 Mixer PRI_TDM_TX_0" value="1" />
+        <ctl name="ADC1 Capture Volume" value="45"/>
+        <ctl name="PRI_TDM_TX_0 Channels" value="One"/>
+        <ctl name="Sto1 ADC MIXL DMIC Switch" value="1" />
+        <ctl name="Stereo1 DMIC Mux" value="DMIC1" />
     </path>
 
     <path name="voice-speaker-mic">
@@ -1588,13 +1577,13 @@
     </path>
 
     <path name="headphones">
-        <ctl name="COMP0 RX1" value="1" />
-        <ctl name="COMP0 RX2" value="1" />
         <ctl name="INT0_MI2S_RX Channels" value="Two" />
         <ctl name="RX1 MIX1 INP1" value="RX1" />
         <ctl name="RX2 MIX1 INP1" value="RX2" />
         <ctl name="RDAC2 MUX" value="RX2" />
         <ctl name="RX HPH Mode" value="HD2" />
+        <ctl name="COMP0 RX1" value="1" />
+        <ctl name="COMP0 RX2" value="1" />
         <ctl name="HPHL" value="Switch" />
         <ctl name="HPHR" value="Switch" />
         <ctl name="RX1 Digital Volume" value="74" />
@@ -1662,14 +1651,10 @@
 
     <path name="voice-headphones-tmus">
         <path name="headphones" />
-        <ctl name="RX1 Digital Volume" value="80" />
-        <ctl name="RX2 Digital Volume" value="80" />
     </path>
 
     <path name="voice-headphones-att">
         <path name="headphones" />
-        <ctl name="RX1 Digital Volume" value="80" />
-        <ctl name="RX2 Digital Volume" value="80" />
     </path>
 
     <path name="voice-line">
@@ -1771,13 +1756,7 @@
     </path>
 
     <path name="camcorder-mic">
-        <ctl name="ADC1 Capture Volume" value="40"/>
-        <ctl name="ADC2 Capture Volume" value="40"/>
-        <ctl name="PRI_TDM_TX_0 Channels" value="Two"/>
-        <ctl name="Sto1 ADC MIXL DMIC Switch" value="1" />
-        <ctl name="Sto2 ADC MIXL DMIC Switch" value="1" />
-        <ctl name="Stereo1 DMIC Mux" value="DMIC1" />
-        <ctl name="Stereo2 DMIC Mux" value="DMIC2" />
+        <path name="three-mic" />
     </path>
 
     <path name="hdmi-tx">
