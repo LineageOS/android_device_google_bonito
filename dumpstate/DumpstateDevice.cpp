@@ -309,6 +309,10 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "Battery cycle count", "/sys/class/power_supply/bms/device/cycle_counts_bins");
     DumpFileToFd(fd, "Maxim FG registers", "/d/regmap/4-0036/registers");
     DumpFileToFd(fd, "Maxim FG NV RAM", "/d/regmap/4-000b/registers");
+    DumpFileToFd(fd, "PM670 PON registers",
+                 "/d/c440000.qcom,spmi:qcom,pm660@0:qcom,power-on@800/pmic_pon_dump");
+    DumpFileToFd(fd, "PM670A PON registers",
+                 "/d/c440000.qcom,spmi:qcom,pm660l@2:qcom,power-on@800/pmic_pon_dump");
     RunCommandToFd(fd, "QCOM FG SRAM", {"/vendor/bin/sh", "-c", "echo 0 > /d/fg/sram/address ; echo 500 > /d/fg/sram/count ; cat /d/fg/sram/data"});
 
     RunCommandToFd(fd, "eSIM Status", {"/vendor/bin/sh", "-c", "od -t x1 /sys/firmware/devicetree/base/chosen/cdt/cdb2/esim"});
