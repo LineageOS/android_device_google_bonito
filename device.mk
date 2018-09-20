@@ -17,6 +17,7 @@
 TARGET_CHIPSET := sdm710
 
 PRODUCT_SOONG_NAMESPACES += \
+    device/google/bonito \
     hardware/google/av \
     hardware/google/interfaces \
     hardware/qcom/sdm710 \
@@ -636,7 +637,7 @@ PRODUCT_PACKAGES += \
     android.hardware.oemlock@1.0-service.citadel \
     android.hardware.weaver@1.0-service.citadel \
     android.hardware.keymaster@4.0-service.citadel \
-    wait_for_strongbox
+    wait_for_strongbox_bonito
 
 # Citadel debug stuff
 PRODUCT_PACKAGES_DEBUG += \
