@@ -84,7 +84,7 @@ extern "C" {
             "dtbo", "hyp", "keymaster", "qupfw", "storsec", \
             "tz", "vbmeta", "xbl_config"
 
-#define AB_PTN_LIST PTN_SWAP_LIST, "boot", "system", "vendor", "modem", "product"
+#define AB_PTN_LIST PTN_SWAP_LIST, "boot", "system", "vendor", "modem"
 #define BOOT_DEV_DIR    "/dev/block/bootdevice/by-name"
 
 /******************************************************************************
