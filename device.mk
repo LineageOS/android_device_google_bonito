@@ -810,3 +810,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Do not skip init trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.init=0
+
+# default atrace HAL
+PRODUCT_PACKAGES += \
+    android.hardware.atrace@1.0-service
