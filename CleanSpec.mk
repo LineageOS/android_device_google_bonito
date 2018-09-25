@@ -122,3 +122,9 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/include)
 # Secure_element HAL for eSE1
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.secure_element@1.0-service.rc)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.secure_element@1.0-service)
+
+# Remove /product mount point
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
+
