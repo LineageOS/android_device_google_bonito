@@ -152,8 +152,7 @@ AB_OTA_PARTITIONS += \
     boot \
     system \
     vbmeta \
-    dtbo \
-    product
+    dtbo
 
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
@@ -232,6 +231,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.speaker=true \
     persist.audio.fluence.voicecomm=true \
     persist.audio.fluence.voicerec=false \
+    persist.audio.dualmic.config=endfire \
     ro.config.vc_call_vol_steps=7 \
     ro.config.media_vol_steps=25 \
 
