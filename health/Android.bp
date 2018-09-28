@@ -22,6 +22,7 @@ cc_binary {
         "HealthService.cpp",
         "BatteryRechargingControl.cpp",
         "CycleCountBackupRestore.cpp",
+	"DeviceHealth.cpp",
     ],
 
     cflags: [

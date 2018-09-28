@@ -31,6 +31,7 @@
 
 #include "BatteryRechargingControl.h"
 #include "CycleCountBackupRestore.h"
+#include "DeviceHealth.h"
 
 namespace {
 
@@ -39,11 +40,13 @@ using android::hardware::health::V2_0::StorageAttribute;
 using android::hardware::health::V2_0::StorageInfo;
 using ::device::google::bonito::health::BatteryRechargingControl;
 using ::device::google::bonito::health::CycleCountBackupRestore;
+using ::device::google::bonito::health::DeviceHealth;
 
 static BatteryRechargingControl battRechargingControl;
 static CycleCountBackupRestore ccBackupRestoreBMS(
     8, "/sys/class/power_supply/bms/device/cycle_counts_bins",
     "/persist/battery/qcom_cycle_counts_bins");
+static DeviceHealth deviceHealth;
 
 #define EMMC_DIR "/sys/devices/platform/soc/7c4000.sdhci"
 const std::string kEmmcHealthEol{EMMC_DIR "/health/eol"};
@@ -91,6 +94,7 @@ void healthd_board_init(struct healthd_config*) {
 int healthd_board_battery_update(struct android::BatteryProperties *props) {
     battRechargingControl.updateBatteryProperties(props);
     ccBackupRestoreBMS.Backup(props->batteryLevel);
+    deviceHealth.update(props);
     return 0;
 }
 
