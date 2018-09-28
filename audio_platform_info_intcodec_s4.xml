@@ -104,18 +104,25 @@
         <param key="input_mic_max_count" value="3"/>
         <param key="snd_card_name" value="sdm670-intcodec-s4-snd-card"/>
         <param key="operator_info" value="tmus;310260"/>
-        <param key="operator_info" value="att;310410"/>
+        <param key="operator_info" value="tmus;310490"/>
+        <param key="operator_info" value="tmus;310026"/>
+        <param key="operator_info" value="tmus;310800"/>
+        <param key="operator_info" value="tmus;310660"/>
+        <param key="operator_info" value="tmus;310580"/>
+        <param key="operator_info" value="tmus;310310"/>
+        <param key="operator_info" value="tmus;310270"/>
+        <param key="operator_info" value="tmus;310250"/>
+        <param key="operator_info" value="tmus;310240"/>
+        <param key="operator_info" value="tmus;310230"/>
+        <param key="operator_info" value="tmus;310220"/>
+        <param key="operator_info" value="tmus;310210"/>
+        <param key="operator_info" value="tmus;310200"/>
+        <param key="operator_info" value="tmus;310160"/>
     </config_params>
 
     <operator_specific>
-        <device name="SND_DEVICE_IN_VOICE_DMIC" operator="att" mixer_path="voice-dmic-ef-att" acdb_id="79"/>
-        <device name="SND_DEVICE_OUT_VOICE_HANDSET" operator="att" mixer_path="voice-handset-att" acdb_id="80"/>
         <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" operator="tmus" mixer_path="voice-headset-mic-tmus" acdb_id="55"/>
-        <device name="SND_DEVICE_OUT_VOICE_HEADSET" operator="tmus" mixer_path="voice-headphones-tmus" acdb_id="66"/>
-        <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" operator="att" mixer_path="voice-headset-mic-att" acdb_id="94"/>
-        <device name="SND_DEVICE_OUT_VOICE_HEADSET" operator="att" mixer_path="voice-headphones-att" acdb_id="53"/>
-        <device name="SND_DEVICE_IN_VOICE_SPEAKER_DMIC" operator="att" mixer_path="voice-speaker-dmic-ef-att" acdb_id="81"/>
-        <device name="SND_DEVICE_OUT_VOICE_SPEAKER_PROTECTED" operator="att" mixer_path="voice-speaker-att" acdb_id="82"/>
+        <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" operator="tmus" mixer_path="voice-headphones-tmus" acdb_id="66"/>
     </operator_specific>
 
     <gain_db_to_level_mapping>
