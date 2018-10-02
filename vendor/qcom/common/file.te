@@ -15,6 +15,7 @@ type sysfs_rmtfs, sysfs_type, fs_type;
 type sysfs_soc, sysfs_type, fs_type;
 type sysfs_scsi_devices_0000, sysfs_type, fs_type;
 type sysfs_scsi_devices_other, sysfs_type, fs_type;
+type sysfs_mmc, sysfs_type, fs_type;
 type sysfs_devices_block, sysfs_type, fs_type;
 type sysfs_system_sleep_stats, sysfs_type, fs_type;
 type sysfs_timestamp_switch, sysfs_type, fs_type;
@@ -45,7 +46,7 @@ type debugfs_ufs, debugfs_type, fs_type;
 type debugfs_dma_bufinfo, debugfs_type, fs_type;
 type debugfs_tzdbg, debugfs_type, fs_type;
 type debugfs_fg_sram, debugfs_type, fs_type;
-type debugfs_pmic_votable, debugfs_type, fs_type;
+type debugfs_pmic, debugfs_type, fs_type;
 type debugfs_maxfg, debugfs_type, fs_type;
 type debugfs_sched_features, debugfs_type, fs_type;
 

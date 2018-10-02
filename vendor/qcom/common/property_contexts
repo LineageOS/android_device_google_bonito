@@ -65,8 +65,8 @@ persist.data.df.dl_mode    u:object_r:vendor_default_prop:s0
 persist.data.df.iwlan_mux  u:object_r:vendor_default_prop:s0
 persist.data.df.mux_count  u:object_r:vendor_default_prop:s0
 persist.data.df.ul_mode    u:object_r:vendor_default_prop:s0
-persist.data.dont_use_epc  u:object_r:vendor_default_prop:s0
-persist.data.dont_use_npflag  u:object_r:vendor_default_prop:s0
+persist.vendor.data.dont_use_epc  u:object_r:vendor_default_prop:s0
+persist.vendor.data.dont_use_npflag  u:object_r:vendor_default_prop:s0
 persist.data.dpm.enable    u:object_r:vendor_default_prop:s0
 persist.data.dropssdp      u:object_r:vendor_default_prop:s0
 persist.data.ibfc.enable   u:object_r:vendor_default_prop:s0
@@ -79,7 +79,7 @@ persist.data.netmgrd.qos.hybrid  u:object_r:vendor_default_prop:s0
 persist.data.netmgr.log_to_file  u:object_r:vendor_default_prop:s0
 persist.data.netmgr.wl.timeout  u:object_r:vendor_default_prop:s0
 persist.vendor.data.port_bridge.log  u:object_r:vendor_default_prop:s0
-persist.data.profile_update  u:object_r:vendor_default_prop:s0
+persist.vendor.data.profile_update  u:object_r:vendor_default_prop:s0
 persist.data.target.msm8998  u:object_r:vendor_default_prop:s0
 persist.data.tcpackprio.enable  u:object_r:vendor_default_prop:s0
 persist.data.wda.enable    u:object_r:vendor_default_prop:s0
@@ -98,7 +98,7 @@ ro.camera.wrapper.hal3TrebleMinorVersion  u:object_r:vendor_default_prop:s0
 ro.fota.oem                u:object_r:vendor_default_prop:s0
 ro.lean                    u:object_r:vendor_default_prop:s0
 ro.qcom.ad                 u:object_r:vendor_default_prop:s0
-ro.qc.sdk.audio.fluencetype  u:object_r:vendor_default_prop:s0
+ro.vendor.audio.sdk.fluencetype  u:object_r:vendor_default_prop:s0
 ro.qualcomm.cabl           u:object_r:vendor_default_prop:s0
 ro.qualcomm.foss           u:object_r:vendor_default_prop:s0
 ro.qualcomm.svi            u:object_r:vendor_default_prop:s0
@@ -184,6 +184,7 @@ vendor.gralloc.map_fb_memory       u:object_r:vendor_display_prop:s0
 vendor.gralloc.disable_ubwc        u:object_r:vendor_display_prop:s0
 vendor.debug.prerotation.disable   u:object_r:vendor_display_prop:s0
 vendor.debug.egl.changepixelformat u:object_r:vendor_display_prop:s0
+vendor.debug.egl.swapinterval      u:object_r:vendor_display_prop:s0
 
 # persist_nfc_prop
 persist.nfc. u:object_r:persist_nfc_prop:s0
