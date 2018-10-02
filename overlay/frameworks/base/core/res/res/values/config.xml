@@ -61,11 +61,9 @@
     <bool name="config_nightDisplayAvailable">true</bool>
 
     <!-- List supported color modes. -->
-    <!-- TODO(b/73825738): remove BOOSTED and SATURATED -->
     <integer-array name="config_availableColorModes">
         <item>0</item> <!-- COLOR_MODE_NATURAL -->
         <item>1</item> <!-- COLOR_MODE_BOOSTED -->
-        <item>2</item> <!-- COLOR_MODE_SATURATED -->
         <item>3</item> <!-- COLOR_MODE_AUTOMATIC -->
     </integer-array>
 
@@ -180,6 +178,10 @@
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
 
+    <!-- Boolean indicating whether the wifi chipset requires the softap band be -->
+    <!-- converted from 5GHz to ANY due to hardware restrictions -->
+    <bool translatable="false" name="config_wifi_convert_apband_5ghz_to_any">true</bool>
+
     <!-- Boolean indicating whether 802.11r Fast BSS Transition is enabled on this platform -->
     <bool translatable="false" name="config_wifi_fast_bss_transition_enabled">true</bool>
 
@@ -188,30 +190,9 @@
 
 
     <!-- Vibrator pattern for feedback about a long screen/key press -->
-    <!-- TODO(b/78128429): increase duration to account for the long latency -->
     <integer-array name="config_longPressVibePattern">
-        <item>23</item>
+        <item>8</item>
     </integer-array>
-
-    <!-- The URI to associate with each ringtone effect constant, intended to be used with the
-         android.os.VibrationEffect#get(Uri, Context) API.
-         The position of the string in the string-array determines which ringtone effect is chosen.
-         For example, if the URI passed into get match the third string in the string-array, then
-         RINGTONE_3 will be the returned effect -->
-    <string-array translatable="false" formatted="false" name="config_ringtoneEffectUris">
-        <item>content://media/internal/audio/media/13?canonical=1&amp;title=The%20Big%20Adventure</item>
-        <item>content://media/internal/audio/media/17?canonical=1&amp;title=Copycat</item>
-        <item>content://media/internal/audio/media/7?canonical=1&amp;title=Crackle</item>
-        <item>content://media/internal/audio/media/8?canonical=1&amp;title=Flutterby</item>
-        <item>content://media/internal/audio/media/9?canonical=1&amp;title=Hotline</item>
-        <item>content://media/internal/audio/media/5?canonical=1&amp;title=Leaps%20%26%20Bounds</item>
-        <item>content://media/internal/audio/media/15?canonical=1&amp;title=Lollipop</item>
-        <item>content://media/internal/audio/media/10?canonical=1&amp;title=Lost%20%26%20Found</item>
-        <item>content://media/internal/audio/media/11?canonical=1&amp;title=Mash-up</item>
-        <item>content://media/internal/audio/media/16?canonical=1&amp;title=Monkey%20Around</item>
-        <item>content://media/internal/audio/media/6?canonical=1&amp;title=School\'s%20Out</item>
-        <item>content://media/internal/audio/media/12?canonical=1&amp;title=Zen%20Too</item>
-    </string-array>
 
     <!-- Make things go fast -->
     <bool name="config_ui_enableFadingMarquee">false</bool>

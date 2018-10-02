@@ -45,8 +45,8 @@ on property:sys.boot_completed=1
     write /sys/class/devfreq/soc:qcom,l3-cpu6/polling_interval 10
     write /sys/class/devfreq/soc:qcom,l3-cpu6/mem_latency/ratio_ceil 400
 
-    # Limit the min frequency to 720MHz
-    write /sys/devices/system/cpu/cpu6/cpufreq/scaling_min_freq 720000
+    # Limit the min frequency to 825MHz
+    write /sys/devices/system/cpu/cpu6/cpufreq/scaling_min_freq 825600
 
     # Turn on sleep modes.
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
