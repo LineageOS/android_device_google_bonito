@@ -5,13 +5,15 @@
     ;;
   qcom)
     TO_EXTRACT="\
-            system/etc/firmware/dnd.descriptor \
-            system/etc/firmware/dnd.sound_model \
-            system/etc/firmware/music_detector.descriptor \
-            system/etc/firmware/music_detector.sound_model \
-            system/etc/init/init-persist.rc \
+            system/compatibility_matrix.xml \
+            system/etc/cne/andsfCne.xml \
+            system/etc/cne/Nexus/ATT/ATT_profiles.xml \
+            system/etc/cne/Nexus/ROW/ROW_profiles.xml \
+            system/etc/cne/Nexus/VZW/VZW_profiles.xml \
+            system/etc/ld.config.28.txt \
+            system/etc/llndk.libraries.28.txt \
             system/etc/permissions/cneapiclient.xml \
-            system/etc/permissions/com.qualcomm.qti.imscmservice.xml \
+            system/etc/permissions/com.google.android.factoryota.xml \
             system/etc/permissions/com.quicinc.cne.xml \
             system/etc/permissions/embms.xml \
             system/etc/permissions/lpa.xml \
@@ -23,9 +25,15 @@
             system/etc/permissions/telephonyservice.xml \
             system/etc/permissions/uimremoteclient.xml \
             system/etc/permissions/uimremoteserver.xml \
+            system/etc/permissions/UimService.xml \
+            system/framework/com.android.future.usb.accessory.jar \
+            system/framework/com.android.location.provider.jar \
+            system/framework/com.android.mediadrm.signer.jar \
             system/framework/com.qualcomm.qti.uceservice-V2.0-java.jar \
-            system/framework/embmslibrary.jar \
+            system/framework/javax.obex.jar \
             system/framework/LteDirectDiscoveryLibrary.jar \
+            system/framework/org.apache.http.legacy.boot.jar \
+            system/framework/org.apache.http.legacy.boot.jar.prof \
             system/framework/qcrilhook.jar \
             system/framework/QtiTelephonyServicelibrary.jar \
             system/framework/radioconfiginterfacelibrary.jar \
@@ -35,8 +43,15 @@
             system/framework/uimremoteserverlibrary.jar \
             system/framework/uimremotesimlocklibrary.jar \
             system/framework/vendor.qti.hardware.alarm-V1.0-java.jar \
-            system/framework/vendor.qti.hardware.data.latency-V1.0-java.jar \
+            system/framework/vendor.qti.hardware.fingerprint-V1.0-java.jar \
+            system/framework/vendor.qti.hardware.soter-V1.0-java.jar \
+            system/lib64/libadsprpc_system.so \
+            system/lib64/libcdsprpc_system.so \
             system/lib64/libDiagService.so \
+            system/lib64/libdiag_system.so \
+            system/lib64/libdisplayconfig.so \
+            system/lib64/libGPQTEEC_system.so \
+            system/lib64/libGPTEE_system.so \
             system/lib64/libimscamera_jni.so \
             system/lib64/libimsmedia_jni.so \
             system/lib64/lib-imsvideocodec.so \
@@ -45,16 +60,25 @@
             system/lib64/lib-imsvtutils.so \
             system/lib64/liblistenjni.so \
             system/lib64/liblistensoundmodel2.so \
-            system/lib64/libqcbor.so \
+            system/lib64/liblogcat.so \
+            system/lib64/libmdsprpc_system.so \
+            system/lib64/libminui.so \
+            system/lib64/libqsap_sdk.so \
+            system/lib64/libQTEEConnector_system.so \
             system/lib64/librcc.so \
             system/lib64/libsdm-disp-apis.so \
-            system/lib64/libseccam.so \
-            system/lib64/libsecureuisvc_jni.so \
-            system/lib64/libSeemplog.so \
+            system/lib64/libsdsprpc_system.so \
+            system/lib64/libsecureui_svcsock_system.so \
             system/lib64/libsensorslog.so \
-            system/lib64/libsmcinvokecred.so \
+            system/lib64/libsepol.so \
             system/lib64/libsns_low_lat_stream_stub.so \
-            system/lib64/libtzcom.so \
+            system/lib64/libunwind.so \
+            system/lib/libadsprpc_system.so \
+            system/lib/libcdsprpc_system.so \
+            system/lib/libdiag_system.so \
+            system/lib/libdisplayconfig.so \
+            system/lib/libGPQTEEC_system.so \
+            system/lib/libGPTEE_system.so \
             system/lib/libimscamera_jni.so \
             system/lib/libimsmedia_jni.so \
             system/lib/lib-imsvideocodec.so \
@@ -63,17 +87,21 @@
             system/lib/lib-imsvtutils.so \
             system/lib/liblistenjni.so \
             system/lib/liblistensoundmodel2.so \
-            system/lib/libqcbor.so \
+            system/lib/liblogwrap.so \
+            system/lib/libmdsprpc_system.so \
+            system/lib/libminui.so \
+            system/lib/libnl.so \
+            system/lib/libpac.so \
             system/lib/libqct_resampler.so \
+            system/lib/libqsap_sdk.so \
+            system/lib/libQTEEConnector_system.so \
             system/lib/librcc.so \
             system/lib/libsdm-disp-apis.so \
-            system/lib/libseccam.so \
-            system/lib/libsecureuisvc_jni.so \
-            system/lib/libSeemplog.so \
+            system/lib/libsdsprpc_system.so \
+            system/lib/libsecureui_svcsock_system.so \
             system/lib/libsensorslog.so \
-            system/lib/libsmcinvokecred.so \
             system/lib/libsns_low_lat_stream_stub.so \
-            system/lib/libtzcom.so \
+            system/lib/libunwind.so \
             system/lib/rfsa/adsp/libsns_low_lat_stream_skel.so \
             "
     ;;
