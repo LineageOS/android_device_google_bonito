@@ -2006,8 +2006,9 @@
     <!-- TTY devices -->
 
     <path name="tty-headphones">
-        <ctl name="RX1 MIX1 INP1" value="RX1" />
-        <ctl name="HPHL" value="Switch" />
+        <ctl name="RX2 MIX1 INP1" value="RX2" />
+        <ctl name="RDAC2 MUX" value="RX2" />
+        <ctl name="HPHR" value="Switch" />
     </path>
 
     <path name="voice-tty-full-headphones">
@@ -2034,7 +2035,7 @@
     </path>
 
     <path name="voice-tty-vco-handset-mic">
-        <path name="dmic1" />
+        <path name="voice-speaker-mic" />
     </path>
 
     <path name="unprocessed-handset-mic">
