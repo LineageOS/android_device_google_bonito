@@ -52,13 +52,18 @@ using ::android::hardware::hidl_vec;
 using ::android::hardware::Return;
 using ::android::hardware::Void;
 
-Power::Power() :
-        mHintManager(nullptr),
-        mInteractionHandler(nullptr),
-        mSustainedPerfModeOn(false),
-        mCameraStreamingModeOn(false),
-        mReady(false) {
+static const std::map<enum CameraStreamingMode, std::string> kCamStreamingHint = {
+    {CAMERA_STREAMING_OFF, "CAMERA_STREAMING_OFF"},
+    {CAMERA_STREAMING, "CAMERA_STREAMING"},
+    {CAMERA_STREAMING_1080P, "CAMERA_STREAMING_1080P"},
+    {CAMERA_STREAMING_4K, "CAMERA_STREAMING_4K"}};
 
+Power::Power()
+    : mHintManager(nullptr),
+      mInteractionHandler(nullptr),
+      mSustainedPerfModeOn(false),
+      mCameraStreamingMode(CAMERA_STREAMING_OFF),
+      mReady(false) {
     mInitThread =
             std::thread([this](){
                             android::base::WaitForProperty(kPowerHalInitProp, "1");
@@ -69,8 +74,16 @@ Power::Power() :
                             if (state == "CAMERA_STREAMING") {
                                 ALOGI("Initialize with CAMERA_STREAMING on");
                                 mHintManager->DoHint("CAMERA_STREAMING");
-                                mCameraStreamingModeOn = true;
-                            } else if (state ==  "SUSTAINED_PERFORMANCE") {
+                                mCameraStreamingMode = CAMERA_STREAMING;
+                            } else if (state == "CAMERA_STREAMING_1080P") {
+                                ALOGI("Initialize CAMERA_STREAMING_1080P on");
+                                mHintManager->DoHint("CAMERA_STREAMING_1080P");
+                                mCameraStreamingMode = CAMERA_STREAMING_1080P;
+                            } else if (state == "CAMERA_STREAMING_4K") {
+                                ALOGI("Initialize with CAMERA_STREAMING_4K on");
+                                mHintManager->DoHint("CAMERA_STREAMING_4K");
+                                mCameraStreamingMode = CAMERA_STREAMING_4K;
+                            } else if (state == "SUSTAINED_PERFORMANCE") {
                                 ALOGI("Initialize with SUSTAINED_PERFORMANCE on");
                                 mHintManager->DoHint("SUSTAINED_PERFORMANCE");
                                 mSustainedPerfModeOn = true;
@@ -93,7 +106,6 @@ Power::Power() :
                             mReady.store(true);
                         });
     mInitThread.detach();
-
 }
 
 // Methods from ::android::hardware::power::V1_0::IPower follow.
@@ -379,31 +391,44 @@ Return<void> Power::powerHintAsync_1_2(PowerHint_1_2 hint, int32_t data) {
             }
             ATRACE_END();
             break;
-        case PowerHint_1_2::CAMERA_STREAMING:
+        case PowerHint_1_2::CAMERA_STREAMING: {
+            const enum CameraStreamingMode mode = static_cast<enum CameraStreamingMode>(data);
+            if (mode < CAMERA_STREAMING_OFF || mode >= CAMERA_STREAMING_MAX) {
+                ALOGE("CAMERA STREAMING INVALID Mode: %d", mode);
+                break;
+            }
+
+            if (mCameraStreamingMode == mode)
+                break;
+
             ATRACE_BEGIN("camera_streaming");
-            if (data > 0) {
-                ATRACE_INT("camera_streaming_lock", 1);
-                mHintManager->DoHint("CAMERA_STREAMING");
-                ALOGD("CAMERA STREAMING ON");
-                if (!android::base::SetProperty(kPowerHalStateProp, "CAMERA_STREAMING")) {
-                    ALOGE("%s: could not set powerHAL state property to CAMERA_STREAMING", __func__);
-                }
-                mCameraStreamingModeOn = true;
-            } else if (data == 0) {
+            // turn it off first if any previous hint.
+            if ((mCameraStreamingMode != CAMERA_STREAMING_OFF)) {
+                const auto modeValue = kCamStreamingHint.at(mCameraStreamingMode);
                 ATRACE_INT("camera_streaming_lock", 0);
-                mHintManager->EndHint("CAMERA_STREAMING");
+                mHintManager->EndHint(modeValue);
                 // Boost 1s for tear down
                 mHintManager->DoHint("CAMERA_LAUNCH", std::chrono::seconds(1));
-                ALOGD("CAMERA STREAMING OFF");
-                if (!android::base::SetProperty(kPowerHalStateProp, "")) {
-                    ALOGE("%s: could not clear powerHAL state property", __func__);
-                }
-                mCameraStreamingModeOn = false;
-            } else {
-                ALOGE("CAMERA STREAMING INVALID DATA: %d", data);
+                ALOGD("CAMERA %s OFF", modeValue.c_str());
+            }
+
+            if (mode != CAMERA_STREAMING_OFF) {
+                const auto hintValue = kCamStreamingHint.at(mode);
+                ATRACE_INT("camera_streaming_lock", mode);
+                mHintManager->DoHint(hintValue);
+                ALOGD("CAMERA %s ON", hintValue.c_str());
+            }
+
+            mCameraStreamingMode = mode;
+            const auto prop = (mCameraStreamingMode == CAMERA_STREAMING_OFF)
+                                  ? ""
+                                  : kCamStreamingHint.at(mode).c_str();
+            if (!android::base::SetProperty(kPowerHalStateProp, prop)) {
+                ALOGE("%s: could set powerHAL state %s property", __func__, prop);
             }
             ATRACE_END();
             break;
+        }
         case PowerHint_1_2::CAMERA_SHOT:
             ATRACE_BEGIN("camera_shot");
             if (data > 0) {
@@ -466,12 +491,13 @@ Return<void> Power::debug(const hidl_handle& handle, const hidl_vec<hidl_string>
     if (handle != nullptr && handle->numFds >= 1 && mReady) {
         int fd = handle->data[0];
 
-        std::string buf(android::base::StringPrintf("HintManager Running: %s\n"
-                                                    "CameraStreamingMode: %s\n"
-                                                    "SustainedPerformanceMode: %s\n",
-                                                    boolToString(mHintManager->IsRunning()),
-                                                    boolToString(mCameraStreamingModeOn),
-                                                    boolToString(mSustainedPerfModeOn)));
+        std::string buf(
+            android::base::StringPrintf("HintManager Running: %s\n"
+                                        "CameraStreamingMode: %s\n"
+                                        "SustainedPerformanceMode: %s\n",
+                                        boolToString(mHintManager->IsRunning()),
+                                        kCamStreamingHint.at(mCameraStreamingMode).c_str(),
+                                        boolToString(mSustainedPerfModeOn)));
         // Dump nodes through libperfmgr
         mHintManager->DumpToFd(fd);
         if (!android::base::WriteStringToFd(buf, fd)) {
