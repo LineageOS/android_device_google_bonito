@@ -375,4 +375,14 @@
          Settings.System.NOTIFICATION_VIBRATION_INTENSITY more details on the constant values and
          meanings. -->
     <integer name="config_defaultNotificationVibrationIntensity">3</integer>
+
+    <!-- Applications which are disabled unless matching a particular sku -->
+    <string-array name="config_disableApksUnlessMatchedSku_apk_list" translatable="false">
+        <item>com.felicanetworks.mfs</item>
+        <item>com.felicanetworks.mfw.a.boot</item>
+        <item>com.felicanetworks.mfw.a.main</item>
+        <item>com.felicanetworks.mfm.main</item>
+        <item>com.felicanetworks.mfc</item>
+        <item>com.felicanetworks.mfm</item>
+    </string-array>
 </resources>
