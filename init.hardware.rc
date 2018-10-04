@@ -635,6 +635,11 @@ service adsprpcd /vendor/bin/adsprpcd rootpd
    user system
    group system
 
+service cdsprpcd /vendor/bin/cdsprpcd
+   class main
+   user system
+   group system
+
 service adsprpcd_audiopd /vendor/bin/adsprpcd audiopd
    class main
    user media
