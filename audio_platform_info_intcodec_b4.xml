@@ -44,7 +44,6 @@
         <device name="SND_DEVICE_OUT_VOICE_HANDSET" acdb_id="7"/>
         <device name="SND_DEVICE_IN_VOICE_DMIC" acdb_id="41"/>
         <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" acdb_id="10"/>
-        <device name="SND_DEVICE_OUT_VOICE_HEADSET" acdb_id="10"/>
         <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" acdb_id="8"/>
         <device name="SND_DEVICE_OUT_VOICE_SPEAKER_PROTECTED" acdb_id="14"/>
         <device name="SND_DEVICE_IN_VOICE_SPEAKER_DMIC" acdb_id="19"/>
