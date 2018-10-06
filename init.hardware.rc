@@ -231,6 +231,9 @@ on fs
     restorecon /persist/hlos_rfs
     restorecon_recursive /mnt/vendor/persist/
 
+    # for cycle count backup
+    mkdir /persist/battery 0700 system system
+
 on late-fs
     # Start devices by sysfs trigger, including sensor related script.
     start devstart_sh
@@ -566,15 +569,11 @@ on property:sys.boot_completed=1
     chown system system /d/fg/sram/count
     chown system system /d/fg/sram/address
 
-    # Maxim FG dump for dumpstate
-    chown system system /d/regmap/4-0036/registers
-    chown system system /d/regmap/4-000b/registers
-
     # Dump QCOM FG cycle counts for dumpstate
-    chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pmi8998@2:qpnp,fg/cycle_counts_bins
+    chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/cycle_counts_bins
 
     # HardwareInfo needs to be able to read CC bins
-    chmod 644 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pmi8998@2:qpnp,fg/cycle_counts_bins
+    chmod 644 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/cycle_counts_bins
 
     # eMMC health
     chmod 755 /sys/kernel/debug/mmc0
@@ -631,6 +630,11 @@ service sensors.qti /vendor/bin/sensors.qti
     capabilities NET_BIND_SERVICE
 
 service adsprpcd /vendor/bin/adsprpcd rootpd
+   class main
+   user system
+   group system
+
+service cdsprpcd /vendor/bin/cdsprpcd
    class main
    user system
    group system
