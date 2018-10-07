@@ -128,3 +128,5 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/product)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/product)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
 
+# Remove init.environ.rc to force product to be recreated on other devices
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/init.environ.rc)
