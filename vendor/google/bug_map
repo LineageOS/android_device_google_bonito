@@ -14,4 +14,3 @@ ssr_setup vendor_ssr_prop file 78460200
 system_app vendor_default_prop file 78460200
 system_server vendor_default_prop file 78460200
 untrusted_app vendor_default_prop file 78460200
-crash_dump hexagon_halide_file file 78460200
