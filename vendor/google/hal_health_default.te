@@ -18,3 +18,5 @@ allow hal_health_default sysfs_mmc:file rw_file_perms;
 
 get_prop(hal_health_default, vendor_shutdown_prop)
 set_prop(hal_health_default, vendor_shutdown_prop)
+
+allow hal_health_default mnt_vendor_file:dir search;
