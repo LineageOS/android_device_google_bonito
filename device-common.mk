@@ -31,8 +31,8 @@ PRODUCT_PROPERTY_OVERRIDES += audio_hal.period_multiplier=2
 PRODUCT_PROPERTY_OVERRIDES += af.fast_track_multiplier=1
 
 # Set c2 codec in default
-PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
-PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
+#PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
+#PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
 
 # MIDI feature
 PRODUCT_COPY_FILES += \
