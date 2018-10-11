@@ -20,7 +20,6 @@ PRODUCT_SOONG_NAMESPACES += \
     device/google/bonito \
     hardware/google/av \
     hardware/google/interfaces \
-    hardware/google/pixel \
     hardware/qcom/sdm710 \
     vendor/qcom/sdm710
 
