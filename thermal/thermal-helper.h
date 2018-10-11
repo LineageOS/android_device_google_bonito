@@ -39,9 +39,10 @@
 #include <fnmatch.h>
 
 #include <android/hardware/thermal/1.0/IThermal.h>
-#include "utils/battery_threshold.h"
-#include "utils/cooling_devices.h"
-#include "utils/sensors.h"
+#include <pixelthermal/cooling_devices.h>
+#include <pixelthermal/device_file_watcher.h>
+#include <pixelthermal/sensors.h>
+#include <pixelthermal/thermal_structs.h>
 
 namespace android {
 namespace hardware {
@@ -50,27 +51,17 @@ namespace V1_1 {
 namespace implementation {
 
 using ::android::hardware::hidl_vec;
+using ::android::hardware::thermal::V1_0::CoolingDevice;
 using ::android::hardware::thermal::V1_0::CpuUsage;
 using ::android::hardware::thermal::V1_0::Temperature;
 using ::android::hardware::thermal::V1_0::TemperatureType;
+using ::android::hardware::google::pixel::thermal::CoolingDevices;
+using ::android::hardware::google::pixel::thermal::DeviceFileWatcher;
+using ::android::hardware::google::pixel::thermal::SensorInfo;
+using ::android::hardware::google::pixel::thermal::Sensors;
+using ::android::hardware::google::pixel::thermal::ThrottlingThresholds;
 
 constexpr char kSkinSensorType[] = "mb-therm-adc";
-
-struct SensorInfo {
-    TemperatureType type;
-    bool is_override;
-    float throttling;
-    float shutdown;
-    float multiplier;
-};
-
-struct ThrottlingThresholds {
-    ThrottlingThresholds() : cpu(NAN), gpu(NAN), ss(NAN), battery(NAN) {}
-    float cpu;
-    float gpu;
-    float ss;
-    float battery;
-};
 
 class ThermalHelper {
  public:
@@ -79,7 +70,6 @@ class ThermalHelper {
 
     bool fillTemperatures(hidl_vec<Temperature>* temperatures);
     bool fillCpuUsages(hidl_vec<CpuUsage>* cpu_usages);
-    bool fillBatteryThresholdDebugInfo(std::ostringstream& dump_buf);
 
     // Dissallow copy and assign.
     ThermalHelper(const ThermalHelper&) = delete;
@@ -131,7 +121,6 @@ class ThermalHelper {
     ThrottlingThresholds vr_thresholds_;
     ThrottlingThresholds shutdown_thresholds_;
     const bool is_initialized_;
-    const BatteryThresholdLUT low_temp_threshold_adjuster_;
 };
 
 }  // namespace implementation

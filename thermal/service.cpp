@@ -25,8 +25,9 @@ using ::android::hardware::configureRpcThreadpool;
 using ::android::hardware::joinRpcThreadpool;
 
 // Generated HIDL files:
-using ::android::hardware::thermal::V1_1::implementation::Thermal;
 using ::android::hardware::thermal::V1_1::IThermal;
+
+using ::android::hardware::thermal::V1_1::implementation::Thermal;
 
 static int shutdown() {
   LOG(ERROR) << "Thermal Service is shutting down.";

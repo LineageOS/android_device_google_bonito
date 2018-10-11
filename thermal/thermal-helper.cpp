@@ -25,13 +25,20 @@
 #include <android-base/strings.h>
 
 #include "thermal-helper.h"
-#include "utils/ThermalConfigParser.h"
+#include <pixelthermal/ThermalConfigParser.h>
 
 namespace android {
 namespace hardware {
 namespace thermal {
 namespace V1_1 {
 namespace implementation {
+
+using android::base::StringPrintf;
+using ::android::hardware::thermal::V1_0::CpuUsage;
+using ::android::hardware::google::pixel::thermal::Sensors;
+using ::android::hardware::google::pixel::thermal::SensorInfo;
+using ::android::hardware::google::pixel::thermal::TemperatureType;
+using ::android::hardware::google::pixel::thermal::ThrottlingThresholds;
 
 constexpr char kThermalSensorsRoot[] = "/sys/devices/virtual/thermal";
 constexpr char kCpuOnlineRoot[] = "/sys/devices/system/cpu";
@@ -72,8 +79,6 @@ kValidThermalSensorInfoMap = {
 };
 
 namespace {
-
-using android::base::StringPrintf;
 
 void parseCpuUsagesFileAndAssignUsages(hidl_vec<CpuUsage>* cpu_usages) {
     uint64_t cpu_num, user, nice, system, idle;
@@ -254,11 +259,6 @@ bool ThermalHelper::readTemperature(
     out->name = sensor_name;
     out->currentValue = std::stoi(temp) * sensor_info.multiplier;
     out->throttlingThreshold = getThresholdFromType(sensor_info.type, thresholds_);
-    if (sensor_info.type == TemperatureType::SKIN) {
-        out->throttlingThreshold = low_temp_threshold_adjuster_.adjustThreshold(
-              out->throttlingThreshold, out->currentValue);
-    }
-
     out->shutdownThreshold = getThresholdFromType(
         sensor_info.type, shutdown_thresholds_);
     out->vrThrottlingThreshold = getThresholdFromType(
@@ -420,11 +420,6 @@ bool ThermalHelper::checkThrottlingData(
     }
 
     return false;
-}
-
-bool ThermalHelper::fillBatteryThresholdDebugInfo(std::ostringstream& dump_buf)
-{
-    return low_temp_threshold_adjuster_.fillBatteryThresholdDebugInfo(dump_buf);
 }
 
 }  // namespace implementation
