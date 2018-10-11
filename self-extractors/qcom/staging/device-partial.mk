@@ -19,13 +19,15 @@ PRODUCT_PACKAGES := \
 
 #  blob(s) necessary for bonito hardware
 PRODUCT_COPY_FILES := \
-    vendor/qcom/bonito/proprietary/dnd.descriptor:system/etc/firmware/dnd.descriptor:qcom \
-    vendor/qcom/bonito/proprietary/dnd.sound_model:system/etc/firmware/dnd.sound_model:qcom \
-    vendor/qcom/bonito/proprietary/music_detector.descriptor:system/etc/firmware/music_detector.descriptor:qcom \
-    vendor/qcom/bonito/proprietary/music_detector.sound_model:system/etc/firmware/music_detector.sound_model:qcom \
-    vendor/qcom/bonito/proprietary/init-persist.rc:system/etc/init/init-persist.rc:qcom \
+    vendor/qcom/bonito/proprietary/compatibility_matrix.xml:system/compatibility_matrix.xml:qcom \
+    vendor/qcom/bonito/proprietary/andsfCne.xml:system/etc/cne/andsfCne.xml:qcom \
+    vendor/qcom/bonito/proprietary/ATT_profiles.xml:system/etc/cne/Nexus/ATT/ATT_profiles.xml:qcom \
+    vendor/qcom/bonito/proprietary/ROW_profiles.xml:system/etc/cne/Nexus/ROW/ROW_profiles.xml:qcom \
+    vendor/qcom/bonito/proprietary/VZW_profiles.xml:system/etc/cne/Nexus/VZW/VZW_profiles.xml:qcom \
+    vendor/qcom/bonito/proprietary/ld.config.28.txt:system/etc/ld.config.28.txt:qcom \
+    vendor/qcom/bonito/proprietary/llndk.libraries.28.txt:system/etc/llndk.libraries.28.txt:qcom \
     vendor/qcom/bonito/proprietary/cneapiclient.xml:system/etc/permissions/cneapiclient.xml:qcom \
-    vendor/qcom/bonito/proprietary/com.qualcomm.qti.imscmservice.xml:system/etc/permissions/com.qualcomm.qti.imscmservice.xml:qcom \
+    vendor/qcom/bonito/proprietary/com.google.android.factoryota.xml:system/etc/permissions/com.google.android.factoryota.xml:qcom \
     vendor/qcom/bonito/proprietary/com.quicinc.cne.xml:system/etc/permissions/com.quicinc.cne.xml:qcom \
     vendor/qcom/bonito/proprietary/embms.xml:system/etc/permissions/embms.xml:qcom \
     vendor/qcom/bonito/proprietary/lpa.xml:system/etc/permissions/lpa.xml:qcom \
@@ -37,9 +39,15 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/telephonyservice.xml:system/etc/permissions/telephonyservice.xml:qcom \
     vendor/qcom/bonito/proprietary/uimremoteclient.xml:system/etc/permissions/uimremoteclient.xml:qcom \
     vendor/qcom/bonito/proprietary/uimremoteserver.xml:system/etc/permissions/uimremoteserver.xml:qcom \
+    vendor/qcom/bonito/proprietary/UimService.xml:system/etc/permissions/UimService.xml:qcom \
+    vendor/qcom/bonito/proprietary/com.android.future.usb.accessory.jar:system/framework/com.android.future.usb.accessory.jar:qcom \
+    vendor/qcom/bonito/proprietary/com.android.location.provider.jar:system/framework/com.android.location.provider.jar:qcom \
+    vendor/qcom/bonito/proprietary/com.android.mediadrm.signer.jar:system/framework/com.android.mediadrm.signer.jar:qcom \
     vendor/qcom/bonito/proprietary/com.qualcomm.qti.uceservice-V2.0-java.jar:system/framework/com.qualcomm.qti.uceservice-V2.0-java.jar:qcom \
-    vendor/qcom/bonito/proprietary/embmslibrary.jar:system/framework/embmslibrary.jar:qcom \
+    vendor/qcom/bonito/proprietary/javax.obex.jar:system/framework/javax.obex.jar:qcom \
     vendor/qcom/bonito/proprietary/LteDirectDiscoveryLibrary.jar:system/framework/LteDirectDiscoveryLibrary.jar:qcom \
+    vendor/qcom/bonito/proprietary/org.apache.http.legacy.boot.jar:system/framework/org.apache.http.legacy.boot.jar:qcom \
+    vendor/qcom/bonito/proprietary/org.apache.http.legacy.boot.jar.prof:system/framework/org.apache.http.legacy.boot.jar.prof:qcom \
     vendor/qcom/bonito/proprietary/qcrilhook.jar:system/framework/qcrilhook.jar:qcom \
     vendor/qcom/bonito/proprietary/QtiTelephonyServicelibrary.jar:system/framework/QtiTelephonyServicelibrary.jar:qcom \
     vendor/qcom/bonito/proprietary/radioconfiginterfacelibrary.jar:system/framework/radioconfiginterfacelibrary.jar:qcom \
@@ -49,8 +57,15 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/uimremoteserverlibrary.jar:system/framework/uimremoteserverlibrary.jar:qcom \
     vendor/qcom/bonito/proprietary/uimremotesimlocklibrary.jar:system/framework/uimremotesimlocklibrary.jar:qcom \
     vendor/qcom/bonito/proprietary/vendor.qti.hardware.alarm-V1.0-java.jar:system/framework/vendor.qti.hardware.alarm-V1.0-java.jar:qcom \
-    vendor/qcom/bonito/proprietary/vendor.qti.hardware.data.latency-V1.0-java.jar:system/framework/vendor.qti.hardware.data.latency-V1.0-java.jar:qcom \
+    vendor/qcom/bonito/proprietary/vendor.qti.hardware.fingerprint-V1.0-java.jar:system/framework/vendor.qti.hardware.fingerprint-V1.0-java.jar:qcom \
+    vendor/qcom/bonito/proprietary/vendor.qti.hardware.soter-V1.0-java.jar:system/framework/vendor.qti.hardware.soter-V1.0-java.jar:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libadsprpc_system.so:system/lib64/libadsprpc_system.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libcdsprpc_system.so:system/lib64/libcdsprpc_system.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/libDiagService.so:system/lib64/libDiagService.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libdiag_system.so:system/lib64/libdiag_system.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libdisplayconfig.so:system/lib64/libdisplayconfig.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libGPQTEEC_system.so:system/lib64/libGPQTEEC_system.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libGPTEE_system.so:system/lib64/libGPTEE_system.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/libimscamera_jni.so:system/lib64/libimscamera_jni.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/libimsmedia_jni.so:system/lib64/libimsmedia_jni.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/lib-imsvideocodec.so:system/lib64/lib-imsvideocodec.so:qcom \
@@ -59,16 +74,25 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/lib64/lib-imsvtutils.so:system/lib64/lib-imsvtutils.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/liblistenjni.so:system/lib64/liblistenjni.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/liblistensoundmodel2.so:system/lib64/liblistensoundmodel2.so:qcom \
-    vendor/qcom/bonito/proprietary/lib64/libqcbor.so:system/lib64/libqcbor.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/liblogcat.so:system/lib64/liblogcat.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libmdsprpc_system.so:system/lib64/libmdsprpc_system.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libminui.so:system/lib64/libminui.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libqsap_sdk.so:system/lib64/libqsap_sdk.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libQTEEConnector_system.so:system/lib64/libQTEEConnector_system.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/librcc.so:system/lib64/librcc.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/libsdm-disp-apis.so:system/lib64/libsdm-disp-apis.so:qcom \
-    vendor/qcom/bonito/proprietary/lib64/libseccam.so:system/lib64/libseccam.so:qcom \
-    vendor/qcom/bonito/proprietary/lib64/libsecureuisvc_jni.so:system/lib64/libsecureuisvc_jni.so:qcom \
-    vendor/qcom/bonito/proprietary/lib64/libSeemplog.so:system/lib64/libSeemplog.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libsdsprpc_system.so:system/lib64/libsdsprpc_system.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libsecureui_svcsock_system.so:system/lib64/libsecureui_svcsock_system.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/libsensorslog.so:system/lib64/libsensorslog.so:qcom \
-    vendor/qcom/bonito/proprietary/lib64/libsmcinvokecred.so:system/lib64/libsmcinvokecred.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libsepol.so:system/lib64/libsepol.so:qcom \
     vendor/qcom/bonito/proprietary/lib64/libsns_low_lat_stream_stub.so:system/lib64/libsns_low_lat_stream_stub.so:qcom \
-    vendor/qcom/bonito/proprietary/lib64/libtzcom.so:system/lib64/libtzcom.so:qcom \
+    vendor/qcom/bonito/proprietary/lib64/libunwind.so:system/lib64/libunwind.so:qcom \
+    vendor/qcom/bonito/proprietary/libadsprpc_system.so:system/lib/libadsprpc_system.so:qcom \
+    vendor/qcom/bonito/proprietary/libcdsprpc_system.so:system/lib/libcdsprpc_system.so:qcom \
+    vendor/qcom/bonito/proprietary/libdiag_system.so:system/lib/libdiag_system.so:qcom \
+    vendor/qcom/bonito/proprietary/libdisplayconfig.so:system/lib/libdisplayconfig.so:qcom \
+    vendor/qcom/bonito/proprietary/libGPQTEEC_system.so:system/lib/libGPQTEEC_system.so:qcom \
+    vendor/qcom/bonito/proprietary/libGPTEE_system.so:system/lib/libGPTEE_system.so:qcom \
     vendor/qcom/bonito/proprietary/libimscamera_jni.so:system/lib/libimscamera_jni.so:qcom \
     vendor/qcom/bonito/proprietary/libimsmedia_jni.so:system/lib/libimsmedia_jni.so:qcom \
     vendor/qcom/bonito/proprietary/lib-imsvideocodec.so:system/lib/lib-imsvideocodec.so:qcom \
@@ -77,15 +101,20 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/lib-imsvtutils.so:system/lib/lib-imsvtutils.so:qcom \
     vendor/qcom/bonito/proprietary/liblistenjni.so:system/lib/liblistenjni.so:qcom \
     vendor/qcom/bonito/proprietary/liblistensoundmodel2.so:system/lib/liblistensoundmodel2.so:qcom \
-    vendor/qcom/bonito/proprietary/libqcbor.so:system/lib/libqcbor.so:qcom \
+    vendor/qcom/bonito/proprietary/liblogwrap.so:system/lib/liblogwrap.so:qcom \
+    vendor/qcom/bonito/proprietary/libmdsprpc_system.so:system/lib/libmdsprpc_system.so:qcom \
+    vendor/qcom/bonito/proprietary/libminui.so:system/lib/libminui.so:qcom \
+    vendor/qcom/bonito/proprietary/libnl.so:system/lib/libnl.so:qcom \
+    vendor/qcom/bonito/proprietary/libpac.so:system/lib/libpac.so:qcom \
     vendor/qcom/bonito/proprietary/libqct_resampler.so:system/lib/libqct_resampler.so:qcom \
+    vendor/qcom/bonito/proprietary/libqsap_sdk.so:system/lib/libqsap_sdk.so:qcom \
+    vendor/qcom/bonito/proprietary/libQTEEConnector_system.so:system/lib/libQTEEConnector_system.so:qcom \
     vendor/qcom/bonito/proprietary/librcc.so:system/lib/librcc.so:qcom \
     vendor/qcom/bonito/proprietary/libsdm-disp-apis.so:system/lib/libsdm-disp-apis.so:qcom \
-    vendor/qcom/bonito/proprietary/libseccam.so:system/lib/libseccam.so:qcom \
-    vendor/qcom/bonito/proprietary/libsecureuisvc_jni.so:system/lib/libsecureuisvc_jni.so:qcom \
-    vendor/qcom/bonito/proprietary/libSeemplog.so:system/lib/libSeemplog.so:qcom \
+    vendor/qcom/bonito/proprietary/libsdsprpc_system.so:system/lib/libsdsprpc_system.so:qcom \
+    vendor/qcom/bonito/proprietary/libsecureui_svcsock_system.so:system/lib/libsecureui_svcsock_system.so:qcom \
     vendor/qcom/bonito/proprietary/libsensorslog.so:system/lib/libsensorslog.so:qcom \
-    vendor/qcom/bonito/proprietary/libsmcinvokecred.so:system/lib/libsmcinvokecred.so:qcom \
+    vendor/qcom/bonito/proprietary/libsns_device_mode_stub.so:system/lib/libsns_device_mode_stub.so:qcom \
     vendor/qcom/bonito/proprietary/libsns_low_lat_stream_stub.so:system/lib/libsns_low_lat_stream_stub.so:qcom \
-    vendor/qcom/bonito/proprietary/libtzcom.so:system/lib/libtzcom.so:qcom \
+    vendor/qcom/bonito/proprietary/libunwind.so:system/lib/libunwind.so:qcom \
     vendor/qcom/bonito/proprietary/libsns_low_lat_stream_skel.so:system/lib/rfsa/adsp/libsns_low_lat_stream_skel.so:qcom \
