@@ -25,7 +25,7 @@
 #include <hidl/MQDescriptor.h>
 
 #include "thermal-helper.h"
-#include <pixelthermal/device_file_watcher.h>
+#include "utils/device_file_watcher.h"
 
 namespace android {
 namespace hardware {
@@ -33,15 +33,11 @@ namespace thermal {
 namespace V1_1 {
 namespace implementation {
 
-using ::android::hardware::hidl_death_recipient;
-using ::android::hardware::hidl_handle;
-using ::android::hardware::hidl_string;
 using ::android::hardware::hidl_vec;
 using ::android::hardware::thermal::V1_1::IThermal;
 using ::android::hardware::thermal::V1_1::IThermalCallback;
 using ::android::hardware::Return;
 using ::android::sp;
-using ::android::wp;
 
 class Thermal : public IThermal, public hidl_death_recipient {
    public:
