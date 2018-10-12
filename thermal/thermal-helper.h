@@ -35,11 +35,10 @@
 #include <unordered_map>
 #include <vector>
 
-#include <ftw.h>
 #include <fnmatch.h>
+#include <ftw.h>
 
 #include <android/hardware/thermal/1.0/IThermal.h>
-#include "utils/battery_threshold.h"
 #include "utils/cooling_devices.h"
 #include "utils/sensors.h"
 
@@ -73,17 +72,16 @@ struct ThrottlingThresholds {
 };
 
 class ThermalHelper {
- public:
+  public:
     ThermalHelper();
     ~ThermalHelper() = default;
 
-    bool fillTemperatures(hidl_vec<Temperature>* temperatures);
-    bool fillCpuUsages(hidl_vec<CpuUsage>* cpu_usages);
-    bool fillBatteryThresholdDebugInfo(std::ostringstream& dump_buf);
+    bool fillTemperatures(hidl_vec<Temperature> *temperatures);
+    bool fillCpuUsages(hidl_vec<CpuUsage> *cpu_usages);
 
     // Dissallow copy and assign.
-    ThermalHelper(const ThermalHelper&) = delete;
-    void operator=(const ThermalHelper&) = delete;
+    ThermalHelper(const ThermalHelper &) = delete;
+    void operator=(const ThermalHelper &) = delete;
 
     bool isInitializedOk() const { return is_initialized_; }
 
@@ -93,24 +91,22 @@ class ThermalHelper {
     // temperature params used to call notifyThrottling(). Returns true if we
     // need to notify for throttling and sets the notify params accordingly. If
     // not the function returns false and leaves notify_params untouched.
-    bool checkThrottlingData(
-        const std::pair<std::string, std::string>& throttling_data,
-        std::pair<bool, Temperature>* notify_params);
+    bool checkThrottlingData(const std::pair<std::string, std::string> &throttling_data,
+                             std::pair<bool, Temperature> *notify_params);
 
     // Returns a vector of all cooling devices that has been found on the
     // device.
     std::vector<std::string> getCoolingDevicePaths();
 
     // Read the temperature of a single sensor.
-    bool readTemperature(
-        const std::string& sensor_name, Temperature* out) const;
+    bool readTemperature(const std::string &sensor_name, Temperature *out) const;
 
     // Read the value of a single cooling device.
-    bool readCoolingDevice(const std::string& cooling_device, int* data) const;
+    bool readCoolingDevice(const std::string &cooling_device, int *data) const;
 
-    const std::map<std::string, std::string>& getValidCoolingDeviceMap() const;
+    const std::map<std::string, std::string> &getValidCoolingDeviceMap() const;
 
- private:
+  private:
     bool initializeSensorMap();
     bool initializeCoolingDevices();
 
@@ -125,13 +121,11 @@ class ThermalHelper {
     Sensors thermal_sensors_;
     CoolingDevices cooling_devices_;
 
-    std::unordered_map<std::string, int>
-        cooling_device_path_to_throttling_level_map_;
+    std::unordered_map<std::string, int> cooling_device_path_to_throttling_level_map_;
     ThrottlingThresholds thresholds_;
     ThrottlingThresholds vr_thresholds_;
     ThrottlingThresholds shutdown_thresholds_;
     const bool is_initialized_;
-    const BatteryThresholdLUT low_temp_threshold_adjuster_;
 };
 
 }  // namespace implementation
@@ -141,4 +135,3 @@ class ThermalHelper {
 }  // namespace android
 
 #endif  // __THERMAL_HELPER_H__
-

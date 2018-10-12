@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_STEM := bonito/device-partial.mk
+ifneq ($(filter sargo,$(TARGET_DEVICE)),)
+LOCAL_STEM := sargo/BoardConfigPartial.mk
+else
+LOCAL_STEM := bonito/BoardConfigPartial.mk
+endif
 
 $(call inherit-product-if-exists, vendor/google_devices/$(LOCAL_STEM))
 $(call inherit-product-if-exists, vendor/qcom/$(LOCAL_STEM))

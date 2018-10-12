@@ -507,6 +507,10 @@
         <ctl name="AUDIO_REF_EC_UL1 MUX" value="INT0_MI2S_RX" />
     </path>
 
+    <path name="echo-reference headset">
+        <ctl name="AUDIO_REF_EC_UL1 MUX" value="INT0_MI2S_RX" />
+    </path>
+
     <path name="echo-reference usb-headset">
         <ctl name="AUDIO_REF_EC_UL10 MUX" value="USB_AUDIO_RX" />
     </path>
@@ -579,6 +583,10 @@
     </path>
 
     <path name="deep-buffer-playback headphones">
+        <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia1" value="1" />
+    </path>
+
+    <path name="deep-buffer-playback headset">
         <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia1" value="1" />
     </path>
 
@@ -665,6 +673,10 @@
         <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia5" value="1" />
     </path>
 
+    <path name="low-latency-playback headset">
+        <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia5" value="1" />
+    </path>
+
     <path name="low-latency-playback speaker-and-headphones">
         <path name="low-latency-playback headphones" />
         <path name="low-latency-playback speaker" />
@@ -709,6 +721,10 @@
     </path>
 
     <path name="audio-ull-playback headphones">
+        <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia8" value="1" />
+    </path>
+
+    <path name="audio-ull-playback headset">
         <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia8" value="1" />
     </path>
 
@@ -846,6 +862,10 @@
         <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia4" value="1" />
     </path>
 
+    <path name="compress-offload-playback headset">
+        <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia4" value="1" />
+    </path>
+
     <path name="compress-offload-playback headphones-44.1">
         <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia4" value="1" />
     </path>
@@ -951,11 +971,11 @@
     </path>
 
     <path name="low-latency-record">
-      <ctl name="MultiMedia8 Mixer PRI_TDM_TX_0" value="1" />
+        <ctl name="MultiMedia8 Mixer PRI_TDM_TX_0" value="1" />
     </path>
 
     <path name="low-latency-record bt-sco">
-      <ctl name="MultiMedia8 Mixer SLIM_7_TX" value="1" />
+        <ctl name="MultiMedia8 Mixer SLIM_7_TX" value="1" />
     </path>
 
     <path name="low-latency-record bt-sco-wb">
@@ -980,7 +1000,7 @@
     </path>
 
     <path name="low-latency-record capture-fm">
-      <ctl name="MultiMedia8 Mixer SLIM_8_TX" value="1" />
+        <ctl name="MultiMedia8 Mixer SLIM_8_TX" value="1" />
     </path>
 
     <path name="fm-virtual-record capture-fm">
@@ -994,6 +1014,12 @@
     </path>
 
     <path name="play-fm headphones">
+        <ctl name="SLIMBUS_8 LOOPBACK Volume" value="1" />
+        <ctl name="INT0_MI2S_RX Port Mixer SLIM_8_TX" value="1" />
+        <ctl name="INT0_MI2S_RX_DL_HL Switch" value="1" />
+    </path>
+
+    <path name="play-fm headset">
         <ctl name="SLIMBUS_8 LOOPBACK Volume" value="1" />
         <ctl name="INT0_MI2S_RX Port Mixer SLIM_8_TX" value="1" />
         <ctl name="INT0_MI2S_RX_DL_HL Switch" value="1" />
@@ -1199,7 +1225,7 @@
         <ctl name="SLIMBUS_7_RX Audio Mixer MultiMedia6" value="1" />
         <ctl name="MultiMedia6 Mixer PRI_TDM_TX_0" value="1" />
         <ctl name="SEC_TDM_RX_0_DL_HL Switch" value="1" />
-   </path>
+    </path>
 
     <path name="hfp-sco headphones">
         <ctl name="HFP_SLIM7_UL_HL Switch" value="1" />
@@ -1209,12 +1235,25 @@
         <ctl name="INT0_MI2S_RX_DL_HL Switch" value="1" />
     </path>
 
-   <path name="hfp-sco-wb">
+    <path name="hfp-sco headset">
+        <ctl name="HFP_SLIM7_UL_HL Switch" value="1" />
+        <ctl name="INT0_MI2S_RX Port Mixer SLIM_7_TX" value="1" />
+        <ctl name="SLIMBUS_7_RX Audio Mixer MultiMedia6" value="1" />
+        <ctl name="MultiMedia6 Mixer PRI_TDM_TX_0" value="1" />
+        <ctl name="INT0_MI2S_RX_DL_HL Switch" value="1" />
+    </path>
+
+    <path name="hfp-sco-wb">
         <ctl name="BT SampleRate" value="KHZ_16" />
         <path name="hfp-sco" />
-   </path>
+    </path>
 
     <path name="hfp-sco-wb headphones">
+        <ctl name="BT SampleRate" value="KHZ_16" />
+        <path name="hfp-sco headphones" />
+    </path>
+
+    <path name="hfp-sco-wb headset">
         <ctl name="BT SampleRate" value="KHZ_16" />
         <path name="hfp-sco headphones" />
     </path>
@@ -1241,9 +1280,13 @@
 
     <path name="compress-voip-call headphones">
         <ctl name="INT0_MI2S_RX_Voice Mixer Voip" value="1" />
-        <ctl name="Voip_Tx Mixer INT3_MI2S_TX_Voip" value="1" />
+        <ctl name="Voip_Tx Mixer PRI_TDM_TX_Voip" value="1" />
     </path>
 
+    <path name="compress-voip-call headset">
+        <ctl name="INT0_MI2S_RX_Voice Mixer Voip" value="1" />
+        <ctl name="Voip_Tx Mixer INT3_MI2S_TX_Voip" value="1" />
+    </path>
 
     <path name="compress-voip-call bt-sco">
         <ctl name="SLIM_7_RX_Voice Mixer Voip" value="1" />
@@ -1288,6 +1331,11 @@
 
     <path name="voicemmode1-call headphones">
         <ctl name="INT0_MI2S_RX_Voice Mixer VoiceMMode1" value="1" />
+        <ctl name="VoiceMMode1_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
+    </path>
+
+    <path name="voicemmode1-call headset">
+        <ctl name="INT0_MI2S_RX_Voice Mixer VoiceMMode1" value="1" />
         <ctl name="VoiceMMode1_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
     </path>
 
@@ -1317,8 +1365,8 @@
     </path>
 
     <path name="voicemmode1-call voice-tty-hco-handset">
-       <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode1" value="1" />
-       <ctl name="VoiceMMode1_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
+        <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode1" value="1" />
+        <ctl name="VoiceMMode1_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
     </path>
 
     <path name="voicemmode2-call">
@@ -1338,6 +1386,11 @@
     </path>
 
     <path name="voicemmode2-call headphones">
+        <ctl name="INT0_MI2S_RX_Voice Mixer VoiceMMode2" value="1" />
+        <ctl name="VoiceMMode2_Tx Mixer PRI_TDM_TX_0_MMode1" value="1" />
+    </path>
+
+    <path name="voicemmode2-call headset">
         <ctl name="INT0_MI2S_RX_Voice Mixer VoiceMMode2" value="1" />
         <ctl name="VoiceMMode2_Tx Mixer INT3_MI2S_TX_MMode2" value="1" />
     </path>
@@ -1368,8 +1421,8 @@
     </path>
 
     <path name="voicemmode2-call voice-tty-hco-handset">
-       <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode2" value="1" />
-       <ctl name="VoiceMMode2_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
+        <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode2" value="1" />
+        <ctl name="VoiceMMode2_Tx Mixer INT3_MI2S_TX_MMode1" value="1" />
     </path>
 
     <!-- VOIP Rx settings -->
@@ -1386,6 +1439,10 @@
     </path>
 
     <path name="audio-playback-voip headphones">
+        <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia10" value="1" />
+    </path>
+
+    <path name="audio-playback-voip headset">
         <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia10" value="1" />
     </path>
 
@@ -1451,9 +1508,9 @@
     <path name="audio-record-voip bt-sco-wb">
         <ctl name="BT SampleRate" value="KHZ_16" />
         <path name="audio-record-voip bt-sco" />
-   </path>
+    </path>
 
-   <path name="spkr-rx-calib">
+    <path name="spkr-rx-calib">
         <ctl name="INT4_MI2S_RX_DL_HL Switch"  value="1" />
     </path>
 
@@ -1560,7 +1617,7 @@
         <path name="speaker" />
     </path>
 
-   <path name="sidetone-iir">
+    <path name="sidetone-iir">
         <ctl name="IIR1 Enable Band1" value="1" />
         <ctl name="IIR1 Enable Band2" value="1" />
         <ctl name="IIR1 Enable Band3" value="1" />
@@ -2165,6 +2222,10 @@
         <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia16" value="1" />
     </path>
 
+    <path name="mmap-playback headset">
+        <ctl name="INT0_MI2S_RX Audio Mixer MultiMedia16" value="1" />
+    </path>
+
     <path name="mmap-playback speaker-and-headphones">
         <path name="mmap-playback speaker"/>
         <path name="mmap-playback headphones" />
@@ -2215,11 +2276,11 @@
     </path>
 
     <path name="mmap-record">
-      <ctl name="MultiMedia16 Mixer PRI_TDM_TX_0" value="1" />
+        <ctl name="MultiMedia16 Mixer PRI_TDM_TX_0" value="1" />
     </path>
 
     <path name="mmap-record bt-sco">
-      <ctl name="MultiMedia16 Mixer SLIM_7_TX" value="1" />
+        <ctl name="MultiMedia16 Mixer SLIM_7_TX" value="1" />
     </path>
 
     <path name="mmap-record bt-sco-wb">
@@ -2228,7 +2289,7 @@
     </path>
 
     <path name="mmap-record capture-fm">
-      <ctl name="MultiMedia16 Mixer SLIM_8_TX" value="1" />
+        <ctl name="MultiMedia16 Mixer SLIM_8_TX" value="1" />
     </path>
 
     <path name="mmap-record headset-mic">
@@ -2244,7 +2305,7 @@
     </path>
 
     <path name="mmap-record usb-headset-mic">
-       <ctl name="MultiMedia16 Mixer USB_AUDIO_TX" value="1" />
+        <ctl name="MultiMedia16 Mixer USB_AUDIO_TX" value="1" />
     </path>
 
     <path name="incall-music-uplink">
@@ -2296,6 +2357,10 @@
     </path>
 
     <path name="incall-music-uplink headphones">
+        <path name="incall-music-uplink" />
+    </path>
+
+    <path name="incall-music-uplink headset">
         <path name="incall-music-uplink" />
     </path>
 
