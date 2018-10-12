@@ -122,7 +122,7 @@
 
     <operator_specific>
         <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" operator="tmus" mixer_path="voice-headset-mic-tmus" acdb_id="55"/>
-        <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" operator="tmus" mixer_path="voice-headphones-tmus" acdb_id="66"/>
+        <device name="SND_DEVICE_OUT_VOICE_HEADSET" operator="tmus" mixer_path="voice-headphones-tmus" acdb_id="66"/>
     </operator_specific>
 
     <gain_db_to_level_mapping>
