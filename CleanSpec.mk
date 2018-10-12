@@ -123,6 +123,14 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/include)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.secure_element@1.0-service.rc)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.secure_element@1.0-service)
 
+# Remove VR related files
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/thermal-engine-sargo-vr.conf)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/thermal-engine-bonito-vr.conf)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.vr@1.0-service.bonito.rc)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/permissions/android.hardware.vr.headtracking.xml)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/permissions/android.hardware.vr.high_performance.xml)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.vr@1.0-service.bonito)
+
 # Remove /product mount point
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/product)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/product)
