@@ -46,9 +46,7 @@ static constexpr char CALIBRATION_FILEPATH[] = "/persist/haptics/drv2624.cal";
 
 // Kernel ABIs for updating the calibration data
 static constexpr char AUTOCAL_CONFIG[] = "autocal";
-static constexpr char LRA_PERIOD_CONFIG[] = "lra_period";
 static constexpr char AUTOCAL_FILEPATH[] = "/sys/class/leds/vibrator/device/autocal";
-static constexpr char OL_LRA_PERIOD_FILEPATH[] = "/sys/class/leds/vibrator/device/ol_lra_period";
 
 static std::string trim(const std::string& str,
         const std::string& whitespace = " \t") {
@@ -70,14 +68,6 @@ static bool loadCalibrationData() {
     if (!autocal) {
         int error = errno;
         ALOGE("Failed to open %s (%d): %s", AUTOCAL_FILEPATH, error,
-                strerror(error));
-        return false;
-    }
-
-    std::ofstream ol_lra_period{OL_LRA_PERIOD_FILEPATH};
-    if (!ol_lra_period) {
-        int error = errno;
-        ALOGE("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error,
                 strerror(error));
         return false;
     }
@@ -109,10 +99,6 @@ static bool loadCalibrationData() {
 
     if(config_data.find(AUTOCAL_CONFIG) != config_data.end()) {
         autocal << config_data[AUTOCAL_CONFIG] << std::endl;
-    }
-
-    if(config_data.find(LRA_PERIOD_CONFIG) != config_data.end()) {
-        ol_lra_period << config_data[LRA_PERIOD_CONFIG] << std::endl;
     }
 
     return true;
