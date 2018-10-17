@@ -138,3 +138,6 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
 
 # Remove init.environ.rc to force product to be recreated on other devices
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/init.environ.rc)
+
+# Verified boot xml moved to /product
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/permissions/android.software.verified_boot.xml)
