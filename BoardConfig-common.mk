@@ -236,7 +236,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
 endif
 
 # Testing related defines
-BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b1c1-setup.sh
+BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
 
 # Single vendor RIL with SDM845
 BOARD_USES_SDM845_QCRIL := true
