@@ -672,10 +672,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
 
-# DRV2624 Haptics Waveform
-PRODUCT_COPY_FILES += \
-    device/google/bonito/vibrator/drv2624/drv2624.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
-
 # CS40L20 Haptics Waveform & Firmware
 PRODUCT_COPY_FILES += \
     device/google/bonito/vibrator/cs40l20/cs40l20.wmfw:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.wmfw \
