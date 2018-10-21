@@ -680,10 +680,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
 
-# DRV2624 Haptics Waveform
-PRODUCT_COPY_FILES += \
-    device/google/bonito/vibrator/drv2624/drv2624.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
-
 # CS40L20 Haptics Waveform & Firmware
 PRODUCT_COPY_FILES += \
     device/google/bonito/vibrator/cs40l20/cs40l20.wmfw:$(TARGET_COPY_OUT_VENDOR)/firmware/cs40l20.wmfw \
@@ -750,12 +746,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml
 
 # Enable modem logging
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.radio.log_loc="/data/vendor/modem_dump" \
+    ro.radio.log_prefix="modem_log_"
+
+# Enable modem logging for debug
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.sys.modem.diag.mdlog=true \
-    persist.vendor.sys.modem.diag.mdlog_br_num=5 \
-    ro.radio.log_loc="/data/vendor/modem_dump" \
-    ro.radio.log_prefix="modem_log_"
+    persist.vendor.sys.modem.diag.mdlog_br_num=5
+else
 endif
 
 # Enable tcpdump_logger on userdebug and eng
