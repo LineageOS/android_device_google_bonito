@@ -26,3 +26,13 @@ DEVICE_PACKAGE_OVERLAYS += device/google/bonito/bonito/overlay
 
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.bonito.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
+
+# Vibrator HAL
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES +=\
+    ro.vibrator.hal.click.duration=7 \
+    ro.vibrator.hal.tick.duration=2 \
+    ro.vibrator.hal.heavyclick.duration=10
+
+# DRV2624 Haptics Waveform
+PRODUCT_COPY_FILES += \
+    device/google/bonito/vibrator/drv2624/drv2624_B4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
