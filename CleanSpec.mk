@@ -136,3 +136,5 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/product)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/product)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
 
+# Move libnfc-nci.conf to /vendor
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/libnfc-nci.conf)
