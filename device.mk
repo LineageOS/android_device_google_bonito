@@ -20,6 +20,7 @@ PRODUCT_SOONG_NAMESPACES += \
     device/google/bonito \
     hardware/google/av \
     hardware/google/interfaces \
+    hardware/google/pixel \
     hardware/qcom/sdm710 \
     vendor/qcom/sdm710
 
@@ -805,3 +806,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # default atrace HAL
 PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service
+
+# fastbootd
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl.pixel \
+    fastbootd
