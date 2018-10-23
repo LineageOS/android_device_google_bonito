@@ -376,7 +376,7 @@ PRODUCT_PACKAGES += \
     android.hardware.secure_element@1.0-service-disabled
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/libnfc-nci.conf \
+    device/google/bonito/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf \
     device/google/bonito/nfc/libese-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libese-nxp.conf
 
 PRODUCT_COPY_FILES += \
