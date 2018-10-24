@@ -67,7 +67,7 @@ const std::map<std::string, SensorInfo> kValidThermalSensorInfoMap = {
     // Skin sensor.
     {kSkinSensorType, {TemperatureType::SKIN, false, NAN, NAN, .001}},
     // USBC thermal sensor.
-    {"usb-therm-adc", {TemperatureType::UNKNOWN, false, NAN, NAN, .001}},
+    {"usbc-therm-adc", {TemperatureType::UNKNOWN, false, NAN, NAN, .001}},
 };
 
 namespace {

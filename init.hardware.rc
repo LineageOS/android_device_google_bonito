@@ -240,6 +240,9 @@ on post-fs-data
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
+    # Wait until the system time is set
+    wait_for_prop vendor.qcom.time.set true
+
     # Wait qseecomd started
     wait_for_prop vendor.sys.listeners.registered true
 
@@ -287,6 +290,10 @@ on zygote-start
 
     # Create directory for radio
     mkdir /data/vendor/radio 0771 system radio
+    mkdir /data/vendor/modem_stat 0771 system radio
+    write /data/vendor/modem_stat/debug.txt ""
+    chown system radio /data/vendor/modem_stat/debug.txt
+    chmod 0664 /data/vendor/modem_stat/debug.txt
 
     # Set up sensors-related directories and permissions
     chmod 775 /persist/sensors
