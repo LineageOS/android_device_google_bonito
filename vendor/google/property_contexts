@@ -10,3 +10,7 @@ ro.vibrator.hal.heavyclick.duration  u:object_r:vendor_vibrator_prop:s0
 ro.vibrator.hal.short.voltage      u:object_r:vendor_vibrator_prop:s0
 ro.vibrator.hal.long.voltage       u:object_r:vendor_vibrator_prop:s0
 ro.vibrator.hal.long.frequency.shift    u:object_r:vendor_vibrator_prop:s0
+
+# fingerprint
+vendor.fps.init.succeed               u:object_r:vendor_fingerprint_prop:s0
+vendor.fps.init_retry.count           u:object_r:vendor_fingerprint_prop:s0
