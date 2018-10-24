@@ -20,6 +20,7 @@ PRODUCT_SOONG_NAMESPACES += \
     device/google/bonito \
     hardware/google/av \
     hardware/google/interfaces \
+    hardware/google/pixel \
     hardware/qcom/sdm710 \
     vendor/qcom/sdm710
 
@@ -376,7 +377,7 @@ PRODUCT_PACKAGES += \
     android.hardware.secure_element@1.0-service-disabled
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/libnfc-nci.conf \
+    device/google/bonito/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf \
     device/google/bonito/nfc/libese-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libese-nxp.conf
 
 PRODUCT_COPY_FILES += \
@@ -805,3 +806,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # default atrace HAL
 PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service
+
+# fastbootd
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl.pixel \
+    fastbootd

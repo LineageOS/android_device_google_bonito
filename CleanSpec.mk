@@ -141,3 +141,6 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/init.environ.rc)
 
 # Verified boot xml moved to /product
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/permissions/android.software.verified_boot.xml)
+
+# Move libnfc-nci.conf to /vendor
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/libnfc-nci.conf)
