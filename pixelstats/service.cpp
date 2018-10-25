@@ -20,11 +20,15 @@
 #include <utils/StrongPointer.h>
 
 #include "SysfsCollector.h"
+#include "UeventListener.h"
 
 using device::google::bonito::SysfsCollector;
+using device::google::bonito::UeventListener;
 
 int main() {
     LOG(INFO) << "starting PixelStats";
+
+    UeventListener::ListenForeverInNewThread();
 
     SysfsCollector collector;
     collector.collect();  // This blocks forever.

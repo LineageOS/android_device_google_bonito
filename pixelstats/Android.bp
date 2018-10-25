@@ -19,6 +19,7 @@ cc_binary {
   srcs: [
     "service.cpp",
     "SysfsCollector.cpp",
+    "UeventListener.cpp",
   ],
   shared_libs: [
     "hardware.google.pixelstats@1.0",
