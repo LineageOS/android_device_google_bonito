@@ -19,14 +19,23 @@
 #include <android-base/logging.h>
 #include <utils/StrongPointer.h>
 
+#include "DropDetect.h"
 #include "SysfsCollector.h"
 #include "UeventListener.h"
 
+using android::sp;
+using device::google::bonito::DropDetect;
 using device::google::bonito::SysfsCollector;
 using device::google::bonito::UeventListener;
 
 int main() {
     LOG(INFO) << "starting PixelStats";
+
+    sp<DropDetect> dropDetector = DropDetect::start();
+    if (!dropDetector) {
+        LOG(ERROR) << "Unable to launch drop detection";
+        return 1;
+    }
 
     UeventListener::ListenForeverInNewThread();
 

@@ -18,6 +18,7 @@ cc_binary {
   init_rc: ["pixelstats-vendor.bonito.rc"],
   srcs: [
     "service.cpp",
+    "DropDetect.cpp",
     "SysfsCollector.cpp",
     "UeventListener.cpp",
   ],
@@ -32,5 +33,7 @@ cc_binary {
     "libutils",
   ],
   proprietary: true,
+  static_libs: ["chre_client"],
+  header_libs: ["chre_api"],
 }
 
