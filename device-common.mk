@@ -34,6 +34,9 @@ PRODUCT_PROPERTY_OVERRIDES += af.fast_track_multiplier=1
 #PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
 #PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
 
+# Setting vendor SPL
+VENDOR_SECURITY_PATCH = "2018-09-05"
+
 # MIDI feature
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
