@@ -285,7 +285,7 @@
     <hal format="hidl">
         <name>android.hardware.radio</name>
         <transport>hwbinder</transport>
-        <fqname>@1.1::ISap/slot1</fqname>
+        <fqname>@1.2::ISap/slot1</fqname>
         <fqname>@1.2::IRadio/slot1</fqname>
     </hal>
     <hal format="hidl">
@@ -493,6 +493,15 @@
         <interface>
             <name>IRTPService</name>
             <instance>imsrtpservice</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.ims.callinfo</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IService</name>
+            <instance>default</instance>
         </interface>
     </hal>
     <hal format="hidl">
