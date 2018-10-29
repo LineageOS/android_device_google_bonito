@@ -196,7 +196,7 @@ on late-fs
     wait_for_prop hwservicemanager.ready true
 
     # Wait for keymaster HALs (TEE and StrongBox)
-    exec_start wait_for_strongbox_bonito
+    exec_start wait_for_strongbox
 
     # Mount RW partitions which need run fsck
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --late
@@ -739,7 +739,7 @@ service ppd /vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     disabled
 
-service wait_for_strongbox_bonito /vendor/bin/hw/wait_for_strongbox_bonito
+service wait_for_strongbox /vendor/bin/hw/wait_for_strongbox
     user root
     group root system
     priority -20
