@@ -44,6 +44,8 @@
 #define TCPDUMP_NUMBER_BUGREPORT "persist.vendor.tcpdump.log.br_num"
 #define TCPDUMP_PERSIST_PROPERTY "persist.vendor.tcpdump.log.alwayson"
 
+#define MODEM_EFS_DUMP_PROPERTY "vendor.sys.modem.diag.efsdump"
+
 using android::os::dumpstate::CommandOptions;
 using android::os::dumpstate::DumpFileToFd;
 using android::os::dumpstate::PropertiesHelper;
@@ -128,6 +130,8 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
         RunCommandToFd(fd, "MODEM RFS INFO", {"/vendor/bin/find /data/vendor/rfs/mpss/OEMFI/"}, CommandOptions::WithTimeout(2).Build());
         RunCommandToFd(fd, "MODEM DIAG SYSTEM PROPERTIES", {"/vendor/bin/getprop | grep vendor.sys.modem.diag"}, CommandOptions::WithTimeout(2).Build());
 
+        android::base::SetProperty(MODEM_EFS_DUMP_PROPERTY, "true");
+
         const std::string diagLogDir = "/data/vendor/radio/diag_logs/logs";
         const std::string tcpdumpLogDir = "/data/vendor/tcpdump_logger/logs";
         const std::vector <std::string> rilAndNetmgrLogs
@@ -142,6 +146,7 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
               "/data/vendor/radio/metrics_data",
               "/data/vendor/ssrlog/ssr_log.txt",
               "/data/vendor/ssrlog/ssr_log_old.txt",
+              "/data/vendor/rfs/mpss/modem_efs"
             };
 
         bool smlogEnabled = android::base::GetBoolProperty(MODEM_LOGGING_SWITCH, false) && !access("/vendor/bin/smlog_dump", X_OK);
@@ -185,6 +190,8 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
         for (const auto& logFile : rilAndNetmgrLogs) {
             RunCommandToFd(fd, "CP MODEM LOG", {"/vendor/bin/cp", logFile.c_str(), modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
         }
+
+        android::base::SetProperty(MODEM_EFS_DUMP_PROPERTY, "false");
     }
 
     RunCommandToFd(fd, "TAR LOG", {"/vendor/bin/tar", "cvf", modemLogCombined.c_str(), "-C", modemLogAllDir.c_str(), "."}, CommandOptions::WithTimeout(120).Build());
@@ -258,12 +265,6 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
         return Void();
     }
 
-    if (handle->numFds < 2) {
-        ALOGE("no FD for modem\n");
-    } else {
-        int fdModem = handle->data[1];
-        dumpModem(fd, fdModem);
-    }
     RunCommandToFd(fd, "VENDOR PROPERTIES", {"/vendor/bin/getprop"});
     DumpFileToFd(fd, "SoC serial number", "/sys/devices/soc0/serial_number");
     DumpFileToFd(fd, "CPU present", "/sys/devices/system/cpu/present");
@@ -307,6 +308,13 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
 
     RunCommandToFd(fd, "eSIM Status", {"/vendor/bin/sh", "-c", "od -t x1 /sys/firmware/devicetree/base/chosen/cdt/cdb2/esim"});
     DumpFileToFd(fd, "Modem Stat", "/data/vendor/modem_stat/debug.txt");
+
+    if (handle->numFds < 2) {
+        ALOGE("no FD for modem\n");
+    } else {
+        int fdModem = handle->data[1];
+        dumpModem(fd, fdModem);
+    }
 
     // Keep this at the end as very long on not for humans
     DumpFileToFd(fd, "WLAN FW Log Symbol Table", "/vendor/firmware/Data.msc");
