@@ -144,3 +144,6 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/permissions/android.soft
 
 # Move libnfc-nci.conf to /vendor
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/libnfc-nci.conf)
+
+# ThermalHAL 1.1
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.thermal@1.1-service.bonito.rc)
