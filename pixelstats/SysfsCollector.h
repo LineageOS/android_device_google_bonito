@@ -14,31 +14,30 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "dhealth"
+#ifndef DEVICE_GOOGLE_BONITO_PIXELSTATS_SYSFSCOLLECTOR_H
+#define DEVICE_GOOGLE_BONITO_PIXELSTATS_SYSFSCOLLECTOR_H
 
-#include "DeviceHealth.h"
-
-#include <android-base/properties.h>
-#include <cutils/klog.h>
+#include <hardware/google/pixelstats/1.0/IPixelStats.h>
+#include <utils/StrongPointer.h>
 
 namespace device {
 namespace google {
 namespace bonito {
-namespace health {
 
-DeviceHealth::DeviceHealth() {
-    is_user_build_ = android::base::GetProperty("ro.build.type", "") == "user";
-}
+class SysfsCollector {
+  public:
+    void collect();
 
-void DeviceHealth::update(struct android::BatteryProperties *props) {
-    if (!is_user_build_ &&
-        (android::base::GetProperty("persist.vendor.disable.thermal.control", "") == "1" ||
-         android::base::GetProperty("persist.vendor.fake.battery.temperature", "") == "1")) {
-        props->batteryTemperature = 200;
-    }
-}
+  private:
+    void logAll();
 
-}  // namespace health
+    void logBatteryChargeCycles();
+
+    android::sp<::hardware::google::pixelstats::V1_0::IPixelStats> pixelstats_;
+};
+
 }  // namespace bonito
 }  // namespace google
 }  // namespace device
+
+#endif  // DEVICE_GOOGLE_BONITO_PIXELSTATS_SYSFSCOLLECTOR_H
