@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 cc_binary {
-    name: "wait_for_strongbox_bonito",
+    name: "wait_for_strongbox",
     relative_install_path: "hw",
     srcs: [ "wait_for_strongbox.cpp" ],
     cflags: [ "-Werror", "-Wall" ],
