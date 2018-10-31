@@ -53,6 +53,7 @@ type debugfs_sched_features, debugfs_type, fs_type;
 # /proc
 type proc_wifi_dbg, proc_type, fs_type;
 type proc_f2fs, proc_type, fs_type;
+type proc_swappiness, proc_type, fs_type;
 type proc_sysctl_autogroup, proc_type, fs_type;
 type proc_sysctl_schedboost, proc_type, fs_type;
 
@@ -103,6 +104,7 @@ type mediadrm_vendor_data_file, file_type, data_file_type;
 type data_qsee_file, file_type, data_file_type;
 
 type vendor_firmware_file, vendor_file_type, file_type;
+type firmware_file, fs_type, contextmount_type;
 type bt_firmware_file, fs_type, contextmount_type;
 
 type vendor_tui_data_file, file_type, data_file_type;
