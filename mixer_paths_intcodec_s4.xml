@@ -406,7 +406,7 @@
     <ctl name="DEC2 Volume" value="84" />
     <ctl name="DEC3 Volume" value="84" />
     <ctl name="DEC4 Volume" value="84" />
-
+    <ctl name="TX1 HPF cut off" value="MIN_3DB_150Hz" />
     <!-- Compander controls -->
     <ctl name="COMP1 Switch" value="1" />
     <ctl name="COMP2 Switch" value="1" />
@@ -1824,15 +1824,18 @@
     </path>
 
     <path name="voice-headset-mic">
-        <path name="headset-mic" />
+        <path name="adc2" />
+        <ctl name="TX1 HPF cut off" value="MIN_3DB_4Hz" />
     </path>
 
     <path name="voice-headset-mic-tmus">
-        <path name="headset-mic" />
+        <path name="adc2" />
+        <ctl name="TX1 HPF cut off" value="MIN_3DB_4Hz" />
     </path>
 
     <path name="voice-headset-mic-att">
-        <path name="headset-mic" />
+        <path name="adc2" />
+        <ctl name="TX1 HPF cut off" value="MIN_3DB_4Hz" />
     </path>
 
     <path name="speaker-and-headphones">
@@ -1920,6 +1923,8 @@
     <path name="camcorder-mic">
         <ctl name="ADC1 Capture Volume" value="40"/>
         <ctl name="ADC2 Capture Volume" value="40"/>
+        <ctl name="PRI TDM TX Channel Offset" id="0" value="8" />
+        <ctl name="PRI TDM TX Channel Offset" id="1" value="0" />
         <ctl name="PRI_TDM_TX_0 Channels" value="Two"/>
         <ctl name="Sto1 ADC MIXL DMIC Switch" value="1" />
         <ctl name="Sto2 ADC MIXL DMIC Switch" value="1" />
@@ -2109,14 +2114,18 @@
 
     <path name="unprocessed-handset-mic">
         <path name="handset-mic" />
+        <ctl name="ADC1 Capture Volume" value="27"/>
     </path>
 
     <path name="unprocessed-mic">
         <path name="unprocessed-handset-mic" />
+        <ctl name="ADC1 Capture Volume" value="27"/>
     </path>
 
     <path name="unprocessed-stereo-mic">
         <path name="voice-rec-dmic-ef" />
+        <ctl name="ADC1 Capture Volume" value="27"/>
+        <ctl name="ADC2 Capture Volume" value="27"/>
     </path>
 
     <path name="unprocessed-three-mic">
