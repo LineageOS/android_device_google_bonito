@@ -14,28 +14,20 @@
  * limitations under the License.
  */
 
-#ifndef DEVICE_GOOGLE_BONITO_HEALTH_DEVICEHEALTH_H
-#define DEVICE_GOOGLE_BONITO_HEALTH_DEVICEHEALTH_H
+#define LOG_TAG "pixelstats"
 
-#include <batteryservice/BatteryService.h>
+#include <android-base/logging.h>
+#include <utils/StrongPointer.h>
 
-namespace device {
-namespace google {
-namespace bonito {
-namespace health {
+#include "SysfsCollector.h"
 
-class DeviceHealth {
-  public:
-    DeviceHealth();
-    void update(struct android::BatteryProperties *props);
+using device::google::bonito::SysfsCollector;
 
-  private:
-    bool is_user_build_;
-};
+int main() {
+    LOG(INFO) << "starting PixelStats";
 
-}  // namespace health
-}  // namespace bonito
-}  // namespace google
-}  // namespace device
+    SysfsCollector collector;
+    collector.collect();  // This blocks forever.
 
-#endif // #ifndef DEVICE_GOOGLE_BONITO_HEALTH_DEVICEHEALTH_H
+    return 0;
+}
