@@ -620,7 +620,7 @@ PRODUCT_PACKAGES += \
     android.hardware.oemlock@1.0-service.citadel \
     android.hardware.weaver@1.0-service.citadel \
     android.hardware.keymaster@4.0-service.citadel \
-    wait_for_strongbox_bonito
+    wait_for_strongbox
 
 # Citadel debug stuff
 PRODUCT_PACKAGES_DEBUG += \
