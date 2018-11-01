@@ -22,6 +22,7 @@ cc_binary {
     srcs: [
         "HealthService.cpp",
         "BatteryRechargingControl.cpp",
+	"BatteryInfoUpdate.cpp",
     ],
 
     cflags: [
