@@ -32,6 +32,8 @@ class SysfsCollector {
     void logAll();
 
     void logBatteryChargeCycles();
+    void logCodecFailed();
+    void logSpeakerImpedance();
 
     android::sp<::hardware::google::pixelstats::V1_0::IPixelStats> pixelstats_;
 };

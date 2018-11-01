@@ -37,6 +37,9 @@ using android::base::ReadFileToString;
 using ::hardware::google::pixelstats::V1_0::IPixelStats;
 
 const char kCycleCountBinsPath[] = "/sys/class/power_supply/bms/device/cycle_counts_bins";
+const char kImpedancePath[] = "/sys/class/misc/msm_cirrus_playback/resistance_left_right";
+const char kCodecPath[] =
+    "/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-03/c440000.qcom,spmi:qcom,pm660l@3:analog-codec@f000/codec_state";
 
 /**
  * Read the contents of kCycleCountBinsPath and report them via IPixelStats HAL.
@@ -55,6 +58,42 @@ void SysfsCollector::logBatteryChargeCycles() {
     pixelstats_->reportChargeCycles(android::base::Trim(file_contents));
 }
 
+/**
+ * Check the codec for failures over the past 24hr.
+ */
+void SysfsCollector::logCodecFailed() {
+    std::string file_contents;
+    if (!ReadFileToString(kCodecPath, &file_contents)) {
+        ALOGE("Unable to read codec state - %s", strerror(errno));
+        return;
+    }
+    if (file_contents == "0") {
+        return;
+    } else {
+        pixelstats_->reportHardwareFailed(IPixelStats::HardwareType::CODEC, 0,
+                                          IPixelStats::HardwareErrorCode::COMPLETE);
+    }
+}
+
+/**
+ * Report the last-detected impedance of left & right speakers.
+ */
+void SysfsCollector::logSpeakerImpedance() {
+    std::string file_contents;
+    if (!ReadFileToString(kImpedancePath, &file_contents)) {
+        ALOGE("Unable to read impedance path %s", kImpedancePath);
+        return;
+    }
+
+    float left, right;
+    if (sscanf(file_contents.c_str(), "%g,%g", &left, &right) != 2) {
+        ALOGE("Unable to parse speaker impedance %s", file_contents.c_str());
+        return;
+    }
+    pixelstats_->reportSpeakerImpedance(0, left * 1000);
+    pixelstats_->reportSpeakerImpedance(1, right * 1000);
+}
+
 void SysfsCollector::logAll() {
     pixelstats_ = IPixelStats::tryGetService();
     if (!pixelstats_) {
@@ -63,6 +102,8 @@ void SysfsCollector::logAll() {
     }
 
     logBatteryChargeCycles();
+    logCodecFailed();
+    logSpeakerImpedance();
  
     pixelstats_.clear();
 }
