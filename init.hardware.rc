@@ -196,7 +196,7 @@ on late-fs
     wait_for_prop hwservicemanager.ready true
 
     # Wait for keymaster HALs (TEE and StrongBox)
-    exec_start wait_for_strongbox_bonito
+    exec_start wait_for_strongbox
 
     # Mount RW partitions which need run fsck
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --late
@@ -739,7 +739,7 @@ service ppd /vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     disabled
 
-service wait_for_strongbox_bonito /vendor/bin/hw/wait_for_strongbox_bonito
+service wait_for_strongbox /vendor/bin/hw/wait_for_strongbox
     user root
     group root system
     priority -20
@@ -811,3 +811,9 @@ on property:persist.vendor.charge.stop.level=*
 
 on property:persist.vendor.charge.start.level=*
     write /sys/devices/platform/soc/soc:google,charger/charge_start_level ${persist.vendor.charge.start.level}
+
+# For Japan radio builds, always enforce camera shutter sound
+# Since this property is read by the audio server in system service,
+# it should be written by the system init.
+on property:ro.boot.hardware.radio.subtype=0
+    setprop audio.camerasound.force true

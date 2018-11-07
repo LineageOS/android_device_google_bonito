@@ -14,32 +14,32 @@
  * limitations under the License.
  */
 
-#ifndef DEVICE_GOOGLE_BONITO_PIXELSTATS_SYSFSCOLLECTOR_H
-#define DEVICE_GOOGLE_BONITO_PIXELSTATS_SYSFSCOLLECTOR_H
+#ifndef DEVICE_GOOGLE_BONITO_PIXELSTATS_DROPDETECT_H
+#define DEVICE_GOOGLE_BONITO_PIXELSTATS_DROPDETECT_H
 
-#include <hardware/google/pixelstats/1.0/IPixelStats.h>
 #include <utils/StrongPointer.h>
+#include "chre_host/host_protocol_host.h"
+#include "chre_host/socket_client.h"
 
 namespace device {
 namespace google {
 namespace bonito {
 
-class SysfsCollector {
+class DropDetect : public android::chre::SocketClient::ICallbacks,
+                   public android::chre::IChreMessageHandlers,
+                   public android::chre::SocketClient {
   public:
-    void collect();
+    static android::sp<DropDetect> start();
 
-  private:
-    void logAll();
+    void onConnected() override;
+    void onMessageReceived(const void *data, size_t length) override;
 
-    void logBatteryChargeCycles();
-    void logCodecFailed();
-    void logSpeakerImpedance();
-
-    android::sp<::hardware::google::pixelstats::V1_0::IPixelStats> pixelstats_;
+    void handleNanoappMessage(const ::chre::fbs::NanoappMessageT &message) override;
+    void handleNanoappListResponse(const ::chre::fbs::NanoappListResponseT &response) override;
 };
 
 }  // namespace bonito
 }  // namespace google
 }  // namespace device
 
-#endif  // DEVICE_GOOGLE_BONITO_PIXELSTATS_SYSFSCOLLECTOR_H
+#endif  // DEVICE_GOOGLE_BONITO_PIXELSTATS_DROPDETECT_H

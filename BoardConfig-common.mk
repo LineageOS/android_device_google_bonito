@@ -115,6 +115,7 @@ BOARD_USES_SYSTEM_OTHER_ODEX := true
 
 BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt:/firmware
+BOARD_ROOT_EXTRA_SYMLINKS += /vendor/dsp:/dsp
 
 include device/google/bonito-sepolicy/bonito-sepolicy.mk
 
@@ -239,6 +240,6 @@ endif
 BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
 
 # Single vendor RIL with SDM845
-BOARD_USES_SDM845_QCRIL := true
+BOARD_USES_SDM845_QCRIL := false
 
 -include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk
