@@ -48,9 +48,9 @@
     <string name="config_dozeDoubleTapSensorType" translatable="false">com.google.sensor.double_touch</string>
 
     <!-- MMS user agent string -->
-    <string name="config_mms_user_agent" translatable="false">g013c</string>
+    <string name="config_mms_user_agent" translatable="false">g020c</string>
     <!-- MMS user agent profile url -->
-    <string name="config_mms_user_agent_profile_url" translatable="false">http://www.gstatic.com/android/sms/G013C.xml</string>
+    <string name="config_mms_user_agent_profile_url" translatable="false">http://www.gstatic.com/android/sms/G020C.xml</string>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
