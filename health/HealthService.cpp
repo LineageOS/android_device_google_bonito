@@ -29,6 +29,7 @@
 #include <pixelhealth/LowBatteryShutdownMetrics.h>
 
 #include "BatteryRechargingControl.h"
+#include "BatteryInfoUpdate.h"
 #include <fstream>
 #include <iomanip>
 #include <string>
@@ -40,6 +41,7 @@ using android::hardware::health::V2_0::DiskStats;
 using android::hardware::health::V2_0::StorageAttribute;
 using android::hardware::health::V2_0::StorageInfo;
 using ::device::google::bonito::health::BatteryRechargingControl;
+using ::device::google::bonito::health::BatteryInfoUpdate;
 using hardware::google::pixel::health::BatteryMetricsLogger;
 using hardware::google::pixel::health::CycleCountBackupRestore;
 using hardware::google::pixel::health::DeviceHealth;
@@ -52,6 +54,7 @@ constexpr char kVoltageAvg[] {FG_DIR "/battery/voltage_now"};
 constexpr char kCycleCountsBins[] {FG_DIR "/bms/device/cycle_counts_bins"};
 
 static BatteryRechargingControl battRechargingControl;
+static BatteryInfoUpdate battInfoUpdate;
 static BatteryMetricsLogger battMetricsLogger(kBatteryResistance, kBatteryOCV);
 static LowBatteryShutdownMetrics shutdownMetrics(kVoltageAvg);
 static CycleCountBackupRestore ccBackupRestoreBMS(
@@ -104,6 +107,7 @@ void healthd_board_init(struct healthd_config*) {
 int healthd_board_battery_update(struct android::BatteryProperties *props) {
   battRechargingControl.updateBatteryProperties(props);
   deviceHealth.update(props);
+  battInfoUpdate.update(props);
   battMetricsLogger.logBatteryProperties(props);
   shutdownMetrics.logShutdownVoltage(props);
   ccBackupRestoreBMS.Backup(props->batteryLevel);
