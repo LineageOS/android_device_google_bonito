@@ -44,12 +44,7 @@ enum stats_source {
     MASTER_APSS = 0,
     MASTER_MPSS,
     MASTER_ADSP,
-    MASTER_SLPI,
-    MASTER_CDSP,  // Not technically used, but included for precautionary stats tracking
-    // The following masters are supported by the RPMh stats driver, but not
-    // in use on our devices.
-    // MASTER_GPU,
-    // MASTER_DISPLAY,
+    MASTER_CDSP,
     MASTER_COUNT, // Total master sources
 
     // Subsystem stats.  (Numbering starts at MASTER_COUNT to preserve
