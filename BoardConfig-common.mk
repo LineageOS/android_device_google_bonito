@@ -194,7 +194,7 @@ DEVICE_FRAMEWORK_MANIFEST_FILE := device/google/bonito/framework_manifest.xml
 
 # Userdebug only Vendor Interface Manifest
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-DEVICE_MANIFEST_FILE += device/google/crosshatch/manifest_userdebug.xml
+DEVICE_MANIFEST_FILE += device/google/bonito/manifest_userdebug.xml
 endif
 
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
