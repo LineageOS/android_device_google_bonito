@@ -125,18 +125,6 @@ QCOM_BOARD_PLATFORMS += sdm710
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/google/bonito/bluetooth
 
-# Enable dex pre-opt to speed up initial boot
-ifeq ($(HOST_OS),linux)
-  ifeq ($(WITH_DEXPREOPT),)
-    WITH_DEXPREOPT := true
-    WITH_DEXPREOPT_PIC := true
-    ifneq ($(TARGET_BUILD_VARIANT),user)
-      # Retain classes.dex in APK's for non-user builds
-      DEX_PREOPT_DEFAULT := nostripping
-    endif
-  endif
-endif
-
 # Camera
 TARGET_USES_AOSP := true
 BOARD_QTI_CAMERA_32BIT_ONLY := false
@@ -203,6 +191,11 @@ DEVICE_MANIFEST_FILE := device/google/bonito/manifest.xml
 DEVICE_MATRIX_FILE := device/google/bonito/compatibility_matrix.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/google/bonito/device_framework_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/google/bonito/framework_manifest.xml
+
+# Userdebug only Vendor Interface Manifest
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+DEVICE_MANIFEST_FILE += device/google/bonito/manifest_userdebug.xml
+endif
 
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
