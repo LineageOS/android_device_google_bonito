@@ -415,15 +415,6 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>vendor.qti.hardware.radio.atcmdfwd</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IAtCmdFwd</name>
-            <instance>AtCmdFwdService</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>vendor.qti.hardware.radio.ims</name>
         <transport>hwbinder</transport>
         <version>1.2</version>
@@ -564,15 +555,6 @@
             <name>IConfigurable</name>
             <instance>default</instance>
             <instance>software</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.google_paintbox</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IManagerService</name>
-            <instance>default</instance>
         </interface>
     </hal>
 </manifest>

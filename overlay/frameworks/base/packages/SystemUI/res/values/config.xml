@@ -40,18 +40,7 @@
     <!-- Whether to show a warning notification when the device reaches a certain temperature. -->
     <integer name="config_showTemperatureWarning">1</integer>
 
-    <!-- Whether to show a alarm dialog when the device of usb cable reaches a certain temperature. -->
-    <integer name="config_showTemperatureAlarm">1</integer>
-
-    <!-- Temp at which to show a alarm dialog if config_showTemperatureAlarm is true.
-         If < 0, uses the skin temperature sensor shutdown value of index[1] from
-         HardwarePropertiesManager#getDeviceTemperatures -->
-    <integer name="config_alarmTemperature">58</integer>
-
     <!-- Fudge factor for how much below the shutdown temp to show the warning. -->
     <integer name="config_warningTemperatureTolerance">4</integer>
-
-    <!-- Fudge factor for how much below the overheat temp to dismiss alarm. -->
-    <integer name="config_alarmTemperatureTolerance">5</integer>
 
 </resources>

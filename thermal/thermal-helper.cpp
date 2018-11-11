@@ -40,8 +40,6 @@ constexpr char kCpuOnlineFileSuffix[] = "online";
 constexpr char kThermalConfigPrefix[] = "/vendor/etc/thermal-engine-";
 constexpr char kLittleCoreCpuFreq[] = "thermal-cpufreq-0";
 constexpr char kBigCoreCpuFreq[] = "thermal-cpufreq-6";
-constexpr char kUsbCdevName[] = "usb";
-constexpr char kUsbSensorType[] = "usbc-therm-adc";
 constexpr unsigned int kMaxCpus = 8;
 // The number of available sensors in thermalHAL is:
 // 8 (for each cpu) + 2 (for each gpu) + battery + skin + usb = 13.
@@ -70,7 +68,7 @@ const std::map<std::string, SensorInfo> kValidThermalSensorInfoMap = {
     // Skin sensor.
     {kSkinSensorType, {TemperatureType::SKIN, false, NAN, NAN, .001}},
     // USBC thermal sensor.
-    {kUsbSensorType, {TemperatureType::SKIN, false, 58, NAN, .001}},
+    {"usbc-therm-adc", {TemperatureType::UNKNOWN, false, NAN, NAN, .001}},
 };
 
 namespace {
@@ -145,7 +143,6 @@ float getThresholdFromType(const TemperatureType type, const ThrottlingThreshold
 static const std::map<std::string, std::string> kValidCoolingDeviceTypeMap = {
     {kLittleCoreCpuFreq, "cpu0-silver-usr"},  // CPU0
     {kBigCoreCpuFreq, "cpu0-gold-usr"},       // CPU6
-    {kUsbCdevName, kUsbSensorType}, // USB connector
 };
 
 void ThermalHelper::updateOverideThresholds() {
@@ -238,15 +235,10 @@ bool ThermalHelper::readTemperature(const std::string &sensor_name, Temperature 
     out->type = sensor_info.type;
     out->name = sensor_name;
     out->currentValue = std::stoi(temp) * sensor_info.multiplier;
+    out->throttlingThreshold = getThresholdFromType(sensor_info.type, thresholds_);
 
-    if (sensor_name == kUsbSensorType) {
-        out->throttlingThreshold = sensor_info.throttling;
-        out->shutdownThreshold = sensor_info.shutdown;
-    } else {
-        out->throttlingThreshold = getThresholdFromType(sensor_info.type, thresholds_);
-        out->shutdownThreshold = getThresholdFromType(sensor_info.type, shutdown_thresholds_);
-        out->vrThrottlingThreshold = getThresholdFromType(sensor_info.type, vr_thresholds_);
-    }
+    out->shutdownThreshold = getThresholdFromType(sensor_info.type, shutdown_thresholds_);
+    out->vrThrottlingThreshold = getThresholdFromType(sensor_info.type, vr_thresholds_);
 
     LOG(DEBUG) << StringPrintf("readTemperature: %d, %s, %g, %g, %g, %g", out->type,
                                out->name.c_str(), out->currentValue, out->throttlingThreshold,
@@ -340,6 +332,9 @@ int ThermalHelper::getMaxThrottlingLevelFromMap() const {
 bool ThermalHelper::checkThrottlingData(const std::pair<std::string, std::string> &throttling_data,
                                         std::pair<bool, Temperature> *notify_params) {
     Temperature temp;
+    if (!readTemperature(kSkinSensorType, &temp)) {
+        LOG(ERROR) << "Could not read skin sensor temperature.";
+    }
 
     // If throttling data is in the map add it into the map and check the
     // conditions for notification. If not just check if we're alreadhy
@@ -350,27 +345,6 @@ bool ThermalHelper::checkThrottlingData(const std::pair<std::string, std::string
             cooling_device_path_to_throttling_level_map_.end()) {
         int throttling_level = std::stoi(throttling_data.second);
         int max_throttling_level = getMaxThrottlingLevelFromMap();
-
-        // Identify if cooling device is triggered by usb mitigation.
-        std::string usb_cdev_path =
-                cooling_devices_.getCoolingDevicePath(kUsbCdevName) + "/cur_state";
-
-        if (cooling_device == usb_cdev_path) {
-            if (!readTemperature(kUsbSensorType, &temp)) {
-                LOG(ERROR) << "Could not read USBC sensor temperature.";
-            }
-            if (throttling_level > 0) {
-                *notify_params = std::make_pair(true, temp);
-                return true;
-            } else {
-                *notify_params = std::make_pair(false, temp);
-                return true;
-            }
-        }
-
-        if (!readTemperature(kSkinSensorType, &temp)) {
-            LOG(ERROR) << "Could not read skin sensor temperature.";
-        }
 
         // The following if-else blocks aim to reduce the number of notifications
         // triggered by low-level throttling states. See b/117438310 for details.
