@@ -209,6 +209,9 @@ ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 DEVICE_MANIFEST_FILE += device/google/bonito/manifest_userdebug.xml
 endif
 
+# Remove health /backup instance
+DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
+
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 # Use mke2fs to create ext4 images
