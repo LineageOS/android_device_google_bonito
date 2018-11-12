@@ -34,7 +34,13 @@ namespace google {
 namespace bonito {
 
 using android::base::ReadFileToString;
+using android::base::WriteStringToFile;
 using ::hardware::google::pixelstats::V1_0::IPixelStats;
+
+const char kSlowioReadCntPath[] = "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_read_cnt";
+const char kSlowioWriteCntPath[] = "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_write_cnt";
+const char kSlowioUnmapCntPath[] = "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_discard_cnt";
+const char kSlowioSyncCntPath[] = "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_flush_cnt";
 
 const char kCycleCountBinsPath[] = "/sys/class/power_supply/bms/device/cycle_counts_bins";
 const char kImpedancePath[] = "/sys/class/misc/msm_cirrus_playback/resistance_left_right";
@@ -75,6 +81,36 @@ void SysfsCollector::logCodecFailed() {
     }
 }
 
+void SysfsCollector::reportSlowIoFromFile(const char *path,
+                                          const IPixelStats::IoOperation &operation) {
+    std::string file_contents;
+    if (!ReadFileToString(path, &file_contents)) {
+        ALOGE("Unable to read %s - %s", path, strerror(errno));
+        return;
+    } else {
+        int32_t slow_io_count = 0;
+        if (sscanf(file_contents.c_str(), "%d", &slow_io_count) != 1) {
+            ALOGE("Unable to parse %s from file %s to int.", file_contents.c_str(), path);
+        } else if (slow_io_count > 0) {
+            pixelstats_->reportSlowIo(operation, slow_io_count);
+        }
+        // Clear the stats
+        if (!WriteStringToFile("0", path, true)) {
+            ALOGE("Unable to clear SlowIO entry - %s", strerror(errno));
+        }
+    }
+}
+
+/**
+ * Check for slow IO operations.
+ */
+void SysfsCollector::logSlowIO() {
+    reportSlowIoFromFile(kSlowioReadCntPath, IPixelStats::IoOperation::READ);
+    reportSlowIoFromFile(kSlowioWriteCntPath, IPixelStats::IoOperation::WRITE);
+    reportSlowIoFromFile(kSlowioUnmapCntPath, IPixelStats::IoOperation::UNMAP);
+    reportSlowIoFromFile(kSlowioSyncCntPath, IPixelStats::IoOperation::SYNC);
+}
+
 /**
  * Report the last-detected impedance of left & right speakers.
  */
@@ -103,8 +139,9 @@ void SysfsCollector::logAll() {
 
     logBatteryChargeCycles();
     logCodecFailed();
+    logSlowIO();
     logSpeakerImpedance();
- 
+
     pixelstats_.clear();
 }
 

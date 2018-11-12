@@ -33,7 +33,12 @@ class SysfsCollector {
 
     void logBatteryChargeCycles();
     void logCodecFailed();
+    void logSlowIO();
     void logSpeakerImpedance();
+
+    void reportSlowIoFromFile(
+        const char *path,
+        const ::hardware::google::pixelstats::V1_0::IPixelStats::IoOperation &operation);
 
     android::sp<::hardware::google::pixelstats::V1_0::IPixelStats> pixelstats_;
 };
