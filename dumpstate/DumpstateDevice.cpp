@@ -224,6 +224,11 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
     RunCommandToFd(fd, "RM LOG", { "/vendor/bin/rm", modemLogCombined.c_str()}, CommandOptions::WithTimeout(2).Build());
 }
 
+static void DumpIPCTRT(int fd) {
+    DumpFileToFd(fd, "MPSS IPCRTR Log", "/sys/kernel/debug/ipc_logging/mpss_IPCRTR/log");
+    DumpFileToFd(fd, "Local IPCRTR Log", "/sys/kernel/debug/ipc_logging/local_IPCRTR/log");
+}
+
 static void DumpTouch(int fd) {
     if (!access("/sys/devices/virtual/sec/tsp", R_OK)) {
         DumpFileToFd(fd, "LSI touch firmware version",
@@ -296,6 +301,7 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "TCPM logs", "/d/tcpm/usbpd0");
     DumpFileToFd(fd, "PD Engine", "/d/pd_engine/usbpd0");
     DumpFileToFd(fd, "ipc-local-ports", "/d/msm_ipc_router/dump_local_ports");
+    DumpIPCTRT(fd);
     DumpTouch(fd);
     RunCommandToFd(fd, "USB Device Descriptors", {"/vendor/bin/sh", "-c", "cd /sys/bus/usb/devices/1-1 && cat product && cat bcdDevice; cat descriptors | od -t x1 -w16 -N96"});
     // Timeout after 3s
