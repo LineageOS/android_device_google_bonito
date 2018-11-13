@@ -15,6 +15,8 @@ binder_call(pixelstats_vendor, statsd)
 unix_socket_connect(pixelstats_vendor, chre, chre)
 
 allow pixelstats_vendor sysfs_scsi_devices_0000:file rw_file_perms;
+allow pixelstats_vendor sysfs_mmc:dir search;
+allow pixelstats_vendor sysfs_mmc:file rw_file_perms;
 allow pixelstats_vendor sysfs_batteryinfo:dir search;
 allow pixelstats_vendor sysfs_batteryinfo:file r_file_perms;
 allow pixelstats_vendor sysfs_pixelstats:dir search;
