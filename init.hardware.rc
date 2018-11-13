@@ -391,6 +391,12 @@ on early-boot
     chown system system /sys/devices/platform/soc/a88000.i2c/i2c-0/0-0061/txlen
     chown system system /sys/devices/platform/soc/a88000.i2c/i2c-0/0-0061/ccreset
 
+    # Permission for Pixelstats
+    chown system system /sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_read_cnt
+    chown system system /sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_write_cnt
+    chown system system /sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_discard_cnt
+    chown system system /sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_flush_cnt
+
 on boot
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio

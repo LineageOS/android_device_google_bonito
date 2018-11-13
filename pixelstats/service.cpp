@@ -19,14 +19,27 @@
 #include <android-base/logging.h>
 #include <utils/StrongPointer.h>
 
+#include <pixelstats/SysfsCollector.h>
 #include "DropDetect.h"
-#include "SysfsCollector.h"
 #include "UeventListener.h"
 
 using android::sp;
+using android::hardware::google::pixel::SysfsCollector;
 using device::google::bonito::DropDetect;
-using device::google::bonito::SysfsCollector;
 using device::google::bonito::UeventListener;
+
+const struct SysfsCollector::SysfsPaths sysfs_paths = {
+    .SlowioReadCntPath = "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_read_cnt",
+    .SlowioWriteCntPath = "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_write_cnt",
+    .SlowioUnmapCntPath =
+        "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_discard_cnt",
+    .SlowioSyncCntPath = "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_flush_cnt",
+    .CycleCountBinsPath = "/sys/class/power_supply/bms/device/cycle_counts_bins",
+    .ImpedancePath = "/sys/class/misc/msm_cirrus_playback/resistance_left_right",
+    .CodecPath =
+        "/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-03/"
+        "c440000.qcom,spmi:qcom,pm660l@3:analog-codec@f000/codec_state",
+};
 
 int main() {
     LOG(INFO) << "starting PixelStats";
@@ -39,7 +52,7 @@ int main() {
 
     UeventListener::ListenForeverInNewThread();
 
-    SysfsCollector collector;
+    SysfsCollector collector(sysfs_paths);
     collector.collect();  // This blocks forever.
 
     return 0;
