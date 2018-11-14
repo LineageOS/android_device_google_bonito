@@ -141,9 +141,6 @@ on init && property:vendor.skip.init=0
     # Property used by vintf for sku specific manifests
     setprop ro.boot.product.hardware.sku ${ro.boot.hardware.sku}
 
-on late-init
-   write /sys/devices/virtual/thermal/tz-by-name/quiet-therm-adc/mode enabled
-
 on fs
     # Start HW service manager early
     start hwservicemanager
