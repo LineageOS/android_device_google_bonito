@@ -1,4 +1,4 @@
-genfscon sysfs /devices/platform/soc/171c0000.slim/tavil-slim-pgd/tavil_codec     u:object_r:sysfs_pixelstats:s0
+genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-03/c440000.qcom,spmi:qcom,pm660l@3:analog-codec@f000     u:object_r:sysfs_pixelstats:s0
 genfscon sysfs /devices/virtual/misc/msm_cirrus_playback/resistance_left_right    u:object_r:sysfs_pixelstats:s0
 genfscon sysfs /devices/platform/soc/a88000.i2c/i2c-0/0-005a            u:object_r:sysfs_leds:s0
 genfscon sysfs /devices/virtual/ramoops/pstore/aes_key                  u:object_r:sysfs_pstore:s0
