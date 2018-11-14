@@ -19,7 +19,6 @@ cc_binary {
   srcs: [
     "service.cpp",
     "DropDetect.cpp",
-    "SysfsCollector.cpp",
     "UeventListener.cpp",
   ],
   shared_libs: [
@@ -33,7 +32,10 @@ cc_binary {
     "libutils",
   ],
   proprietary: true,
-  static_libs: ["chre_client"],
+  static_libs: [
+  "chre_client",
+  "libpixelstats",
+  ],
   header_libs: ["chre_api"],
 }
 
