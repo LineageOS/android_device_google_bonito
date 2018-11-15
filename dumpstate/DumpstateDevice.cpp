@@ -253,8 +253,18 @@ static void DumpeMMC(int fd) {
     DumpFileToFd(fd, "eMMC ext_csd", "/sys/kernel/debug/mmc0/mmc0:0001/ext_csd");
     DumpFileToFd(fd, "eMMC err_stats", "/sys/kernel/debug/mmc0/err_stats");
     DumpFileToFd(fd, "eMMC ring_buffer", "/sys/kernel/debug/mmc0/ring_buffer");
-    DumpFileToFd(fd, "eMMC pre_eol_info", "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/mmc0:0001/pre_eol_info");
-    DumpFileToFd(fd, "eMMC life_time", "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/mmc0:0001/life_time");
+
+    std::string bootdev = android::base::GetProperty(EMMC_BOOTDEVICE, "");
+    if (!bootdev.empty()) {
+        DumpFileToFd(fd, "eMMC pre_eol_info", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/mmc0:0001/pre_eol_info");
+        DumpFileToFd(fd, "eMMC life_time", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/mmc0:0001/life_time");
+        DumpFileToFd(fd, "eMMC Slow IO Read", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_read_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Write", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_write_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Urgent Read", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_urgent_read_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Urgent Write", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_urgent_write_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Discard", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_discard_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Flush", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_flush_cnt");
+    }
 }
 
 // Methods from ::android::hardware::dumpstate::V1_0::IDumpstateDevice follow.

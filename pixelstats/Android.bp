@@ -30,11 +30,11 @@ cc_binary {
     "libhidltransport",
     "liblog",
     "libutils",
+    "libpixelstats",
   ],
   proprietary: true,
   static_libs: [
   "chre_client",
-  "libpixelstats",
   ],
   header_libs: ["chre_api"],
 }

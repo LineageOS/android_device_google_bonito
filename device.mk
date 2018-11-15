@@ -118,7 +118,6 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bonito/init.bonito.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bonito.rc \
     $(LOCAL_PATH)/sargo/init.sargo.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.sargo.rc \
-    $(LOCAL_PATH)/init.common.rc:root/init.$(PRODUCT_HARDWARE).rc \
     $(LOCAL_PATH)/init.recovery.hardware.device.rc:root/init.recovery.bonito.rc \
     $(LOCAL_PATH)/init.recovery.hardware.device.rc:root/init.recovery.sargo.rc \
 
@@ -141,10 +140,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.cp_system_other_odex=1
-
-# Script that copies preloads directory from system_other to data partition
-PRODUCT_COPY_FILES += \
-    system/extras/cppreopts/preloads_copy.sh:system/bin/preloads_copy.sh
 
 AB_OTA_UPDATER := true
 
