@@ -27,7 +27,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/ld.config.28.txt:system/etc/ld.config.28.txt:qcom \
     vendor/qcom/sargo/proprietary/llndk.libraries.28.txt:system/etc/llndk.libraries.28.txt:qcom \
     vendor/qcom/sargo/proprietary/cneapiclient.xml:system/etc/permissions/cneapiclient.xml:qcom \
-    vendor/qcom/sargo/proprietary/com.google.android.factoryota.xml:system/etc/permissions/com.google.android.factoryota.xml:qcom \
     vendor/qcom/sargo/proprietary/com.quicinc.cne.xml:system/etc/permissions/com.quicinc.cne.xml:qcom \
     vendor/qcom/sargo/proprietary/embms.xml:system/etc/permissions/embms.xml:qcom \
     vendor/qcom/sargo/proprietary/lpa.xml:system/etc/permissions/lpa.xml:qcom \

@@ -286,9 +286,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.videopause.mode=1 \
     persist.vendor.radio.sib16_support=1 \
     persist.vendor.radio.data_con_rprt=true \
-    persist.vendor.radio.relay_oprt_change=1\
+    persist.vendor.radio.relay_oprt_change=1 \
+    persist.vendor.radio.sap_silent_pin=1 \
     persist.rcs.supported=1 \
-    vendor.rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so\
+    vendor.rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so \
     ro.hardware.keystore_desede=true \
 
 # Disable snapshot timer
@@ -360,7 +361,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
-    android.hardware.drm@1.1-service.clearkey \
+    android.hardware.drm@1.2-service.clearkey \
     android.hardware.drm@1.1-service.widevine
 
 # NFC and Secure Element packages
