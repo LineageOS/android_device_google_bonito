@@ -45,7 +45,7 @@ constexpr char kUsbSensorType[] = "usbc-therm-adc";
 constexpr unsigned int kMaxCpus = 8;
 // The number of available sensors in thermalHAL is:
 // 8 (for each cpu) + 2 (for each gpu) + battery + skin + usb = 13.
-constexpr unsigned int kAvailableSensors = 13;
+constexpr unsigned int kAvailableSensors = 14;
 // The following constants are used for limiting the number of throttling
 // notifications. See b/117438310 for details.
 constexpr int kDesiredLittleCoreCoolingStateCliff = 5;
@@ -71,6 +71,7 @@ const std::map<std::string, SensorInfo> kValidThermalSensorInfoMap = {
     {kSkinSensorType, {TemperatureType::SKIN, false, NAN, NAN, .001}},
     // USBC thermal sensor.
     {kUsbSensorType, {TemperatureType::SKIN, false, 58, NAN, .001}},
+    {"pa-therm0-adc", {TemperatureType::UNKNOWN, false, NAN, NAN, .001}},
 };
 
 namespace {
