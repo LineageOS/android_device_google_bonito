@@ -145,7 +145,7 @@
     <ctl name="ADC1_INP1 Switch" value="0" />
     <ctl name="MultiMedia6 Mixer INT3_MI2S_TX" value="0" />
     <ctl name="INT4_MI2S_RX Channels" value="One" />
-    <ctl name="INT0_MI2S_RX Channels" value="One" />
+    <ctl name="INT0_MI2S_RX Channels" value="Two" />
     <ctl name="INT3_MI2S_TX Channels" value="One" />
     <ctl name="I2S TX2 INP1" value="ZERO" />
     <ctl name="I2S TX2 INP2" value="ZERO" />
@@ -417,24 +417,24 @@
     <ctl name="DEC3 MUX" value="ZERO" />
     <ctl name="DEC4 MUX" value="ZERO" />
     <ctl name="ADC2 MUX" value="ZERO" />
-    <ctl name="RDAC2 MUX" value="ZERO" />
+    <ctl name="RDAC2 MUX" value="RX2" />
 
     <!-- Interpolator chain controls -->
     <!-- ADD RX Chain Controls -->
 
-    <ctl name="RX1 MIX1 INP1" value="ZERO" />
-    <ctl name="RX2 MIX1 INP1" value="ZERO" />
-    <ctl name="RDAC2 MUX" value="ZERO" />
-    <ctl name="HPHL" value="ZERO" />
-    <ctl name="HPHR" value="ZERO" />
+    <ctl name="RX1 MIX1 INP1" value="RX1" />
+    <ctl name="RX2 MIX1 INP1" value="RX2" />
+    <ctl name="RDAC2 MUX" value="RX2" />
+    <ctl name="HPHL" value="Switch" />
+    <ctl name="HPHR" value="Switch" />
     <ctl name="RX1 MIX2 INP1" value="ZERO" />
     <ctl name="RX2 MIX2 INP1" value="ZERO" />
     <ctl name="RX3 MIX1 INP1" value="ZERO" />
     <ctl name="RX4 MIX1 INP1" value="ZERO" />
     <ctl name="RX5 MIX1 INP1" value="ZERO" />
-    <ctl name="RX HPH Mode" value="NORMAL" />
-    <ctl name="COMP0 RX1" value="0" />
-    <ctl name="COMP0 RX2" value="0" />
+    <ctl name="RX HPH Mode" value="HD2" />
+    <ctl name="COMP0 RX1" value="1" />
+    <ctl name="COMP0 RX2" value="1" />
 
     <!-- IIR/voice anc -->
     <ctl name="IIR1 Band1" id ="0" value="268435456" />
