@@ -328,6 +328,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-service.bonito
 
+# Storage health HAL
+PRODUCT_PACKAGES += \
+    android.hardware.health.storage@1.0-service
+
 # Light HAL
 PRODUCT_PACKAGES += \
     lights.$(TARGET_CHIPSET) \
