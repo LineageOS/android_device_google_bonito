@@ -13,6 +13,7 @@
             system/etc/ld.config.28.txt \
             system/etc/llndk.libraries.28.txt \
             system/etc/permissions/cneapiclient.xml \
+            system/etc/permissions/com.google.android.factoryota.xml \
             system/etc/permissions/com.quicinc.cne.xml \
             system/etc/permissions/embms.xml \
             system/etc/permissions/lpa.xml \
