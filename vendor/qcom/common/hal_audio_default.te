@@ -17,3 +17,6 @@ allow hal_audio_default debugfs_ipc:dir search;
 
 # For interfacing with PowerHAL
 hal_client_domain(hal_audio_default, hal_power)
+
+# Allow hal to take wakelock
+wakelock_use(hal_audio_default)
