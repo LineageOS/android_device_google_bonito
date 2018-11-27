@@ -295,6 +295,11 @@
          and one pSIM) -->
     <integer name="config_num_physical_slots">2</integer>
 
+    <!-- Disables compatibility WAL mode.
+         In this mode, only database journal mode will be changed, connection pool
+         size will still be limited to a single connection. -->
+    <bool name="db_compatibility_wal_supported">false</bool>
+
     <!-- Use ERI text for network name on CDMA LTE -->
         <bool name="config_LTE_eri_for_network_name">false</bool>
 
