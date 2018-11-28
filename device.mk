@@ -165,7 +165,8 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
 
 PRODUCT_PACKAGES += \
     update_engine_sideload \
-    sg_write_buffer
+    sg_write_buffer \
+    f2fs_io
 
 # The following modules are included in debuggable builds only.
 PRODUCT_PACKAGES_DEBUG += \
