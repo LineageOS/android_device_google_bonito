@@ -812,3 +812,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl.pixel \
     fastbootd
+
+# GTS ACSA(Agreement for Carrier Service Application) verification
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.com.google.acsa=true
