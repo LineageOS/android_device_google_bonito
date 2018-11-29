@@ -567,6 +567,7 @@ on property:sys.boot_completed=1
     chmod 644 /sys/kernel/debug/mmc0/mmc0:0001/ext_csd
     chmod 644 /sys/kernel/debug/mmc0/ring_buffer
     chmod 644 /sys/kernel/debug/mmc0/err_stats
+    chmod 644 /sys/kernel/debug/mmc0/show_host
 
     # Disable sched_boost
     write /proc/sys/kernel/sched_boost 0
