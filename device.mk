@@ -786,3 +786,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Do not skip init trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.init=0
+
+# GTS ACSA(Agreement for Carrier Service Application) verification
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.com.google.acsa=true
