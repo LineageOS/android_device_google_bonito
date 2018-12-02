@@ -49,6 +49,39 @@ on early-init
     write /proc/sys/kernel/sched_boost 1
     mount_all /vendor/etc/fstab.persist --early
 
+    # mount cpuset and blkio together in "on early-init", 
+    # so that mount cpuset in init.rc will fail
+    mkdir /dev/cpuset
+    mount cgroup none /dev/cpuset nodev noexec nosuid cpuset,blkio
+
+    mkdir /dev/cpuset/foreground
+    write /dev/cpuset/foreground/cpuset.cpus 0-7
+    write /dev/cpuset/foreground/cpuset.mems 0
+
+    mkdir /dev/cpuset/background
+    write /dev/cpuset/background/cpuset.cpus 0-7
+    write /dev/cpuset/background/cpuset.mems 0
+
+    mkdir /dev/cpuset/system-background
+    write /dev/cpuset/system-background/cpuset.cpus 0-7
+    write /dev/cpuset/system-background/cpuset.mems 0
+
+    mkdir /dev/cpuset/restricted
+    write /dev/cpuset/restricted/cpuset.cpus 0-7
+    write /dev/cpuset/restricted/cpuset.mems 0
+
+    mkdir /dev/cpuset/top-app
+    write /dev/cpuset/top-app/cpuset.cpus 0-7
+    write /dev/cpuset/top-app/cpuset.mems 0
+
+    # blkio init setting
+    write /dev/cpuset/blkio.group_idle 0
+    write /dev/cpuset/top-app/blkio.group_idle 0
+    write /dev/cpuset/foreground/blkio.group_idle 0
+    write /dev/cpuset/background/blkio.group_idle 0
+    write /dev/cpuset/system-background/blkio.group_idle 0
+    write /dev/cpuset/restricted/blkio.group_idle 0
+
 # Skip init trigger for charger mode
 on early-init && property:ro.boot.mode=charger
     setprop vendor.skip.init 1
@@ -118,11 +151,12 @@ on init && property:vendor.skip.init=0
     write /dev/stune/top-app/schedtune.prefer_idle 1
 
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-7
-    write /dev/cpuset/camera-daemon/mems 0
+    write /dev/cpuset/camera-daemon/cpuset.cpus 0-7
+    write /dev/cpuset/camera-daemon/cpuset.mems 0
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
+    write /dev/cpuset/camera-daemon/blkio.group_idle 0
 
     # b/37682684 Enable suspend clock reporting
     write /sys/kernel/debug/clk/debug_suspend 1
@@ -486,11 +520,28 @@ on property:sys.boot_completed=1
     write /proc/sys/vm/swappiness 100
 
     # Setup final cpuset
-    write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/foreground/cpus 2-7
-    write /dev/cpuset/background/cpus 4-5
-    write /dev/cpuset/system-background/cpus 2-5
-    write /dev/cpuset/restricted/cpus 2-5
+    write /dev/cpuset/top-app/cpuset.cpus 0-7
+    write /dev/cpuset/foreground/cpuset.cpus 2-7
+    write /dev/cpuset/background/cpuset.cpus 4-5
+    write /dev/cpuset/system-background/cpuset.cpus 2-5
+    write /dev/cpuset/restricted/cpuset.cpus 2-5
+
+    # Setup final blkio
+    write /dev/cpuset/blkio.group_idle 0
+    write /dev/cpuset/top-app/blkio.group_idle 4
+    write /dev/cpuset/foreground/blkio.group_idle 4
+    write /dev/cpuset/background/blkio.group_idle 0
+    write /dev/cpuset/system-background/blkio.group_idle 2
+    write /dev/cpuset/restricted/blkio.group_idle 0
+    write /dev/cpuset/camera-daemon/blkio.group_idle 4
+
+    write /dev/cpuset/blkio.weight 10
+    write /dev/cpuset/top-app/blkio.weight 1000
+    write /dev/cpuset/foreground/blkio.weight 100
+    write /dev/cpuset/background/blkio.weight 10
+    write /dev/cpuset/system-background/blkio.weight 50
+    write /dev/cpuset/restricted/blkio.weight 10
+    write /dev/cpuset/camera-daemon/blkio.weight 1000
 
     # Runtime fs tuning: as we have init boottime setting and kernel patch setting
     # default readahead to 2048KB. We should adjust the setting upon boot_complete
