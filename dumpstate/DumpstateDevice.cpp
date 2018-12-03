@@ -213,13 +213,28 @@ static void DumpIPCTRT(int fd) {
 }
 
 static void DumpTouch(int fd) {
-    if (!access("/sys/devices/virtual/sec/tsp", R_OK)) {
-        DumpFileToFd(fd, "LSI touch firmware version",
-                     "/sys/devices/virtual/sec/tsp/fw_version");
-    }
-    if (!access("/sys/devices/platform/soc/888000.i2c/i2c-2/2-0049", R_OK)) {
-        DumpFileToFd(fd, "STM touch firmware version",
-                     "/sys/devices/platform/soc/888000.i2c/i2c-2/2-0049/appid");
+    const std::string touch_sysfs_path = "/sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input2/";
+    if (!access(touch_sysfs_path.c_str(), R_OK)) {
+        DumpFileToFd(fd, "Synaptics touch firmware version",
+                     touch_sysfs_path + "buildid");
+        DumpFileToFd(fd, "Synaptics touch config version",
+                     touch_sysfs_path + "config");
+        RunCommandToFd(fd, "Touch Cm Raw data",
+                       {"/vendor/bin/sh", "-c",
+                        "echo 20 >" + touch_sysfs_path + "read_report"
+                        " && cat " + touch_sysfs_path + "read_report"});
+        RunCommandToFd(fd, "Touch Cm Jitter",
+                       {"/vendor/bin/sh", "-c",
+                        "echo 02 >" + touch_sysfs_path + "read_report"
+                        " && cat " + touch_sysfs_path + "read_report"});
+        RunCommandToFd(fd, "Touch Cs Raw data",
+                       {"/vendor/bin/sh", "-c",
+                        "echo 63 >" + touch_sysfs_path + "read_report"
+                        " && cat " + touch_sysfs_path + "read_report"});
+        RunCommandToFd(fd, "Touch Cs Jitter",
+                       {"/vendor/bin/sh", "-c",
+                        "echo 20 >" + touch_sysfs_path + "read_report"
+                        " && cat " + touch_sysfs_path + "read_report"});
     }
 }
 
