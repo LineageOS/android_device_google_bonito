@@ -56,7 +56,7 @@ PRODUCT_PACKAGES += \
 
 LOCAL_PATH := device/google/bonito
 
-TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
+TARGET_PRODUCT_PROP := $(LOCAL_PATH)/product.prop
 
 $(call inherit-product, $(LOCAL_PATH)/utils.mk)
 
