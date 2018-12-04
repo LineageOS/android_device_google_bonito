@@ -30,6 +30,7 @@
 
 #include "BatteryRechargingControl.h"
 #include "BatteryInfoUpdate.h"
+#include "LearnedCapacityBackupRestore.h"
 #include <fstream>
 #include <iomanip>
 #include <string>
@@ -42,6 +43,7 @@ using android::hardware::health::V2_0::StorageAttribute;
 using android::hardware::health::V2_0::StorageInfo;
 using ::device::google::bonito::health::BatteryRechargingControl;
 using ::device::google::bonito::health::BatteryInfoUpdate;
+using ::device::google::bonito::health::LearnedCapacityBackupRestore;
 using hardware::google::pixel::health::BatteryMetricsLogger;
 using hardware::google::pixel::health::CycleCountBackupRestore;
 using hardware::google::pixel::health::DeviceHealth;
@@ -60,6 +62,7 @@ static LowBatteryShutdownMetrics shutdownMetrics(kVoltageAvg);
 static CycleCountBackupRestore ccBackupRestoreBMS(
     8, kCycleCountsBins, "/persist/battery/qcom_cycle_counts_bins");
 static DeviceHealth deviceHealth;
+static LearnedCapacityBackupRestore lcBackupRestore;
 
 #define EMMC_DIR "/sys/devices/platform/soc/7c4000.sdhci"
 const std::string kEmmcHealthEol{EMMC_DIR "/health/eol"};
@@ -101,17 +104,19 @@ void fill_emmc_storage_attribute(StorageAttribute* attr) {
 }  // anonymous namespace
 
 void healthd_board_init(struct healthd_config*) {
-  ccBackupRestoreBMS.Restore();
+    ccBackupRestoreBMS.Restore();
+    lcBackupRestore.Restore();
 }
 
 int healthd_board_battery_update(struct android::BatteryProperties *props) {
-  battRechargingControl.updateBatteryProperties(props);
-  deviceHealth.update(props);
-  battInfoUpdate.update(props);
-  battMetricsLogger.logBatteryProperties(props);
-  shutdownMetrics.logShutdownVoltage(props);
-  ccBackupRestoreBMS.Backup(props->batteryLevel);
-  return 0;
+    battRechargingControl.updateBatteryProperties(props);
+    deviceHealth.update(props);
+    battInfoUpdate.update(props);
+    battMetricsLogger.logBatteryProperties(props);
+    shutdownMetrics.logShutdownVoltage(props);
+    ccBackupRestoreBMS.Backup(props->batteryLevel);
+    lcBackupRestore.Backup();
+    return 0;
 }
 
 void get_storage_info(std::vector<StorageInfo>& vec_storage_info) {

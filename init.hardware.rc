@@ -561,12 +561,19 @@ on property:sys.boot_completed=1
     # HardwareInfo needs to be able to read CC bins
     chmod 644 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/cycle_counts_bins
 
+    # dumpstate needs to read, vendor.health-hal needs to be able to RW
+    chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/power_supply/bms/charge_full
+
+    # HardwareInfo needs to be able to read charge_full
+    chmod 644 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/power_supply/bms/charge_full
+
     # eMMC health
     chmod 755 /sys/kernel/debug/mmc0
     chmod 755 /sys/kernel/debug/mmc0/mmc0:0001
     chmod 644 /sys/kernel/debug/mmc0/mmc0:0001/ext_csd
     chmod 644 /sys/kernel/debug/mmc0/ring_buffer
     chmod 644 /sys/kernel/debug/mmc0/err_stats
+    chmod 644 /sys/kernel/debug/mmc0/show_host
 
     # Disable sched_boost
     write /proc/sys/kernel/sched_boost 0
@@ -870,3 +877,7 @@ on property:persist.vendor.charge.start.level=*
 # it should be written by the system init.
 on property:ro.boot.hardware.radio.subtype=0
     setprop audio.camerasound.force true
+
+on property:vendor.all.modules.ready=1
+    wait /sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input2/read_report
+    chown system system /sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input2/read_report
