@@ -236,6 +236,7 @@ static void DumpeMMC(int fd) {
     DumpFileToFd(fd, "eMMC ext_csd", "/sys/kernel/debug/mmc0/mmc0:0001/ext_csd");
     DumpFileToFd(fd, "eMMC err_stats", "/sys/kernel/debug/mmc0/err_stats");
     DumpFileToFd(fd, "eMMC ring_buffer", "/sys/kernel/debug/mmc0/ring_buffer");
+    DumpFileToFd(fd, "eMMC host status", "/sys/kernel/debug/mmc0/show_host");
 
     std::string bootdev = android::base::GetProperty(EMMC_BOOTDEVICE, "");
     if (!bootdev.empty()) {
