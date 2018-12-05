@@ -185,7 +185,7 @@ on fs
 
     mkdir /mnt/vendor/persist/audio 0770 media audio
     mkdir /persist/data 0700 system system
-    mkdir /persist/display 0770 system graphics
+    mkdir /mnt/vendor/persist/display 0770 system graphics
     mkdir /mnt/vendor/persist/rfs 0770 root system
     mkdir /mnt/vendor/persist/hlos_rfs 0770 root system
     chmod 0770 /mnt/vendor/persist/rfs
