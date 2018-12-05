@@ -296,7 +296,6 @@ on zygote-start
     # We chown/chmod /persist again so because mount is run as root + defaults
     chown root system /persist
     chmod 0771 /persist
-    chown system system /persist/WCNSS_qcom_wlan_nv.bin
 
     # Trigger WLAN driver load
     write /sys/kernel/boot_wlan/boot_wlan 1
