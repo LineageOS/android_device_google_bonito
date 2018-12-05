@@ -219,6 +219,8 @@ static void DumpTouch(int fd) {
                      touch_sysfs_path + "buildid");
         DumpFileToFd(fd, "Synaptics touch config version",
                      touch_sysfs_path + "config");
+        DumpFileToFd(fd, "Synaptics touch noise information",
+                     touch_sysfs_path + "noise_state");
         RunCommandToFd(fd, "Touch Cm Raw data",
                        {"/vendor/bin/sh", "-c",
                         "echo 20 >" + touch_sysfs_path + "read_report"
@@ -233,7 +235,7 @@ static void DumpTouch(int fd) {
                         " && cat " + touch_sysfs_path + "read_report"});
         RunCommandToFd(fd, "Touch Cs Jitter",
                        {"/vendor/bin/sh", "-c",
-                        "echo 20 >" + touch_sysfs_path + "read_report"
+                        "echo 59 >" + touch_sysfs_path + "read_report"
                         " && cat " + touch_sysfs_path + "read_report"});
     }
 }
