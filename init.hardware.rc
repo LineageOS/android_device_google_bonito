@@ -344,10 +344,10 @@ on zygote-start
     chown media audio /mnt/vendor/persist/audio
     chown audioserver audio /mnt/vendor/persist/audio/audio.cal
 
-    chmod 770 /persist/haptics
-    chmod 440 /persist/haptics/drv2624.cal
-    chown system system /persist/haptics
-    chown system system /persist/haptics/drv2624.cal
+    chmod 770 /mnt/vendor/persist/haptics
+    chmod 440 /mnt/vendor/persist/haptics/drv2624.cal
+    chown system system /mnt/vendor/persist/haptics
+    chown system system /mnt/vendor/persist/haptics/drv2624.cal
 
     # Mark the copy complete flag to not completed
     write /data/vendor/radio/copy_complete 0
