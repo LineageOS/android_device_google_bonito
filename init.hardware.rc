@@ -326,15 +326,15 @@ on zygote-start
     chmod 0664 /data/vendor/modem_stat/debug.txt
 
     # Set up sensors-related directories and permissions
-    chmod 775 /persist/sensors
-    chmod 664 /persist/sensors/sensors_settings
-    chown root system /persist/sensors/registry
-    chmod 775 /persist/sensors/registry
-    chown root system /persist/sensors/registry/registry
-    chmod 775 /persist/sensors/registry/registry
+    chmod 775 /mnt/vendor/persist/sensors
+    chmod 664 /mnt/vendor/persist/sensors/sensors_settings
+    chown root system /mnt/vendor/persist/sensors/registry
+    chmod 775 /mnt/vendor/persist/sensors/registry
+    chown root system /mnt/vendor/persist/sensors/registry/registry
+    chmod 775 /mnt/vendor/persist/sensors/registry/registry
 
-    chown system root /persist/sensors/sensors_settings
-    chown root root /persist/sensors/registry/registry/sensors_settings
+    chown system root /mnt/vendor/persist/sensors/sensors_settings
+    chown root root /mnt/vendor/persist/sensors/registry/registry/sensors_settings
 
     mkdir /data/vendor/sensors 0770
     chown system system /data/vendor/sensors
