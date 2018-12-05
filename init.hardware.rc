@@ -207,7 +207,7 @@ on fs
     restorecon_recursive /mnt/vendor/persist/
 
     # for cycle count backup
-    mkdir /persist/battery 0700 system system
+    mkdir /mnt/vendor/persist/battery 0700 system system
 
 on late-fs
     # Start devices by sysfs trigger, including sensor related script.
