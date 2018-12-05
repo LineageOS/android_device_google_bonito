@@ -234,7 +234,7 @@ on late-fs
     write /sys/block/dm-2/queue/read_ahead_kb 2048
 
     # Required for time_daemon
-    mkdir /persist/time 0770 system system
+    mkdir /mnt/vendor/persist/time 0770 system system
 
     # Start time daemon early so that the system time can be set early
     start time_daemon
