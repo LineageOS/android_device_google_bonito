@@ -186,24 +186,24 @@ on fs
     mkdir /mnt/vendor/persist/audio 0770 media audio
     mkdir /persist/data 0700 system system
     mkdir /persist/display 0770 system graphics
-    mkdir /persist/rfs 0770 root system
-    mkdir /persist/hlos_rfs 0770 root system
-    chmod 0770 /persist/rfs
-    chmod 0770 /persist/rfs/shared
-    chmod 0770 /persist/rfs/msm
-    chmod 0770 /persist/rfs/msm/adsp
-    chmod 0770 /persist/rfs/msm/mpss
-    chmod 0770 /persist/rfs/msm/slpi
-    chmod 0770 /persist/rfs/mdm
-    chmod 0770 /persist/rfs/mdm/adsp
-    chmod 0770 /persist/rfs/mdm/mpss
-    chmod 0770 /persist/rfs/mdm/slpi
-    chmod 0770 /persist/rfs/mdm/tn
-    chmod 0770 /persist/rfs/apq
-    chmod 0770 /persist/rfs/apq/gnss
-    chmod 0770 /persist/hlos_rfs
-    restorecon /persist/rfs
-    restorecon /persist/hlos_rfs
+    mkdir /mnt/vendor/persist/rfs 0770 root system
+    mkdir /mnt/vendor/persist/hlos_rfs 0770 root system
+    chmod 0770 /mnt/vendor/persist/rfs
+    chmod 0770 /mnt/vendor/persist/rfs/shared
+    chmod 0770 /mnt/vendor/persist/rfs/msm
+    chmod 0770 /mnt/vendor/persist/rfs/msm/adsp
+    chmod 0770 /mnt/vendor/persist/rfs/msm/mpss
+    chmod 0770 /mnt/vendor/persist/rfs/msm/slpi
+    chmod 0770 /mnt/vendor/persist/rfs/mdm
+    chmod 0770 /mnt/vendor/persist/rfs/mdm/adsp
+    chmod 0770 /mnt/vendor/persist/rfs/mdm/mpss
+    chmod 0770 /mnt/vendor/persist/rfs/mdm/slpi
+    chmod 0770 /mnt/vendor/persist/rfs/mdm/tn
+    chmod 0770 /mnt/vendor/persist/rfs/apq
+    chmod 0770 /mnt/vendor/persist/rfs/apq/gnss
+    chmod 0770 /mnt/vendor/persist/hlos_rfs
+    restorecon /mnt/vendor/persist/rfs
+    restorecon /mnt/vendor/persist/hlos_rfs
     restorecon_recursive /mnt/vendor/persist/
 
     # for cycle count backup
