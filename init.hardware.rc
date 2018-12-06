@@ -184,7 +184,7 @@ on fs
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --early
 
     mkdir /mnt/vendor/persist/audio 0770 media audio
-    mkdir /persist/data 0700 system system
+    mkdir /mnt/vendor/persist/data 0700 system system
     mkdir /mnt/vendor/persist/display 0770 system graphics
     mkdir /mnt/vendor/persist/rfs 0770 root system
     mkdir /mnt/vendor/persist/hlos_rfs 0770 root system
@@ -293,9 +293,9 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
-    # We chown/chmod /persist again so because mount is run as root + defaults
-    chown root system /persist
-    chmod 0771 /persist
+    # We chown/chmod /mnt/vendor/persist/ again so because mount is run as root + defaults
+    chown root system /mnt/vendor/persist/
+    chmod 0771 /mnt/vendor/persist/
 
     # Trigger WLAN driver load
     write /sys/kernel/boot_wlan/boot_wlan 1
