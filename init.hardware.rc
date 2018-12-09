@@ -183,31 +183,31 @@ on late-init
 on fs
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --early
 
-    mkdir /persist/audio 0770 media audio
-    mkdir /persist/data 0700 system system
-    mkdir /persist/display 0770 system graphics
-    mkdir /persist/rfs 0770 root system
-    mkdir /persist/hlos_rfs 0770 root system
-    chmod 0770 /persist/rfs
-    chmod 0770 /persist/rfs/shared
-    chmod 0770 /persist/rfs/msm
-    chmod 0770 /persist/rfs/msm/adsp
-    chmod 0770 /persist/rfs/msm/mpss
-    chmod 0770 /persist/rfs/msm/slpi
-    chmod 0770 /persist/rfs/mdm
-    chmod 0770 /persist/rfs/mdm/adsp
-    chmod 0770 /persist/rfs/mdm/mpss
-    chmod 0770 /persist/rfs/mdm/slpi
-    chmod 0770 /persist/rfs/mdm/tn
-    chmod 0770 /persist/rfs/apq
-    chmod 0770 /persist/rfs/apq/gnss
-    chmod 0770 /persist/hlos_rfs
-    restorecon /persist/rfs
-    restorecon /persist/hlos_rfs
+    mkdir /mnt/vendor/persist/audio 0770 media audio
+    mkdir /mnt/vendor/persist/data 0700 system system
+    mkdir /mnt/vendor/persist/display 0770 system graphics
+    mkdir /mnt/vendor/persist/rfs 0770 root system
+    mkdir /mnt/vendor/persist/hlos_rfs 0770 root system
+    chmod 0770 /mnt/vendor/persist/rfs
+    chmod 0770 /mnt/vendor/persist/rfs/shared
+    chmod 0770 /mnt/vendor/persist/rfs/msm
+    chmod 0770 /mnt/vendor/persist/rfs/msm/adsp
+    chmod 0770 /mnt/vendor/persist/rfs/msm/mpss
+    chmod 0770 /mnt/vendor/persist/rfs/msm/slpi
+    chmod 0770 /mnt/vendor/persist/rfs/mdm
+    chmod 0770 /mnt/vendor/persist/rfs/mdm/adsp
+    chmod 0770 /mnt/vendor/persist/rfs/mdm/mpss
+    chmod 0770 /mnt/vendor/persist/rfs/mdm/slpi
+    chmod 0770 /mnt/vendor/persist/rfs/mdm/tn
+    chmod 0770 /mnt/vendor/persist/rfs/apq
+    chmod 0770 /mnt/vendor/persist/rfs/apq/gnss
+    chmod 0770 /mnt/vendor/persist/hlos_rfs
+    restorecon /mnt/vendor/persist/rfs
+    restorecon /mnt/vendor/persist/hlos_rfs
     restorecon_recursive /mnt/vendor/persist/
 
     # for cycle count backup
-    mkdir /persist/battery 0700 system system
+    mkdir /mnt/vendor/persist/battery 0700 system system
 
 on late-fs
     # Start devices by sysfs trigger, including sensor related script.
@@ -234,7 +234,7 @@ on late-fs
     write /sys/block/dm-2/queue/read_ahead_kb 2048
 
     # Required for time_daemon
-    mkdir /persist/time 0770 system system
+    mkdir /mnt/vendor/persist/time 0770 system system
 
     # Start time daemon early so that the system time can be set early
     start time_daemon
@@ -293,10 +293,9 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
-    # We chown/chmod /persist again so because mount is run as root + defaults
-    chown root system /persist
-    chmod 0771 /persist
-    chown system system /persist/WCNSS_qcom_wlan_nv.bin
+    # We chown/chmod /mnt/vendor/persist/ again so because mount is run as root + defaults
+    chown root system /mnt/vendor/persist/
+    chmod 0771 /mnt/vendor/persist/
 
     # Trigger WLAN driver load
     write /sys/kernel/boot_wlan/boot_wlan 1
@@ -326,28 +325,28 @@ on zygote-start
     chmod 0664 /data/vendor/modem_stat/debug.txt
 
     # Set up sensors-related directories and permissions
-    chmod 775 /persist/sensors
-    chmod 664 /persist/sensors/sensors_settings
-    chown root system /persist/sensors/registry
-    chmod 775 /persist/sensors/registry
-    chown root system /persist/sensors/registry/registry
-    chmod 775 /persist/sensors/registry/registry
+    chmod 775 /mnt/vendor/persist/sensors
+    chmod 664 /mnt/vendor/persist/sensors/sensors_settings
+    chown root system /mnt/vendor/persist/sensors/registry
+    chmod 775 /mnt/vendor/persist/sensors/registry
+    chown root system /mnt/vendor/persist/sensors/registry/registry
+    chmod 775 /mnt/vendor/persist/sensors/registry/registry
 
-    chown system root /persist/sensors/sensors_settings
-    chown root root /persist/sensors/registry/registry/sensors_settings
+    chown system root /mnt/vendor/persist/sensors/sensors_settings
+    chown root root /mnt/vendor/persist/sensors/registry/registry/sensors_settings
 
     mkdir /data/vendor/sensors 0770
     chown system system /data/vendor/sensors
 
-    chmod 770 /persist/audio
-    chmod 660 /persist/audio/audio.cal
-    chown media audio /persist/audio
-    chown audioserver audio /persist/audio/audio.cal
+    chmod 770 /mnt/vendor/persist/audio
+    chmod 660 /mnt/vendor/persist/audio/audio.cal
+    chown media audio /mnt/vendor/persist/audio
+    chown audioserver audio /mnt/vendor/persist/audio/audio.cal
 
-    chmod 770 /persist/haptics
-    chmod 440 /persist/haptics/drv2624.cal
-    chown system system /persist/haptics
-    chown system system /persist/haptics/drv2624.cal
+    chmod 770 /mnt/vendor/persist/haptics
+    chmod 440 /mnt/vendor/persist/haptics/drv2624.cal
+    chown system system /mnt/vendor/persist/haptics
+    chown system system /mnt/vendor/persist/haptics/drv2624.cal
 
     # Mark the copy complete flag to not completed
     write /data/vendor/radio/copy_complete 0
