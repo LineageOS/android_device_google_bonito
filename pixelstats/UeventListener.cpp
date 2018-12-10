@@ -135,16 +135,35 @@ void UeventListener::ReportUsbAudioUevents(const char *driver, const char *produ
     }
 }
 
+void UeventListener::ReportMicBroken(const char *devpath, const char *mic_break_status) {
+    if (!devpath || !mic_break_status)
+        return;
+    if (!strcmp(devpath, "DEVPATH=/kernel/q6audio/q6voice_uevent") &&
+        !strcmp(mic_break_status, "MIC_BREAK_STATUS=TRUE")) {
+        ALOGD("%s: Detect MicBroken", __func__);
+        using ::hardware::google::pixelstats::V1_0::IPixelStats;
+        android::sp<IPixelStats> client = IPixelStats::tryGetService();
+        if (!client) {
+            ALOGE("Couldn't connect to PixelStats service for mic break");
+            return;
+        }
+        client->reportHardwareFailed(IPixelStats::HardwareType::MICROPHONE, 0,
+                                     IPixelStats::HardwareErrorCode::COMPLETE);
+    }
+}
+
 bool UeventListener::ProcessUevent() {
     char msg[UEVENT_MSG_LEN + 2];
     char *cp;
     const char *action, *power_supply_typec_mode, *driver, *product;
+    const char *mic_break_status;
+    const char *devpath;
     int n;
 
     if (uevent_fd_ < 0) {
         uevent_fd_ = uevent_open_socket(64 * 1024, true);
         if (uevent_fd_ < 0) {
-            ALOGE("uevent_init: uevent_open_socket failed");
+            ALOGE("uevent_init: uevent_open_socket failed\n");
             return false;
         }
     }
@@ -158,6 +177,7 @@ bool UeventListener::ProcessUevent() {
     msg[n + 1] = '\0';
 
     action = power_supply_typec_mode = driver = product = NULL;
+    mic_break_status = devpath = NULL;
 
     /**
      * msg is a sequence of null-terminated strings.
@@ -174,6 +194,10 @@ bool UeventListener::ProcessUevent() {
             driver = cp;
         } else if (!strncmp(cp, "PRODUCT=", strlen("PRODUCT="))) {
             product = cp;
+        } else if (!strncmp(cp, "MIC_BREAK_STATUS=", strlen("MIC_BREAK_STATUS="))) {
+            mic_break_status = cp;
+        } else if (!strncmp(cp, "DEVPATH=", strlen("DEVPATH="))) {
+            devpath = cp;
         }
 
         /* advance to after the next \0 */
@@ -184,6 +208,7 @@ bool UeventListener::ProcessUevent() {
     /* Process the strings recorded. */
     ReportUsbConnectorUevents(power_supply_typec_mode);
     ReportUsbAudioUevents(driver, product, action);
+    ReportMicBroken(devpath, mic_break_status);
 
     return true;
 }
