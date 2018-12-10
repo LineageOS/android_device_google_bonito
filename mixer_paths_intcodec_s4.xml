@@ -1626,10 +1626,6 @@
     </path>
 
     <path name="sidetone-headphones">
-        <path name="sidetone-iir" />
-        <ctl name="RX1 MIX2 INP1" value="IIR1" />
-        <ctl name="RX2 MIX2 INP1" value="IIR1" />
-        <ctl name="IIR1 INP1 Volume" value="53" />
         <ctl name="Voice Sidetone Enable" value="1" />
     </path>
 
@@ -1735,8 +1731,8 @@
     </path>
 
     <path name="headphones">
-        <ctl name="COMP0 RX1" value="1" />
-        <ctl name="COMP0 RX2" value="1" />
+        <ctl name="COMP0 RX1" value="0" />
+        <ctl name="COMP0 RX2" value="0" />
         <ctl name="INT0_MI2S_RX Channels" value="Two" />
         <ctl name="RX1 MIX1 INP1" value="RX1" />
         <ctl name="RX2 MIX1 INP1" value="RX2" />
