@@ -156,6 +156,7 @@
     <ctl name="AIF1_VI_SDW Mixer SPKR_VI_1" value="0" />
     <ctl name="AIF1_VI_SDW Mixer SPKR_VI_2" value="0" />
     <ctl name="INT5 MI2S VI MONO" value="Left" />
+    <ctl name="Voice Mic Break Enable" value="1" />
     <!-- ALC5513 config -->
     <ctl name="Sto1 ADC MIXL DMIC Switch" value="0" />
     <ctl name="Sto1 ADC MIXR DMIC Switch" value="0" />
