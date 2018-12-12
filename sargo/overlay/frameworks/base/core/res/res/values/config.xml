@@ -127,6 +127,9 @@
     <!-- Whether the always on display mode is available. -->
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
 
+    <!-- Disable AOD by default -->
+    <bool name="config_dozeAlwaysOnEnabled">false</bool>
+
     <!-- True if the display hardware only has brightness buckets rather than a full range of
          backlight values -->
     <bool name="config_displayBrightnessBucketsInDoze">true</bool>
@@ -681,5 +684,8 @@
     <string-array name="config_disableApkUnlessMatchedSku_skus_list" translatable="false">
         <item>G020H</item>
     </string-array>
+
+    <dimen name="rounded_corner_radius_top">40px</dimen>
+    <dimen name="rounded_corner_radius_bottom">41px</dimen>
 
 </resources>
