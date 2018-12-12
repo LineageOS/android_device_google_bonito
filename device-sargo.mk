@@ -34,8 +34,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES +=\
     ro.vibrator.hal.click.duration=6 \
     ro.vibrator.hal.tick.duration=4 \
     ro.vibrator.hal.heavyclick.duration=10 \
-    ro.vibrator.hal.short.voltage=105 \
-    ro.vibrator.hal.long.voltage= 75 \
+    ro.vibrator.hal.short.voltage=110 \
+    ro.vibrator.hal.long.voltage=75 \
     ro.vibrator.hal.long.lra.period=262
 
 # DRV2624 Haptics Waveform
