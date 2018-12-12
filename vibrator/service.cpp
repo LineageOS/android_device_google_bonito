@@ -40,7 +40,8 @@ static constexpr char SEQUENCER_PATH[] = "/sys/class/leds/vibrator/device/set_se
 static constexpr char SCALE_PATH[] = "/sys/class/leds/vibrator/device/scale";
 static constexpr char CTRL_LOOP_PATH[] = "/sys/class/leds/vibrator/device/ctrl_loop";
 static constexpr char LP_TRIGGER_PATH[] = "/sys/class/leds/vibrator/device/lp_trigger_effect";
-static constexpr char OD_CLAMP_FILEPATH[] = "/sys/class/leds/vibrator/device/od_clamp";
+static constexpr char LRA_WAVE_SHAPE_PATH[] = "/sys/class/leds/vibrator/device/lra_wave_shape";
+static constexpr char OD_CLAMP_PATH[] = "/sys/class/leds/vibrator/device/od_clamp";
 
 // File path to the calibration file
 static constexpr char CALIBRATION_FILEPATH[] = "/persist/haptics/drv2624.cal";
@@ -50,6 +51,9 @@ static constexpr char AUTOCAL_CONFIG[] = "autocal";
 static constexpr char LRA_PERIOD_CONFIG[] = "lra_period";
 static constexpr char AUTOCAL_FILEPATH[] = "/sys/class/leds/vibrator/device/autocal";
 static constexpr char OL_LRA_PERIOD_FILEPATH[] = "/sys/class/leds/vibrator/device/ol_lra_period";
+
+// Set a default lra period in case there is no calibration file
+static constexpr uint32_t DEFAULT_LRA_PERIOD = 262;
 
 static std::string trim(const std::string& str,
         const std::string& whitespace = " \t") {
@@ -64,7 +68,7 @@ static std::string trim(const std::string& str,
     return str.substr(str_begin, str_range);
 }
 
-static bool loadCalibrationData(std::uint32_t& lra_period) {
+static bool loadCalibrationData(std::uint32_t& short_lra_period) {
     std::map<std::string, std::string> config_data;
 
     std::ofstream autocal{AUTOCAL_FILEPATH};
@@ -114,7 +118,7 @@ static bool loadCalibrationData(std::uint32_t& lra_period) {
 
     if(config_data.find(LRA_PERIOD_CONFIG) != config_data.end()) {
         ol_lra_period << config_data[LRA_PERIOD_CONFIG] << std::endl;
-        lra_period = std::stoul(config_data[LRA_PERIOD_CONFIG]);
+        short_lra_period = std::stoul(config_data[LRA_PERIOD_CONFIG]);
     }
 
     return true;
@@ -122,7 +126,7 @@ static bool loadCalibrationData(std::uint32_t& lra_period) {
 
 status_t registerVibratorService() {
     // Calibration data: lra period 262(i.e. 155Hz)
-    std::uint32_t lra_period(262);
+    std::uint32_t short_lra_period(DEFAULT_LRA_PERIOD);
 
     // ostreams below are required
     std::ofstream activate{ACTIVATE_PATH};
@@ -190,10 +194,16 @@ status_t registerVibratorService() {
         ALOGW("Failed to open %s (%d): %s", LP_TRIGGER_PATH, error, strerror(error));
     }
 
-    std::ofstream odclamp{OD_CLAMP_FILEPATH};
+    std::ofstream lrawaveshape{LRA_WAVE_SHAPE_PATH};
+    if (!lrawaveshape) {
+        int error = errno;
+        ALOGW("Failed to open %s (%d): %s", LRA_WAVE_SHAPE_PATH, error, strerror(error));
+    }
+
+    std::ofstream odclamp{OD_CLAMP_PATH};
     if (!odclamp) {
         int error = errno;
-        ALOGW("Failed to open %s (%d): %s", OD_CLAMP_FILEPATH, error, strerror(error));
+        ALOGW("Failed to open %s (%d): %s", OD_CLAMP_PATH, error, strerror(error));
     }
 
     std::ofstream ollraperiod{OL_LRA_PERIOD_FILEPATH};
@@ -202,14 +212,15 @@ status_t registerVibratorService() {
         ALOGW("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error, strerror(error));
     }
 
-    if (!loadCalibrationData(lra_period)) {
+    if (!loadCalibrationData(short_lra_period)) {
         ALOGW("Failed load calibration data");
     }
 
     sp<IVibrator> vibrator = new Vibrator(std::move(activate), std::move(duration),
             std::move(state), std::move(rtpinput), std::move(mode),
             std::move(sequencer), std::move(scale), std::move(ctrlloop), std::move(lptrigger),
-            std::move(odclamp), std::move(ollraperiod), lra_period);
+            std::move(lrawaveshape), std::move(odclamp), std::move(ollraperiod),
+            short_lra_period);
 
     return vibrator->registerAsService();
 }
