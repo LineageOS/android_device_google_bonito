@@ -457,7 +457,7 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.pixel
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/thermal_info_config_$(PRODUCT_HARDWARE).json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_$(PRODUCT_HARDWARE).json
+    $(LOCAL_PATH)/thermal_info_config_$(PRODUCT_HARDWARE).json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
 
 #GNSS HAL
 PRODUCT_PACKAGES += \

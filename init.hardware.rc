@@ -178,7 +178,7 @@ on init && property:vendor.skip.init=0
     setprop ro.boot.product.hardware.sku ${ro.boot.hardware.sku}
 
 on late-init
-    setprop vendor.thermal.config thermal_info_config_${ro.hardware}.json
+    setprop vendor.thermal.config thermal_info_config.json
 
 on fs
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --early
