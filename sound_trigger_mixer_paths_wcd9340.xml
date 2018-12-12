@@ -78,6 +78,8 @@
     <ctl name="WDMA3 CH1 MUX" value="PORT_0" />
     <ctl name="WDMA3_ON_OFF Switch" value="0" />
     <ctl name="PRI_TDM_TX_0 Channels" value="One" />
+    <ctl name="Sto1 ADC MIXL DMIC Switch" value="0" />
+    <ctl name="Sto2 ADC MIXL DMIC Switch" value="0" />
 
     <path name="listen-voice-wakeup-1">
         <ctl name="PRI_TDM_TX_0 LSM Function" value="AUDIO" />

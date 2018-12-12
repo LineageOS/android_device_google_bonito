@@ -409,6 +409,7 @@ on early-boot
     chown system system /sys/class/leds/vibrator/device/ol_lra_period
     chown system system /sys/class/leds/vibrator/device/autocal
     chown system system /sys/class/leds/vibrator/device/lp_trigger_effect
+    chown system system /sys/class/leds/vibrator/device/lra_wave_shape
 
     # Permission for LED driver
     chown system system /sys/class/leds/red/on_off_ms
@@ -517,7 +518,7 @@ on property:sys.boot_completed=1
 
     # Setup final cpuset
     write /dev/cpuset/top-app/cpuset.cpus 0-7
-    write /dev/cpuset/foreground/cpuset.cpus 2-7
+    write /dev/cpuset/foreground/cpuset.cpus 0-5,7
     write /dev/cpuset/background/cpuset.cpus 4-5
     write /dev/cpuset/system-background/cpuset.cpus 2-5
     write /dev/cpuset/restricted/cpuset.cpus 2-5
