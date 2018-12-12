@@ -31,9 +31,9 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.com.google.ime.height_ratio=1.2
 
 # Vibrator HAL
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES +=\
-    ro.vibrator.hal.click.duration=6 \
-    ro.vibrator.hal.tick.duration=4 \
-    ro.vibrator.hal.heavyclick.duration=10 \
+    ro.vibrator.hal.click.duration=8 \
+    ro.vibrator.hal.tick.duration=5 \
+    ro.vibrator.hal.heavyclick.duration=12 \
     ro.vibrator.hal.short.voltage=110 \
     ro.vibrator.hal.long.voltage=75 \
     ro.vibrator.hal.long.lra.period=262
