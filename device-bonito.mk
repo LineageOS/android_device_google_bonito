@@ -29,10 +29,10 @@ PRODUCT_COPY_FILES += \
 
 # Vibrator HAL
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES +=\
-    ro.vibrator.hal.click.duration=7 \
-    ro.vibrator.hal.tick.duration=4 \
-    ro.vibrator.hal.heavyclick.duration=10 \
-    ro.vibrator.hal.short.voltage=125 \
+    ro.vibrator.hal.click.duration=8 \
+    ro.vibrator.hal.tick.duration=5 \
+    ro.vibrator.hal.heavyclick.duration=12 \
+    ro.vibrator.hal.short.voltage=120 \
     ro.vibrator.hal.long.voltage=75 \
     ro.vibrator.hal.long.lra.period=262
 

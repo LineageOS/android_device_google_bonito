@@ -43,6 +43,8 @@ static constexpr char RTP_MODE[] = "rtp";
 static constexpr char WAVEFORM_MODE[] = "waveform";
 
 static constexpr uint32_t LOOP_MODE_OPEN = 1;
+static constexpr uint32_t SINE_WAVE = 1;
+static constexpr uint32_t SQUARE_WAVE = 0;
 
 // Default max voltage 2.15V
 static constexpr uint32_t VOLTAGE_MAX = 107;
@@ -73,8 +75,8 @@ Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
         std::ofstream&& state, std::ofstream&& rtpinput,
         std::ofstream&& mode, std::ofstream&& sequencer,
         std::ofstream&& scale, std::ofstream&& ctrlloop, std::ofstream&& lptrigger,
-        std::ofstream&& odclamp, std::ofstream&& ollraperiod,
-        std::uint32_t lra_period) :
+        std::ofstream&& lrawaveshape, std::ofstream&& odclamp, std::ofstream&& ollraperiod,
+        std::uint32_t short_lra_period) :
     mActivate(std::move(activate)),
     mDuration(std::move(duration)),
     mState(std::move(state)),
@@ -84,9 +86,10 @@ Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
     mScale(std::move(scale)),
     mCtrlLoop(std::move(ctrlloop)),
     mLpTriggerEffect(std::move(lptrigger)),
+    mLraWaveShape(std::move(lrawaveshape)),
     mOdClamp(std::move(odclamp)),
     mOlLraPeriod(std::move(ollraperiod)),
-    mLraPeriod(lra_period) {
+    mShortLraPeriod(short_lra_period) {
 
     mClickDuration = property_get_int32("ro.vibrator.hal.click.duration", WAVEFORM_CLICK_EFFECT_MS);
     mTickDuration = property_get_int32("ro.vibrator.hal.tick.duration", WAVEFORM_TICK_EFFECT_MS);
@@ -115,10 +118,12 @@ Return<Status> Vibrator::on(uint32_t timeoutMs, bool isWaveform) {
 
     if (isWaveform) {
         mMode << WAVEFORM_MODE << std::endl;
+        mLraWaveShape << SINE_WAVE << std::endl;
         mOdClamp << mShortVoltageMax << std::endl;
-        mOlLraPeriod << mLraPeriod << std::endl;
+        mOlLraPeriod << mShortLraPeriod << std::endl;
     } else {
         mMode << RTP_MODE << std::endl;
+        mLraWaveShape << SQUARE_WAVE << std::endl;
         mOdClamp << mLongVoltageMax << std::endl;
         mOlLraPeriod << mLongLraPeriod << std::endl;
     }
