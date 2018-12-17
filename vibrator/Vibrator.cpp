@@ -62,7 +62,7 @@ static constexpr int32_t WAVEFORM_TICK_EFFECT_MS = 2;
 
 // Use effect #3 in the waveform library for DOUBLE_CLICK effect
 static constexpr char WAVEFORM_DOUBLE_CLICK_EFFECT_SEQ[] = "3 0";
-static constexpr uint32_t WAVEFORM_DOUBLE_CLICK_EFFECT_MS = 135;
+static constexpr uint32_t WAVEFORM_DOUBLE_CLICK_EFFECT_MS = 182;
 
 // Use effect #4 in the waveform library for HEAVY_CLICK effect
 static constexpr char WAVEFORM_HEAVY_CLICK_EFFECT_SEQ[] = "4 0";
