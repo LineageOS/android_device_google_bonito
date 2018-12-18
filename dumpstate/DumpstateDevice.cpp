@@ -238,24 +238,32 @@ static void DumpTouch(int fd) {
                      touch_sysfs_path + "buildid");
         DumpFileToFd(fd, "Synaptics touch config version",
                      touch_sysfs_path + "config");
+        RunCommandToFd(fd, "keep touch stay awake",
+                       {"/vendor/bin/sh", "-c",
+                        "echo 02 >" + touch_sysfs_path + "suspend"});
         DumpFileToFd(fd, "Synaptics touch noise information",
                      touch_sysfs_path + "noise_state");
-        RunCommandToFd(fd, "Touch Cm Raw data",
+        for (int i = 0; i < 5; i++) {
+            RunCommandToFd(fd, "Touch Cm Raw data",
+                           {"/vendor/bin/sh", "-c",
+                            "echo 20 >" + touch_sysfs_path + "read_report"
+                            " && cat " + touch_sysfs_path + "read_report"});
+            RunCommandToFd(fd, "Touch Cm Jitter",
+                           {"/vendor/bin/sh", "-c",
+                            "echo 02 >" + touch_sysfs_path + "read_report"
+                            " && cat " + touch_sysfs_path + "read_report"});
+            RunCommandToFd(fd, "Touch Cs Raw data",
+                           {"/vendor/bin/sh", "-c",
+                            "echo 63 >" + touch_sysfs_path + "read_report"
+                            " && cat " + touch_sysfs_path + "read_report"});
+            RunCommandToFd(fd, "Touch Cs Jitter",
+                           {"/vendor/bin/sh", "-c",
+                            "echo 59 >" + touch_sysfs_path + "read_report"
+                            " && cat " + touch_sysfs_path + "read_report"});
+        }
+        RunCommandToFd(fd, "keep touch stay awake disable",
                        {"/vendor/bin/sh", "-c",
-                        "echo 20 >" + touch_sysfs_path + "read_report"
-                        " && cat " + touch_sysfs_path + "read_report"});
-        RunCommandToFd(fd, "Touch Cm Jitter",
-                       {"/vendor/bin/sh", "-c",
-                        "echo 02 >" + touch_sysfs_path + "read_report"
-                        " && cat " + touch_sysfs_path + "read_report"});
-        RunCommandToFd(fd, "Touch Cs Raw data",
-                       {"/vendor/bin/sh", "-c",
-                        "echo 63 >" + touch_sysfs_path + "read_report"
-                        " && cat " + touch_sysfs_path + "read_report"});
-        RunCommandToFd(fd, "Touch Cs Jitter",
-                       {"/vendor/bin/sh", "-c",
-                        "echo 59 >" + touch_sysfs_path + "read_report"
-                        " && cat " + touch_sysfs_path + "read_report"});
+                        "echo 00 >" + touch_sysfs_path + "suspend"});
     }
 }
 
