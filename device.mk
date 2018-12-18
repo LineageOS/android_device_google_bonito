@@ -481,9 +481,9 @@ PRODUCT_PACKAGES += \
 LIB_NL := libnl_2
 PRODUCT_PACKAGES += $(LIB_NL)
 
-# Factory OTA for Bonito
+# Factory OTA
 PRODUCT_PACKAGES += \
-    BonitoFactoryOta
+    FactoryOta
 
 # Audio effects
 PRODUCT_PACKAGES += \
