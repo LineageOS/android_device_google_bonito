@@ -878,6 +878,8 @@ on property:persist.vendor.charge.start.level=*
 on property:ro.boot.hardware.radio.subtype=0
     setprop audio.camerasound.force true
 
+# Touch
 on property:vendor.all.modules.ready=1
     wait /sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input2/read_report
     chown system system /sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input2/read_report
+    chown system system /sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input2/suspend
