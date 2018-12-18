@@ -678,7 +678,8 @@ PRODUCT_PACKAGES += \
     pixelstats-vendor
 
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml \
+    frameworks/native/data/etc/android.hardware.biometrics.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.biometrics.fingerprint.xml
 
 # CS40L20 Haptics Waveform & Firmware
 PRODUCT_COPY_FILES += \
