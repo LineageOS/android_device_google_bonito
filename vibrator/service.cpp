@@ -16,6 +16,7 @@
 #define LOG_TAG "android.hardware.vibrator@1.2-service.bonito"
 
 #include <android/hardware/vibrator/1.2/IVibrator.h>
+#include <cutils/properties.h>
 #include <hidl/HidlSupport.h>
 #include <hidl/HidlTransportSupport.h>
 #include <utils/Errors.h>
@@ -54,6 +55,11 @@ static constexpr char OL_LRA_PERIOD_FILEPATH[] = "/sys/class/leds/vibrator/devic
 
 // Set a default lra period in case there is no calibration file
 static constexpr uint32_t DEFAULT_LRA_PERIOD = 262;
+static constexpr uint32_t DEFAULT_FREQUENCY_SHIFT = 10;
+
+static std::uint32_t freqPeriodFormula(std::uint32_t in) {
+    return 1000000000 / (24615 * in);
+}
 
 static std::string trim(const std::string& str,
         const std::string& whitespace = " \t") {
@@ -68,7 +74,8 @@ static std::string trim(const std::string& str,
     return str.substr(str_begin, str_range);
 }
 
-static bool loadCalibrationData(std::uint32_t& short_lra_period) {
+static bool loadCalibrationData(std::uint32_t &short_lra_period,
+        std::uint32_t &long_lra_period) {
     std::map<std::string, std::string> config_data;
 
     std::ofstream autocal{AUTOCAL_FILEPATH};
@@ -117,8 +124,18 @@ static bool loadCalibrationData(std::uint32_t& short_lra_period) {
     }
 
     if(config_data.find(LRA_PERIOD_CONFIG) != config_data.end()) {
+        uint32_t thisFrequency;
+        uint32_t thisPeriod;
         ol_lra_period << config_data[LRA_PERIOD_CONFIG] << std::endl;
-        short_lra_period = std::stoul(config_data[LRA_PERIOD_CONFIG]);
+        thisPeriod = std::stoul(config_data[LRA_PERIOD_CONFIG]);
+        short_lra_period = thisPeriod;
+        // 1. Change long lra period to frequency
+        // 2. Get frequency': subtract the frequency shift from the frequency
+        // 3. Get final long lra period after put the frequency' to formula
+        thisFrequency = freqPeriodFormula(thisPeriod) -
+                property_get_int32("ro.vibrator.hal.long.frequency.shift",
+                        DEFAULT_FREQUENCY_SHIFT);
+        long_lra_period = freqPeriodFormula(thisFrequency);
     }
 
     return true;
@@ -127,6 +144,7 @@ static bool loadCalibrationData(std::uint32_t& short_lra_period) {
 status_t registerVibratorService() {
     // Calibration data: lra period 262(i.e. 155Hz)
     std::uint32_t short_lra_period(DEFAULT_LRA_PERIOD);
+    std::uint32_t long_lra_period(DEFAULT_LRA_PERIOD);
 
     // ostreams below are required
     std::ofstream activate{ACTIVATE_PATH};
@@ -212,7 +230,7 @@ status_t registerVibratorService() {
         ALOGW("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error, strerror(error));
     }
 
-    if (!loadCalibrationData(short_lra_period)) {
+    if (!loadCalibrationData(short_lra_period, long_lra_period)) {
         ALOGW("Failed load calibration data");
     }
 
@@ -220,7 +238,7 @@ status_t registerVibratorService() {
             std::move(state), std::move(rtpinput), std::move(mode),
             std::move(sequencer), std::move(scale), std::move(ctrlloop), std::move(lptrigger),
             std::move(lrawaveshape), std::move(odclamp), std::move(ollraperiod),
-            short_lra_period);
+            short_lra_period, long_lra_period);
 
     return vibrator->registerAsService();
 }
