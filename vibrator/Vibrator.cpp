@@ -49,9 +49,6 @@ static constexpr uint32_t SQUARE_WAVE = 0;
 // Default max voltage 2.15V
 static constexpr uint32_t VOLTAGE_MAX = 107;
 
-// Default lra period 262 (i.e. 155Hz) for long haptics
-static constexpr uint32_t LONG_LRA_PERIOD = 262;
-
 // Use effect #1 in the waveform library for CLICK effect
 static constexpr char WAVEFORM_CLICK_EFFECT_SEQ[] = "1 0";
 static constexpr int32_t WAVEFORM_CLICK_EFFECT_MS = 6;
@@ -62,7 +59,7 @@ static constexpr int32_t WAVEFORM_TICK_EFFECT_MS = 2;
 
 // Use effect #3 in the waveform library for DOUBLE_CLICK effect
 static constexpr char WAVEFORM_DOUBLE_CLICK_EFFECT_SEQ[] = "3 0";
-static constexpr uint32_t WAVEFORM_DOUBLE_CLICK_EFFECT_MS = 135;
+static constexpr uint32_t WAVEFORM_DOUBLE_CLICK_EFFECT_MS = 182;
 
 // Use effect #4 in the waveform library for HEAVY_CLICK effect
 static constexpr char WAVEFORM_HEAVY_CLICK_EFFECT_SEQ[] = "4 0";
@@ -76,7 +73,7 @@ Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
         std::ofstream&& mode, std::ofstream&& sequencer,
         std::ofstream&& scale, std::ofstream&& ctrlloop, std::ofstream&& lptrigger,
         std::ofstream&& lrawaveshape, std::ofstream&& odclamp, std::ofstream&& ollraperiod,
-        std::uint32_t short_lra_period) :
+        std::uint32_t short_lra_period, std::uint32_t long_lra_period) :
     mActivate(std::move(activate)),
     mDuration(std::move(duration)),
     mState(std::move(state)),
@@ -89,7 +86,8 @@ Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
     mLraWaveShape(std::move(lrawaveshape)),
     mOdClamp(std::move(odclamp)),
     mOlLraPeriod(std::move(ollraperiod)),
-    mShortLraPeriod(short_lra_period) {
+    mShortLraPeriod(short_lra_period),
+    mLongLraPeriod(long_lra_period) {
 
     mClickDuration = property_get_int32("ro.vibrator.hal.click.duration", WAVEFORM_CLICK_EFFECT_MS);
     mTickDuration = property_get_int32("ro.vibrator.hal.tick.duration", WAVEFORM_TICK_EFFECT_MS);
@@ -97,7 +95,6 @@ Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
         "ro.vibrator.hal.heavyclick.duration", WAVEFORM_HEAVY_CLICK_EFFECT_MS);
     mShortVoltageMax = property_get_int32("ro.vibrator.hal.short.voltage", VOLTAGE_MAX);
     mLongVoltageMax = property_get_int32("ro.vibrator.hal.long.voltage", VOLTAGE_MAX);
-    mLongLraPeriod = property_get_int32("ro.vibrator.hal.long.lra.period", LONG_LRA_PERIOD);
 
     // This enables effect #1 from the waveform library to be triggered by SLPI
     // while the AP is in suspend mode
