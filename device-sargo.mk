@@ -27,10 +27,10 @@ DEVICE_PACKAGE_OVERLAYS += device/google/bonito/sargo/overlay
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
 
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.com.google.ime.height_ratio=1.2
+PRODUCT_PRODUCT_PROPERTIES += ro.com.google.ime.height_ratio=1.2
 
 # Vibrator HAL
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES +=\
+PRODUCT_PRODUCT_PROPERTIES +=\
     ro.vibrator.hal.click.duration=8 \
     ro.vibrator.hal.tick.duration=5 \
     ro.vibrator.hal.heavyclick.duration=12 \
