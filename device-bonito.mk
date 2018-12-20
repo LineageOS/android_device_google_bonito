@@ -43,3 +43,7 @@ PRODUCT_COPY_FILES += \
 # camera front flashColor
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.front.flashColor=0xffebcc
+
+# Add white point compensated coefficient
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.display.white_point_compensated_coefficient=0.0051,-0.3462,18.964,0.0047,-0.1155,-10.312,0.005,-0.2931,12.301
