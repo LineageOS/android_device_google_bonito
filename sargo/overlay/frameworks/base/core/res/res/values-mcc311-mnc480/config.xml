@@ -22,8 +22,8 @@
 <resources>
 
     <!-- MMS user agent string -->
-    <string name="config_mms_user_agent" translatable="false">g013a</string>
+    <string name="config_mms_user_agent" translatable="false">g020e</string>
     <!-- MMS user agent profile url -->
-    <string name="config_mms_user_agent_profile_url" translatable="false">http://uaprof.vtext.com/google/g013a/g013a.xml</string>
+    <string name="config_mms_user_agent_profile_url" translatable="false">http://uaprof.vtext.com/google/g020e/g020e.xml</string>
 
 </resources>
