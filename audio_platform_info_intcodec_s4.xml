@@ -40,7 +40,6 @@
         <device name="SND_DEVICE_IN_UNPROCESSED_HEADSET_MIC" acdb_id="147"/>
         <device name="SND_DEVICE_IN_HANDSET_MIC" acdb_id="4"/>
         <device name="SND_DEVICE_IN_HANDSET_DMIC_STEREO" acdb_id="34"/>
-        <device name="SND_DEVICE_IN_CAMCORDER_MIC" acdb_id="61"/>
         <device name="SND_DEVICE_OUT_VOICE_HANDSET" acdb_id="7"/>
         <device name="SND_DEVICE_IN_VOICE_DMIC" acdb_id="41"/>
         <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" acdb_id="10"/>
@@ -60,6 +59,12 @@
         <device name="SND_DEVICE_OUT_VOICE_USB_HEADPHONES" acdb_id="77"/>
         <device name="SND_DEVICE_IN_VOICE_USB_HEADSET_MIC" acdb_id="78"/>
         <device name="SND_DEVICE_IN_USB_HEADSET_MIC_AEC" acdb_id="78"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_LANDSCAPE" acdb_id="61"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_INVERT_LANDSCAPE" acdb_id="61"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_PORTRAIT" acdb_id="61"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_LANDSCAPE" acdb_id="61"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_INVERT_LANDSCAPE" acdb_id="61"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_PORTRAIT" acdb_id="61"/>
 
         <!-- TTY -->
         <device name="SND_DEVICE_OUT_VOICE_TTY_HCO_HANDSET" acdb_id="14"/>
@@ -153,7 +158,12 @@
         <device name="SND_DEVICE_OUT_HANDSET" backend="handset" interface="SEC_TDM_RX_0"/>
         <device name="SND_DEVICE_IN_HANDSET_MIC" backend="handset-mic" interface="PRI_TDM_TX_0"/>
         <device name="SND_DEVICE_IN_HANDSET_DMIC_STEREO" backend="handset-mic" interface="PRI_TDM_TX_0"/>
-        <device name="SND_DEVICE_IN_CAMCORDER_MIC" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_LANDSCAPE" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_PORTRAIT" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_LANDSCAPE" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_PORTRAIT" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_INVERT_LANDSCAPE" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_INVERT_LANDSCAPE" backend="handset-mic" interface="PRI_TDM_TX_0"/>
         <device name="SND_DEVICE_OUT_VOICE_HANDSET" backend="handset" interface="SEC_TDM_RX_0"/>
         <device name="SND_DEVICE_OUT_VOICE_HAC_HANDSET" backend="handset" interface="SEC_TDM_RX_0"/>
         <device name="SND_DEVICE_OUT_VOICE_HANDSET_TMUS" backend="handset" interface="SEC_TDM_RX_0"/>
@@ -219,7 +229,47 @@
     <snd_devices>
         <input_snd_device>
             <input_snd_device_mic_mapping>
-                    <snd_dev in_snd_device="SND_DEVICE_IN_CAMCORDER_MIC">
+                    <snd_dev in_snd_device="SND_DEVICE_IN_CAMCORDER_LANDSCAPE">
+                        <mic_info mic_device_id="builtin_mic_1"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_2"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_3"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                    </snd_dev>
+                    <snd_dev in_snd_device="SND_DEVICE_IN_CAMCORDER_INVERT_LANDSCAPE">
+                        <mic_info mic_device_id="builtin_mic_1"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_2"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_3"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                    </snd_dev>
+                    <snd_dev in_snd_device="SND_DEVICE_IN_CAMCORDER_PORTRAIT">
+                        <mic_info mic_device_id="builtin_mic_1"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_2"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_3"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                    </snd_dev>
+                    <snd_dev in_snd_device="SND_DEVICE_IN_CAMCORDER_SELFIE_LANDSCAPE">
+                        <mic_info mic_device_id="builtin_mic_1"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_2"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_3"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                    </snd_dev>
+                    <snd_dev in_snd_device="SND_DEVICE_IN_CAMCORDER_SELFIE_INVERT_LANDSCAPE">
+                        <mic_info mic_device_id="builtin_mic_1"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_2"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                        <mic_info mic_device_id="builtin_mic_3"
+                            channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
+                    </snd_dev>
+                    <snd_dev in_snd_device="SND_DEVICE_IN_CAMCORDER_SELFIE_PORTRAIT">
                         <mic_info mic_device_id="builtin_mic_1"
                             channel_mapping="AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED AUDIO_MICROPHONE_CHANNEL_MAPPING_PROCESSED"/>
                         <mic_info mic_device_id="builtin_mic_2"
