@@ -14,6 +14,8 @@ on init
     mkdir /config/usb_gadget/g1/functions/ffs.adb
     write /config/usb_gadget/g1/os_desc/use 1
     setprop sys.usb.configfs 1
+    # Enable thermal mitigation
+    write /sys/devices/virtual/thermal/tz-by-name/backup-charge/mode enabled
 
 on property:sys.usb.ffs.ready=1
     mkdir /config/usb_gadget/g1/configs/b.1 0777 shell shell
