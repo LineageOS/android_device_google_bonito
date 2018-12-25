@@ -31,8 +31,8 @@ PRODUCT_PROPERTY_OVERRIDES += audio_hal.period_multiplier=2
 PRODUCT_PROPERTY_OVERRIDES += af.fast_track_multiplier=1
 
 # Set c2 codec in default
-PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
-PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
+#PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
+#PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
 
 # Setting vendor SPL
 VENDOR_SECURITY_PATCH = "2018-09-05"
@@ -75,7 +75,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.lmk.upgrade_pressure=100 \
     ro.lmk.downgrade_pressure=100 \
     ro.lmk.kill_heaviest_task=true \
-    ro.lmk.kill_timeout_ms=100 \
     ro.lmk.use_minfree_levels=true \
 
 # A2DP offload enabled for compilation
