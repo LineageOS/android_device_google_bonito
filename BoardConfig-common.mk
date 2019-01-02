@@ -133,6 +133,7 @@ TARGET_FS_CONFIG_GEN := device/google/bonito/config.fs
 QCOM_BOARD_PLATFORMS += sdm710
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := build/make/target/board/mainline_arm64/bluetooth
+BOARD_USES_COMMON_BLUETOOTH_HAL := true
 
 # Camera
 TARGET_USES_AOSP := true
