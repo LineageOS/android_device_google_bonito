@@ -395,4 +395,10 @@
         <item>com.felicanetworks.mfc</item>
         <item>com.felicanetworks.mfm</item>
     </string-array>
+
+    <!-- Set lowmemorykiller threshold -->
+    <integer name="config_lowMemoryKillerMinFreeKbytesAdjust">163840</integer>
+
+    <!-- Set direct background reclaim threshold -->
+    <integer name="config_extraFreeKbytesAbsolute">80000</integer>
 </resources>

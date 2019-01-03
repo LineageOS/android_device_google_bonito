@@ -15,4 +15,4 @@
 # and fails if it does not find it.
 /dev/block/bootdevice/by-name/misc                      /misc                            emmc    defaults                                             defaults
 /devices/platform/soc/a600000.ssusb/a600000.dwc3/xhci-hcd.*.auto*     /storage/usbotg    vfat    nosuid,nodev    wait,voldmanaged=usbotg:auto
-/dev/block/zram0                                    none               swap        defaults                                              zramsize=1073741824,max_comp_streams=8
+/dev/block/zram0                                    none               swap        defaults                                              zramsize=1610612736,max_comp_streams=8
