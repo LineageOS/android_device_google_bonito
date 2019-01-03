@@ -32,3 +32,5 @@ allow tee hal_graphics_allocator_default:fd use;
 
 # TODO: Replace KM3 with KM4 (b/112339903)
 allow tee rpmb_device:blk_file rw_file_perms;
+
+allow tee hal_display_config_hwservice:hwservice_manager find;
