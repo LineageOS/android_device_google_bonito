@@ -45,38 +45,6 @@
     <ctl name="LSM7 Port" value="None" />
     <ctl name="LSM8 Port" value="None" />
     <ctl name="PRI_TDM_TX_0 LSM Function" value="None" />
-    <ctl name="MADONOFF Switch" value="0" />
-    <ctl name="MAD Input" value="DMIC1" />
-    <ctl name="MAD_SEL MUX" value="SPE" />
-    <ctl name="MAD_INP MUX" value="DEC1" />
-    <ctl name="MAD_CPE1 Switch" value="0" />
-    <ctl name="CDC_IF TX13 MUX" value="ZERO" />
-    <ctl name="MAD_BROADCAST Switch" value="0" />
-    <ctl name="TX13 INP MUX" value="CDC_DEC_5" />
-    <ctl name="AIF4_MAD Mixer SLIM TX12" value="0" />
-    <ctl name="AIF4_MAD Mixer SLIM TX13" value="0" />
-    <ctl name="CPE AFE MAD Enable" value="0"/>
-    <ctl name="CLK MODE" value="EXTERNAL" />
-    <ctl name="EC BUF MUX INP" value="ZERO" />
-    <ctl name="ADC MUX1" value="DMIC" />
-    <ctl name="DMIC MUX1" value="ZERO" />
-    <ctl name="AIF1_CAP Mixer SLIM TX8" value="0"/>
-    <ctl name="AIF1_CAP Mixer SLIM TX7" value="0" />
-    <ctl name="CDC_IF TX7 MUX" value="ZERO" />
-    <ctl name="CDC_IF TX8 MUX" value="ZERO" />
-    <ctl name="ADC MUX7" value="AMIC" />
-    <ctl name="ADC MUX8" value="AMIC" />
-    <ctl name="DMIC MUX7" value="ZERO" />
-    <ctl name="DMIC MUX8" value="ZERO" />
-    <ctl name="IIR0 INP0 MUX" value="ZERO" />
-    <ctl name="ADC MUX0" value="AMIC" />
-    <ctl name="ADC MUX1" value="AMIC" />
-    <ctl name="DMIC MUX0" value="ZERO" />
-    <ctl name="WDMA3 PORT0 MUX" value="RX_MIX_TX0" />
-    <ctl name="WDMA3 PORT1 MUX" value="RX_MIX_TX1" />
-    <ctl name="WDMA3 CH0 MUX" value="PORT_0" />
-    <ctl name="WDMA3 CH1 MUX" value="PORT_0" />
-    <ctl name="WDMA3_ON_OFF Switch" value="0" />
     <ctl name="PRI_TDM_TX_0 Channels" value="One" />
     <ctl name="Sto1 ADC MIXL DMIC Switch" value="0" />
     <ctl name="Sto2 ADC MIXL DMIC Switch" value="0" />
@@ -175,35 +143,6 @@
         <ctl name="PRI_TDM_TX_0 LSM Function" value="SWAUDIO" />
         <ctl name="LSM8 Port" value="ADM_LSM_TX" />
         <ctl name="LSM8 Mixer PRI_TDM_TX_0" value="1" />
-    </path>
-
-    <path name="listen-cpe-handset-mic">
-        <ctl name="MAD Input" value="DMIC4" />
-        <ctl name="MAD_SEL MUX" value="SPE" />
-        <ctl name="MAD_INP MUX" value="MAD" />
-        <ctl name="MAD_CPE1 Switch" value="1" />
-    </path>
-
-    <path name="listen-cpe-handset-dmic">
-        <ctl name="CLK MODE" value="INTERNAL" />
-        <ctl name="ADC MUX0" value="DMIC" />
-        <ctl name="DMIC MUX0" value="DMIC4" />
-        <ctl name="DEC0 Volume" value="84" />
-        <ctl name="ADC MUX1" value="DMIC" />
-        <ctl name="DMIC MUX1" value="DMIC0" /> <!-- fix if needed -->
-        <ctl name="DEC1 Volume" value="84" />
-        <ctl name="WDMA3 PORT0 MUX" value="DEC0" />
-        <ctl name="WDMA3 PORT1 MUX" value="DEC1" />
-        <ctl name="WDMA3 CH0 MUX" value="PORT_0" />
-        <ctl name="WDMA3 CH1 MUX" value="PORT_1" />
-        <ctl name="WDMA3_ON_OFF Switch" value="1" />
-    </path>
-
-    <path name="listen-cpe-headset-mic">
-        <ctl name="MAD Input" value="ADC2" />
-        <ctl name="MAD_SEL MUX" value="SPE" />
-        <ctl name="MAD_INP MUX" value="MAD" />
-        <ctl name="MAD_CPE1 Switch" value="1" />
     </path>
 
     <path name="listen-ape-handset-mic">
