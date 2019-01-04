@@ -300,6 +300,10 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "CPU present", "/sys/devices/system/cpu/present");
     DumpFileToFd(fd, "CPU online", "/sys/devices/system/cpu/online");
 
+    if (!PropertiesHelper::IsUserBuild()) {
+        RunCommandToFd(fd, "Performance Stats History", {"/vendor/bin/perfstatsd", "-d"});
+    }
+
     DumpF2FS(fd);
     DumpeMMC(fd);
 
