@@ -21,7 +21,7 @@
             <Limit name="measured-frame-rate-176x144" range="392-406" /> <!-- N=22 v90%=1.4 -->
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.encoder.avc" type="video/avc" update="true">
-            <Limit name="measured-frame-rate-320x240" range="220-366" /> <!-- N=22 v90%=1.3 -->
+            <Limit name="measured-frame-rate-320x240" range="204-220" /> <!-- N=22 v90%=1.3 -->
             <Limit name="measured-frame-rate-720x480" range="126-129" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-1280x720" range="52-53" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-1920x1080" range="38-40" /> <!-- N=22 v90%=1.2 -->
@@ -34,21 +34,21 @@
             <Limit name="measured-frame-rate-1920x1080" range="23-28" /> <!-- N=22 v90%=1.3 -->
         </MediaCodec>
         <MediaCodec name="c2.qti.avc.encoder" type="video/avc" update="true">
-            <Limit name="measured-frame-rate-320x240" range="220-337" /> <!-- N=22 v90%=1.6 -->
+            <Limit name="measured-frame-rate-320x240" range="205-224" /> <!-- N=22 v90%=1.6 -->
             <Limit name="measured-frame-rate-720x480" range="125-125" /> <!-- N=22 v90%=1.7 -->
             <Limit name="measured-frame-rate-1280x720" range="52-53" /> <!-- N=22 v90%=1.5 -->
             <!-- measured 90%:6-33 med:13 variance:2.2 -->
             <Limit name="measured-frame-rate-1920x1080" range="41-41" /> <!-- N=22 -->
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.encoder.hevc" type="video/hevc" update="true">
-            <Limit name="measured-frame-rate-320x240" range="239-314" /> <!-- N=22 v90%=1.3 -->
+            <Limit name="measured-frame-rate-320x240" range="227-238" /> <!-- N=22 v90%=1.3 -->
             <Limit name="measured-frame-rate-720x480" range="117-117" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-1280x720" range="45-45" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-1920x1080" range="38-38" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-3840x2160" range="12-16" /> <!-- N=22 v90%=1.4 -->
         </MediaCodec>
         <MediaCodec name="c2.qti.hevc.encoder" type="video/hevc" update="true">
-            <Limit name="measured-frame-rate-320x240" range="204-324" /> <!-- N=22 v90%=1.7 -->
+            <Limit name="measured-frame-rate-320x240" range="203-203" /> <!-- N=22 v90%=1.7 -->
             <Limit name="measured-frame-rate-720x480" range="116-116" /> <!-- N=22 v90%=1.7 -->
             <Limit name="measured-frame-rate-1280x720" range="45-45" /> <!-- N=22 v90%=1.5 -->
             <!-- measured 90%:7-33 med:13 variance:2.1 -->
@@ -60,7 +60,7 @@
             <Limit name="measured-frame-rate-176x144" range="374-391" /> <!-- N=22 v90%=1.5 -->
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.encoder.vp8" type="video/x-vnd.on2.vp8" update="true">
-            <Limit name="measured-frame-rate-320x180" range="210-359" /> <!-- N=22 v90%=1.1 -->
+            <Limit name="measured-frame-rate-320x180" range="179-179" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-640x360" range="165-173" /> <!-- N=22 v90%=1.3 -->
             <Limit name="measured-frame-rate-1280x720" range="51-51" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-1920x1080" range="34-40" /> <!-- N=22 v90%=1.1 -->
@@ -72,7 +72,7 @@
             <Limit name="measured-frame-rate-1920x1080" range="13-14" /> <!-- N=22 v90%=1.3 -->
         </MediaCodec>
         <MediaCodec name="c2.qti.vp8.encoder" type="video/x-vnd.on2.vp8" update="true">
-            <Limit name="measured-frame-rate-320x180" range="210-364" /> <!-- N=22 v90%=1.6 -->
+            <Limit name="measured-frame-rate-320x180" range="182-182" /> <!-- N=22 v90%=1.6 -->
             <Limit name="measured-frame-rate-640x360" range="170-170" /> <!-- N=22 v90%=1.5 -->
             <Limit name="measured-frame-rate-1280x720" range="51-51" /> <!-- N=22 v90%=1.6 -->
             <!-- measured 90%:7-16 med:13 FLAKY(5 - 20 < mx=32.2) -->
@@ -89,7 +89,7 @@
             <Limit name="measured-frame-rate-176x144" range="713-713" /> <!-- N=22 v90%=1.4 -->
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.decoder.avc" type="video/avc" update="true">
-            <Limit name="measured-frame-rate-320x240" range="647-787" /> <!-- N=22 v90%=1.5 -->
+            <Limit name="measured-frame-rate-320x240" range="768-787" /> <!-- N=22 v90%=1.5 -->
             <Limit name="measured-frame-rate-720x480" range="534-536" /> <!-- N=22 v90%=1.6 -->
             <!-- measured 90%:97-218 med:109 SLOW -->
             <Limit name="measured-frame-rate-1280x720" range="377-378" /> <!-- N=22 v90%=1.5 -->
@@ -102,13 +102,13 @@
             <Limit name="measured-frame-rate-1920x1080" range="11-11" /> <!-- N=22 v90%=1.0 -->
         </MediaCodec>
         <MediaCodec name="c2.qti.avc.decoder" type="video/avc" update="true">
-            <Limit name="measured-frame-rate-320x240" range="686-787" /> <!-- N=22 v90%=1.1 -->
+            <Limit name="measured-frame-rate-320x240" range="768-832" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-720x480" range="536-536" /> <!-- N=22 v90%=1.0 -->
             <Limit name="measured-frame-rate-1280x720" range="377-377" /> <!-- N=22 v90%=1.0 -->
             <Limit name="measured-frame-rate-1920x1080" range="179-180" /> <!-- N=22 v90%=1.0 -->
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.decoder.hevc" type="video/hevc" update="true">
-            <Limit name="measured-frame-rate-352x288" range="697-711" /> <!-- N=22 v90%=1.3 -->
+            <Limit name="measured-frame-rate-352x288" range="838-838" /> <!-- N=22 v90%=1.3 -->
             <Limit name="measured-frame-rate-640x360" range="606-606" /> <!-- N=22 v90%=1.3 -->
             <Limit name="measured-frame-rate-720x480" range="505-505" /> <!-- N=22 v90%=1.2 -->
             <Limit name="measured-frame-rate-1280x720" range="398-399" /> <!-- N=22 v90%=1.1 -->
@@ -123,7 +123,7 @@
             <Limit name="measured-frame-rate-1920x1080" range="38-39" /> <!-- N=22 v90%=1.1 -->
         </MediaCodec>
         <MediaCodec name="c2.qti.hevc.decoder" type="video/hevc" update="true">
-            <Limit name="measured-frame-rate-352x288" range="665-665" /> <!-- N=22 v90%=1.1 -->
+            <Limit name="measured-frame-rate-352x288" range="837-837" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-640x360" range="596-601" /> <!-- N=22 v90%=1.0 -->
             <Limit name="measured-frame-rate-720x480" range="503-503" /> <!-- N=22 v90%=1.0 -->
             <Limit name="measured-frame-rate-1280x720" range="397-398" /> <!-- N=22 v90%=1.0 -->
@@ -146,13 +146,13 @@
             <Limit name="measured-frame-rate-1920x1080" range="13-13" /> <!-- N=22 v90%=1.0 -->
         </MediaCodec>
         <MediaCodec name="c2.qti.vp8.decoder" type="video/x-vnd.on2.vp8" update="true">
-            <Limit name="measured-frame-rate-320x180" range="745-856" /> <!-- N=22 v90%=1.8 -->
-            <Limit name="measured-frame-rate-640x360" range="354-503" /> <!-- N=22 v90%=1.5 -->
+            <Limit name="measured-frame-rate-320x180" range="593-593" /> <!-- N=22 v90%=1.8 -->
+            <Limit name="measured-frame-rate-640x360" range="505-505" /> <!-- N=22 v90%=1.5 -->
             <Limit name="measured-frame-rate-1280x720" range="396-396" /> <!-- N=22 v90%=1.0 -->
             <Limit name="measured-frame-rate-1920x1080" range="198-199" /> <!-- N=22 v90%=1.0 -->
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.decoder.vp9" type="video/x-vnd.on2.vp9" update="true">
-            <Limit name="measured-frame-rate-320x180" range="530-538" /> <!-- N=22 v90%=1.6 -->
+            <Limit name="measured-frame-rate-320x180" range="587-587" /> <!-- N=22 v90%=1.6 -->
             <Limit name="measured-frame-rate-640x360" range="472-472" /> <!-- N=22 v90%=1.3 -->
             <Limit name="measured-frame-rate-1280x720" range="339-340" /> <!-- N=22 v90%=1.1 -->
             <Limit name="measured-frame-rate-1920x1080" range="190-200" /> <!-- N=22 v90%=1.0 -->
@@ -167,7 +167,7 @@
         </MediaCodec>
          <MediaCodec name="c2.qti.vp9.decoder" type="video/x-vnd.on2.vp9" update="true">
             <!-- measured 90%:437-632 med:536 N=16 -->
-            <Limit name="measured-frame-rate-320x184" range="526-693" /> <!-- v90%=1.2 -->
+            <Limit name="measured-frame-rate-320x184" range="578-578" /> <!-- v90%=1.2 -->
             <!-- measured 90%:494-634 med:560 N=16 -->
             <Limit name="measured-frame-rate-640x360" range="474-475" /> <!-- v90%=1.1 -->
             <!-- measured 90%:339-342 med:340 N=16 -->
