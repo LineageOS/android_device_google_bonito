@@ -75,6 +75,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.upgrade_pressure=100 \
     ro.lmk.downgrade_pressure=100 \
     ro.lmk.kill_heaviest_task=true \
+    ro.lmk.kill_timeout_ms=100 \
     ro.lmk.use_minfree_levels=true \
 
 # A2DP offload enabled for compilation
