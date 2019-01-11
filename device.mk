@@ -20,6 +20,7 @@ PRODUCT_SOONG_NAMESPACES += \
     device/google/bonito \
     hardware/google/av \
     hardware/google/interfaces \
+    hardware/google/pixel \
     hardware/qcom/sdm710 \
     vendor/qcom/sdm710
 
@@ -221,9 +222,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # perfstatsd
-PRODUCT_PACKAGES += \
-    perfstatsd \
-    init-perfstatsd.rc
+PRODUCT_PACKAGES_DEBUG += \
+    perfstatsd
 
 # Audio fluence, ns, aec property, voice and media volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
