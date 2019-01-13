@@ -26,6 +26,9 @@ TARGET_KERNEL_CONFIG := lineageos_b4s4_defconfig
 TARGET_KERNEL_SOURCE := kernel/google/msm-4.9
 TARGET_NEEDS_DTBOIMAGE := true
 
+# Manifests
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += device/google/bonito/lineage_compatibility_matrix.xml
+
 # Partitions
 AB_OTA_PARTITIONS += \
     vendor
