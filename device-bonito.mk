@@ -14,10 +14,6 @@
 # limitations under the License.
 #
 
-PRODUCT_AAPT_CONFIG := normal
-PRODUCT_AAPT_PREF_CONFIG := 400dpi
-PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
-
 PRODUCT_HARDWARE := bonito
 
 include device/google/bonito/device-common.mk

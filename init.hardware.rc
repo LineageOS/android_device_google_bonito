@@ -91,15 +91,6 @@ on init && property:vendor.skip.init=0
     start vendor.citadeld
     start vendor.keymaster-4-0-citadel
 
-    # Boot time fs tune
-    write /sys/block/mmcblk0/queue/iostats 0
-    write /sys/block/mmcblk0/queue/scheduler cfq
-    write /sys/block/mmcblk0/queue/iosched/slice_idle 0
-    write /sys/block/mmcblk0/queue/read_ahead_kb 2048
-    write /sys/block/mmcblk0/queue/nr_requests 256
-    write /sys/block/dm-0/queue/read_ahead_kb 2048
-    write /sys/block/dm-1/queue/read_ahead_kb 2048
-
     # Disable powersaving
     write /sys/module/lpm_levels/parameters/sleep_disabled 1
 
@@ -214,8 +205,6 @@ on late-fs
 
     # Mount RW partitions which need run fsck
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --late
-    # Boot time fs tune
-    write /sys/block/dm-2/queue/read_ahead_kb 2048
 
     # Required for time_daemon
     mkdir /mnt/vendor/persist/time 0770 system system
@@ -522,16 +511,6 @@ on property:sys.boot_completed=1
     write /dev/stune/background/blkio.weight 10
     write /dev/stune/top-app/blkio.weight 1000
     write /dev/stune/rt/blkio.weight 1000
-
-    # Runtime fs tuning: as we have init boottime setting and kernel patch setting
-    # default readahead to 2048KB. We should adjust the setting upon boot_complete
-    # for runtime performance
-    write /sys/block/mmcblk0/queue/read_ahead_kb 128
-    write /sys/block/mmcblk0/queue/nr_requests 128
-    write /sys/block/mmcblk0/queue/iostats 1
-    write /sys/block/dm-0/queue/read_ahead_kb 128
-    write /sys/block/dm-1/queue/read_ahead_kb 128
-    write /sys/block/dm-2/queue/read_ahead_kb 128
 
     # QCOM FG SRAM dump for dumpstate
     chown system system /d/fg/sram/data
