@@ -22,7 +22,7 @@ cc_binary {
     name: "android.hardware.power@1.3-service.bonito-libperfmgr",
     relative_install_path: "hw",
     init_rc: ["android.hardware.power@1.3-service.bonito-libperfmgr.rc"],
-    srcs: ["service.cpp", "Power.cpp", "InteractionHandler.cpp", "power-helper.c",
+    srcs: ["service.cpp", "Power.cpp", "InteractionHandler.cpp",
             "display-helper.c"],
     cflags: [
         "-Wall",
