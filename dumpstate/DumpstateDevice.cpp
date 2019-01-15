@@ -361,6 +361,7 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
 
     RunCommandToFd(fd, "eSIM Status", {"/vendor/bin/sh", "-c", "od -t x1 /sys/firmware/devicetree/base/chosen/cdt/cdb2/esim"});
     DumpFileToFd(fd, "Modem Stat", "/data/vendor/modem_stat/debug.txt");
+    DumpFileToFd(fd, "Pixel trace", "/d/tracing/instances/pixel-trace/trace");
 
     if (handle->numFds < 2) {
         ALOGE("no FD for modem\n");
