@@ -223,9 +223,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # perfstatsd
-PRODUCT_PACKAGES += \
-    perfstatsd \
-    init-perfstatsd.rc
+PRODUCT_PACKAGES_DEBUG += \
+    perfstatsd
 
 # Audio fluence, ns, aec property, voice and media volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
