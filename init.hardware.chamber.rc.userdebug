@@ -16,13 +16,14 @@
 
 
 on property:persist.vendor.disable.thermal.control=1
-  write /sys/devices/virtual/thermal/tz-by-name/mb-therm-adc/mode disabled
-  write /sys/devices/virtual/thermal/tz-by-name/usbc-therm-adc/mode disabled
+  write /sys/devices/virtual/thermal/tz-by-name/mb-therm-adc/emul_temp 25000
+  write /sys/devices/virtual/thermal/tz-by-name/mb-therm-monitor/emul_temp 25000
+  write /sys/devices/virtual/thermal/tz-by-name/usbc-therm-monitor/emul_temp 25000
   write /sys/module/overheat_mitigation/parameters/enable 0
 
 on property:init.svc.vendor.thermal-engine=running && property:persist.vendor.disable.thermal.control=1
   stop vendor.thermal-engine
 
 on property:persist.vendor.disable.usb.overheat.mitigation=1
-  write /sys/devices/virtual/thermal/tz-by-name/usbc-therm-adc/mode disabled
+  write /sys/devices/virtual/thermal/tz-by-name/usbc-therm-monitor/emul_temp 25000
   write /sys/module/overheat_mitigation/parameters/enable 0
