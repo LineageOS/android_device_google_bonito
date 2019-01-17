@@ -492,7 +492,6 @@ PRODUCT_PACKAGES += $(WPA)
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wificond \
-    wifilogd \
     libwpa_client
 
 LIB_NL := libnl_2
