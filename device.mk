@@ -491,7 +491,6 @@ PRODUCT_PACKAGES += $(WPA)
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wificond \
-    wifilogd \
     libwpa_client
 
 LIB_NL := libnl_2
@@ -521,7 +520,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@4.0-impl:32 \
     android.hardware.audio.effect@4.0-impl:32 \
     android.hardware.broadcastradio@1.0-impl \
-    android.hardware.soundtrigger@2.1-impl \
+    android.hardware.soundtrigger@2.2-impl \
     android.hardware.audio@2.0-service
 
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
@@ -608,6 +607,7 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_COPY_FILES += \
     device/google/bonito/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_PLATFORM) \
+    device/google/bonito/fstab.hardware:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.$(PRODUCT_PLATFORM) \
 
 # Use the default charger mode images
 PRODUCT_PACKAGES += \
