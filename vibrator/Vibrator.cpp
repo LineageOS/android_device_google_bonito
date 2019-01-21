@@ -68,26 +68,11 @@ static constexpr uint32_t WAVEFORM_HEAVY_CLICK_EFFECT_MS = 8;
 using Status = ::android::hardware::vibrator::V1_0::Status;
 using EffectStrength = ::android::hardware::vibrator::V1_0::EffectStrength;
 
-Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
-        std::ofstream&& state, std::ofstream&& rtpinput,
-        std::ofstream&& mode, std::ofstream&& sequencer,
-        std::ofstream&& scale, std::ofstream&& ctrlloop, std::ofstream&& lptrigger,
-        std::ofstream&& lrawaveshape, std::ofstream&& odclamp, std::ofstream&& ollraperiod,
-        std::uint32_t short_lra_period, std::uint32_t long_lra_period) :
-    mActivate(std::move(activate)),
-    mDuration(std::move(duration)),
-    mState(std::move(state)),
-    mRtpInput(std::move(rtpinput)),
-    mMode(std::move(mode)),
-    mSequencer(std::move(sequencer)),
-    mScale(std::move(scale)),
-    mCtrlLoop(std::move(ctrlloop)),
-    mLpTriggerEffect(std::move(lptrigger)),
-    mLraWaveShape(std::move(lrawaveshape)),
-    mOdClamp(std::move(odclamp)),
-    mOlLraPeriod(std::move(ollraperiod)),
-    mShortLraPeriod(short_lra_period),
-    mLongLraPeriod(long_lra_period) {
+Vibrator::Vibrator(HwApi &&hwapi, std::uint32_t short_lra_period,
+                   std::uint32_t long_lra_period)
+    : mHwApi(std::move(hwapi)),
+      mShortLraPeriod(short_lra_period),
+      mLongLraPeriod(long_lra_period) {
 
     mClickDuration = property_get_int32("ro.vibrator.hal.click.duration", WAVEFORM_CLICK_EFFECT_MS);
     mTickDuration = property_get_int32("ro.vibrator.hal.tick.duration", WAVEFORM_TICK_EFFECT_MS);
@@ -98,35 +83,35 @@ Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
 
     // This enables effect #1 from the waveform library to be triggered by SLPI
     // while the AP is in suspend mode
-    mLpTriggerEffect << 1 << std::endl;
-    if (!mLpTriggerEffect) {
+    mHwApi.lpTriggerEffect << 1 << std::endl;
+    if (!mHwApi.lpTriggerEffect) {
         ALOGW("Failed to set LP trigger mode (%d): %s", errno, strerror(errno));
     }
 }
 
 Return<Status> Vibrator::on(uint32_t timeoutMs, bool isWaveform) {
     // Bonito / Sargo only support open-loop mode
-    mCtrlLoop << LOOP_MODE_OPEN << std::endl;
-    mDuration << timeoutMs << std::endl;
-    if (!mDuration) {
+    mHwApi.ctrlLoop << LOOP_MODE_OPEN << std::endl;
+    mHwApi.duration << timeoutMs << std::endl;
+    if (!mHwApi.duration) {
         ALOGE("Failed to set duration (%d): %s", errno, strerror(errno));
         return Status::UNKNOWN_ERROR;
     }
 
     if (isWaveform) {
-        mMode << WAVEFORM_MODE << std::endl;
-        mLraWaveShape << SINE_WAVE << std::endl;
-        mOdClamp << mShortVoltageMax << std::endl;
-        mOlLraPeriod << mShortLraPeriod << std::endl;
+        mHwApi.mode << WAVEFORM_MODE << std::endl;
+        mHwApi.lraWaveShape << SINE_WAVE << std::endl;
+        mHwApi.odClamp << mShortVoltageMax << std::endl;
+        mHwApi.olLraPeriod << mShortLraPeriod << std::endl;
     } else {
-        mMode << RTP_MODE << std::endl;
-        mLraWaveShape << SQUARE_WAVE << std::endl;
-        mOdClamp << mLongVoltageMax << std::endl;
-        mOlLraPeriod << mLongLraPeriod << std::endl;
+        mHwApi.mode << RTP_MODE << std::endl;
+        mHwApi.lraWaveShape << SQUARE_WAVE << std::endl;
+        mHwApi.odClamp << mLongVoltageMax << std::endl;
+        mHwApi.olLraPeriod << mLongLraPeriod << std::endl;
     }
 
-    mActivate << 1 << std::endl;
-    if (!mActivate) {
+    mHwApi.activate << 1 << std::endl;
+    if (!mHwApi.activate) {
         ALOGE("Failed to activate (%d): %s", errno, strerror(errno));
         return Status::UNKNOWN_ERROR;
     }
@@ -140,8 +125,8 @@ Return<Status> Vibrator::on(uint32_t timeoutMs) {
 }
 
 Return<Status> Vibrator::off()  {
-    mActivate << 0 << std::endl;
-    if (!mActivate) {
+    mHwApi.activate << 0 << std::endl;
+    if (!mHwApi.activate) {
         ALOGE("Failed to turn vibrator off (%d): %s", errno, strerror(errno));
         return Status::UNKNOWN_ERROR;
     }
@@ -149,7 +134,7 @@ Return<Status> Vibrator::off()  {
 }
 
 Return<bool> Vibrator::supportsAmplitudeControl()  {
-    return (mRtpInput ? true : false);
+    return (mHwApi.rtpInput ? true : false);
 }
 
 Return<Status> Vibrator::setAmplitude(uint8_t amplitude) {
@@ -162,8 +147,8 @@ Return<Status> Vibrator::setAmplitude(uint8_t amplitude) {
             std::round((amplitude - 1) / 254.0 * (MAX_RTP_INPUT - MIN_RTP_INPUT) +
             MIN_RTP_INPUT);
 
-    mRtpInput << rtp_input << std::endl;
-    if (!mRtpInput) {
+    mHwApi.rtpInput << rtp_input << std::endl;
+    if (!mHwApi.rtpInput) {
         ALOGE("Failed to set amplitude (%d): %s", errno, strerror(errno));
         return Status::UNKNOWN_ERROR;
     }
@@ -206,26 +191,26 @@ Return<void> Vibrator::performEffect(Effect effect, EffectStrength strength, per
 
     switch (effect) {
     case Effect::CLICK:
-        mSequencer << WAVEFORM_CLICK_EFFECT_SEQ << std::endl;
+        mHwApi.sequencer << WAVEFORM_CLICK_EFFECT_SEQ << std::endl;
         timeMS = mClickDuration;
         break;
     case Effect::DOUBLE_CLICK:
-        mSequencer << WAVEFORM_DOUBLE_CLICK_EFFECT_SEQ << std::endl;
+        mHwApi.sequencer << WAVEFORM_DOUBLE_CLICK_EFFECT_SEQ << std::endl;
         timeMS = WAVEFORM_DOUBLE_CLICK_EFFECT_MS;
         break;
     case Effect::TICK:
-        mSequencer << WAVEFORM_TICK_EFFECT_SEQ << std::endl;
+        mHwApi.sequencer << WAVEFORM_TICK_EFFECT_SEQ << std::endl;
         timeMS = mTickDuration;
         break;
     case Effect::HEAVY_CLICK:
-        mSequencer << WAVEFORM_HEAVY_CLICK_EFFECT_SEQ << std::endl;
+        mHwApi.sequencer << WAVEFORM_HEAVY_CLICK_EFFECT_SEQ << std::endl;
         timeMS = mHeavyClickDuration;
         break;
     default:
         _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
         return Void();
     }
-    mScale << convertEffectStrength(strength) << std::endl;
+    mHwApi.scale << convertEffectStrength(strength) << std::endl;
     on(timeMS, true /* isWaveform */);
     _hidl_cb(status, timeMS);
     return Void();
