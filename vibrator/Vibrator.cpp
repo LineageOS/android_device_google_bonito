@@ -18,17 +18,16 @@
 
 #include <log/log.h>
 
+#include <cutils/properties.h>
 #include <hardware/hardware.h>
 #include <hardware/vibrator.h>
-#include <cutils/properties.h>
 
 #include "Vibrator.h"
 
 #include <cinttypes>
 #include <cmath>
-#include <iostream>
 #include <fstream>
-
+#include <iostream>
 
 namespace android {
 namespace hardware {
@@ -68,16 +67,12 @@ static constexpr uint32_t WAVEFORM_HEAVY_CLICK_EFFECT_MS = 8;
 using Status = ::android::hardware::vibrator::V1_0::Status;
 using EffectStrength = ::android::hardware::vibrator::V1_0::EffectStrength;
 
-Vibrator::Vibrator(HwApi &&hwapi, std::uint32_t short_lra_period,
-                   std::uint32_t long_lra_period)
-    : mHwApi(std::move(hwapi)),
-      mShortLraPeriod(short_lra_period),
-      mLongLraPeriod(long_lra_period) {
-
+Vibrator::Vibrator(HwApi &&hwapi, std::uint32_t short_lra_period, std::uint32_t long_lra_period)
+    : mHwApi(std::move(hwapi)), mShortLraPeriod(short_lra_period), mLongLraPeriod(long_lra_period) {
     mClickDuration = property_get_int32("ro.vibrator.hal.click.duration", WAVEFORM_CLICK_EFFECT_MS);
     mTickDuration = property_get_int32("ro.vibrator.hal.tick.duration", WAVEFORM_TICK_EFFECT_MS);
-    mHeavyClickDuration = property_get_int32(
-        "ro.vibrator.hal.heavyclick.duration", WAVEFORM_HEAVY_CLICK_EFFECT_MS);
+    mHeavyClickDuration =
+        property_get_int32("ro.vibrator.hal.heavyclick.duration", WAVEFORM_HEAVY_CLICK_EFFECT_MS);
     mShortVoltageMax = property_get_int32("ro.vibrator.hal.short.voltage", VOLTAGE_MAX);
     mLongVoltageMax = property_get_int32("ro.vibrator.hal.long.voltage", VOLTAGE_MAX);
 
@@ -116,7 +111,7 @@ Return<Status> Vibrator::on(uint32_t timeoutMs, bool isWaveform) {
         return Status::UNKNOWN_ERROR;
     }
 
-   return Status::OK;
+    return Status::OK;
 }
 
 // Methods from ::android::hardware::vibrator::V1_2::IVibrator follow.
@@ -133,19 +128,17 @@ Return<Status> Vibrator::off()  {
     return Status::OK;
 }
 
-Return<bool> Vibrator::supportsAmplitudeControl()  {
+Return<bool> Vibrator::supportsAmplitudeControl() {
     return (mHwApi.rtpInput ? true : false);
 }
 
 Return<Status> Vibrator::setAmplitude(uint8_t amplitude) {
-
     if (amplitude == 0) {
         return Status::BAD_VALUE;
     }
 
     int32_t rtp_input =
-            std::round((amplitude - 1) / 254.0 * (MAX_RTP_INPUT - MIN_RTP_INPUT) +
-            MIN_RTP_INPUT);
+        std::round((amplitude - 1) / 254.0 * (MAX_RTP_INPUT - MIN_RTP_INPUT) + MIN_RTP_INPUT);
 
     mHwApi.rtpInput << rtp_input << std::endl;
     if (!mHwApi.rtpInput) {
@@ -160,13 +153,13 @@ static uint8_t convertEffectStrength(EffectStrength strength) {
     uint8_t scale;
 
     switch (strength) {
-    case EffectStrength::LIGHT:
-        scale = 2; // 50%
-        break;
-    case EffectStrength::MEDIUM:
-    case EffectStrength::STRONG:
-        scale = 0; // 100%
-        break;
+        case EffectStrength::LIGHT:
+            scale = 2;  // 50%
+            break;
+        case EffectStrength::MEDIUM:
+        case EffectStrength::STRONG:
+            scale = 0;  // 100%
+            break;
     }
 
     return scale;
@@ -177,7 +170,7 @@ Return<void> Vibrator::perform(V1_0::Effect effect, EffectStrength strength, per
 }
 
 Return<void> Vibrator::perform_1_1(V1_1::Effect_1_1 effect, EffectStrength strength,
-        perform_cb _hidl_cb) {
+                                   perform_cb _hidl_cb) {
     return performEffect(static_cast<Effect>(effect), strength, _hidl_cb);
 }
 
@@ -190,25 +183,25 @@ Return<void> Vibrator::performEffect(Effect effect, EffectStrength strength, per
     uint32_t timeMS;
 
     switch (effect) {
-    case Effect::CLICK:
-        mHwApi.sequencer << WAVEFORM_CLICK_EFFECT_SEQ << std::endl;
-        timeMS = mClickDuration;
-        break;
-    case Effect::DOUBLE_CLICK:
-        mHwApi.sequencer << WAVEFORM_DOUBLE_CLICK_EFFECT_SEQ << std::endl;
-        timeMS = WAVEFORM_DOUBLE_CLICK_EFFECT_MS;
-        break;
-    case Effect::TICK:
-        mHwApi.sequencer << WAVEFORM_TICK_EFFECT_SEQ << std::endl;
-        timeMS = mTickDuration;
-        break;
-    case Effect::HEAVY_CLICK:
-        mHwApi.sequencer << WAVEFORM_HEAVY_CLICK_EFFECT_SEQ << std::endl;
-        timeMS = mHeavyClickDuration;
-        break;
-    default:
-        _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-        return Void();
+        case Effect::CLICK:
+            mHwApi.sequencer << WAVEFORM_CLICK_EFFECT_SEQ << std::endl;
+            timeMS = mClickDuration;
+            break;
+        case Effect::DOUBLE_CLICK:
+            mHwApi.sequencer << WAVEFORM_DOUBLE_CLICK_EFFECT_SEQ << std::endl;
+            timeMS = WAVEFORM_DOUBLE_CLICK_EFFECT_MS;
+            break;
+        case Effect::TICK:
+            mHwApi.sequencer << WAVEFORM_TICK_EFFECT_SEQ << std::endl;
+            timeMS = mTickDuration;
+            break;
+        case Effect::HEAVY_CLICK:
+            mHwApi.sequencer << WAVEFORM_HEAVY_CLICK_EFFECT_SEQ << std::endl;
+            timeMS = mHeavyClickDuration;
+            break;
+        default:
+            _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
+            return Void();
     }
     mHwApi.scale << convertEffectStrength(strength) << std::endl;
     on(timeMS, true /* isWaveform */);
@@ -216,8 +209,7 @@ Return<void> Vibrator::performEffect(Effect effect, EffectStrength strength, per
     return Void();
 }
 
-
-} // namespace implementation
+}  // namespace implementation
 }  // namespace V1_2
 }  // namespace vibrator
 }  // namespace hardware
