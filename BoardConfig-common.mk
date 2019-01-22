@@ -58,7 +58,8 @@ BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
 endif
 
-BOARD_BOOT_HEADER_VERSION := 1
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_BOOT_HEADER_VERSION := 2
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 # DTBO partition definitions
@@ -247,5 +248,5 @@ BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
 
 # Single vendor RIL with SDM845
 BOARD_USES_SDM845_QCRIL := true
-
+BOARD_PREBUILT_DTBIMAGE_DIR := device/google/bonito-kernel
 -include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk
