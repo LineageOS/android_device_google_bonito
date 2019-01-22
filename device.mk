@@ -165,7 +165,8 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
 
 PRODUCT_PACKAGES += \
     update_engine_sideload \
-    sg_write_buffer
+    sg_write_buffer \
+    f2fs_io
 
 # The following modules are included in debuggable builds only.
 PRODUCT_PACKAGES_DEBUG += \
@@ -517,8 +518,8 @@ PRODUCT_PACKAGES += \
     audio.hearing_aid.default
 
 PRODUCT_PACKAGES += \
-    android.hardware.audio@4.0-impl:32 \
-    android.hardware.audio.effect@4.0-impl:32 \
+    android.hardware.audio@5.0-impl:32 \
+    android.hardware.audio.effect@5.0-impl:32 \
     android.hardware.broadcastradio@1.0-impl \
     android.hardware.soundtrigger@2.2-impl \
     android.hardware.audio@2.0-service
