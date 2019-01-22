@@ -86,7 +86,6 @@
             system/lib/lib-imsvtutils.so \
             system/lib/liblistenjni.so \
             system/lib/liblistensoundmodel2.so \
-            system/lib/liblogwrap.so \
             system/lib/libmdsprpc_system.so \
             system/lib/libminui.so \
             system/lib/libnl.so \
