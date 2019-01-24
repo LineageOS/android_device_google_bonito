@@ -21,9 +21,9 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/google/av \
     hardware/google/interfaces \
     hardware/google/pixel \
-    hardware/qcom/sdm710 \
+    hardware/qcom/sdm845 \
     vendor/google/camera \
-    vendor/qcom/sdm710
+    vendor/qcom/sdm845
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
