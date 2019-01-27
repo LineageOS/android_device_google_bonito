@@ -44,4 +44,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Add white point compensated coefficient
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.display.white_point_compensated_coefficient=0.0031,0.5535,-87.498,0.0031,0.5535,-87.498,0.0031,0.5535,-87.498
+    vendor.display.adaptive_white_coefficient=0.0031,0.5535,-87.498,0.0031,0.5535,-87.498,0.0031,0.5535,-87.498

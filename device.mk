@@ -44,8 +44,6 @@ PRODUCT_COPY_FILES += \
 # Enforce privapp-permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.control_privapp_permissions=enforce
-PRODUCT_COPY_FILES += \
-    device/google/bonito/permissions/privapp-permissions-aosp.xml:system/etc/permissions/privapp-permissions-aosp.xml
 
 # Enable on-access verification of priv apps. This requires fs-verity support in kernel.
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -105,8 +103,6 @@ ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
       $(LOCAL_PATH)/init.hardware.mpssrfs.rc.userdebug:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).mpssrfs.rc
   PRODUCT_COPY_FILES += \
       $(LOCAL_PATH)/init.hardware.chamber.rc.userdebug:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.$(PRODUCT_PLATFORM).chamber.rc
-  PRODUCT_COPY_FILES += \
-      $(LOCAL_PATH)/init.tcpdump.rc.userdebug:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.$(PRODUCT_PLATFORM).tcpdump.rc
 else
   PRODUCT_COPY_FILES += \
       $(LOCAL_PATH)/init.hardware.diag.rc.user:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).diag.rc
@@ -255,6 +251,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.display.sensortype=2 \
     vendor.display.foss.config=1 \
     vendor.display.foss.config_path=/vendor/etc/FOSSConfig.xml
+
+# Add saturation parameters
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.display.adaptive_saturation_parameter=1.1574,-0.0426,-0.0426,-0.143,1.057,-0.143,-0.0144,-0.0144,1.1856
 
 # b/73168288
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -645,7 +645,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     vndk-sp
 
-PRODUCT_ENFORCE_RRO_TARGETS := *
+PRODUCT_ENFORCE_RRO_TARGETS := framework-res
 
 # Override heap growth limit due to high display density on device
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -749,7 +749,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/google/bonito/audio/rt5514_dsp_fw1.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw1.bin \
     device/google/bonito/audio/rt5514_dsp_fw2.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw2.bin \
-    device/google/bonito/audio/rt5514_dsp_fw3.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw3.bin
+    device/google/bonito/audio/rt5514_dsp_fw3.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw3.bin \
+    device/google/bonito/audio/rt5514_dsp_fw4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw4.bin
 
 # Keymaster configuration
 PRODUCT_COPY_FILES += \
@@ -769,6 +770,7 @@ else
 endif
 
 # Enable tcpdump_logger on userdebug and eng
+PRODUCT_PACKAGES_DEBUG += tcpdump_logger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
     PRODUCT_PROPERTY_OVERRIDES += \
         persist.vendor.tcpdump.log.alwayson=false \
