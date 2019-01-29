@@ -28,13 +28,24 @@ namespace V1_2 {
 namespace implementation {
 
 class Vibrator : public IVibrator {
-public:
-    Vibrator(std::ofstream&& activate, std::ofstream&& duration,
-            std::ofstream&& state, std::ofstream&& rtpinput,
-            std::ofstream&& mode, std::ofstream&& sequencer,
-            std::ofstream&& scale, std::ofstream&& ctrlloop, std::ofstream&& lptrigger,
-            std::ofstream&& lrawaveshape, std::ofstream&& odclamp, std::ofstream&& ollraperiod,
-            std::uint32_t short_lra_period, std::uint32_t long_lra_period);
+  public:
+    typedef struct {
+        std::ofstream activate;
+        std::ofstream ctrlLoop;
+        std::ofstream duration;
+        std::ofstream lpTriggerEffect;
+        std::ofstream lraWaveShape;
+        std::ofstream mode;
+        std::ofstream odClamp;
+        std::ofstream olLraPeriod;
+        std::ofstream rtpInput;
+        std::ofstream scale;
+        std::ofstream sequencer;
+        std::ofstream state;
+    } HwApi;
+
+  public:
+    Vibrator(HwApi &&hwapi, std::uint32_t short_lra_period, std::uint32_t long_lra_period);
 
     // Methods from ::android::hardware::vibrator::V1_0::IVibrator follow.
     using Status = ::android::hardware::vibrator::V1_0::Status;
@@ -50,21 +61,10 @@ public:
             override;
     Return<void> perform_1_2(Effect effect, EffectStrength strength, perform_cb _hidl_cb) override;
 
-private:
+  private:
     Return<Status> on(uint32_t timeoutMs, bool isWaveform);
     Return<void> performEffect(Effect effect, EffectStrength strength, perform_cb _hidl_cb);
-    std::ofstream mActivate;
-    std::ofstream mDuration;
-    std::ofstream mState;
-    std::ofstream mRtpInput;
-    std::ofstream mMode;
-    std::ofstream mSequencer;
-    std::ofstream mScale;
-    std::ofstream mCtrlLoop;
-    std::ofstream mLpTriggerEffect;
-    std::ofstream mLraWaveShape;
-    std::ofstream mOdClamp;
-    std::ofstream mOlLraPeriod;
+    HwApi mHwApi;
     std::uint32_t mShortLraPeriod;
     std::uint32_t mLongLraPeriod;
     int32_t mClickDuration;
