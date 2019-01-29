@@ -61,8 +61,7 @@ static std::uint32_t freqPeriodFormula(std::uint32_t in) {
     return 1000000000 / (24615 * in);
 }
 
-static std::string trim(const std::string& str,
-        const std::string& whitespace = " \t") {
+static std::string trim(const std::string &str, const std::string &whitespace = " \t") {
     const auto str_begin = str.find_first_not_of(whitespace);
     if (str_begin == std::string::npos) {
         return "";
@@ -74,31 +73,27 @@ static std::string trim(const std::string& str,
     return str.substr(str_begin, str_range);
 }
 
-static bool loadCalibrationData(std::uint32_t &short_lra_period,
-        std::uint32_t &long_lra_period) {
+static bool loadCalibrationData(std::uint32_t &short_lra_period, std::uint32_t &long_lra_period) {
     std::map<std::string, std::string> config_data;
 
     std::ofstream autocal{AUTOCAL_FILEPATH};
     if (!autocal) {
         int error = errno;
-        ALOGE("Failed to open %s (%d): %s", AUTOCAL_FILEPATH, error,
-                strerror(error));
+        ALOGE("Failed to open %s (%d): %s", AUTOCAL_FILEPATH, error, strerror(error));
         return false;
     }
 
     std::ofstream ol_lra_period{OL_LRA_PERIOD_FILEPATH};
     if (!ol_lra_period) {
         int error = errno;
-        ALOGE("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error,
-                strerror(error));
+        ALOGE("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error, strerror(error));
         return false;
     }
 
     std::ifstream cal_data{CALIBRATION_FILEPATH};
     if (!cal_data) {
         int error = errno;
-        ALOGE("Failed to open %s (%d): %s", CALIBRATION_FILEPATH, error,
-                strerror(error));
+        ALOGE("Failed to open %s (%d): %s", CALIBRATION_FILEPATH, error, strerror(error));
         return false;
     }
 
@@ -119,11 +114,11 @@ static bool loadCalibrationData(std::uint32_t &short_lra_period,
         }
     }
 
-    if(config_data.find(AUTOCAL_CONFIG) != config_data.end()) {
+    if (config_data.find(AUTOCAL_CONFIG) != config_data.end()) {
         autocal << config_data[AUTOCAL_CONFIG] << std::endl;
     }
 
-    if(config_data.find(LRA_PERIOD_CONFIG) != config_data.end()) {
+    if (config_data.find(LRA_PERIOD_CONFIG) != config_data.end()) {
         uint32_t thisFrequency;
         uint32_t thisPeriod;
         ol_lra_period << config_data[LRA_PERIOD_CONFIG] << std::endl;
@@ -132,9 +127,9 @@ static bool loadCalibrationData(std::uint32_t &short_lra_period,
         // 1. Change long lra period to frequency
         // 2. Get frequency': subtract the frequency shift from the frequency
         // 3. Get final long lra period after put the frequency' to formula
-        thisFrequency = freqPeriodFormula(thisPeriod) -
-                property_get_int32("ro.vibrator.hal.long.frequency.shift",
-                        DEFAULT_FREQUENCY_SHIFT);
+        thisFrequency =
+            freqPeriodFormula(thisPeriod) -
+            property_get_int32("ro.vibrator.hal.long.frequency.shift", DEFAULT_FREQUENCY_SHIFT);
         long_lra_period = freqPeriodFormula(thisFrequency);
     }
 
@@ -235,8 +230,7 @@ status_t registerVibratorService() {
         ALOGW("Failed load calibration data");
     }
 
-    sp<IVibrator> vibrator = new Vibrator(std::move(hwapi), short_lra_period,
-                                          long_lra_period);
+    sp<IVibrator> vibrator = new Vibrator(std::move(hwapi), short_lra_period, long_lra_period);
 
     return vibrator->registerAsService();
 }
