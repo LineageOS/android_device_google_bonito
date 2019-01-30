@@ -61,8 +61,7 @@ static std::uint32_t freqPeriodFormula(std::uint32_t in) {
     return 1000000000 / (24615 * in);
 }
 
-static std::string trim(const std::string& str,
-        const std::string& whitespace = " \t") {
+static std::string trim(const std::string &str, const std::string &whitespace = " \t") {
     const auto str_begin = str.find_first_not_of(whitespace);
     if (str_begin == std::string::npos) {
         return "";
@@ -74,31 +73,27 @@ static std::string trim(const std::string& str,
     return str.substr(str_begin, str_range);
 }
 
-static bool loadCalibrationData(std::uint32_t &short_lra_period,
-        std::uint32_t &long_lra_period) {
+static bool loadCalibrationData(std::uint32_t &short_lra_period, std::uint32_t &long_lra_period) {
     std::map<std::string, std::string> config_data;
 
     std::ofstream autocal{AUTOCAL_FILEPATH};
     if (!autocal) {
         int error = errno;
-        ALOGE("Failed to open %s (%d): %s", AUTOCAL_FILEPATH, error,
-                strerror(error));
+        ALOGE("Failed to open %s (%d): %s", AUTOCAL_FILEPATH, error, strerror(error));
         return false;
     }
 
     std::ofstream ol_lra_period{OL_LRA_PERIOD_FILEPATH};
     if (!ol_lra_period) {
         int error = errno;
-        ALOGE("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error,
-                strerror(error));
+        ALOGE("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error, strerror(error));
         return false;
     }
 
     std::ifstream cal_data{CALIBRATION_FILEPATH};
     if (!cal_data) {
         int error = errno;
-        ALOGE("Failed to open %s (%d): %s", CALIBRATION_FILEPATH, error,
-                strerror(error));
+        ALOGE("Failed to open %s (%d): %s", CALIBRATION_FILEPATH, error, strerror(error));
         return false;
     }
 
@@ -119,11 +114,11 @@ static bool loadCalibrationData(std::uint32_t &short_lra_period,
         }
     }
 
-    if(config_data.find(AUTOCAL_CONFIG) != config_data.end()) {
+    if (config_data.find(AUTOCAL_CONFIG) != config_data.end()) {
         autocal << config_data[AUTOCAL_CONFIG] << std::endl;
     }
 
-    if(config_data.find(LRA_PERIOD_CONFIG) != config_data.end()) {
+    if (config_data.find(LRA_PERIOD_CONFIG) != config_data.end()) {
         uint32_t thisFrequency;
         uint32_t thisPeriod;
         ol_lra_period << config_data[LRA_PERIOD_CONFIG] << std::endl;
@@ -132,9 +127,9 @@ static bool loadCalibrationData(std::uint32_t &short_lra_period,
         // 1. Change long lra period to frequency
         // 2. Get frequency': subtract the frequency shift from the frequency
         // 3. Get final long lra period after put the frequency' to formula
-        thisFrequency = freqPeriodFormula(thisPeriod) -
-                property_get_int32("ro.vibrator.hal.long.frequency.shift",
-                        DEFAULT_FREQUENCY_SHIFT);
+        thisFrequency =
+            freqPeriodFormula(thisPeriod) -
+            property_get_int32("ro.vibrator.hal.long.frequency.shift", DEFAULT_FREQUENCY_SHIFT);
         long_lra_period = freqPeriodFormula(thisFrequency);
     }
 
@@ -145,87 +140,88 @@ status_t registerVibratorService() {
     // Calibration data: lra period 262(i.e. 155Hz)
     std::uint32_t short_lra_period(DEFAULT_LRA_PERIOD);
     std::uint32_t long_lra_period(DEFAULT_LRA_PERIOD);
+    Vibrator::HwApi hwapi;
 
     // ostreams below are required
-    std::ofstream activate{ACTIVATE_PATH};
-    if (!activate) {
+    hwapi.activate.open(ACTIVATE_PATH);
+    if (!hwapi.activate) {
         int error = errno;
         ALOGE("Failed to open %s (%d): %s", ACTIVATE_PATH, error, strerror(error));
         return -error;
     }
 
-    std::ofstream duration{DURATION_PATH};
-    if (!duration) {
+    hwapi.duration.open(DURATION_PATH);
+    if (!hwapi.duration) {
         int error = errno;
         ALOGE("Failed to open %s (%d): %s", DURATION_PATH, error, strerror(error));
         return -error;
     }
 
-    std::ofstream state{STATE_PATH};
-    if (!state) {
+    hwapi.state.open(STATE_PATH);
+    if (!hwapi.state) {
         int error = errno;
         ALOGE("Failed to open %s (%d): %s", STATE_PATH, error, strerror(error));
         return -error;
     }
 
-    state << 1 << std::endl;
-    if (!state) {
+    hwapi.state << 1 << std::endl;
+    if (!hwapi.state) {
         int error = errno;
         ALOGE("Failed to set state (%d): %s", errno, strerror(errno));
         return -error;
     }
 
     // ostreams below are optional
-    std::ofstream rtpinput{RTP_INPUT_PATH};
-    if (!rtpinput) {
+    hwapi.rtpInput.open(RTP_INPUT_PATH);
+    if (!hwapi.rtpInput) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", RTP_INPUT_PATH, error, strerror(error));
     }
 
-    std::ofstream mode{MODE_PATH};
-    if (!mode) {
+    hwapi.mode.open(MODE_PATH);
+    if (!hwapi.mode) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", MODE_PATH, error, strerror(error));
     }
 
-    std::ofstream sequencer{SEQUENCER_PATH};
-    if (!sequencer) {
+    hwapi.sequencer.open(SEQUENCER_PATH);
+    if (!hwapi.sequencer) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", SEQUENCER_PATH, error, strerror(error));
     }
 
-    std::ofstream scale{SCALE_PATH};
-    if (!scale) {
+    hwapi.scale.open(SCALE_PATH);
+    if (!hwapi.scale) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", SCALE_PATH, error, strerror(error));
     }
 
-    std::ofstream ctrlloop{CTRL_LOOP_PATH};
-    if (!ctrlloop) {
+    hwapi.ctrlLoop.open(CTRL_LOOP_PATH);
+    if (!hwapi.ctrlLoop) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", CTRL_LOOP_PATH, error, strerror(error));
     }
 
-    std::ofstream lptrigger{LP_TRIGGER_PATH};
-    if (!lptrigger) {
+    hwapi.lpTriggerEffect.open(LP_TRIGGER_PATH);
+    if (!hwapi.lpTriggerEffect) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", LP_TRIGGER_PATH, error, strerror(error));
     }
 
-    std::ofstream lrawaveshape{LRA_WAVE_SHAPE_PATH};
-    if (!lrawaveshape) {
+    hwapi.lraWaveShape.open(LRA_WAVE_SHAPE_PATH);
+    if (!hwapi.lraWaveShape) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", LRA_WAVE_SHAPE_PATH, error, strerror(error));
     }
 
-    std::ofstream odclamp{OD_CLAMP_PATH};
-    if (!odclamp) {
+    hwapi.odClamp.open(OD_CLAMP_PATH);
+    if (!hwapi.odClamp) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", OD_CLAMP_PATH, error, strerror(error));
     }
 
-    std::ofstream ollraperiod{OL_LRA_PERIOD_FILEPATH};
-    if (!ollraperiod) {
+    hwapi.olLraPeriod.open(OL_LRA_PERIOD_FILEPATH);
+    if (!hwapi.olLraPeriod) {
         int error = errno;
         ALOGW("Failed to open %s (%d): %s", OL_LRA_PERIOD_FILEPATH, error, strerror(error));
     }
@@ -234,11 +230,7 @@ status_t registerVibratorService() {
         ALOGW("Failed load calibration data");
     }
 
-    sp<IVibrator> vibrator = new Vibrator(std::move(activate), std::move(duration),
-            std::move(state), std::move(rtpinput), std::move(mode),
-            std::move(sequencer), std::move(scale), std::move(ctrlloop), std::move(lptrigger),
-            std::move(lrawaveshape), std::move(odclamp), std::move(ollraperiod),
-            short_lra_period, long_lra_period);
+    sp<IVibrator> vibrator = new Vibrator(std::move(hwapi), short_lra_period, long_lra_period);
 
     return vibrator->registerAsService();
 }
