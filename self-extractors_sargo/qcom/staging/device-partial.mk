@@ -14,8 +14,6 @@
 
 # AOSP packages required by the blobs
 PRODUCT_PACKAGES := \
-    com.android.ims.rcsmanager.xml \
-    com.android.ims.rcsmanager \
     QtiTelephonyService
 
 #  blob(s) necessary for sargo hardware
