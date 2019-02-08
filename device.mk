@@ -287,6 +287,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.ROTATION_ENABLE=1 \
     persist.radio.VT_ENABLE=1 \
     persist.radio.VT_HYBRID_ENABLE=1 \
+    persist.radio.reboot_on_modem_change=true \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
     persist.vendor.radio.custom_ecc=1 \
     persist.vendor.radio.data_ltd_sys_ind=1 \
