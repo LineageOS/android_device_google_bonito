@@ -8,6 +8,7 @@ dontaudit kernel kernel:system module_request;
 
 # Read FDs from /vendor/firmware
 allow kernel vendor_file:file r_file_perms;
+r_dir_file(kernel, vendor_firmware_file)
 
 allow kernel debugfs_ipc:dir search;
 allow kernel persist_file:dir search;

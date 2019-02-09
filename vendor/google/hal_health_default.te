@@ -13,6 +13,11 @@ allow hal_health_default persist_battery_file:file create_file_perms;
 allow hal_health_default persist_battery_file:dir rw_dir_perms;
 allow hal_health_default sysfs_batteryinfo:dir search;
 allow hal_health_default sysfs_batteryinfo:file rw_file_perms;
+allow hal_health_default sysfs_mmc:dir search;
+allow hal_health_default sysfs_mmc:file rw_file_perms;
 
 get_prop(hal_health_default, vendor_shutdown_prop)
 set_prop(hal_health_default, vendor_shutdown_prop)
+
+allow hal_health_default self:capability2 wake_alarm;
+allow hal_health_default mnt_vendor_file:dir search;
