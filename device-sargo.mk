@@ -15,8 +15,8 @@
 #
 
 PRODUCT_AAPT_CONFIG := normal
-PRODUCT_AAPT_PREF_CONFIG := 560dpi
-PRODUCT_AAPT_PREBUILT_DPI := xxxhdpi xxhdpi xhdpi hdpi
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
 
 PRODUCT_HARDWARE := sargo
 
@@ -24,14 +24,20 @@ include device/google/bonito/device-common.mk
 
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/sargo/overlay
 
-# Audio XMLs
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/mixer_paths_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_s4.xml \
-    $(LOCAL_PATH)/mixer_paths_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_s4dev.xml \
-    $(LOCAL_PATH)/audio_platform_info_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4.xml \
-    $(LOCAL_PATH)/audio_platform_info_intcodec_s4dev.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4dev.xml
-
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.com.google.ime.height_ratio=1.2
+
+# Vibrator HAL
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES +=\
+    ro.vibrator.hal.click.duration=6 \
+    ro.vibrator.hal.tick.duration=2 \
+    ro.vibrator.hal.heavyclick.duration=10 \
+    ro.vibrator.hal.short.voltage=105 \
+    ro.vibrator.hal.long.voltage= 75 \
+    ro.vibrator.hal.long.lra.period=262
+
+# DRV2624 Haptics Waveform
+PRODUCT_COPY_FILES += \
+    device/google/bonito/vibrator/drv2624/drv2624_S4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin

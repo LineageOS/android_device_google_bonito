@@ -52,6 +52,9 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/lib/vndk-sp/libz.so)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/lib64/vndk-sp/libz.so)
 
+# Remove Power HAL 1.2
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.power@1.2-service.bonito-libperfmgr.rc)
+
 # Remove Vibrator HAL 1.1
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.vibrator@1.1-service.bonito.rc)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.vibrator@1.1-service.bonito)
@@ -119,3 +122,17 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/include)
 # Secure_element HAL for eSE1
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.secure_element@1.0-service.rc)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.secure_element@1.0-service)
+
+# Remove VR related files
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/thermal-engine-sargo-vr.conf)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/thermal-engine-bonito-vr.conf)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.vr@1.0-service.bonito.rc)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/permissions/android.hardware.vr.headtracking.xml)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/permissions/android.hardware.vr.high_performance.xml)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.vr@1.0-service.bonito)
+
+# Remove /product mount point
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
+

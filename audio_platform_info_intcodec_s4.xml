@@ -28,30 +28,43 @@
     <acdb_ids>
         <device name="SND_DEVICE_OUT_SPEAKER" acdb_id="15"/>
         <device name="SND_DEVICE_OUT_SPEAKER_REVERSE" acdb_id="15"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_SAFE" acdb_id="514"/>
         <device name="SND_DEVICE_OUT_SPEAKER_PROTECTED" acdb_id="513"/>
         <device name="SND_DEVICE_IN_CAPTURE_VI_FEEDBACK" acdb_id="512"/>
         <device name="SND_DEVICE_OUT_SPEAKER_AND_USB_HEADSET" acdb_id="45"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_USB_HEADSET" acdb_id="514"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_MIC" acdb_id="143"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_STEREO_MIC" acdb_id="144"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_THREE_MIC" acdb_id="145"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_QUAD_MIC" acdb_id="146"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_HEADSET_MIC" acdb_id="147"/>
-        <device name="SND_DEVICE_IN_HANDSET_MIC" acdb_id="41"/>
+        <device name="SND_DEVICE_IN_HANDSET_MIC" acdb_id="4"/>
+        <device name="SND_DEVICE_IN_HANDSET_DMIC_STEREO" acdb_id="34"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_MIC" acdb_id="61"/>
         <device name="SND_DEVICE_OUT_VOICE_HANDSET" acdb_id="7"/>
         <device name="SND_DEVICE_IN_VOICE_DMIC" acdb_id="41"/>
         <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" acdb_id="10"/>
         <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" acdb_id="8"/>
         <device name="SND_DEVICE_OUT_VOICE_SPEAKER_PROTECTED" acdb_id="14"/>
         <device name="SND_DEVICE_IN_VOICE_SPEAKER_DMIC" acdb_id="19"/>
+        <device name="SND_DEVICE_IN_VOICE_SPEAKER_MIC" acdb_id="19"/>
         <device name="SND_DEVICE_OUT_VOICE_HAC_HANDSET" acdb_id="201"/>
         <device name="SND_DEVICE_IN_HEADSET_MIC" acdb_id="8"/>
         <device name="SND_DEVICE_IN_VOICE_DMIC_TMUS" acdb_id="99"/>
         <device name="SND_DEVICE_OUT_VOICE_HANDSET_TMUS" acdb_id="98"/>
+        <device name="SND_DEVICE_IN_HANDSET_DMIC_AEC_NS" acdb_id="111"/>
+        <device name="SND_DEVICE_IN_SPEAKER_DMIC_AEC_NS" acdb_id="117"/>
+        <device name="SND_DEVICE_IN_HEADSET_MIC_AEC" acdb_id="8"/>
+        <device name="SND_DEVICE_OUT_VOICE_HEADSET" acdb_id="10"/>
+        <device name="SND_DEVICE_OUT_VOICE_USB_HEADSET" acdb_id="77"/>
+        <device name="SND_DEVICE_OUT_VOICE_USB_HEADPHONES" acdb_id="77"/>
+        <device name="SND_DEVICE_IN_VOICE_USB_HEADSET_MIC" acdb_id="78"/>
+        <device name="SND_DEVICE_IN_USB_HEADSET_MIC_AEC" acdb_id="78"/>
 
         <!-- TTY -->
         <device name="SND_DEVICE_OUT_VOICE_TTY_HCO_HANDSET" acdb_id="14"/>
+        <device name="SND_DEVICE_IN_VOICE_TTY_HCO_HEADSET_MIC" acdb_id="16"/>
         <device name="SND_DEVICE_IN_VOICE_TTY_VCO_HANDSET_MIC" acdb_id="19"/>
-        <device name="SND_DEVICE_OUT_VOICE_TTY_HCO_SPEAKER" acdb_id="14"/>
         <device name="SND_DEVICE_IN_VOICE_TTY_VCO_SPEAKER_MIC" acdb_id="19"/>
     </acdb_ids>
     <bit_width_configs>
@@ -83,14 +96,34 @@
         <usecase name="USECASE_AUDIO_RECORD_VOIP" type="in" id="16"/>
         <usecase name="USECASE_AUDIO_RECORD_VOIP" type="out" id="-1"/>
         <usecase name="USECASE_INCALL_MUSIC_UPLINK" type="out" id="27"/>
-        <usecase name="USECASE_AUDIO_A2DP_ABR_FEEDBACK" type="in" id="42" />
+        <usecase name="USECASE_AUDIO_A2DP_ABR_FEEDBACK" type="in" id="12" />
         <usecase name="USECASE_AUDIO_HFP_SCO" type="in" id="12" />
         <usecase name="USECASE_AUDIO_HFP_SCO_WB" type="in" id="12" />
     </pcm_ids>
     <config_params>
         <param key="input_mic_max_count" value="3"/>
         <param key="snd_card_name" value="sdm670-intcodec-s4-snd-card"/>
+        <param key="operator_info" value="tmus;310260"/>
+        <param key="operator_info" value="tmus;310490"/>
+        <param key="operator_info" value="tmus;310026"/>
+        <param key="operator_info" value="tmus;310800"/>
+        <param key="operator_info" value="tmus;310660"/>
+        <param key="operator_info" value="tmus;310580"/>
+        <param key="operator_info" value="tmus;310310"/>
+        <param key="operator_info" value="tmus;310270"/>
+        <param key="operator_info" value="tmus;310250"/>
+        <param key="operator_info" value="tmus;310240"/>
+        <param key="operator_info" value="tmus;310230"/>
+        <param key="operator_info" value="tmus;310220"/>
+        <param key="operator_info" value="tmus;310210"/>
+        <param key="operator_info" value="tmus;310200"/>
+        <param key="operator_info" value="tmus;310160"/>
     </config_params>
+
+    <operator_specific>
+        <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" operator="tmus" mixer_path="voice-headset-mic-tmus" acdb_id="55"/>
+        <device name="SND_DEVICE_OUT_VOICE_HEADSET" operator="tmus" mixer_path="voice-headphones-tmus" acdb_id="66"/>
+    </operator_specific>
 
     <gain_db_to_level_mapping>
         <gain_level_map db="-59" level="5"/>
@@ -118,6 +151,9 @@
         <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_BT_SCO_WB" backend="speaker-and-bt-sco-wb" interface="SEC_TDM_RX_0-and-SLIMBUS_7_RX"/>
         <device name="SND_DEVICE_OUT_SPEAKER_AND_HDMI" backend="speaker" interface="SEC_TDM_RX-and-HDMI_RX"/>
         <device name="SND_DEVICE_OUT_HANDSET" backend="handset" interface="SEC_TDM_RX_0"/>
+        <device name="SND_DEVICE_IN_HANDSET_MIC" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_HANDSET_DMIC_STEREO" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_CAMCORDER_MIC" backend="handset-mic" interface="PRI_TDM_TX_0"/>
         <device name="SND_DEVICE_OUT_VOICE_HANDSET" backend="handset" interface="SEC_TDM_RX_0"/>
         <device name="SND_DEVICE_OUT_VOICE_HAC_HANDSET" backend="handset" interface="SEC_TDM_RX_0"/>
         <device name="SND_DEVICE_OUT_VOICE_HANDSET_TMUS" backend="handset" interface="SEC_TDM_RX_0"/>
@@ -139,18 +175,21 @@
         <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_HEADPHONES" backend="speaker-and-headphones" interface="SEC_TDM_RX_0-and-INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_LINE" backend="speaker-and-headphones" interface="SEC_TDM_RX_0-and-INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" backend="headphones" interface="INT0_MI2S_RX"/>
+        <device name="SND_DEVICE_OUT_VOICE_HEADSET" backend="headset" interface="INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_LINE" backend="headphones" interface="INT0_MI2S_RX"/>
-        <device name="SND_DEVICE_OUT_VOICE_TTY_FULL_HEADPHONES" backend="headphones" interface="INT0_MI2S_RX"/>
+        <device name="SND_DEVICE_OUT_VOICE_TTY_FULL_HEADPHONES" backend="headset" interface="INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_TTY_VCO_HEADPHONES" backend="headphones" interface="INT0_MI2S_RX"/>
         <device name="SND_DEVICE_OUT_SPEAKER_AND_BT_A2DP" backend="speaker-and-bt-a2dp" interface="SEC_TDM_RX_0-and-SLIMBUS_7_RX"/>
         <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_BT_A2DP" backend="speaker-and-bt-a2dp" interface="SEC_TDM_RX_0-and-SLIMBUS_7_RX"/>
         <device name="SND_DEVICE_IN_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
         <device name="SND_DEVICE_IN_HEADSET_MIC_AEC" backend="headset-mic" interface="INT3_MI2S_TX"/>
+        <device name="SND_DEVICE_IN_HANDSET_DMIC_AEC_NS" backend="handset-mic" interface="PRI_TDM_TX_0"/>
+        <device name="SND_DEVICE_IN_SPEAKER_DMIC_AEC_NS" backend="speaker-mic" interface="PRI_TDM_TX_0"/>
         <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
         <device name="SND_DEVICE_IN_VOICE_TTY_FULL_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
-        <device name="SND_DEVICE_IN_VOICE_TTY_HCO_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
         <device name="SND_DEVICE_IN_VOICE_REC_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
+
     </backend_names>
     <app_types>
         <app uc_type="PCM_PLAYBACK" mode="default" bit_width="16" id="69936" max_rate="96000" />

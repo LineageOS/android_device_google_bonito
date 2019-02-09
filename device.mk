@@ -17,6 +17,7 @@
 TARGET_CHIPSET := sdm710
 
 PRODUCT_SOONG_NAMESPACES += \
+    device/google/bonito \
     hardware/google/av \
     hardware/google/interfaces \
     hardware/qcom/sdm710 \
@@ -36,7 +37,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 PRODUCT_COPY_FILES += \
     device/google/bonito/default-permissions.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/default-permissions.xml \
-    frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
+    frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
 
 # Enforce privapp-permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -87,10 +89,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.qcom.wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.wlan.sh \
     $(LOCAL_PATH)/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     $(LOCAL_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
-    $(LOCAL_PATH)/thermal-engine-sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sargo.conf \
-    $(LOCAL_PATH)/thermal-engine-sargo-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sargo-vr.conf \
-    $(LOCAL_PATH)/thermal-engine-bonito.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-bonito.conf \
-    $(LOCAL_PATH)/thermal-engine-bonito-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-bonito-vr.conf
+    $(LOCAL_PATH)/thermal-engine-$(PRODUCT_HARDWARE).conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-$(PRODUCT_HARDWARE).conf \
+    $(LOCAL_PATH)/init.ramoops.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.ramoops.sh
 
 # Edge Sense initialization script.
 # TODO: b/67205273
@@ -149,8 +149,7 @@ AB_OTA_PARTITIONS += \
     boot \
     system \
     vbmeta \
-    dtbo \
-    product
+    dtbo
 
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
@@ -208,8 +207,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/android.hardware.nfc.hcef.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hcef.xml \
-    frameworks/native/data/etc/android.hardware.vr.headtracking-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vr.headtracking.xml \
-    frameworks/native/data/etc/android.hardware.vr.high_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vr.high_performance.xml \
     frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level.xml \
     frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute.xml \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version.xml \
@@ -217,18 +214,19 @@ PRODUCT_COPY_FILES += \
 
 # power HAL
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.2-service.bonito-libperfmgr
+    android.hardware.power@1.3-service.bonito-libperfmgr
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # Audio fluence, ns, aec property, voice and media volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=fluencepro \
+    ro.vendor.audio.sdk.fluencetype=fluencepro \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.speaker=true \
     persist.audio.fluence.voicecomm=true \
     persist.audio.fluence.voicerec=false \
+    persist.audio.dualmic.config=endfire \
     ro.config.vc_call_vol_steps=7 \
     ro.config.media_vol_steps=25 \
 
@@ -249,9 +247,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.display.sensortype=2 \
     vendor.display.foss.config=1 \
     vendor.display.foss.config_path=/vendor/etc/FOSSConfig.xml
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.display.disable_fbid_cache=1
 
 # b/73168288
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -331,7 +326,7 @@ PRODUCT_PACKAGES += \
 
 # Health HAL
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.0-service
+    android.hardware.health@2.0-service.bonito
 
 # Light HAL
 PRODUCT_PACKAGES += \
@@ -405,11 +400,11 @@ PRODUCT_PACKAGES += \
     libc2dcolorconvert
 
 # Enable Codec 2.0
-#PRODUCT_PACKAGES += \
-#    libmedia_codecserviceregistrant \
-#    libqcodec2 \
-#    libstagefright_ccodec \
-#    vendor.qti.media.c2@1.0-service \
+PRODUCT_PACKAGES += \
+    libmedia_codecserviceregistrant \
+    libqcodec2 \
+    libstagefright_ccodec \
+    vendor.qti.media.c2@1.0-service \
 
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
@@ -463,14 +458,6 @@ PRODUCT_PACKAGES += \
     android.hardware.gnss@1.1-impl-qti \
     android.hardware.gnss@1.1-service-qti
 
-# Wireless Charger HAL
-PRODUCT_PACKAGES += \
-    vendor.google.wireless_charger@1.0
-
-# VR HAL
-PRODUCT_PACKAGES += \
-    android.hardware.vr@1.0-service.bonito \
-
 ENABLE_VENDOR_RIL_SERVICE := true
 
 PRODUCT_COPY_FILES += \
@@ -496,9 +483,9 @@ PRODUCT_PACKAGES += \
 LIB_NL := libnl_2
 PRODUCT_PACKAGES += $(LIB_NL)
 
-# Factory OTA
+# Factory OTA for Bonito
 PRODUCT_PACKAGES += \
-    FactoryOta
+    BonitoFactoryOta
 
 # Audio effects
 PRODUCT_PACKAGES += \
@@ -542,6 +529,17 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/hearing_aid_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/hearing_aid_audio_policy_configuration.xml \
 
+# Audio XMLs
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/mixer_paths_intcodec_b4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_b4.xml \
+    $(LOCAL_PATH)/mixer_paths_intcodec_b4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_b4dev.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_b4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_b4.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_b4dev.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_b4dev.xml \
+    $(LOCAL_PATH)/mixer_paths_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_s4.xml \
+    $(LOCAL_PATH)/mixer_paths_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_intcodec_s4dev.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_s4.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4.xml \
+    $(LOCAL_PATH)/audio_platform_info_intcodec_s4dev.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_intcodec_s4dev.xml
+
 # audio hal tables
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_platform_info.xml \
@@ -556,6 +554,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     $(LOCAL_PATH)/media_codecs_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2.xml \
+    $(LOCAL_PATH)/media_codecs_performance_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_c2.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_video.xml \
 
@@ -592,7 +591,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_PLATFORM)
+    device/google/bonito/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_PLATFORM) \
+    device/google/bonito/fstab.persist:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.persist
 
 # Use the default charger mode images
 PRODUCT_PACKAGES += \
@@ -614,7 +614,9 @@ PRODUCT_PACKAGES += \
     citadel_updater \
     android.hardware.authsecret@1.0-service.citadel \
     android.hardware.oemlock@1.0-service.citadel \
-    android.hardware.weaver@1.0-service.citadel
+    android.hardware.weaver@1.0-service.citadel \
+    android.hardware.keymaster@4.0-service.citadel \
+    wait_for_strongbox
 
 # Citadel debug stuff
 PRODUCT_PACKAGES_DEBUG += \
@@ -661,14 +663,11 @@ PRODUCT_PACKAGES += \
 
 # Reliability reporting
 PRODUCT_PACKAGES += \
-    hardware.google.pixelstats@1.0-service
+    hardware.google.pixelstats@1.0-service \
+    pixelstats-vendor
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
-
-# DRV2624 Haptics Waveform
-PRODUCT_COPY_FILES += \
-    device/google/bonito/vibrator/drv2624/drv2624.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
 
 # CS40L20 Haptics Waveform & Firmware
 PRODUCT_COPY_FILES += \
@@ -725,17 +724,27 @@ PRODUCT_COPY_FILES += \
     device/google/bonito/audio/crus_sp_config_s4_rx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_s4_rx.bin \
     device/google/bonito/audio/crus_sp_config_s4_tx.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/crus_sp_config_s4_tx.bin
 
+# RT5514 SoundTrigger
+PRODUCT_COPY_FILES += \
+    device/google/bonito/audio/rt5514_dsp_fw1.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw1.bin \
+    device/google/bonito/audio/rt5514_dsp_fw2.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw2.bin \
+    device/google/bonito/audio/rt5514_dsp_fw3.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw3.bin
+
 # Keymaster configuration
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml
 
 # Enable modem logging
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.radio.log_loc="/data/vendor/modem_dump" \
+    ro.radio.log_prefix="modem_log_"
+
+# Enable modem logging for debug
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.sys.modem.diag.mdlog=true \
-    persist.vendor.sys.modem.diag.mdlog_br_num=5 \
-    ro.radio.log_loc="/data/vendor/modem_dump" \
-    ro.radio.log_prefix="modem_log_"
+    persist.vendor.sys.modem.diag.mdlog_br_num=5
+else
 endif
 
 # Preopt SystemUI
@@ -762,3 +771,17 @@ KMGK_USE_QTI_SERVICE := true
 
 #Clear the variable
 TARGET_CHIPSET := ""
+
+# Early phase offset configuration for SurfaceFlinger
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.early_phase_offset_ns=500000
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.early_app_phase_offset_ns=500000
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.early_gl_phase_offset_ns=3000000
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.early_gl_app_phase_offset_ns=15000000
+
+# Do not skip init trigger by default
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    vendor.skip.init=0

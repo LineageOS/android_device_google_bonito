@@ -23,13 +23,17 @@
 #include <health2/service.h>
 #include <healthd/healthd.h>
 #include <hidl/HidlTransportSupport.h>
+#include <pixelhealth/BatteryMetricsLogger.h>
+#include <pixelhealth/CycleCountBackupRestore.h>
+#include <pixelhealth/DeviceHealth.h>
+#include <pixelhealth/LowBatteryShutdownMetrics.h>
 
+#include "BatteryRechargingControl.h"
+#include "BatteryInfoUpdate.h"
 #include <fstream>
 #include <iomanip>
 #include <string>
 #include <vector>
-
-#include "BatteryRechargingControl.h"
 
 namespace {
 
@@ -37,16 +41,33 @@ using android::hardware::health::V2_0::DiskStats;
 using android::hardware::health::V2_0::StorageAttribute;
 using android::hardware::health::V2_0::StorageInfo;
 using ::device::google::bonito::health::BatteryRechargingControl;
+using ::device::google::bonito::health::BatteryInfoUpdate;
+using hardware::google::pixel::health::BatteryMetricsLogger;
+using hardware::google::pixel::health::CycleCountBackupRestore;
+using hardware::google::pixel::health::DeviceHealth;
+using hardware::google::pixel::health::LowBatteryShutdownMetrics;
+
+#define FG_DIR "/sys/class/power_supply"
+constexpr char kBatteryResistance[] {FG_DIR "/bms/resistance"};
+constexpr char kBatteryOCV[] {FG_DIR "/bms/voltage_ocv"};
+constexpr char kVoltageAvg[] {FG_DIR "/battery/voltage_now"};
+constexpr char kCycleCountsBins[] {FG_DIR "/bms/device/cycle_counts_bins"};
 
 static BatteryRechargingControl battRechargingControl;
+static BatteryInfoUpdate battInfoUpdate;
+static BatteryMetricsLogger battMetricsLogger(kBatteryResistance, kBatteryOCV);
+static LowBatteryShutdownMetrics shutdownMetrics(kVoltageAvg);
+static CycleCountBackupRestore ccBackupRestoreBMS(
+    8, kCycleCountsBins, "/persist/battery/qcom_cycle_counts_bins");
+static DeviceHealth deviceHealth;
 
-#define UFS_DIR "/sys/devices/platform/soc/1d84000.ufshc"
-const std::string kUfsHealthEol{UFS_DIR "/health/eol"};
-const std::string kUfsHealthLifetimeA{UFS_DIR "/health/lifetimeA"};
-const std::string kUfsHealthLifetimeB{UFS_DIR "/health/lifetimeB"};
-const std::string kUfsVersion{UFS_DIR "/version"};
-const std::string kDiskStatsFile{"/sys/block/sda/stat"};
-const std::string kUFSName{"UFS0"};
+#define EMMC_DIR "/sys/devices/platform/soc/7c4000.sdhci"
+const std::string kEmmcHealthEol{EMMC_DIR "/health/eol"};
+const std::string kEmmcHealthLifetimeA{EMMC_DIR "/health/lifetimeA"};
+const std::string kEmmcHealthLifetimeB{EMMC_DIR "/health/lifetimeB"};
+const std::string kEmmcVersion{"/sys/block/mmcblk0/device/fwrev"};
+const std::string kDiskStatsFile{"/sys/block/mmcblk0/stat"};
+const std::string kEmmcName{"MMC0"};
 
 std::ifstream assert_open(const std::string& path) {
     std::ifstream stream(path);
@@ -63,46 +84,52 @@ void read_value_from_file(const std::string& path, T* field) {
     stream >> *field;
 }
 
-void read_ufs_version(StorageInfo* info) {
+void read_emmc_version(StorageInfo* info) {
     uint64_t value;
-    read_value_from_file(kUfsVersion, &value);
+    read_value_from_file(kEmmcVersion, &value);
     std::stringstream ss;
-    ss << "ufs " << std::hex << value;
+    ss << "mmc0 " << std::hex << value;
     info->version = ss.str();
 }
 
-void fill_ufs_storage_attribute(StorageAttribute* attr) {
+void fill_emmc_storage_attribute(StorageAttribute* attr) {
     attr->isInternal = true;
     attr->isBootDevice = true;
-    attr->name = kUFSName;
+    attr->name = kEmmcName;
 }
 
 }  // anonymous namespace
 
 void healthd_board_init(struct healthd_config*) {
+  ccBackupRestoreBMS.Restore();
 }
 
 int healthd_board_battery_update(struct android::BatteryProperties *props) {
-    battRechargingControl.updateBatteryProperties(props);
-    return 0;
+  battRechargingControl.updateBatteryProperties(props);
+  deviceHealth.update(props);
+  battInfoUpdate.update(props);
+  battMetricsLogger.logBatteryProperties(props);
+  shutdownMetrics.logShutdownVoltage(props);
+  ccBackupRestoreBMS.Backup(props->batteryLevel);
+  return 0;
 }
 
 void get_storage_info(std::vector<StorageInfo>& vec_storage_info) {
     vec_storage_info.resize(1);
     StorageInfo* storage_info = &vec_storage_info[0];
-    fill_ufs_storage_attribute(&storage_info->attr);
+    fill_emmc_storage_attribute(&storage_info->attr);
 
-    read_ufs_version(storage_info);
-    read_value_from_file(kUfsHealthEol, &storage_info->eol);
-    read_value_from_file(kUfsHealthLifetimeA, &storage_info->lifetimeA);
-    read_value_from_file(kUfsHealthLifetimeB, &storage_info->lifetimeB);
+    read_emmc_version(storage_info);
+    read_value_from_file(kEmmcHealthEol, &storage_info->eol);
+    read_value_from_file(kEmmcHealthLifetimeA, &storage_info->lifetimeA);
+    read_value_from_file(kEmmcHealthLifetimeB, &storage_info->lifetimeB);
     return;
 }
 
 void get_disk_stats(std::vector<DiskStats>& vec_stats) {
     vec_stats.resize(1);
     DiskStats* stats = &vec_stats[0];
-    fill_ufs_storage_attribute(&stats->attr);
+    fill_emmc_storage_attribute(&stats->attr);
 
     auto stream = assert_open(kDiskStatsFile);
     // Regular diskstats entries

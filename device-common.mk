@@ -21,16 +21,8 @@ LOCAL_PATH := device/google/bonito
 # define hardware platform
 PRODUCT_PLATFORM := sdm670
 
+include device/google/bonito/device-audio-mfg.mk
 include device/google/bonito/device.mk
-
-# Audio fluence, ns, aec property, voice volume steps
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=fluencepro \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.speaker=true \
-    persist.audio.fluence.voicecomm=true \
-    persist.audio.fluence.voicerec=false \
-    ro.config.vc_call_vol_steps=7
 
 # Bug 77867216
 PRODUCT_PROPERTY_OVERRIDES += audio.adm.buffering.ms=3
@@ -38,8 +30,12 @@ PRODUCT_PROPERTY_OVERRIDES += vendor.audio.adm.buffering.ms=3
 PRODUCT_PROPERTY_OVERRIDES += audio_hal.period_multiplier=2
 PRODUCT_PROPERTY_OVERRIDES += af.fast_track_multiplier=1
 
-#temporary do not use c2 codec
-PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=0
+# Set c2 codec in default
+#PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
+#PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
+
+# Setting vendor SPL
+VENDOR_SECURITY_PATCH = "2018-09-05"
 
 # MIDI feature
 PRODUCT_COPY_FILES += \

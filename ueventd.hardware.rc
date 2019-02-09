@@ -45,6 +45,7 @@
 
 /dev/jpeg0                0660   system     camera
 /dev/adsprpc-smd          0664   system     system
+/dev/adsprpc-smd-secure   0644   system     system
 
 /dev/hw_random            0600   root       root
 /dev/sdsprpc-smd          0660   system     system
@@ -107,6 +108,7 @@
 # fpc fingerprint
 /sys/devices/platform/soc/soc:fp_fpc*        irq               0600  system system
 /sys/devices/platform/soc/soc:fp_fpc*        wakeup_enable     0200  system system
+/sys/devices/platform/soc/soc:fp_fpc*        hw_reset          0600  system system
 
 # Easel
 /dev/easelcomm-client     0666   cameraserver camera

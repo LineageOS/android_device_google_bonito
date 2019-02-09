@@ -36,86 +36,105 @@ namespace vibrator {
 namespace V1_2 {
 namespace implementation {
 
+static constexpr int8_t MAX_RTP_INPUT = 127;
+static constexpr int8_t MIN_RTP_INPUT = 0;
+
+static constexpr char RTP_MODE[] = "rtp";
+static constexpr char WAVEFORM_MODE[] = "waveform";
+
+static constexpr uint32_t LOOP_MODE_OPEN = 1;
+
+// Default max voltage 2.15V
+static constexpr uint32_t VOLTAGE_MAX = 107;
+
+// Default lra period 262 (i.e. 155Hz) for long haptics
+static constexpr uint32_t LONG_LRA_PERIOD = 262;
+
+// Use effect #1 in the waveform library for CLICK effect
+static constexpr char WAVEFORM_CLICK_EFFECT_SEQ[] = "1 0";
+static constexpr int32_t WAVEFORM_CLICK_EFFECT_MS = 6;
+
+// Use effect #2 in the waveform library for TICK effect
+static constexpr char WAVEFORM_TICK_EFFECT_SEQ[] = "2 0";
+static constexpr int32_t WAVEFORM_TICK_EFFECT_MS = 2;
+
+// Use effect #3 in the waveform library for DOUBLE_CLICK effect
+static constexpr char WAVEFORM_DOUBLE_CLICK_EFFECT_SEQ[] = "3 0";
+static constexpr uint32_t WAVEFORM_DOUBLE_CLICK_EFFECT_MS = 135;
+
+// Use effect #4 in the waveform library for HEAVY_CLICK effect
+static constexpr char WAVEFORM_HEAVY_CLICK_EFFECT_SEQ[] = "4 0";
+static constexpr uint32_t WAVEFORM_HEAVY_CLICK_EFFECT_MS = 8;
+
 using Status = ::android::hardware::vibrator::V1_0::Status;
 using EffectStrength = ::android::hardware::vibrator::V1_0::EffectStrength;
 
-static constexpr uint32_t WAVEFORM_TICK_EFFECT_INDEX = 2;
-static constexpr uint32_t WAVEFORM_TICK_EFFECT_MS = 9;
-
-static constexpr uint32_t WAVEFORM_CLICK_EFFECT_INDEX = 3;
-static constexpr uint32_t WAVEFORM_CLICK_EFFECT_MS = 9;
-
-static constexpr uint32_t WAVEFORM_HEAVY_CLICK_EFFECT_INDEX = 4;
-static constexpr uint32_t WAVEFORM_HEAVY_CLICK_EFFECT_MS = 9;
-static constexpr uint32_t WAVEFORM_STRONG_HEAVY_CLICK_EFFECT_MS = 12;
-
-static constexpr uint32_t WAVEFORM_DOUBLE_CLICK_EFFECT_INDEX = 7;
-static constexpr uint32_t WAVEFORM_DOUBLE_CLICK_EFFECT_MS = 130;
-
-static constexpr uint32_t WAVEFORM_RINGTONE_EFFECT_INDEX = 65534;
-static constexpr uint32_t WAVEFORM_RINGTONE_EFFECT_MS = 30000;
-
-// The_big_adventure - RINGTONE_1
-static constexpr char WAVEFORM_RINGTONE1_EFFECT_QUEUE[] = "160, 11.100, 2744, 1!";
-
-// Copycat - RINGTONE_2
-static constexpr char WAVEFORM_RINGTONE2_EFFECT_QUEUE[] = "260, 12.100, 716, 2!";
-
-// Crackle - RINGTONE_3
-static constexpr char WAVEFORM_RINGTONE3_EFFECT_QUEUE[] = "404, 13.100, 628, 5!";
-
-// Flutterby - RINGTONE_4
-static constexpr char WAVEFORM_RINGTONE4_EFFECT_QUEUE[] = "14.100, 6!";
-
-// Hotline - RINGTONE_5
-static constexpr char WAVEFORM_RINGTONE5_EFFECT_QUEUE[] = "15.100, 4!";
-
-// Leaps_and_bounds - RINGTONE_6
-static constexpr char WAVEFORM_RINGTONE6_EFFECT_QUEUE[] = "140, 16.100, 1!";
-
-// Lollipop - RINGTONE_7
-static constexpr char WAVEFORM_RINGTONE7_EFFECT_QUEUE[] = "140, 17.100, 624, 1!";
-
-// Lost_and_found - RINGTONE_8
-static constexpr char WAVEFORM_RINGTONE8_EFFECT_QUEUE[] = "140, 18.100, 1020,496, 1!";
-
-// Mash_up - RINGTONE_9
-static constexpr char WAVEFORM_RINGTONE9_EFFECT_QUEUE[] = "140, 19.100, 8, 3!";
-
-// Monkey_around - RINGTONE_10
-static constexpr char WAVEFORM_RINGTONE10_EFFECT_QUEUE[] = "20.100, 23.100, 23.80, 23.60, 892, 4!";
-
-// Schools_out - RINGTONE_11
-static constexpr char WAVEFORM_RINGTONE11_EFFECT_QUEUE[] = "21.60, 21.80, 21.100, 1020, 564, 6!";
-
-// Zen_too - RINGTONE_12
-static constexpr char WAVEFORM_RINGTONE12_EFFECT_QUEUE[] = "140, 22.100, 972, 1!";
-
-static constexpr int8_t MAX_SCALE_INPUT = 112;
-
-static constexpr int8_t MAX_TRIGGER_LATENCY_MS = 5;
-
-Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration, std::ofstream&& effect,
-        std::ofstream&& queue, std::ofstream&& scale) :
+Vibrator::Vibrator(std::ofstream&& activate, std::ofstream&& duration,
+        std::ofstream&& state, std::ofstream&& rtpinput,
+        std::ofstream&& mode, std::ofstream&& sequencer,
+        std::ofstream&& scale, std::ofstream&& ctrlloop, std::ofstream&& lptrigger,
+        std::ofstream&& odclamp, std::ofstream&& ollraperiod,
+        std::uint32_t lra_period) :
     mActivate(std::move(activate)),
     mDuration(std::move(duration)),
-    mEffectIndex(std::move(effect)),
-    mEffectQueue(std::move(queue)),
-    mScale(std::move(scale))
-{}
+    mState(std::move(state)),
+    mRtpInput(std::move(rtpinput)),
+    mMode(std::move(mode)),
+    mSequencer(std::move(sequencer)),
+    mScale(std::move(scale)),
+    mCtrlLoop(std::move(ctrlloop)),
+    mLpTriggerEffect(std::move(lptrigger)),
+    mOdClamp(std::move(odclamp)),
+    mOlLraPeriod(std::move(ollraperiod)),
+    mLraPeriod(lra_period) {
 
-Return<Status> Vibrator::on(uint32_t timeoutMs, uint32_t effectIndex) {
-    mEffectIndex << effectIndex << std::endl;
-    mDuration << timeoutMs << std::endl;
-    mActivate << 1 << std::endl;
+    mClickDuration = property_get_int32("ro.vibrator.hal.click.duration", WAVEFORM_CLICK_EFFECT_MS);
+    mTickDuration = property_get_int32("ro.vibrator.hal.tick.duration", WAVEFORM_TICK_EFFECT_MS);
+    mHeavyClickDuration = property_get_int32(
+        "ro.vibrator.hal.heavyclick.duration", WAVEFORM_HEAVY_CLICK_EFFECT_MS);
+    mShortVoltageMax = property_get_int32("ro.vibrator.hal.short.voltage", VOLTAGE_MAX);
+    mLongVoltageMax = property_get_int32("ro.vibrator.hal.long.voltage", VOLTAGE_MAX);
+    mLongLraPeriod = property_get_int32("ro.vibrator.hal.long.lra.period", LONG_LRA_PERIOD);
 
-    return Status::OK;
+    // This enables effect #1 from the waveform library to be triggered by SLPI
+    // while the AP is in suspend mode
+    mLpTriggerEffect << 1 << std::endl;
+    if (!mLpTriggerEffect) {
+        ALOGW("Failed to set LP trigger mode (%d): %s", errno, strerror(errno));
+    }
 }
 
+Return<Status> Vibrator::on(uint32_t timeoutMs, bool isWaveform) {
+    // Bonito / Sargo only support open-loop mode
+    mCtrlLoop << LOOP_MODE_OPEN << std::endl;
+    mDuration << timeoutMs << std::endl;
+    if (!mDuration) {
+        ALOGE("Failed to set duration (%d): %s", errno, strerror(errno));
+        return Status::UNKNOWN_ERROR;
+    }
 
-// Methods from ::android::hardware::vibrator::V1_1::IVibrator follow.
+    if (isWaveform) {
+        mMode << WAVEFORM_MODE << std::endl;
+        mOdClamp << mShortVoltageMax << std::endl;
+        mOlLraPeriod << mLraPeriod << std::endl;
+    } else {
+        mMode << RTP_MODE << std::endl;
+        mOdClamp << mLongVoltageMax << std::endl;
+        mOlLraPeriod << mLongLraPeriod << std::endl;
+    }
+
+    mActivate << 1 << std::endl;
+    if (!mActivate) {
+        ALOGE("Failed to activate (%d): %s", errno, strerror(errno));
+        return Status::UNKNOWN_ERROR;
+    }
+
+   return Status::OK;
+}
+
+// Methods from ::android::hardware::vibrator::V1_2::IVibrator follow.
 Return<Status> Vibrator::on(uint32_t timeoutMs) {
-    return on(timeoutMs, 0);
+    return on(timeoutMs, false /* isWaveform */);
 }
 
 Return<Status> Vibrator::off()  {
@@ -128,14 +147,21 @@ Return<Status> Vibrator::off()  {
 }
 
 Return<bool> Vibrator::supportsAmplitudeControl()  {
-    return (mScale ? true : false);
+    return (mRtpInput ? true : false);
 }
 
 Return<Status> Vibrator::setAmplitude(uint8_t amplitude) {
-    int32_t scale = MAX_SCALE_INPUT - std::round((amplitude - 1) / 254.0 * MAX_SCALE_INPUT);
 
-    mScale << scale << std::endl;
-    if (!mScale) {
+    if (amplitude == 0) {
+        return Status::BAD_VALUE;
+    }
+
+    int32_t rtp_input =
+            std::round((amplitude - 1) / 254.0 * (MAX_RTP_INPUT - MIN_RTP_INPUT) +
+            MIN_RTP_INPUT);
+
+    mRtpInput << rtp_input << std::endl;
+    if (!mRtpInput) {
         ALOGE("Failed to set amplitude (%d): %s", errno, strerror(errno));
         return Status::UNKNOWN_ERROR;
     }
@@ -143,8 +169,23 @@ Return<Status> Vibrator::setAmplitude(uint8_t amplitude) {
     return Status::OK;
 }
 
-Return<void> Vibrator::perform(V1_0::Effect effect, EffectStrength strength,
-        perform_cb _hidl_cb) {
+static uint8_t convertEffectStrength(EffectStrength strength) {
+    uint8_t scale;
+
+    switch (strength) {
+    case EffectStrength::LIGHT:
+        scale = 2; // 50%
+        break;
+    case EffectStrength::MEDIUM:
+    case EffectStrength::STRONG:
+        scale = 0; // 100%
+        break;
+    }
+
+    return scale;
+}
+
+Return<void> Vibrator::perform(V1_0::Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
     return performEffect(static_cast<Effect>(effect), strength, _hidl_cb);
 }
 
@@ -153,118 +194,38 @@ Return<void> Vibrator::perform_1_1(V1_1::Effect_1_1 effect, EffectStrength stren
     return performEffect(static_cast<Effect>(effect), strength, _hidl_cb);
 }
 
-Return<void> Vibrator::perform_1_2(Effect effect, EffectStrength strength,
-        perform_cb _hidl_cb) {
-    return performEffect(effect, strength, _hidl_cb);
+Return<void> Vibrator::perform_1_2(Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
+    return performEffect(static_cast<Effect>(effect), strength, _hidl_cb);
 }
 
-Return<void> Vibrator::performEffect(Effect effect, EffectStrength strength,
-        perform_cb _hidl_cb) {
+Return<void> Vibrator::performEffect(Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
     Status status = Status::OK;
-    uint32_t timeMs;
-    uint32_t effectIndex;
+    uint32_t timeMS;
 
     switch (effect) {
-    case Effect::TICK:
-        effectIndex = WAVEFORM_TICK_EFFECT_INDEX;
-        timeMs = WAVEFORM_TICK_EFFECT_MS;
-        break;
     case Effect::CLICK:
-        effectIndex = WAVEFORM_CLICK_EFFECT_INDEX;
-        timeMs = WAVEFORM_CLICK_EFFECT_MS;
-        break;
-    case Effect::HEAVY_CLICK:
-        effectIndex = WAVEFORM_HEAVY_CLICK_EFFECT_INDEX;
-        if (strength == EffectStrength::STRONG) {
-            timeMs = WAVEFORM_STRONG_HEAVY_CLICK_EFFECT_MS;
-        } else {
-            timeMs = WAVEFORM_HEAVY_CLICK_EFFECT_MS;
-        }
+        mSequencer << WAVEFORM_CLICK_EFFECT_SEQ << std::endl;
+        timeMS = mClickDuration;
         break;
     case Effect::DOUBLE_CLICK:
-        effectIndex = WAVEFORM_DOUBLE_CLICK_EFFECT_INDEX;
-        timeMs = WAVEFORM_DOUBLE_CLICK_EFFECT_MS;
+        mSequencer << WAVEFORM_DOUBLE_CLICK_EFFECT_SEQ << std::endl;
+        timeMS = WAVEFORM_DOUBLE_CLICK_EFFECT_MS;
         break;
-    case Effect::RINGTONE_1:
-        mEffectQueue << WAVEFORM_RINGTONE1_EFFECT_QUEUE << std::endl;
+    case Effect::TICK:
+        mSequencer << WAVEFORM_TICK_EFFECT_SEQ << std::endl;
+        timeMS = mTickDuration;
         break;
-    case Effect::RINGTONE_2:
-        mEffectQueue << WAVEFORM_RINGTONE2_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_3:
-        mEffectQueue << WAVEFORM_RINGTONE3_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_4:
-        mEffectQueue << WAVEFORM_RINGTONE4_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_5:
-        mEffectQueue << WAVEFORM_RINGTONE5_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_6:
-        mEffectQueue << WAVEFORM_RINGTONE6_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_7:
-        mEffectQueue << WAVEFORM_RINGTONE7_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_8:
-        mEffectQueue << WAVEFORM_RINGTONE8_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_9:
-        mEffectQueue << WAVEFORM_RINGTONE9_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_10:
-        mEffectQueue << WAVEFORM_RINGTONE10_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_11:
-        mEffectQueue << WAVEFORM_RINGTONE11_EFFECT_QUEUE << std::endl;
-        break;
-    case Effect::RINGTONE_12:
-        mEffectQueue << WAVEFORM_RINGTONE12_EFFECT_QUEUE << std::endl;
+    case Effect::HEAVY_CLICK:
+        mSequencer << WAVEFORM_HEAVY_CLICK_EFFECT_SEQ << std::endl;
+        timeMS = mHeavyClickDuration;
         break;
     default:
         _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
         return Void();
     }
-
-    // EffectStrength needs to be handled differently for ringtone effects
-    if (effect >= Effect::RINGTONE_1 && effect <= Effect::RINGTONE_15) {
-        effectIndex = WAVEFORM_RINGTONE_EFFECT_INDEX;
-        timeMs = WAVEFORM_RINGTONE_EFFECT_MS;
-        switch (strength) {
-        case EffectStrength::LIGHT:
-            setAmplitude(UINT8_MAX / 3);
-            break;
-        case EffectStrength::MEDIUM:
-            setAmplitude(UINT8_MAX / 2);
-            break;
-        case EffectStrength::STRONG:
-            setAmplitude(UINT8_MAX);
-            break;
-        default:
-            _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-            return Void();
-        }
-    } else {
-        switch (strength) {
-        case EffectStrength::LIGHT:
-            effectIndex -= 1;
-            break;
-        case EffectStrength::MEDIUM:
-            break;
-        case EffectStrength::STRONG:
-            effectIndex += 1;
-            break;
-        default:
-            _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-            return Void();
-        }
-        timeMs += MAX_TRIGGER_LATENCY_MS; // Add expected cold-start latency
-        setAmplitude(UINT8_MAX); // Always set full-scale for non-ringtone constants
-    }
-
-    on(timeMs, effectIndex);
-    _hidl_cb(status, timeMs);
-
+    mScale << convertEffectStrength(strength) << std::endl;
+    on(timeMS, true /* isWaveform */);
+    _hidl_cb(status, timeMS);
     return Void();
 }
 

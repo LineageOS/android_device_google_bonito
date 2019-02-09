@@ -39,7 +39,7 @@
 
 #define DIAG_MDLOG_NUMBER_BUGREPORT "persist.vendor.sys.modem.diag.mdlog_br_num"
 
-#define UFS_BOOTDEVICE "ro.boot.bootdevice"
+#define EMMC_BOOTDEVICE "ro.boot.bootdevice"
 
 using android::os::dumpstate::CommandOptions;
 using android::os::dumpstate::DumpFileToFd;
@@ -108,18 +108,24 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
         return;
     }
 
+    std::string filePrefix = android::base::GetProperty(MODEM_LOG_PREFIX_PROPERTY, "");
+
+    if (filePrefix.empty()) {
+        ALOGD("Modem log prefix is not set\n");
+        return;
+    }
+
+    const std::string modemLogCombined = modemLogDir + "/" + filePrefix + "all.tar";
+    const std::string modemLogAllDir = modemLogDir + "/modem_log";
+
+    RunCommandToFd(fd, "MKDIR MODEM LOG", {"/vendor/bin/mkdir", "-p", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
+
     if (!PropertiesHelper::IsUserBuild()) {
-        CommandOptions options = CommandOptions::WithTimeout(120).Build();
+        RunCommandToFd(fd, "MODEM RFS INFO", {"/vendor/bin/find /data/vendor/rfs/mpss/OEMFI/"}, CommandOptions::WithTimeout(2).Build());
+        RunCommandToFd(fd, "MODEM DIAG SYSTEM PROPERTIES", {"/vendor/bin/getprop | grep vendor.sys.modem.diag"}, CommandOptions::WithTimeout(2).Build());
 
-        RunCommandToFd(fd, "MODEM RFS INFO",
-                       { "/vendor/bin/sh", "-c", "find /data/vendor/rfs/mpss/OEMFI/" }, options);
-
-        RunCommandToFd(fd, "MODEM DIAG SYSTEM PROPERTIES",
-                       { "/vendor/bin/sh", "-c", "getprop | grep vendor.sys.modem.diag" }, options);
-
-        std::string modemLogAllDir = modemLogDir + "/modem_log";
-        std::string diagLogDir = "/data/vendor/radio/diag_logs/logs";
-        std::vector<std::string> rilAndNetmgrLogs
+        const std::string diagLogDir = "/data/vendor/radio/diag_logs/logs";
+        const std::vector <std::string> rilAndNetmgrLogs
             {
               "/data/vendor/radio/ril_log",
               "/data/vendor/radio/ril_log_old",
@@ -133,16 +139,11 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
               "/data/vendor/ssrlog/ssr_log_old.txt",
             };
 
-        std::string modemLogMkDirCmd= "/vendor/bin/mkdir -p " + modemLogAllDir;
-        RunCommandToFd(fd, "MKDIR MODEM LOG", { "/vendor/bin/sh", "-c", modemLogMkDirCmd.c_str()}, options);
-
-        bool smlogEnabled = android::base::GetBoolProperty(MODEM_LOGGING_SWITCH, false) &&
-            !access("/vendor/bin/smlog_dump", X_OK);
-
+        bool smlogEnabled = android::base::GetBoolProperty(MODEM_LOGGING_SWITCH, false) && !access("/vendor/bin/smlog_dump", X_OK);
         bool diagLogEnabled = android::base::GetBoolProperty(DIAG_MDLOG_PERSIST_PROPERTY, false);
 
         if (smlogEnabled) {
-            RunCommandToFd(fd, "SMLOG DUMP", { "smlog_dump", "-d", "-o", modemLogAllDir.c_str() }, options);
+            RunCommandToFd(fd, "SMLOG DUMP", {"smlog_dump", "-d", "-o", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(10).Build());
         } else if (diagLogEnabled) {
             bool diagLogStarted = android::base::GetBoolProperty(DIAG_MDLOG_STATUS_PROPERTY, false);
 
@@ -171,21 +172,13 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
             }
         }
 
-        for (const auto& logFile : rilAndNetmgrLogs)
-        {
-            std::string copyCmd= "/vendor/bin/cp " + logFile + " " + modemLogAllDir;
-            RunCommandToFd(fd, "CP MODEM LOG", { "/vendor/bin/sh", "-c", copyCmd.c_str() }, options);
+        for (const auto& logFile : rilAndNetmgrLogs) {
+            RunCommandToFd(fd, "CP MODEM LOG", {"/vendor/bin/cp", logFile.c_str(), modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
         }
+    }
 
-        std::string filePrefix = android::base::GetProperty(MODEM_LOG_PREFIX_PROPERTY, "");
-
-        if (!filePrefix.empty()) {
-            std::string modemLogCombined = modemLogDir + "/" + filePrefix + "all.tar";
-            std::string modemLogTarCmd= "/vendor/bin/tar cvf " + modemLogCombined + " -C " + modemLogAllDir + " .";
-            RunCommandToFd(fd, "TAR LOG", { "/vendor/bin/sh", "-c", modemLogTarCmd.c_str()}, options);
-
-            std::string modemLogPermCmd= "/vendor/bin/chmod a+rw " + modemLogCombined;
-            RunCommandToFd(fd, "CHG PERM", { "/vendor/bin/sh", "-c", modemLogPermCmd.c_str()}, options);
+    RunCommandToFd(fd, "TAR LOG", {"/vendor/bin/tar", "cvf", modemLogCombined.c_str(), "-C", modemLogAllDir.c_str(), "."}, CommandOptions::WithTimeout(120).Build());
+    RunCommandToFd(fd, "CHG PERM", {"/vendor/bin/chmod", "a+w", modemLogCombined.c_str()}, CommandOptions::WithTimeout(2).Build());
 
             std::vector<uint8_t> buffer(65536);
             android::base::unique_fd fdLog(TEMP_FAILURE_RETRY(open(modemLogCombined.c_str(), O_RDONLY | O_CLOEXEC | O_NONBLOCK)));
@@ -210,11 +203,13 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
                 }
             }
 
-            std::string modemLogClearCmd = "/vendor/bin/rm -r " + modemLogAllDir;
-            RunCommandToFd(fd, "RM MODEM DIR", { "/vendor/bin/sh", "-c", modemLogClearCmd.c_str()}, options);
-            RunCommandToFd(fd, "RM LOG", { "/vendor/bin/rm", modemLogCombined.c_str()}, options);
-        }
-    }
+    RunCommandToFd(fd, "RM MODEM DIR", { "/vendor/bin/rm", "-r", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
+    RunCommandToFd(fd, "RM LOG", { "/vendor/bin/rm", modemLogCombined.c_str()}, CommandOptions::WithTimeout(2).Build());
+}
+
+static void DumpIPCTRT(int fd) {
+    DumpFileToFd(fd, "MPSS IPCRTR Log", "/sys/kernel/debug/ipc_logging/mpss_IPCRTR/log");
+    DumpFileToFd(fd, "Local IPCRTR Log", "/sys/kernel/debug/ipc_logging/local_IPCRTR/log");
 }
 
 static void DumpTouch(int fd) {
@@ -230,24 +225,28 @@ static void DumpTouch(int fd) {
 
 static void DumpF2FS(int fd) {
     DumpFileToFd(fd, "F2FS", "/sys/kernel/debug/f2fs/status");
-    DumpFileToFd(fd, "F2FS - fragmentation", "/proc/fs/f2fs/dm-3/segment_info");
+    DumpFileToFd(fd, "F2FS - fragmentation", "/proc/fs/f2fs/dm-2/segment_info");
 }
 
-static void DumpUFS(int fd) {
-    DumpFileToFd(fd, "UFS model", "/sys/block/sda/device/model");
-    DumpFileToFd(fd, "UFS rev", "/sys/block/sda/device/rev");
-    DumpFileToFd(fd, "UFS size", "/sys/block/sda/size");
-    DumpFileToFd(fd, "UFS show_hba", "/sys/kernel/debug/ufshcd0/show_hba");
-    DumpFileToFd(fd, "UFS err_stats", "/sys/kernel/debug/ufshcd0/stats/err_stats");
-    DumpFileToFd(fd, "UFS io_stats", "/sys/kernel/debug/ufshcd0/stats/io_stats");
-    DumpFileToFd(fd, "UFS req_stats", "/sys/kernel/debug/ufshcd0/stats/req_stats");
+static void DumpeMMC(int fd) {
+    DumpFileToFd(fd, "eMMC model", "/sys/block/mmcblk0/device/name");
+    DumpFileToFd(fd, "eMMC prv", "/sys/block/mmcblk0/device/prv");
+    DumpFileToFd(fd, "eMMC fwrev", "/sys/block/mmcblk0/device/fwrev");
+    DumpFileToFd(fd, "eMMC size", "/sys/block/mmcblk0/size");
+    DumpFileToFd(fd, "eMMC ext_csd", "/sys/kernel/debug/mmc0/mmc0:0001/ext_csd");
+    DumpFileToFd(fd, "eMMC err_stats", "/sys/kernel/debug/mmc0/err_stats");
+    DumpFileToFd(fd, "eMMC ring_buffer", "/sys/kernel/debug/mmc0/ring_buffer");
 
-    std::string bootdev = android::base::GetProperty(UFS_BOOTDEVICE, "");
+    std::string bootdev = android::base::GetProperty(EMMC_BOOTDEVICE, "");
     if (!bootdev.empty()) {
-        DumpFileToFd(fd, "UFS Slow IO", "/sys/devices/platform/soc/" + bootdev + "/slowio_cnt");
-
-        std::string ufs_health = "for f in $(find /sys/devices/platform/soc/" + bootdev + "/health -type f); do if [[ -r $f && -f $f ]]; then echo --- $f; cat $f; echo ''; fi; done";
-        RunCommandToFd(fd, "UFS health", {"/vendor/bin/sh", "-c", ufs_health.c_str()});
+        DumpFileToFd(fd, "eMMC pre_eol_info", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/mmc0:0001/pre_eol_info");
+        DumpFileToFd(fd, "eMMC life_time", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/mmc0:0001/life_time");
+        DumpFileToFd(fd, "eMMC Slow IO Read", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_read_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Write", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_write_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Urgent Read", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_urgent_read_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Urgent Write", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_urgent_write_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Discard", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_discard_cnt");
+        DumpFileToFd(fd, "eMMC Slow IO Flush", "/sys/devices/platform/soc/" + bootdev + "/mmc_host/mmc0/slowio_flush_cnt");
     }
 }
 
@@ -276,7 +275,7 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "CPU online", "/sys/devices/system/cpu/online");
 
     DumpF2FS(fd);
-    DumpUFS(fd);
+    DumpeMMC(fd);
 
     DumpFileToFd(fd, "INTERRUPTS", "/proc/interrupts");
     DumpFileToFd(fd, "Sleep Stats", "/sys/power/system_sleep/stats");
@@ -289,6 +288,11 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "dmabuf info", "/d/dma_buf/bufinfo");
     RunCommandToFd(fd, "Temperatures", {"/vendor/bin/sh", "-c", "for f in /sys/class/thermal/thermal* ; do type=`cat $f/type` ; temp=`cat $f/temp` ; echo \"$type: $temp\" ; done"});
     RunCommandToFd(fd, "Cooling Device Current State", {"/vendor/bin/sh", "-c", "for f in /sys/class/thermal/cooling* ; do type=`cat $f/type` ; temp=`cat $f/cur_state` ; echo \"$type: $temp\" ; done"});
+    RunCommandToFd(
+        fd, "LMH info",
+        {"/vendor/bin/sh", "-c",
+         "for f in /sys/bus/platform/drivers/msm_lmh_dcvs/*qcom,limits-dcvs@*/lmh_freq_limit; do "
+         "state=`cat $f` ; echo \"$f: $state\" ; done"});
     RunCommandToFd(fd, "CPU time-in-state", {"/vendor/bin/sh", "-c", "for cpu in /sys/devices/system/cpu/cpu*; do f=$cpu/cpufreq/stats/time_in_state; if [ ! -f $f ]; then continue; fi; echo $f:; cat $f; done"});
     RunCommandToFd(fd, "CPU cpuidle", {"/vendor/bin/sh", "-c", "for cpu in /sys/devices/system/cpu/cpu*; do for d in $cpu/cpuidle/state*; do if [ ! -d $d ]; then continue; fi; echo \"$d: `cat $d/name` `cat $d/desc` `cat $d/time` `cat $d/usage`\"; done; done"});
     RunCommandToFd(fd, "Easel debug info", {"/vendor/bin/sh", "-c", "for f in `ls /sys/devices/platform/soc/a88000.i2c/i2c-0/0-0066/@(*curr|temperature|vbat|total_power)`; do echo \"$f: `cat $f`\" ; done; file=/sys/devices/virtual/misc/mnh_sm/state; echo \"$file: `cat $file`\""});
@@ -296,6 +300,7 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "TCPM logs", "/d/tcpm/usbpd0");
     DumpFileToFd(fd, "PD Engine", "/d/pd_engine/usbpd0");
     DumpFileToFd(fd, "ipc-local-ports", "/d/msm_ipc_router/dump_local_ports");
+    DumpIPCTRT(fd);
     DumpTouch(fd);
     RunCommandToFd(fd, "USB Device Descriptors", {"/vendor/bin/sh", "-c", "cd /sys/bus/usb/devices/1-1 && cat product && cat bcdDevice; cat descriptors | od -t x1 -w16 -N96"});
     // Timeout after 3s
@@ -305,9 +310,14 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "Battery cycle count", "/sys/class/power_supply/bms/device/cycle_counts_bins");
     DumpFileToFd(fd, "Maxim FG registers", "/d/regmap/4-0036/registers");
     DumpFileToFd(fd, "Maxim FG NV RAM", "/d/regmap/4-000b/registers");
+    DumpFileToFd(fd, "PM670 PON registers",
+                 "/d/c440000.qcom,spmi:qcom,pm660@0:qcom,power-on@800/pmic_pon_dump");
+    DumpFileToFd(fd, "PM670A PON registers",
+                 "/d/c440000.qcom,spmi:qcom,pm660l@2:qcom,power-on@800/pmic_pon_dump");
     RunCommandToFd(fd, "QCOM FG SRAM", {"/vendor/bin/sh", "-c", "echo 0 > /d/fg/sram/address ; echo 500 > /d/fg/sram/count ; cat /d/fg/sram/data"});
 
     RunCommandToFd(fd, "eSIM Status", {"/vendor/bin/sh", "-c", "od -t x1 /sys/firmware/devicetree/base/chosen/cdt/cdb2/esim"});
+    DumpFileToFd(fd, "Modem Stat", "/data/vendor/modem_stat/debug.txt");
 
     // Keep this at the end as very long on not for humans
     DumpFileToFd(fd, "WLAN FW Log Symbol Table", "/vendor/firmware/Data.msc");

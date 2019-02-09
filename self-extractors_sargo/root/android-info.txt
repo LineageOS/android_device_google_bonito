@@ -1,7 +1,6 @@
 require board=bonito|sargo
-require partition-exists=product
 
-require version-bootloader=b1c1-0.1-4768668
+require version-bootloader=b4s4-0.1-5027822
 
 
-require version-baseband=g845-00008-180429-B-4752067
+require version-baseband=g670-00019-180917-B-5013296

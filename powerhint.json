@@ -21,7 +21,7 @@
         "1516800",
         "1324800",
         "1209600",
-        "0"
+        "576000"
       ],
       "ResetOnInit": true
     },
@@ -47,7 +47,7 @@
         "1536000",
         "1363200",
         "1132800",
-        "720000"
+        "825600"
       ],
       "ResetOnInit": true
     },
@@ -67,6 +67,7 @@
       "Name": "GPUMinFreq",
       "Path": "/sys/class/kgsl/kgsl-3d0/devfreq/min_freq",
       "Values": [
+        "430000000",
         "355000000",
         "267000000",
         "180000000"
@@ -352,6 +353,12 @@
     },
     {
       "PowerHint": "CAMERA_LAUNCH",
+      "Node": "CPULittleClusterMaxFreq",
+      "Duration": 1000,
+      "Value": "9999999"
+    },
+    {
+      "PowerHint": "CAMERA_LAUNCH",
       "Node": "CPULittleClusterMinFreq",
       "Duration": 1000,
       "Value": "9999999"
@@ -367,6 +374,60 @@
       "Node": "CPUBigClusterMaxFreq",
       "Duration": 0,
       "Value": "1996800"
+    },
+    {
+      "PowerHint": "CAMERA_STREAMING_1080P",
+      "Node": "CPUBigClusterMaxFreq",
+      "Duration": 0,
+      "Value": "1996800"
+    },
+    {
+      "PowerHint": "CAMERA_STREAMING_1080P",
+      "Node": "GPUMinFreq",
+      "Duration": 0,
+      "Value": "430000000"
+    },
+    {
+      "PowerHint": "CAMERA_STREAMING_1080P",
+      "Node": "GPUMaxFreq",
+      "Duration": 0,
+      "Value": "430000000"
+    },
+    {
+      "PowerHint": "CAMERA_STREAMING_4K",
+      "Node": "CPUBigClusterMaxFreq",
+      "Duration": 0,
+      "Value": "1996800"
+    },
+    {
+      "PowerHint": "CAMERA_SHOT",
+      "Node": "CPUBigClusterMaxFreq",
+      "Duration": 1000,
+      "Value": "9999999"
+    },
+    {
+      "PowerHint": "CAMERA_SHOT",
+      "Node": "CPUBigClusterMinFreq",
+      "Duration": 1000,
+      "Value": "9999999"
+    },
+    {
+      "PowerHint": "CAMERA_SHOT",
+      "Node": "CPULittleClusterMaxFreq",
+      "Duration": 1000,
+      "Value": "9999999"
+    },
+    {
+      "PowerHint": "CAMERA_SHOT",
+      "Node": "CPULittleClusterMinFreq",
+      "Duration": 1000,
+      "Value": "9999999"
+    },
+    {
+      "PowerHint": "CAMERA_SHOT",
+      "Node": "PMQoSCpuDmaLatency",
+      "Duration": 1000,
+      "Value": "44"
     },
     {
       "PowerHint": "AUDIO_STREAMING",
@@ -385,6 +446,18 @@
       "Node": "PMQoSCpuDmaLatency",
       "Duration": 0,
       "Value": "44"
+    },
+    {
+      "PowerHint": "EXPENSIVE_RENDERING",
+      "Node": "GPUMinFreq",
+      "Duration": 0,
+      "Value": "355000000"
+    },
+    {
+      "PowerHint": "EXPENSIVE_RENDERING",
+      "Node": "GPUMaxFreq",
+      "Duration": 0,
+      "Value": "430000000"
     }
   ]
 }

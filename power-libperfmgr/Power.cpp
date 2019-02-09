@@ -15,7 +15,7 @@
  */
 
 #define ATRACE_TAG (ATRACE_TAG_POWER | ATRACE_TAG_HAL)
-#define LOG_TAG "android.hardware.power@1.2-service.bonito-libperfmgr"
+#define LOG_TAG "android.hardware.power@1.3-service.bonito-libperfmgr"
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -40,7 +40,7 @@ extern struct stats_section master_sections[];
 namespace android {
 namespace hardware {
 namespace power {
-namespace V1_2 {
+namespace V1_3 {
 namespace implementation {
 
 using ::android::hardware::power::V1_0::Feature;
@@ -52,13 +52,18 @@ using ::android::hardware::hidl_vec;
 using ::android::hardware::Return;
 using ::android::hardware::Void;
 
-Power::Power() :
-        mHintManager(nullptr),
-        mInteractionHandler(nullptr),
-        mSustainedPerfModeOn(false),
-        mCameraStreamingModeOn(false),
-        mReady(false) {
+static const std::map<enum CameraStreamingMode, std::string> kCamStreamingHint = {
+    {CAMERA_STREAMING_OFF, "CAMERA_STREAMING_OFF"},
+    {CAMERA_STREAMING, "CAMERA_STREAMING"},
+    {CAMERA_STREAMING_1080P, "CAMERA_STREAMING_1080P"},
+    {CAMERA_STREAMING_4K, "CAMERA_STREAMING_4K"}};
 
+Power::Power()
+    : mHintManager(nullptr),
+      mInteractionHandler(nullptr),
+      mSustainedPerfModeOn(false),
+      mCameraStreamingMode(CAMERA_STREAMING_OFF),
+      mReady(false) {
     mInitThread =
             std::thread([this](){
                             android::base::WaitForProperty(kPowerHalInitProp, "1");
@@ -69,8 +74,16 @@ Power::Power() :
                             if (state == "CAMERA_STREAMING") {
                                 ALOGI("Initialize with CAMERA_STREAMING on");
                                 mHintManager->DoHint("CAMERA_STREAMING");
-                                mCameraStreamingModeOn = true;
-                            } else if (state ==  "SUSTAINED_PERFORMANCE") {
+                                mCameraStreamingMode = CAMERA_STREAMING;
+                            } else if (state == "CAMERA_STREAMING_1080P") {
+                                ALOGI("Initialize CAMERA_STREAMING_1080P on");
+                                mHintManager->DoHint("CAMERA_STREAMING_1080P");
+                                mCameraStreamingMode = CAMERA_STREAMING_1080P;
+                            } else if (state == "CAMERA_STREAMING_4K") {
+                                ALOGI("Initialize with CAMERA_STREAMING_4K on");
+                                mHintManager->DoHint("CAMERA_STREAMING_4K");
+                                mCameraStreamingMode = CAMERA_STREAMING_4K;
+                            } else if (state == "SUSTAINED_PERFORMANCE") {
                                 ALOGI("Initialize with SUSTAINED_PERFORMANCE on");
                                 mHintManager->DoHint("SUSTAINED_PERFORMANCE");
                                 mSustainedPerfModeOn = true;
@@ -83,11 +96,16 @@ Power::Power() :
                                 ALOGI("Initialize with AUDIO_LOW_LATENCY on");
                                 mHintManager->DoHint("AUDIO_LOW_LATENCY");
                             }
+
+                            state = android::base::GetProperty(kPowerHalRenderingProp, "");
+                            if (state == "EXPENSIVE_RENDERING") {
+                                ALOGI("Initialize with EXPENSIVE_RENDERING on");
+                                mHintManager->DoHint("EXPENSIVE_RENDERING");
+                            }
                             // Now start to take powerhint
                             mReady.store(true);
                         });
     mInitThread.detach();
-
 }
 
 // Methods from ::android::hardware::power::V1_0::IPower follow.
@@ -272,47 +290,6 @@ static int get_wlan_low_power_stats(struct PowerStateSubsystem *subsystem) {
     return 0;
 }
 
-static const std::string get_easel_state_name(int state) {
-    if (state == EASEL_OFF) {
-        return "Off";
-    } else if (state == EASEL_ACTIVE) {
-        return "Active";
-    } else if (state == EASEL_SUSPEND) {
-        return "Suspend";
-    } else {
-        return "Unknown";
-    }
-}
-
-// Get low power stats for easel subsystem
-static int get_easel_low_power_stats(struct PowerStateSubsystem *subsystem) {
-    uint64_t stats[EASEL_SLEEP_STATE_COUNT * EASEL_STATS_COUNT] = {0};
-    uint64_t *state_stats;
-    struct PowerStateSubsystemSleepState *state;
-
-    subsystem->name = "Easel";
-
-    if (extract_easel_stats(stats, ARRAY_SIZE(stats)) != 0) {
-        subsystem->states.resize(0);
-        return -1;
-    }
-
-    subsystem->states.resize(EASEL_SLEEP_STATE_COUNT);
-
-    for (int easel_state = 0; easel_state < EASEL_SLEEP_STATE_COUNT; easel_state++) {
-        state = &subsystem->states[easel_state];
-        state_stats = &stats[easel_state * EASEL_STATS_COUNT];
-
-        state->name = get_easel_state_name(easel_state);
-        state->residencyInMsecSinceBoot = state_stats[CUMULATIVE_DURATION_MS];
-        state->totalTransitions = state_stats[CUMULATIVE_COUNT];
-        state->lastEntryTimestampMs = state_stats[LAST_ENTRY_TSTAMP_MS];
-        state->supportedOnlyInSuspend = false;
-    }
-
-    return 0;
-}
-
 // Methods from ::android::hardware::power::V1_1::IPower follow.
 Return<void> Power::getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl_cb) {
     hidl_vec<PowerStateSubsystem> subsystems;
@@ -327,11 +304,6 @@ Return<void> Power::getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl
     // Get WLAN subsystem low power stats.
     if (get_wlan_low_power_stats(&subsystems[SUBSYSTEM_WLAN]) != 0) {
         ALOGE("%s: failed to process wlan stats", __func__);
-    }
-
-    // Get Easel subsystem low power stats.
-    if (get_easel_low_power_stats(&subsystems[SUBSYSTEM_EASEL]) != 0) {
-        ALOGE("%s: failed to process Easel stats", __func__);
     }
 
     _hidl_cb(subsystems, Status::SUCCESS);
@@ -419,29 +391,44 @@ Return<void> Power::powerHintAsync_1_2(PowerHint_1_2 hint, int32_t data) {
             }
             ATRACE_END();
             break;
-        case PowerHint_1_2::CAMERA_STREAMING:
+        case PowerHint_1_2::CAMERA_STREAMING: {
+            const enum CameraStreamingMode mode = static_cast<enum CameraStreamingMode>(data);
+            if (mode < CAMERA_STREAMING_OFF || mode >= CAMERA_STREAMING_MAX) {
+                ALOGE("CAMERA STREAMING INVALID Mode: %d", mode);
+                break;
+            }
+
+            if (mCameraStreamingMode == mode)
+                break;
+
             ATRACE_BEGIN("camera_streaming");
-            if (data > 0) {
-                ATRACE_INT("camera_streaming_lock", 1);
-                mHintManager->DoHint("CAMERA_STREAMING");
-                ALOGD("CAMERA STREAMING ON");
-                if (!android::base::SetProperty(kPowerHalStateProp, "CAMERA_STREAMING")) {
-                    ALOGE("%s: could not set powerHAL state property to CAMERA_STREAMING", __func__);
-                }
-                mCameraStreamingModeOn = true;
-            } else if (data == 0) {
+            // turn it off first if any previous hint.
+            if ((mCameraStreamingMode != CAMERA_STREAMING_OFF)) {
+                const auto modeValue = kCamStreamingHint.at(mCameraStreamingMode);
                 ATRACE_INT("camera_streaming_lock", 0);
-                mHintManager->EndHint("CAMERA_STREAMING");
-                ALOGD("CAMERA STREAMING OFF");
-                if (!android::base::SetProperty(kPowerHalStateProp, "")) {
-                    ALOGE("%s: could not clear powerHAL state property", __func__);
-                }
-                mCameraStreamingModeOn = false;
-            } else {
-                ALOGE("CAMERA STREAMING INVALID DATA: %d", data);
+                mHintManager->EndHint(modeValue);
+                // Boost 1s for tear down
+                mHintManager->DoHint("CAMERA_LAUNCH", std::chrono::seconds(1));
+                ALOGD("CAMERA %s OFF", modeValue.c_str());
+            }
+
+            if (mode != CAMERA_STREAMING_OFF) {
+                const auto hintValue = kCamStreamingHint.at(mode);
+                ATRACE_INT("camera_streaming_lock", mode);
+                mHintManager->DoHint(hintValue);
+                ALOGD("CAMERA %s ON", hintValue.c_str());
+            }
+
+            mCameraStreamingMode = mode;
+            const auto prop = (mCameraStreamingMode == CAMERA_STREAMING_OFF)
+                                  ? ""
+                                  : kCamStreamingHint.at(mode).c_str();
+            if (!android::base::SetProperty(kPowerHalStateProp, prop)) {
+                ALOGE("%s: could set powerHAL state %s property", __func__, prop);
             }
             ATRACE_END();
             break;
+        }
         case PowerHint_1_2::CAMERA_SHOT:
             ATRACE_BEGIN("camera_shot");
             if (data > 0) {
@@ -463,6 +450,39 @@ Return<void> Power::powerHintAsync_1_2(PowerHint_1_2 hint, int32_t data) {
     return Void();
 }
 
+// Methods from ::android::hardware::power::V1_3::IPower follow.
+Return<void> Power::powerHintAsync_1_3(PowerHint_1_3 hint, int32_t data) {
+    if (!isSupportedGovernor() || !mReady) {
+        return Void();
+    }
+
+    if (hint == PowerHint_1_3::EXPENSIVE_RENDERING) {
+        if (mSustainedPerfModeOn) {
+            ALOGV("%s: ignoring due to other active perf hints", __func__);
+            return Void();
+        }
+
+        if (data > 0) {
+            ATRACE_INT("EXPENSIVE_RENDERING", 1);
+            mHintManager->DoHint("EXPENSIVE_RENDERING");
+            if (!android::base::SetProperty(kPowerHalRenderingProp, "EXPENSIVE_RENDERING")) {
+                ALOGE("%s: could not set powerHAL rendering property to EXPENSIVE_RENDERING",
+                      __func__);
+            }
+        } else {
+            ATRACE_INT("EXPENSIVE_RENDERING", 0);
+            mHintManager->EndHint("EXPENSIVE_RENDERING");
+            if (!android::base::SetProperty(kPowerHalRenderingProp, "")) {
+                ALOGE("%s: could not clear powerHAL rendering property", __func__);
+            }
+        }
+    } else {
+        return powerHintAsync_1_2(static_cast<PowerHint_1_2>(hint), data);
+    }
+
+    return Void();
+}
+
 constexpr const char* boolToString(bool b) {
     return b ? "true" : "false";
 }
@@ -471,12 +491,13 @@ Return<void> Power::debug(const hidl_handle& handle, const hidl_vec<hidl_string>
     if (handle != nullptr && handle->numFds >= 1 && mReady) {
         int fd = handle->data[0];
 
-        std::string buf(android::base::StringPrintf("HintManager Running: %s\n"
-                                                    "CameraStreamingMode: %s\n"
-                                                    "SustainedPerformanceMode: %s\n",
-                                                    boolToString(mHintManager->IsRunning()),
-                                                    boolToString(mCameraStreamingModeOn),
-                                                    boolToString(mSustainedPerfModeOn)));
+        std::string buf(
+            android::base::StringPrintf("HintManager Running: %s\n"
+                                        "CameraStreamingMode: %s\n"
+                                        "SustainedPerformanceMode: %s\n",
+                                        boolToString(mHintManager->IsRunning()),
+                                        kCamStreamingHint.at(mCameraStreamingMode).c_str(),
+                                        boolToString(mSustainedPerfModeOn)));
         // Dump nodes through libperfmgr
         mHintManager->DumpToFd(fd);
         if (!android::base::WriteStringToFd(buf, fd)) {
@@ -488,7 +509,7 @@ Return<void> Power::debug(const hidl_handle& handle, const hidl_vec<hidl_string>
 }
 
 }  // namespace implementation
-}  // namespace V1_2
+}  // namespace V1_3
 }  // namespace power
 }  // namespace hardware
 }  // namespace android

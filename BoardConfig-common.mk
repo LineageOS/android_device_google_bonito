@@ -20,16 +20,16 @@ USES_DEVICE_GOOGLE_B4S4 := true
 TARGET_NO_BOOTLOADER := true
 
 TARGET_ARCH := arm64
-TARGET_ARCH_VARIANT := armv8-a
+TARGET_ARCH_VARIANT := armv8-2a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := cortex-a73
+TARGET_CPU_VARIANT := cortex-a75
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a73
+TARGET_2ND_CPU_VARIANT := cortex-a75
 
 TARGET_BOARD_COMMON_PATH := device/google/bonito/sdm710
 
@@ -43,6 +43,7 @@ BOARD_KERNEL_CMDLINE += firmware_class.path=/vendor/firmware
 BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
 # STOPSHIP Bringup hack- no low power
 BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
+BOARD_KERNEL_CMDLINE += loop.max_part=7
 
 BOARD_KERNEL_BASE        := 0x00000000
 BOARD_KERNEL_PAGESIZE    := 4096
@@ -90,13 +91,8 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
 
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
-# product.img
-BOARD_PRODUCTIMAGE_PARTITION_SIZE := 314572800
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_PRODUCT := product
-
 # system.img
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2952790016
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3267362816
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 4096
 
@@ -104,7 +100,7 @@ BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 4096
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # persist.img
-BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
+BOARD_PERSISTIMAGE_PARTITION_SIZE := 41943040
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # boot.img
@@ -119,6 +115,7 @@ BOARD_USES_SYSTEM_OTHER_ODEX := true
 
 BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt:/firmware
+BOARD_ROOT_EXTRA_SYMLINKS += /vendor/dsp:/dsp
 
 include device/google/bonito-sepolicy/bonito-sepolicy.mk
 
@@ -182,6 +179,7 @@ BOARD_SUPPORTS_SOUND_TRIGGER := true
 AUDIO_FEATURE_FLICKER_SENSOR_INPUT := true
 SOUND_TRIGGER_FEATURE_LPMA_ENABLED := true
 AUDIO_FEATURE_ENABLED_MAXX_AUDIO := true
+BOARD_SUPPORTS_SOUND_TRIGGER_5514 := true
 
 # Graphics
 TARGET_USES_GRALLOC1 := true
@@ -205,6 +203,14 @@ DEVICE_MANIFEST_FILE := device/google/bonito/manifest.xml
 DEVICE_MATRIX_FILE := device/google/bonito/compatibility_matrix.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/google/bonito/device_framework_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/google/bonito/framework_manifest.xml
+
+# Userdebug only Vendor Interface Manifest
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+DEVICE_MANIFEST_FILE += device/google/bonito/manifest_userdebug.xml
+endif
+
+# Remove health /backup instance
+DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
 
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
@@ -239,6 +245,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
 endif
 
 # Testing related defines
-BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b1c1-setup.sh
+BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
+
+# Single vendor RIL with SDM845
+BOARD_USES_SDM845_QCRIL := true
 
 -include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk
