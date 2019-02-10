@@ -217,15 +217,9 @@ BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 TARGET_USES_MKE2FS := true
 
 # Kernel modules
-ifeq (,$(filter-out sargo_gcc bonito_gcc, $(TARGET_PRODUCT)))
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/bonito-kernel/gcc/*.ko)
-else ifeq (,$(filter-out sargo_kasan bonito_kasan, $(TARGET_PRODUCT)))
+ifeq (,$(filter-out sargo_kasan bonito_kasan, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
     $(wildcard device/google/bonito-kernel/kasan/*.ko)
-else ifeq (,$(filter-out sargo_kcfi bonito_kcfi, $(TARGET_PRODUCT)))
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(wildcard device/google/bonito-kernel/kcfi/*.ko)
 else ifeq (,$(filter-out sargo_kernel_debug_memory bonito_kernel_debug_memory, $(TARGET_PRODUCT)))
 BOARD_VENDOR_KERNEL_MODULES += \
     $(wildcard device/google/bonito-kernel/debug_memory/*.ko)
