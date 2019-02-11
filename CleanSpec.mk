@@ -152,3 +152,6 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.ther
 # Move fingerprint input files to /vendor
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr/keylayout/uinput-fpc.kl)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr/idc/uinput-fpc.idc)
+
+# Recovery init files moved to recovery
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/init.recovery.*.rc)
