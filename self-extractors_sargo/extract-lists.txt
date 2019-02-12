@@ -5,6 +5,7 @@
     ;;
   qcom)
     TO_EXTRACT="\
+            system/app/QtiTelephonyService/QtiTelephonyService.apk \
             system/compatibility_matrix.xml \
             system/etc/cne/andsfCne.xml \
             system/etc/cne/Nexus/ATT/ATT_profiles.xml \
