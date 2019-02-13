@@ -75,7 +75,7 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
-    $(LOCAL_PATH)/init.recovery.hardware.rc:root/init.recovery.$(PRODUCT_PLATFORM).rc \
+    $(LOCAL_PATH)/init.recovery.hardware.rc:recovery/root/init.recovery.$(PRODUCT_PLATFORM).rc \
     $(LOCAL_PATH)/init.hardware.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).rc \
     $(LOCAL_PATH)/init.hardware.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).usb.rc \
     $(LOCAL_PATH)/ueventd.hardware.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
@@ -114,8 +114,8 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bonito/init.bonito.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bonito.rc \
     $(LOCAL_PATH)/sargo/init.sargo.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.sargo.rc \
-    $(LOCAL_PATH)/init.recovery.hardware.device.rc:root/init.recovery.bonito.rc \
-    $(LOCAL_PATH)/init.recovery.hardware.device.rc:root/init.recovery.sargo.rc \
+    $(LOCAL_PATH)/init.recovery.hardware.device.rc:recovery/root/init.recovery.bonito.rc \
+    $(LOCAL_PATH)/init.recovery.hardware.device.rc:recovery/root/init.recovery.sargo.rc \
 
 MSM_VIDC_TARGET_LIST := sdm710 # Get the color format from kernel headers
 MASTER_SIDE_CP_TARGET_LIST := sdm710 # ION specific settings
