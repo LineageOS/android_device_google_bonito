@@ -66,6 +66,8 @@
         <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_LANDSCAPE" acdb_id="61"/>
         <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_INVERT_LANDSCAPE" acdb_id="61"/>
         <device name="SND_DEVICE_IN_CAMCORDER_SELFIE_PORTRAIT" acdb_id="61"/>
+        <device name="SND_DEVICE_OUT_VOICE_HEARING_AID" acdb_id="10"/>
+        <device name="SND_DEVICE_IN_VOICE_HEARING_AID" acdb_id="19"/>
 
         <!-- TTY -->
         <device name="SND_DEVICE_OUT_VOICE_TTY_HCO_HANDSET" acdb_id="14"/>
@@ -200,6 +202,7 @@
         <device name="SND_DEVICE_IN_VOICE_TTY_FULL_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
         <device name="SND_DEVICE_IN_VOICE_REC_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_HEADSET_MIC" backend="headset-mic" interface="INT3_MI2S_TX"/>
+        <device name="SND_DEVICE_IN_VOICE_HEARING_AID" backend="speaker-mic" interface="PRI_TDM_TX_0"/>
 
     </backend_names>
     <app_types>
