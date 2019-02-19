@@ -166,7 +166,7 @@
             "Multiplier":0.001
         },
         {
-            "Name":"usbc-therm-adc",
+            "Name":"usbc-therm-monitor",
             "Type":"USB_PORT",
             "HotThreshold":[
                 "NAN",
@@ -174,14 +174,24 @@
                 "NAN",
                 "NAN",
                 "NAN",
-                "NAN",
+                "63.0",
                 "NAN"
             ],
+            "HotHysteresis":[
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                5.0,
+                0.0
+            ],
             "VrThreshold":"NAN",
-            "Multiplier":0.001
+            "Multiplier":0.001,
+            "Monitor":true
         },
         {
-            "Name":"mb-therm-adc",
+            "Name":"mb-therm-monitor",
             "Type":"SKIN",
             "HotThreshold":[
                 "NAN",
@@ -190,16 +200,16 @@
                 48.0,
                 50.0,
                 51.0,
-                60.0
+                58.0
             ],
             "HotHysteresis":[
                 0.0,
-                1.9,
-                1.9,
-                1.9,
-                1.9,
-                1.9,
-                1.9
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9,
+                0.9
             ],
             "VrThreshold":53.0,
             "Multiplier":0.001,
