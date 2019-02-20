@@ -75,6 +75,9 @@ TARGET_NO_RECOVERY := true
 BOARD_USES_RECOVERY_AS_BOOT := true
 BOARD_USES_METADATA_PARTITION := true
 
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_PRODUCT := product
+
 # Partitions (listed in the file) to be wiped under recovery.
 TARGET_RECOVERY_WIPE := device/google/bonito/recovery.wipe
 TARGET_RECOVERY_FSTAB := device/google/bonito/fstab.hardware
@@ -106,7 +109,8 @@ BOARD_EXT4_SHARE_DUP_BLOCKS := true
 BOARD_SUPER_PARTITION_GROUPS := google_dynamic_partitions
 BOARD_GOOGLE_DYNAMIC_PARTITIONS_PARTITION_LIST := \
     system \
-    vendor
+    vendor \
+    product
 
 BOARD_SUPER_PARTITION_SIZE := 4072669184
 BOARD_SUPER_PARTITION_METADATA_DEVICE := system
