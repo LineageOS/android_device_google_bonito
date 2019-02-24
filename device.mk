@@ -22,6 +22,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/google/interfaces \
     hardware/google/pixel \
     hardware/qcom/sdm710 \
+    vendor/google/camera \
     vendor/qcom/sdm710
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -89,6 +90,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     $(LOCAL_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
     $(LOCAL_PATH)/thermal-engine-$(PRODUCT_HARDWARE).conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-$(PRODUCT_HARDWARE).conf \
+    $(LOCAL_PATH)/init.firstboot.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.firstboot.sh \
     $(LOCAL_PATH)/init.ramoops.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.ramoops.sh
 
 # Edge Sense initialization script.
@@ -292,6 +294,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.custom_ecc=1 \
     persist.vendor.radio.data_ltd_sys_ind=1 \
     persist.radio.videopause.mode=1 \
+    persist.vendor.radio.multisim_switch_support=true \
     persist.vendor.radio.sib16_support=1 \
     persist.vendor.radio.data_con_rprt=true \
     persist.vendor.radio.relay_oprt_change=1 \
@@ -424,6 +427,8 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service_64 \
     camera.device@3.2-impl \
     camera.sdm710 \
+    libgooglecamerahal \
+    libgoogle_camera_hal_tests \
     libqomx_core \
     libmmjpeg_interface \
     libmmcamera_interface \
