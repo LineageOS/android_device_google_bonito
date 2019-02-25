@@ -6,13 +6,12 @@
   qcom)
     TO_EXTRACT="\
             system/app/QtiTelephonyService/QtiTelephonyService.apk \
-            system/compatibility_matrix.xml \
             system/etc/cne/andsfCne.xml \
             system/etc/cne/Nexus/ATT/ATT_profiles.xml \
             system/etc/cne/Nexus/ROW/ROW_profiles.xml \
             system/etc/cne/Nexus/VZW/VZW_profiles.xml \
-            system/etc/ld.config.28.txt \
-            system/etc/llndk.libraries.28.txt \
+            system/etc/ld.config.Q.txt \
+            system/etc/llndk.libraries.Q.txt \
             system/etc/permissions/cneapiclient.xml \
             system/etc/permissions/com.quicinc.cne.xml \
             system/etc/permissions/embms.xml \
@@ -31,13 +30,8 @@
             system/framework/com.android.mediadrm.signer.jar \
             system/framework/com.qualcomm.qti.uceservice-V2.0-java.jar \
             system/framework/javax.obex.jar \
-            system/framework/LteDirectDiscoveryLibrary.jar \
-            system/framework/org.apache.http.legacy.boot.jar \
-            system/framework/org.apache.http.legacy.boot.jar.prof \
             system/framework/qcrilhook.jar \
             system/framework/QtiTelephonyServicelibrary.jar \
-            system/framework/radioconfiginterfacelibrary.jar \
-            system/framework/radioconfiglibrary.jar \
             system/framework/uimlpalibrary.jar \
             system/framework/uimremoteclientlibrary.jar \
             system/framework/uimremoteserverlibrary.jar \
@@ -60,7 +54,6 @@
             system/lib64/lib-imsvtutils.so \
             system/lib64/liblistenjni.so \
             system/lib64/liblistensoundmodel2.so \
-            system/lib64/liblogcat.so \
             system/lib64/libmdsprpc_system.so \
             system/lib64/libminui.so \
             system/lib64/libqsap_sdk.so \
@@ -70,9 +63,7 @@
             system/lib64/libsdsprpc_system.so \
             system/lib64/libsecureui_svcsock_system.so \
             system/lib64/libsensorslog.so \
-            system/lib64/libsepol.so \
             system/lib64/libsns_low_lat_stream_stub.so \
-            system/lib64/libunwind.so \
             system/lib/libadsprpc_system.so \
             system/lib/libcdsprpc_system.so \
             system/lib/libdiag_system.so \
@@ -90,7 +81,6 @@
             system/lib/libmdsprpc_system.so \
             system/lib/libminui.so \
             system/lib/libnl.so \
-            system/lib/libpac.so \
             system/lib/libqct_resampler.so \
             system/lib/libqsap_sdk.so \
             system/lib/libQTEEConnector_system.so \
@@ -100,7 +90,6 @@
             system/lib/libsecureui_svcsock_system.so \
             system/lib/libsensorslog.so \
             system/lib/libsns_low_lat_stream_stub.so \
-            system/lib/libunwind.so \
             system/lib/rfsa/adsp/libsns_low_lat_stream_skel.so \
             "
     ;;
