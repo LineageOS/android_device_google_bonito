@@ -234,6 +234,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecomm=true \
     persist.audio.fluence.voicerec=false \
     persist.audio.dualmic.config=endfire \
+    persist.audio.in_mmap_delay_micros=100 \
     ro.config.vc_call_vol_steps=7 \
     ro.config.media_vol_steps=25 \
 
