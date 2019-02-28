@@ -35,7 +35,7 @@ PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
 PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
 
 # Setting vendor SPL
-VENDOR_SECURITY_PATCH = "2018-09-05"
+VENDOR_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
 
 # MIDI feature
 PRODUCT_COPY_FILES += \
