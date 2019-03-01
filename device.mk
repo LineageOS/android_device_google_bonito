@@ -802,3 +802,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # GTS ACSA(Agreement for Carrier Service Application) verification
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.com.google.acsa=true
+
+# Increment the SVN for any official public releases
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.vendor.build.svn=1
