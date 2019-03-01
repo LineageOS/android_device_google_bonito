@@ -101,6 +101,5 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/libsdsprpc_system.so:system/lib/libsdsprpc_system.so:qcom \
     vendor/qcom/bonito/proprietary/libsecureui_svcsock_system.so:system/lib/libsecureui_svcsock_system.so:qcom \
     vendor/qcom/bonito/proprietary/libsensorslog.so:system/lib/libsensorslog.so:qcom \
-    vendor/qcom/bonito/proprietary/libsns_device_mode_stub.so:system/lib/libsns_device_mode_stub.so:qcom \
     vendor/qcom/bonito/proprietary/libsns_low_lat_stream_stub.so:system/lib/libsns_low_lat_stream_stub.so:qcom \
     vendor/qcom/bonito/proprietary/libsns_low_lat_stream_skel.so:system/lib/rfsa/adsp/libsns_low_lat_stream_skel.so:qcom \
