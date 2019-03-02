@@ -842,3 +842,7 @@ PRODUCT_PACKAGES += \
 # GTS ACSA(Agreement for Carrier Service Application) verification
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.com.google.acsa=true
+
+# Increment the SVN for any official public releases
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.vendor.build.svn=1
