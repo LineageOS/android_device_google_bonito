@@ -155,3 +155,15 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr/idc/uinput-fpc.idc)
 
 # Recovery init files moved to recovery
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/init.recovery.*.rc)
+
+# Add product partition
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/app)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/fonts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/framework)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/media)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/priv-app)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr)
