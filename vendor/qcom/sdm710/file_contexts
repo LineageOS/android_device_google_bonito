@@ -53,3 +53,6 @@
 # libs
 /vendor/lib(64)?/hw/gralloc\.sdm710\.so    u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/hw/vulkan\.sdm710\.so     u:object_r:same_process_hal_file:s0
+
+#Android NN Driver
+/vendor/bin/hw/android\.hardware\.neuralnetworks@1\.1-service-qti u:object_r:hal_neuralnetworks_default_exec:s0
