@@ -189,6 +189,7 @@ AUDIO_FEATURE_ENABLED_24BITS_CAMCORDER := true
 # Graphics
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_HWC2 := true
+TARGET_USES_NV21_CAMERA_PREVIEW := true
 
 VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
@@ -276,6 +277,4 @@ endif
 # Testing related defines
 BOARD_PERFSETUP_SCRIPT := platform_testing/scripts/perf-setup/b4s4-setup.sh
 
-# Single vendor RIL with SDM845
-BOARD_USES_SDM845_QCRIL := true
 -include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk
