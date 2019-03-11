@@ -126,6 +126,11 @@
         <param key="operator_info" value="tmus;310210"/>
         <param key="operator_info" value="tmus;310200"/>
         <param key="operator_info" value="tmus;310160"/>
+        <param key="operator_info" value="tmus;20404"/>
+        <param key="operator_info" value="tmus;311220"/>
+        <param key="operator_info" value="tmus;310066"/>
+        <param key="operator_info" value="tmus;310730"/>
+        <param key="operator_info" value="tmus;00101"/>
     </config_params>
 
     <operator_specific>
