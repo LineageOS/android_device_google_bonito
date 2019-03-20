@@ -22,8 +22,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/ATT_profiles.xml:system/etc/cne/Nexus/ATT/ATT_profiles.xml:qcom \
     vendor/qcom/sargo/proprietary/ROW_profiles.xml:system/etc/cne/Nexus/ROW/ROW_profiles.xml:qcom \
     vendor/qcom/sargo/proprietary/VZW_profiles.xml:system/etc/cne/Nexus/VZW/VZW_profiles.xml:qcom \
-    vendor/qcom/sargo/proprietary/ld.config.Q.txt:system/etc/ld.config.Q.txt:qcom \
-    vendor/qcom/sargo/proprietary/llndk.libraries.Q.txt:system/etc/llndk.libraries.Q.txt:qcom \
     vendor/qcom/sargo/proprietary/cneapiclient.xml:system/etc/permissions/cneapiclient.xml:qcom \
     vendor/qcom/sargo/proprietary/com.quicinc.cne.xml:system/etc/permissions/com.quicinc.cne.xml:qcom \
     vendor/qcom/sargo/proprietary/embms.xml:system/etc/permissions/embms.xml:qcom \
