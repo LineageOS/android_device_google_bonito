@@ -10,8 +10,6 @@
             system/etc/cne/Nexus/ATT/ATT_profiles.xml \
             system/etc/cne/Nexus/ROW/ROW_profiles.xml \
             system/etc/cne/Nexus/VZW/VZW_profiles.xml \
-            system/etc/ld.config.Q.txt \
-            system/etc/llndk.libraries.Q.txt \
             system/etc/permissions/cneapiclient.xml \
             system/etc/permissions/com.quicinc.cne.xml \
             system/etc/permissions/embms.xml \
