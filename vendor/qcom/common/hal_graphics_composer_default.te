@@ -44,6 +44,10 @@ unix_socket_connect(hal_graphics_composer_default, pps, mm-pp-daemon)
 # allow composer to register display config
 add_hwservice(hal_graphics_composer_default, hal_display_config_hwservice);
 
+#allow composer access hal_light
+hal_client_domain(hal_graphics_composer_default, hal_light);
+allow hal_graphics_composer_default hal_light_hwservice:hwservice_manager find;
+
 userdebug_or_eng(`
         allow hal_graphics_composer_default debugfs_mdp:dir r_dir_perms;
         allow hal_graphics_composer_default debugfs_mdp:file r_file_perms;
