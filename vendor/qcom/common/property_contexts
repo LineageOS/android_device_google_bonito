@@ -59,6 +59,7 @@ persist.audio.fluence.voicecall  u:object_r:vendor_default_prop:s0
 persist.audio.fluence.voicecomm  u:object_r:vendor_default_prop:s0
 persist.audio.fluence.voicerec  u:object_r:vendor_default_prop:s0
 persist.audio.in_mmap_delay_micros  u:object_r:vendor_default_prop:s0
+persist.audio.out_mmap_delay_micros  u:object_r:vendor_default_prop:s0
 persist.cne.override.memlimit  u:object_r:vendor_default_prop:s0
 persist.data_netmgrd_mtu   u:object_r:vendor_default_prop:s0
 persist.data.df.agg.dl_pad  u:object_r:vendor_default_prop:s0
