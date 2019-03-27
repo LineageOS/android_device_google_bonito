@@ -351,6 +351,7 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "MDP xlogs", "/data/vendor/display/mdp_xlog");
     DumpFileToFd(fd, "TCPM logs", "/d/tcpm/usbpd0");
     DumpFileToFd(fd, "PD Engine", "/d/pd_engine/usbpd0");
+    DumpFileToFd(fd, "DWC3 logs", "/d/ipc_logging/a600000.dwc3/log");
     DumpFileToFd(fd, "ipc-local-ports", "/d/msm_ipc_router/dump_local_ports");
     DumpIPCTRT(fd);
     DumpTouch(fd);
