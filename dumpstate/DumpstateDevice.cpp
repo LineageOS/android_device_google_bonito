@@ -350,7 +350,9 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     RunCommandToFd(fd, "Easel debug info", {"/vendor/bin/sh", "-c", "for f in `ls /sys/devices/platform/soc/a88000.i2c/i2c-0/0-0066/@(*curr|temperature|vbat|total_power)`; do echo \"$f: `cat $f`\" ; done; file=/sys/devices/virtual/misc/mnh_sm/state; echo \"$file: `cat $file`\""});
     DumpFileToFd(fd, "MDP xlogs", "/data/vendor/display/mdp_xlog");
     DumpFileToFd(fd, "TCPM logs", "/d/tcpm/usbpd0");
-    DumpFileToFd(fd, "PD Engine", "/d/pd_engine/usbpd0");
+    DumpFileToFd(fd, "PD Engine", "/d/logbuffer/usbpd");
+    DumpFileToFd(fd, "smb-lib", "/d/logbuffer/smblib");
+    DumpFileToFd(fd, "DWC3 logs", "/d/ipc_logging/a600000.dwc3/log");
     DumpFileToFd(fd, "ipc-local-ports", "/d/msm_ipc_router/dump_local_ports");
     DumpIPCTRT(fd);
     DumpTouch(fd);
