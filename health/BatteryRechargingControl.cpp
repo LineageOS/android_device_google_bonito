@@ -95,7 +95,10 @@ void BatteryRechargingControl::updateBatteryProperties(struct android::BatteryPr
             state_ = WAIT_EOC;
             recharge_soc_ = 0;
         case WAIT_EOC:
-            if (charger_status == kStatusIsFull) {
+            if (props->batteryLevel != kFullSoc) {
+                state_ = INACTIVE;
+                recharge_soc_ = 0;
+            } else if (charger_status == kStatusIsFull) {
                 state_ = RECHARGING_CYCLE;
                 props->batteryLevel = kFullSoc;
             } else if (charger_status != kStatusIsCharging) {
