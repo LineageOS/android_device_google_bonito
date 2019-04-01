@@ -167,3 +167,6 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/media)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/priv-app)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr)
+
+# Rename power HAL
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.power@1.3-service.bonito-libperfmgr.rc)
