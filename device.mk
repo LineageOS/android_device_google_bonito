@@ -247,6 +247,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicerec=false \
     persist.audio.dualmic.config=endfire \
     persist.audio.in_mmap_delay_micros=100 \
+    persist.audio.out_mmap_delay_micros=150 \
     ro.config.vc_call_vol_steps=7 \
     ro.config.media_vol_steps=25 \
 
@@ -850,4 +851,4 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Increment the SVN for any official public releases
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vendor.build.svn=1
+	ro.vendor.build.svn=2
