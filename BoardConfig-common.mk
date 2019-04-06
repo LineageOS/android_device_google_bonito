@@ -14,10 +14,11 @@
 # limitations under the License.
 #
 
+include build/make/target/board/BoardConfigMainlineCommon.mk
+
 TARGET_BOARD_PLATFORM := sdm710
 TARGET_BOARD_INFO_FILE := device/google/bonito/board-info.txt
 USES_DEVICE_GOOGLE_B4S4 := true
-TARGET_NO_BOOTLOADER := true
 
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -69,14 +70,11 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_PREBUILT_DTBOIMAGE := device/google/bonito-kernel/dtbo.img
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 
-TARGET_NO_BOOTLOADER ?= true
 TARGET_NO_KERNEL := false
-TARGET_NO_RECOVERY := true
 BOARD_USES_RECOVERY_AS_BOOT := true
 BOARD_USES_METADATA_PARTITION := true
 
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_PRODUCT := product
 
 # Partitions (listed in the file) to be wiped under recovery.
 TARGET_RECOVERY_WIPE := device/google/bonito/recovery.wipe
@@ -87,16 +85,8 @@ TARGET_RECOVERY_UI_LIB := \
   libnos_citadel_for_recovery \
   libnos_for_recovery
 
-BOARD_AVB_ENABLE := true
-BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-
-BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
-
 # system.img
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
-
-# userdata.img
-TARGET_USERIMAGES_USE_EXT4 := true
 
 # persist.img
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 41943040
@@ -121,12 +111,7 @@ BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 805306368
 # TODO(b/117997386): Use correct metadata size.
 BOARD_GOOGLE_DYNAMIC_PARTITIONS_SIZE := 4068474880
 
-TARGET_COPY_OUT_VENDOR := vendor
-
 BOARD_FLASH_BLOCK_SIZE := 131072
-
-# Install odex files into the other system image
-BOARD_USES_SYSTEM_OTHER_ODEX := true
 
 BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt:/firmware
@@ -138,7 +123,6 @@ TARGET_FS_CONFIG_GEN := device/google/bonito/config.fs
 
 QCOM_BOARD_PLATFORMS += sdm710
 BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := build/make/target/board/mainline_arm64/bluetooth
 BOARD_USES_COMMON_BLUETOOTH_HAL := true
 
 # Camera
@@ -174,7 +158,6 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE:= true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
-USE_XML_AUDIO_POLICY_CONF := 1
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_SND_MONITOR := true
 AUDIO_FEATURE_ENABLED_USB_TUNNEL := true
@@ -199,9 +182,6 @@ TARGET_HAS_WIDE_COLOR_DISPLAY := true
 TARGET_USES_DISPLAY_RENDER_INTENTS := true
 TARGET_USES_COLOR_METADATA := true
 TARGET_USES_DRM_PP := true
-
-# Charger Mode
-BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Vendor Interface Manifest
 DEVICE_MANIFEST_FILE := device/google/bonito/manifest.xml
@@ -232,8 +212,6 @@ ODM_MANIFEST_G020E_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
 ODM_MANIFEST_G020F_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
 ODM_MANIFEST_G020G_FILES := device/google/bonito/nfc/manifest_se_SIM1.xml
 ODM_MANIFEST_G020H_FILES := device/google/bonito/nfc/manifest_se_eSE1.xml
-
-BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
