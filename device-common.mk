@@ -34,9 +34,6 @@ PRODUCT_PROPERTY_OVERRIDES += af.fast_track_multiplier=1
 PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
 PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
 
-# Enable QC2 bufferqueue block-pool
-PRODUCT_PROPERTY_OVERRIDES += vendor.qc2.use.bqpool=1
-
 # Setting vendor SPL
 VENDOR_SECURITY_PATCH = "2018-09-05"
 
