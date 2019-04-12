@@ -16,6 +16,7 @@
 
 #define LOG_TAG "android.hardware.power.stats@1.0-service.pixel"
 
+#include <android-base/properties.h>
 #include <android/log.h>
 #include <binder/IPCThreadState.h>
 #include <binder/IServiceManager.h>
@@ -51,6 +52,8 @@ using android::hardware::google::pixel::powerstats::WlanStateResidencyDataProvid
 
 int main(int /* argc */, char ** /* argv */) {
     ALOGE("power.stats service 1.0 is starting.");
+
+    bool isDebuggable = android::base::GetBoolProperty("ro.debuggable", false);
 
     PowerStats *service = new PowerStats();
 
@@ -110,11 +113,13 @@ int main(int /* argc */, char ** /* argv */) {
 
     service->addStateResidencyDataProvider(socSdp);
 
-    // Add WLAN power entity
-    uint32_t wlanId = service->addPowerEntity("WLAN", PowerEntityType::SUBSYSTEM);
-    sp<WlanStateResidencyDataProvider> wlanSdp =
-        new WlanStateResidencyDataProvider(wlanId, "/d/wlan0/power_stats");
-    service->addStateResidencyDataProvider(wlanSdp);
+    if (isDebuggable) {
+        // Add WLAN power entity
+        uint32_t wlanId = service->addPowerEntity("WLAN", PowerEntityType::SUBSYSTEM);
+        sp<WlanStateResidencyDataProvider> wlanSdp =
+            new WlanStateResidencyDataProvider(wlanId, "/d/wlan0/power_stats");
+        service->addStateResidencyDataProvider(wlanSdp);
+    }
 
     // Add Power Entities that require the Aidl data provider
     sp<AidlStateResidencyDataProvider> aidlSdp = new AidlStateResidencyDataProvider();
