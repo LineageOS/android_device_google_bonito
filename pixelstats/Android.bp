@@ -18,11 +18,8 @@ cc_binary {
   init_rc: ["pixelstats-vendor.bonito.rc"],
   srcs: [
     "service.cpp",
-    "DropDetect.cpp",
-    "UeventListener.cpp",
   ],
   shared_libs: [
-    "hardware.google.pixelstats@1.0",
     "libbase",
     "libbinder",
     "libcutils",
