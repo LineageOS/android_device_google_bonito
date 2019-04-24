@@ -190,7 +190,8 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/google/bonito/device_framew
 
 # Userdebug only Vendor Interface Manifest
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-DEVICE_MANIFEST_FILE += device/google/bonito/manifest_userdebug.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE += device/google/bonito/framework_manifest_userdebug.xml
+DEVICE_MATRIX_FILE += device/google/bonito/compatibility_matrix_userdebug.xml
 endif
 
 ODM_MANIFEST_SKUS := \
