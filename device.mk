@@ -404,7 +404,7 @@ PRODUCT_PACKAGES += \
     NfcNci \
     Tag \
     SecureElement \
-    android.hardware.nfc@1.1-service \
+    android.hardware.nfc@1.2-service \
     android.hardware.secure_element@1.1-service-disabled
 
 PRODUCT_COPY_FILES += \
