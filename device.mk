@@ -387,6 +387,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.bt.bdaddr_path=/proc/device-tree/chosen/cdt/cdb2/bt_addr
 
+# Enable Perfetto traced
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.traced.enable=1
+
 # Bluetooth WiPower
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.bluetooth.emb_wp_mode=false \
