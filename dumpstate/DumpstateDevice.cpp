@@ -290,6 +290,8 @@ static void DumpeMMC(int fd) {
     DumpFileToFd(fd, "eMMC err_stats", "/sys/kernel/debug/mmc0/err_stats");
     DumpFileToFd(fd, "eMMC ring_buffer", "/sys/kernel/debug/mmc0/ring_buffer");
     DumpFileToFd(fd, "eMMC host status", "/sys/kernel/debug/mmc0/show_host");
+    DumpFileToFd(fd, "eMMC io_stats", "/sys/kernel/debug/mmc0/io_stats");
+    DumpFileToFd(fd, "eMMC req_stats", "/sys/kernel/debug/mmc0/req_stats");
 
     std::string bootdev = android::base::GetProperty(EMMC_BOOTDEVICE, "");
     if (!bootdev.empty()) {
