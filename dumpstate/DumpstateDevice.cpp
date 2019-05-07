@@ -213,13 +213,38 @@ static void DumpIPCTRT(int fd) {
 }
 
 static void DumpTouch(int fd) {
-    if (!access("/sys/devices/virtual/sec/tsp", R_OK)) {
-        DumpFileToFd(fd, "LSI touch firmware version",
-                     "/sys/devices/virtual/sec/tsp/fw_version");
-    }
-    if (!access("/sys/devices/platform/soc/888000.i2c/i2c-2/2-0049", R_OK)) {
-        DumpFileToFd(fd, "STM touch firmware version",
-                     "/sys/devices/platform/soc/888000.i2c/i2c-2/2-0049/appid");
+    const std::string touch_sysfs_path = "/sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input2/";
+    if (!access(touch_sysfs_path.c_str(), R_OK)) {
+        DumpFileToFd(fd, "Synaptics touch firmware version",
+                     touch_sysfs_path + "buildid");
+        DumpFileToFd(fd, "Synaptics touch config version",
+                     touch_sysfs_path + "config");
+        RunCommandToFd(fd, "keep touch stay awake",
+                       {"/vendor/bin/sh", "-c",
+                        "echo 02 >" + touch_sysfs_path + "suspend"});
+        DumpFileToFd(fd, "Synaptics touch noise information",
+                     touch_sysfs_path + "noise_state");
+        for (int i = 0; i < 5; i++) {
+            RunCommandToFd(fd, "Touch Cm Raw data",
+                           {"/vendor/bin/sh", "-c",
+                            "echo 20 >" + touch_sysfs_path + "read_report"
+                            " && cat " + touch_sysfs_path + "read_report"});
+            RunCommandToFd(fd, "Touch Cm Jitter",
+                           {"/vendor/bin/sh", "-c",
+                            "echo 02 >" + touch_sysfs_path + "read_report"
+                            " && cat " + touch_sysfs_path + "read_report"});
+            RunCommandToFd(fd, "Touch Cs Raw data",
+                           {"/vendor/bin/sh", "-c",
+                            "echo 63 >" + touch_sysfs_path + "read_report"
+                            " && cat " + touch_sysfs_path + "read_report"});
+            RunCommandToFd(fd, "Touch Cs Jitter",
+                           {"/vendor/bin/sh", "-c",
+                            "echo 59 >" + touch_sysfs_path + "read_report"
+                            " && cat " + touch_sysfs_path + "read_report"});
+        }
+        RunCommandToFd(fd, "keep touch stay awake disable",
+                       {"/vendor/bin/sh", "-c",
+                        "echo 00 >" + touch_sysfs_path + "suspend"});
     }
 }
 
@@ -236,6 +261,7 @@ static void DumpeMMC(int fd) {
     DumpFileToFd(fd, "eMMC ext_csd", "/sys/kernel/debug/mmc0/mmc0:0001/ext_csd");
     DumpFileToFd(fd, "eMMC err_stats", "/sys/kernel/debug/mmc0/err_stats");
     DumpFileToFd(fd, "eMMC ring_buffer", "/sys/kernel/debug/mmc0/ring_buffer");
+    DumpFileToFd(fd, "eMMC host status", "/sys/kernel/debug/mmc0/show_host");
 
     std::string bootdev = android::base::GetProperty(EMMC_BOOTDEVICE, "");
     if (!bootdev.empty()) {
@@ -273,6 +299,10 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "SoC serial number", "/sys/devices/soc0/serial_number");
     DumpFileToFd(fd, "CPU present", "/sys/devices/system/cpu/present");
     DumpFileToFd(fd, "CPU online", "/sys/devices/system/cpu/online");
+
+    if (!PropertiesHelper::IsUserBuild()) {
+        RunCommandToFd(fd, "Performance Stats History", {"/vendor/bin/perfstatsd", "-d"});
+    }
 
     DumpF2FS(fd);
     DumpeMMC(fd);
@@ -318,6 +348,7 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
 
     RunCommandToFd(fd, "eSIM Status", {"/vendor/bin/sh", "-c", "od -t x1 /sys/firmware/devicetree/base/chosen/cdt/cdb2/esim"});
     DumpFileToFd(fd, "Modem Stat", "/data/vendor/modem_stat/debug.txt");
+    DumpFileToFd(fd, "Pixel trace", "/d/tracing/instances/pixel-trace/trace");
 
     // Keep this at the end as very long on not for humans
     DumpFileToFd(fd, "WLAN FW Log Symbol Table", "/vendor/firmware/Data.msc");

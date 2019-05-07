@@ -31,13 +31,21 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.com.google.ime.height_ratio=1.2
 
 # Vibrator HAL
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES +=\
-    ro.vibrator.hal.click.duration=6 \
-    ro.vibrator.hal.tick.duration=2 \
-    ro.vibrator.hal.heavyclick.duration=10 \
-    ro.vibrator.hal.short.voltage=105 \
-    ro.vibrator.hal.long.voltage= 75 \
-    ro.vibrator.hal.long.lra.period=262
+    ro.vibrator.hal.click.duration=8 \
+    ro.vibrator.hal.tick.duration=5 \
+    ro.vibrator.hal.heavyclick.duration=12 \
+    ro.vibrator.hal.short.voltage=110 \
+    ro.vibrator.hal.long.voltage=80 \
+    ro.vibrator.hal.long.frequency.shift=10
 
 # DRV2624 Haptics Waveform
 PRODUCT_COPY_FILES += \
     device/google/bonito/vibrator/drv2624/drv2624_S4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/drv2624.bin
+
+# camera front flashColor
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.front.flashColor=0xffe1c1
+
+# Add white point compensated coefficient
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.display.adaptive_white_coefficient=0.0031,0.5535,-87.498,0.0031,0.5535,-87.498,0.0031,0.5535,-87.498

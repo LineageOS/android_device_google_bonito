@@ -33,8 +33,8 @@ public:
             std::ofstream&& state, std::ofstream&& rtpinput,
             std::ofstream&& mode, std::ofstream&& sequencer,
             std::ofstream&& scale, std::ofstream&& ctrlloop, std::ofstream&& lptrigger,
-            std::ofstream&& odclamp, std::ofstream&& ollraperiod,
-            std::uint32_t lra_period);
+            std::ofstream&& lrawaveshape, std::ofstream&& odclamp, std::ofstream&& ollraperiod,
+            std::uint32_t short_lra_period, std::uint32_t long_lra_period);
 
     // Methods from ::android::hardware::vibrator::V1_0::IVibrator follow.
     using Status = ::android::hardware::vibrator::V1_0::Status;
@@ -62,15 +62,16 @@ private:
     std::ofstream mScale;
     std::ofstream mCtrlLoop;
     std::ofstream mLpTriggerEffect;
+    std::ofstream mLraWaveShape;
     std::ofstream mOdClamp;
     std::ofstream mOlLraPeriod;
-    std::uint32_t mLraPeriod;
+    std::uint32_t mShortLraPeriod;
+    std::uint32_t mLongLraPeriod;
     int32_t mClickDuration;
     int32_t mTickDuration;
     int32_t mHeavyClickDuration;
     int32_t mShortVoltageMax;
     int32_t mLongVoltageMax;
-    int32_t mLongLraPeriod;
 };
 }  // namespace implementation
 }  // namespace V1_2

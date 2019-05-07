@@ -91,7 +91,7 @@
     <integer name="config_defaultNotificationLedOff">9000</integer>
 
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
-    <integer name="config_safe_media_volume_index">4</integer>
+    <integer name="config_safe_media_volume_index">7</integer>
 
     <!--  Whether Multiuser UI should be shown -->
     <bool name="config_enableMultiUserUI">true</bool>
@@ -220,6 +220,9 @@
     <!-- Type of the double tap sensor. Empty if double tap is not supported. -->
     <string name="config_dozeDoubleTapSensorType" translatable="false">com.google.sensor.double_touch</string>
 
+    <!-- Whether the display blanks itself when transition from a doze to a non-doze state -->
+    <bool name="config_displayBlanksAfterDoze">true</bool>
+
     <!-- ImsService package name to bind to by default, if config_dynamic_bind_ims is true -->
     <string name="config_ims_package">org.codeaurora.ims</string>
 
@@ -295,6 +298,11 @@
          and one pSIM) -->
     <integer name="config_num_physical_slots">2</integer>
 
+    <!-- Disables compatibility WAL mode.
+         In this mode, only database journal mode will be changed, connection pool
+         size will still be limited to a single connection. -->
+    <bool name="db_compatibility_wal_supported">false</bool>
+
     <!-- Use ERI text for network name on CDMA LTE -->
         <bool name="config_LTE_eri_for_network_name">false</bool>
 
@@ -308,10 +316,16 @@
         <item>"/system/framework/boot.vdex"</item>
         <item>"/system/framework/arm64/boot-core-libart.oat"</item>
         <item>"/system/framework/boot-core-libart.vdex"</item>
+        <item>"/system/priv-app/SystemUIGoogle/oat/arm64/SystemUIGoogle.vdex"</item>
+        <item>"/system/priv-app/SystemUIGoogle/oat/arm64/SystemUIGoogle.odex"</item>
+        <item>"/system/lib64/libsurfaceflinger.so"</item>
     </string-array>
 
     <!-- Should the pinner service pin the Camera application? -->
     <bool name="config_pinnerCameraApp">true</bool>
+
+    <!-- Should the pinner service pin the Home application? -->
+    <bool name="config_pinnerHomeApp">true</bool>
 
     <!-- Enable system navigation keys. -->
     <bool name="config_supportSystemNavigationKeys">true</bool>
@@ -375,6 +389,14 @@
          meanings. -->
     <integer name="config_defaultNotificationVibrationIntensity">3</integer>
 
+    <!-- Boolean indicating whether framework needs to set the tx power limit for meeting SAR
+         requirements -->
+    <bool translatable="false" name="config_wifi_framework_enable_sar_tx_power_limit">true</bool>
+
+    <!-- Boolean indicating whether framework should use detection of softAP mode to set the tx
+         power limit for meeting SAR requirements -->
+    <bool translatable="false" name="config_wifi_framework_enable_soft_ap_sar_tx_power_limit">true</bool>
+
     <!-- Applications which are disabled unless matching a particular sku -->
     <string-array name="config_disableApksUnlessMatchedSku_apk_list" translatable="false">
         <item>com.felicanetworks.mfs</item>
@@ -384,4 +406,10 @@
         <item>com.felicanetworks.mfc</item>
         <item>com.felicanetworks.mfm</item>
     </string-array>
+
+    <!-- Set lowmemorykiller threshold -->
+    <integer name="config_lowMemoryKillerMinFreeKbytesAdjust">163840</integer>
+
+    <!-- Set direct background reclaim threshold -->
+    <integer name="config_extraFreeKbytesAbsolute">80000</integer>
 </resources>

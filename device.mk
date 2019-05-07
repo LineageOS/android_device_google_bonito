@@ -20,6 +20,7 @@ PRODUCT_SOONG_NAMESPACES += \
     device/google/bonito \
     hardware/google/av \
     hardware/google/interfaces \
+    hardware/google/pixel \
     hardware/qcom/sdm710 \
     vendor/qcom/sdm710
 
@@ -90,6 +91,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     $(LOCAL_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
     $(LOCAL_PATH)/thermal-engine-$(PRODUCT_HARDWARE).conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-$(PRODUCT_HARDWARE).conf \
+    $(LOCAL_PATH)/init.firstboot.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.firstboot.sh \
     $(LOCAL_PATH)/init.ramoops.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.ramoops.sh
 
 # Edge Sense initialization script.
@@ -207,10 +209,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/android.hardware.nfc.hcef.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hcef.xml \
-    frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level.xml \
     frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute.xml \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version.xml \
     frameworks/native/data/etc/android.hardware.telephony.carrierlock.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.carrierlock.xml \
+    frameworks/native/data/etc/android.hardware.strongbox_keystore.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.strongbox_keystore.xml \
 
 # power HAL
 PRODUCT_PACKAGES += \
@@ -218,6 +221,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+
+# perfstatsd
+PRODUCT_PACKAGES_DEBUG += \
+    perfstatsd
 
 # Audio fluence, ns, aec property, voice and media volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -248,15 +255,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.foss.config=1 \
     vendor.display.foss.config_path=/vendor/etc/FOSSConfig.xml
 
+# Add saturation parameters
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.display.adaptive_saturation_parameter=1.1574,-0.0426,-0.0426,-0.143,1.057,-0.143,-0.0144,-0.0144,1.1856
+
 # b/73168288
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.disable_rotator_downscale=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.disable_inline_rotator=1
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.display.dataspace_saturation_matrix=1.16868,-0.03155,-0.01473,-0.16868,1.03155,-0.05899,0.00000,0.00000,1.07372
 
 # Enable camera EIS3.0
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -289,6 +297,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.sib16_support=1 \
     persist.vendor.radio.data_con_rprt=true \
     persist.vendor.radio.relay_oprt_change=1\
+    persist.vendor.radio.no_wait_for_card=1 \
     persist.rcs.supported=1 \
     vendor.rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so\
     ro.hardware.keystore_desede=true \
@@ -483,9 +492,9 @@ PRODUCT_PACKAGES += \
 LIB_NL := libnl_2
 PRODUCT_PACKAGES += $(LIB_NL)
 
-# Factory OTA for Bonito
+# Factory OTA
 PRODUCT_PACKAGES += \
-    BonitoFactoryOta
+    FactoryOta
 
 # Audio effects
 PRODUCT_PACKAGES += \
@@ -543,7 +552,7 @@ PRODUCT_COPY_FILES += \
 # audio hal tables
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_platform_info.xml \
-    $(LOCAL_PATH)/sound_trigger_mixer_paths_wcd9340.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths_wcd9340.xml \
+    $(LOCAL_PATH)/sound_trigger_mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths.xml \
     $(LOCAL_PATH)/graphite_ipc_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/graphite_ipc_platform_info.xml \
 
 PRODUCT_COPY_FILES += \
@@ -592,7 +601,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 PRODUCT_COPY_FILES += \
     device/google/bonito/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(PRODUCT_PLATFORM) \
-    device/google/bonito/fstab.persist:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.persist
 
 # Use the default charger mode images
 PRODUCT_PACKAGES += \
@@ -656,6 +664,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Easel device feature
 PRODUCT_COPY_FILES += \
     device/google/bonito/permissions/com.google.hardware.camera.easel_2018.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.google.hardware.camera.easel_2018.xml
+
+# ConfirmationUI HAL
+PRODUCT_PACKAGES += \
+    android.hardware.confirmationui@1.0-service-bonito
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -728,7 +740,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/google/bonito/audio/rt5514_dsp_fw1.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw1.bin \
     device/google/bonito/audio/rt5514_dsp_fw2.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw2.bin \
-    device/google/bonito/audio/rt5514_dsp_fw3.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw3.bin
+    device/google/bonito/audio/rt5514_dsp_fw3.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw3.bin \
+    device/google/bonito/audio/rt5514_dsp_fw4.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/rt5514_dsp_fw4.bin
 
 # Keymaster configuration
 PRODUCT_COPY_FILES += \
@@ -774,9 +787,9 @@ TARGET_CHIPSET := ""
 
 # Early phase offset configuration for SurfaceFlinger
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.early_phase_offset_ns=500000
+    debug.sf.early_phase_offset_ns=1500000
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.early_app_phase_offset_ns=500000
+    debug.sf.early_app_phase_offset_ns=1500000
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.early_gl_phase_offset_ns=3000000
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -785,3 +798,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Do not skip init trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.init=0
+
+# GTS ACSA(Agreement for Carrier Service Application) verification
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.com.google.acsa=true

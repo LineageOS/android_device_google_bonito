@@ -45,7 +45,7 @@ constexpr char kUsbSensorType[] = "usbc-therm-adc";
 constexpr unsigned int kMaxCpus = 8;
 // The number of available sensors in thermalHAL is:
 // 8 (for each cpu) + 2 (for each gpu) + battery + skin + usb = 13.
-constexpr unsigned int kAvailableSensors = 13;
+constexpr unsigned int kAvailableSensors = 14;
 // The following constants are used for limiting the number of throttling
 // notifications. See b/117438310 for details.
 constexpr int kDesiredLittleCoreCoolingStateCliff = 5;
@@ -70,7 +70,8 @@ const std::map<std::string, SensorInfo> kValidThermalSensorInfoMap = {
     // Skin sensor.
     {kSkinSensorType, {TemperatureType::SKIN, false, NAN, NAN, .001}},
     // USBC thermal sensor.
-    {kUsbSensorType, {TemperatureType::SKIN, false, 58, NAN, .001}},
+    {kUsbSensorType, {TemperatureType::SKIN, false, 63, NAN, .001}},
+    {"pa-therm0-adc", {TemperatureType::UNKNOWN, false, NAN, NAN, .001}},
 };
 
 namespace {
@@ -361,13 +362,24 @@ bool ThermalHelper::checkThrottlingData(const std::pair<std::string, std::string
                 LOG(ERROR) << "Could not read USBC sensor temperature.";
                 return false;
             }
-            if (throttling_level > 0) {
+            std::string usb_cdev_max_path =
+                cooling_devices_.getCoolingDevicePath(kUsbCdevName) + "/max_state";
+            std::string usb_cdev_max_state;
+            if (!android::base::ReadFileToString(usb_cdev_max_path, &usb_cdev_max_state)) {
+                LOG(ERROR) << "Could not read USB CDEV max state";
+                return false;
+            }
+
+	    // Only trigger notification when usb cdev state is max or clear
+            if (throttling_level == std::stoi(usb_cdev_max_state)) {
                 *notify_params = std::make_pair(true, temp);
                 return true;
-            } else {
+            } else if (throttling_level == 0) {
                 *notify_params = std::make_pair(false, temp);
                 return true;
-            }
+            } else {
+                return false;
+	    }
         }
 
         if (!readTemperature(kSkinSensorType, &temp)) {
