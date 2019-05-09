@@ -123,12 +123,6 @@ on init && property:vendor.skip.init=0
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
-    # blkio init setting
-    write /dev/blkio/blkio.weight 1000
-    write /dev/blkio/background/blkio.weight 1000
-    write /dev/blkio/blkio.group_idle 0
-    write /dev/blkio/background/blkio.group_idle 0
-
     # b/37682684 Enable suspend clock reporting
     write /sys/kernel/debug/clk/debug_suspend 1
 
