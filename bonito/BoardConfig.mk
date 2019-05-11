@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# Allow Lineage config to override others
+-include device/google/bonito/bonito/BoardConfigLineage.mk
+
 TARGET_BOOTLOADER_BOARD_NAME := bonito
 TARGET_SCREEN_DENSITY := 400
 TARGET_RECOVERY_UI_MARGIN_HEIGHT := 165
