@@ -18,6 +18,10 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/aosp_bonito.mk \
     $(LOCAL_DIR)/aosp_sargo.mk
 
+PRODUCT_MAKEFILES += \
+    $(LOCAL_DIR)/lineage_bonito.mk \
+    $(LOCAL_DIR)/lineage_sargo.mk
+
 COMMON_LUNCH_CHOICES := \
     aosp_bonito-userdebug \
     aosp_sargo-userdebug
