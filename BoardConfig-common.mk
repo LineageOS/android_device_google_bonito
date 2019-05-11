@@ -117,7 +117,7 @@ BOARD_ROOT_EXTRA_SYMLINKS := /mnt/vendor/persist:/persist
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt:/firmware
 BOARD_ROOT_EXTRA_SYMLINKS += /vendor/dsp:/dsp
 
-include device/google/bonito-sepolicy/bonito-sepolicy.mk
+include device/google/bonito/sepolicy/bonito-sepolicy.mk
 
 TARGET_FS_CONFIG_GEN := device/google/bonito/config.fs
 
