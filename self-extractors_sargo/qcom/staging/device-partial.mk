@@ -15,7 +15,8 @@
 # AOSP packages required by the blobs
 PRODUCT_PACKAGES := \
     com.android.ims.rcsmanager.xml \
-    com.android.ims.rcsmanager
+    com.android.ims.rcsmanager \
+    QtiTelephonyService
 
 #  blob(s) necessary for sargo hardware
 PRODUCT_COPY_FILES := \
@@ -100,7 +101,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/lib-imsvtutils.so:system/lib/lib-imsvtutils.so:qcom \
     vendor/qcom/sargo/proprietary/liblistenjni.so:system/lib/liblistenjni.so:qcom \
     vendor/qcom/sargo/proprietary/liblistensoundmodel2.so:system/lib/liblistensoundmodel2.so:qcom \
-    vendor/qcom/sargo/proprietary/liblogwrap.so:system/lib/liblogwrap.so:qcom \
     vendor/qcom/sargo/proprietary/libmdsprpc_system.so:system/lib/libmdsprpc_system.so:qcom \
     vendor/qcom/sargo/proprietary/libminui.so:system/lib/libminui.so:qcom \
     vendor/qcom/sargo/proprietary/libnl.so:system/lib/libnl.so:qcom \
