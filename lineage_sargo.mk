@@ -23,4 +23,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 
 BUILD_FINGERPRINT := google/sargo/sargo:9/PD2A.190115.032/5340326:user/release-keys
 
+# Include sargo before bonito to use sargo versions of blobs if they exist
 $(call inherit-product-if-exists, vendor/google/sargo/sargo-vendor.mk)
+$(call inherit-product-if-exists, vendor/google/bonito/bonito-vendor.mk)
