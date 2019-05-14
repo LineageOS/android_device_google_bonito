@@ -1,0 +1,3 @@
+# Now Playing
+product/etc/firmware/music_detector.descriptor
+product/etc/firmware/music_detector.sound_model
