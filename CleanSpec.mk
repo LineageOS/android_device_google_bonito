@@ -170,3 +170,7 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr)
 
 # Rename power HAL
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.power@1.3-service.bonito-libperfmgr.rc)
+
+# Remove generic atrace HAL
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.atrace@1.0-service.rc)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/vintf/manifest/android.hardware.atrace@1.0-service.xml)
