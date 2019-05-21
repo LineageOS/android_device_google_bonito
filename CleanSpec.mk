@@ -138,3 +138,6 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
 
 # Move libnfc-nci.conf to /vendor
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/libnfc-nci.conf)
+
+# Remove obsolete android.hardware.boot@1.0-impl-wrapper.recovery.so
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/system/lib64/hw/android.hardware.boot@1.0-impl-wrapper.recovery.so)
