@@ -14,6 +14,10 @@ allow hal_gnss_qti sysfs_soc:file r_file_perms;
 binder_call(hal_gnss_qti, per_mgr)
 allow hal_gnss_qti per_mgr_service:service_manager find;
 
+userdebug_or_eng(`
+  allow hal_gnss_qti diag_device:chr_file rw_file_perms;
+')
+
 # /data/vendor/location
 allow hal_gnss_qti location_data_file:dir create_dir_perms;
 allow hal_gnss_qti location_data_file:sock_file { create unlink write};
