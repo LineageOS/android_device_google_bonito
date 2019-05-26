@@ -537,7 +537,6 @@ vendor/lib64/libdataitems.so
 vendor/lib64/libdiagjni.so
 vendor/lib64/libdiag.so
 vendor/lib64/libdisp-aba.so
-vendor/lib64/libdisplayconfig.so
 vendor/lib64/libdisplayqos.so
 vendor/lib64/lib-dplmedia.so
 vendor/lib64/libdrmfs.so
@@ -583,7 +582,6 @@ vendor/lib64/lib-imsqimf.so
 vendor/lib64/lib-imsrcs-v2.so
 vendor/lib64/lib-imsxml.so
 vendor/lib64/libizat_core.so
-vendor/lib64/libjson.so
 vendor/lib64/libkeymasterdeviceutils.so
 vendor/lib64/libkeymasterprovision.so
 vendor/lib64/libkeymasterutils.so
@@ -685,11 +683,9 @@ vendor/lib64/libsysmon_cdsp_skel.so
 vendor/lib64/libsystem_health_mon.so
 vendor/lib64/libtime_genoff.so
 vendor/lib64/libtinyxml2_1.so
-vendor/lib64/libtinyxml.so
 vendor/lib64/libtzdrmgenprov.so
 vendor/lib64/lib-uceservice.so
 vendor/lib64/libvsc.so
-vendor/lib64/libwifi-hal-qcom.so
 vendor/lib64/libwms.so
 vendor/lib64/libwqe.so
 vendor/lib64/libwvhidl.so
@@ -816,7 +812,6 @@ vendor/lib/libdataitems.so
 vendor/lib/libdiagjni.so
 vendor/lib/libdiag.so
 vendor/lib/libdisp-aba.so
-vendor/lib/libdisplayconfig.so
 vendor/lib/libdisplayqos.so
 vendor/lib/lib-dplmedia.so
 vendor/lib/libdrmfs.so
@@ -858,7 +853,6 @@ vendor/lib/lib-imsqimf.so
 vendor/lib/lib-imsrcs-v2.so
 vendor/lib/lib-imsxml.so
 vendor/lib/libizat_core.so
-vendor/lib/libjson.so
 vendor/lib/libkeymasterdeviceutils.so
 vendor/lib/libkeymasterprovision.so
 vendor/lib/libkeymasterutils.so
@@ -959,13 +953,11 @@ vendor/lib/libsysmon_cdsp_skel.so
 vendor/lib/libsystem_health_mon.so
 vendor/lib/libtime_genoff.so
 vendor/lib/libtinyxml2_1.so
-vendor/lib/libtinyxml.so
 vendor/lib/libtzdrmgenprov.so
 vendor/lib/lib-uceservice.so
 vendor/lib/libvideoutils.so
 vendor/lib/libvqzip.so
 vendor/lib/libvsc.so
-vendor/lib/libwifi-hal-qcom.so
 vendor/lib/libwms.so
 vendor/lib/libwqe.so
 vendor/lib/libxml.so
