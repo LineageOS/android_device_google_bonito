@@ -1257,6 +1257,11 @@
         <ctl name="VoiceMMode2_Tx Mixer PRI_TDM_TX_0_MMode2" value="1" />
     </path>
 
+    <path name="voicemmode2-call hearing-aid">
+        <ctl name="AFE_PCM_RX_Voice Mixer VoiceMMode2" value="1"/>
+        <ctl name="VoiceMMode2_Tx Mixer PRI_TDM_TX_0_MMode2" value="1"/>
+    </path>
+
     <path name="voicemmode2-call handset">
         <ctl name="SEC_TDM_RX_0_Voice Mixer VoiceMMode2" value="1" />
         <ctl name="VoiceMMode2_Tx Mixer PRI_TDM_TX_0_MMode2" value="1" />
@@ -1295,7 +1300,7 @@
 
     <path name="voicemmode2-call usb-headphones">
         <ctl name="USB_AUDIO_RX_Voice Mixer VoiceMMode2" value="1" />
-        <ctl name="VoiceMMode2_Tx Mixer INT3_MI2S_TX_MMode2" value="1" />
+        <ctl name="VoiceMMode2_Tx Mixer PRI_TDM_TX_0_MMode2" value="1" />
     </path>
 
     <path name="voicemmode2-call usb-headset">
