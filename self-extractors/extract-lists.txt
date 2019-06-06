@@ -5,13 +5,12 @@
     ;;
   qcom)
     TO_EXTRACT="\
+            system/app/QtiTelephonyService/QtiTelephonyService.apk \
             system/compatibility_matrix.xml \
             system/etc/cne/andsfCne.xml \
             system/etc/cne/Nexus/ATT/ATT_profiles.xml \
             system/etc/cne/Nexus/ROW/ROW_profiles.xml \
             system/etc/cne/Nexus/VZW/VZW_profiles.xml \
-            system/etc/ld.config.28.txt \
-            system/etc/llndk.libraries.28.txt \
             system/etc/permissions/cneapiclient.xml \
             system/etc/permissions/com.quicinc.cne.xml \
             system/etc/permissions/embms.xml \
@@ -86,7 +85,6 @@
             system/lib/lib-imsvtutils.so \
             system/lib/liblistenjni.so \
             system/lib/liblistensoundmodel2.so \
-            system/lib/liblogwrap.so \
             system/lib/libmdsprpc_system.so \
             system/lib/libminui.so \
             system/lib/libnl.so \

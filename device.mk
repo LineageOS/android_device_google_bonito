@@ -20,6 +20,7 @@ PRODUCT_SOONG_NAMESPACES += \
     device/google/bonito \
     hardware/google/av \
     hardware/google/interfaces \
+    hardware/google/pixel \
     hardware/qcom/sdm710 \
     vendor/qcom/sdm710
 
@@ -83,6 +84,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     $(LOCAL_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
     $(LOCAL_PATH)/thermal-engine-$(PRODUCT_HARDWARE).conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-$(PRODUCT_HARDWARE).conf \
+    $(LOCAL_PATH)/init.firstboot.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.firstboot.sh \
     $(LOCAL_PATH)/init.ramoops.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.ramoops.sh
 
 # Edge Sense initialization script.
@@ -214,9 +216,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # perfstatsd
-PRODUCT_PACKAGES += \
-    perfstatsd \
-    init-perfstatsd.rc
+PRODUCT_PACKAGES_DEBUG += \
+    perfstatsd
 
 # Audio fluence, ns, aec property, voice and media volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -226,6 +227,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecomm=true \
     persist.audio.fluence.voicerec=false \
     persist.audio.dualmic.config=endfire \
+    persist.audio.in_mmap_delay_micros=100 \
+    persist.audio.out_mmap_delay_micros=150 \
     ro.config.vc_call_vol_steps=7 \
     ro.config.media_vol_steps=25 \
 
@@ -795,4 +798,4 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Increment the SVN for any official public releases
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build.svn=1
+	ro.vendor.build.svn=2

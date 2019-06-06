@@ -185,6 +185,15 @@
       "HoldFd": true
     },
     {
+      "Name": "ForegroundCpuset",
+      "Path": "/dev/cpuset/foreground/cpus",
+      "Values": [
+        "0-5",
+        "0-5,7"
+      ],
+      "ResetOnInit": true
+    },
+    {
       "Name": "SchedBoost",
       "Path": "/proc/sys/kernel/sched_boost",
       "Values": [
@@ -254,6 +263,12 @@
       "Node": "CPUBWMinFreq",
       "Duration": 0,
       "Value": "5161"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "ForegroundCpuset",
+      "Duration": 5000,
+      "Value": "0-5"
     },
     {
       "PowerHint": "LAUNCH",

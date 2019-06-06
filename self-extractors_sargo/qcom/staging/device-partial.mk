@@ -15,7 +15,8 @@
 # AOSP packages required by the blobs
 PRODUCT_PACKAGES := \
     com.android.ims.rcsmanager.xml \
-    com.android.ims.rcsmanager
+    com.android.ims.rcsmanager \
+    QtiTelephonyService
 
 #  blob(s) necessary for sargo hardware
 PRODUCT_COPY_FILES := \
@@ -24,8 +25,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/ATT_profiles.xml:system/etc/cne/Nexus/ATT/ATT_profiles.xml:qcom \
     vendor/qcom/sargo/proprietary/ROW_profiles.xml:system/etc/cne/Nexus/ROW/ROW_profiles.xml:qcom \
     vendor/qcom/sargo/proprietary/VZW_profiles.xml:system/etc/cne/Nexus/VZW/VZW_profiles.xml:qcom \
-    vendor/qcom/sargo/proprietary/ld.config.28.txt:system/etc/ld.config.28.txt:qcom \
-    vendor/qcom/sargo/proprietary/llndk.libraries.28.txt:system/etc/llndk.libraries.28.txt:qcom \
     vendor/qcom/sargo/proprietary/cneapiclient.xml:system/etc/permissions/cneapiclient.xml:qcom \
     vendor/qcom/sargo/proprietary/com.quicinc.cne.xml:system/etc/permissions/com.quicinc.cne.xml:qcom \
     vendor/qcom/sargo/proprietary/embms.xml:system/etc/permissions/embms.xml:qcom \
@@ -100,7 +99,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/lib-imsvtutils.so:system/lib/lib-imsvtutils.so:qcom \
     vendor/qcom/sargo/proprietary/liblistenjni.so:system/lib/liblistenjni.so:qcom \
     vendor/qcom/sargo/proprietary/liblistensoundmodel2.so:system/lib/liblistensoundmodel2.so:qcom \
-    vendor/qcom/sargo/proprietary/liblogwrap.so:system/lib/liblogwrap.so:qcom \
     vendor/qcom/sargo/proprietary/libmdsprpc_system.so:system/lib/libmdsprpc_system.so:qcom \
     vendor/qcom/sargo/proprietary/libminui.so:system/lib/libminui.so:qcom \
     vendor/qcom/sargo/proprietary/libnl.so:system/lib/libnl.so:qcom \
