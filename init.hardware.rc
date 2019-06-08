@@ -148,6 +148,7 @@ on late-init
     chown system system /sys/devices/virtual/thermal/tz-by-name/mb-therm-monitor/trip_point_0_hyst
     chown system system /sys/devices/virtual/thermal/tz-by-name/usbc-therm-monitor/trip_point_0_temp
     chown system system /sys/devices/virtual/thermal/tz-by-name/usbc-therm-monitor/trip_point_0_hyst
+    chown system system /sys/devices/virtual/thermal/tz-by-name/soc/mode
 
 on fs
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --early
@@ -304,6 +305,8 @@ on zygote-start
 
     mkdir /data/vendor/sensors 0770
     chown system system /data/vendor/sensors
+    mkdir /data/vendor/sensors/log 0770
+    chown system system /data/vendor/sensors/log
 
     chmod 770 /mnt/vendor/persist/audio
     chmod 660 /mnt/vendor/persist/audio/audio.cal
