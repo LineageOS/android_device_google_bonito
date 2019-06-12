@@ -54,6 +54,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_PACKAGES += \
     messaging
 
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += chre_test_client
+endif
+
 LOCAL_PATH := device/google/bonito
 
 TARGET_PRODUCT_PROP := $(LOCAL_PATH)/product.prop
