@@ -21,6 +21,7 @@ cc_binary {
         "android.hardware.keymaster@4.0",
         "libbase",
         "libkeymaster4support",
+        "libutils",
     ],
     proprietary: true,
 }
