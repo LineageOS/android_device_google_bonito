@@ -478,7 +478,7 @@ PRODUCT_PACKAGES += \
 
 # Vibrator HAL
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.2-service.bonito \
+    android.hardware.vibrator@1.2-service.drv2624
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
