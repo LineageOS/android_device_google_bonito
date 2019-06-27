@@ -449,6 +449,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     libqcodec2 \
     vendor.qti.media.c2@1.0-service \
+    media_codecs_c2.xml
 
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
