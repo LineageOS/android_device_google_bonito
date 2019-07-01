@@ -20,13 +20,13 @@
 #include <utils/StrongPointer.h>
 
 #include <pixelstats/SysfsCollector.h>
-#include "DropDetect.h"
-#include "UeventListener.h"
+#include <pixelstats/DropDetect.h>
+#include <pixelstats/UeventListener.h>
 
 using android::sp;
 using android::hardware::google::pixel::SysfsCollector;
-using device::google::bonito::DropDetect;
-using device::google::bonito::UeventListener;
+using android::hardware::google::pixel::DropDetect;
+using android::hardware::google::pixel::UeventListener;
 
 const struct SysfsCollector::SysfsPaths sysfs_paths = {
     .SlowioReadCntPath = "/sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_read_cnt",
@@ -52,7 +52,9 @@ int main() {
         return 1;
     }
 
-    UeventListener::ListenForeverInNewThread();
+    UeventListener ueventListener("");
+    std::thread listenThread(&UeventListener::ListenForever, &ueventListener);
+    listenThread.detach();
 
     SysfsCollector collector(sysfs_paths);
     collector.collect();  // This blocks forever.

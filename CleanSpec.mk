@@ -136,8 +136,44 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/product)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/product)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
 
+# Remove init.environ.rc to force product to be recreated on other devices
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/init.environ.rc)
+
+# Verified boot xml moved to /product
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/permissions/android.software.verified_boot.xml)
+
 # Move libnfc-nci.conf to /vendor
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/libnfc-nci.conf)
+
+# ThermalHAL 1.1
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.thermal@1.1-service.bonito.rc)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.thermal@1.1-service.bonito)
+
+# Move fingerprint input files to /vendor
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr/keylayout/uinput-fpc.kl)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr/idc/uinput-fpc.idc)
+
+# Recovery init files moved to recovery
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/init.recovery.*.rc)
+
+# Add product partition
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/app)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/fonts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/framework)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/media)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/priv-app)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/usr)
+
+# Rename power HAL
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.power@1.3-service.bonito-libperfmgr.rc)
+
+# Remove generic atrace HAL
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.atrace@1.0-service.rc)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/vintf/manifest/android.hardware.atrace@1.0-service.xml)
 
 # Remove obsolete android.hardware.boot@1.0-impl-wrapper.recovery.so
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/system/lib64/hw/android.hardware.boot@1.0-impl-wrapper.recovery.so)

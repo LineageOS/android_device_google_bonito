@@ -1,12 +1,11 @@
 <manifest version="1.0" type="framework">
     <hal format="hidl">
-        <name>hardware.google.pixelstats</name>
+        <name>vendor.qti.hardware.radio.atcmdfwd</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
-            <name>IPixelStats</name>
-            <instance>default</instance>
+            <name>IAtCmdFwd</name>
+            <instance>AtCmdFwdService</instance>
         </interface>
     </hal>
 </manifest>
-

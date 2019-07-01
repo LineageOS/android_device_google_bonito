@@ -21,6 +21,7 @@ namespace google {
 namespace bonito {
 namespace health {
 
+static constexpr char kChgFullDesignFile[] = "sys/class/power_supply/bms/charge_full_design";
 static constexpr char kChgFullFile[] = "sys/class/power_supply/bms/charge_full";
 static constexpr char kSysCFPersistFile[] = "/persist/battery/qcom_charge_full";
 static constexpr int kBuffSize = 256;
@@ -28,17 +29,18 @@ static constexpr int kBuffSize = 256;
 LearnedCapacityBackupRestore::LearnedCapacityBackupRestore() {}
 
 void LearnedCapacityBackupRestore::Restore() {
-    ReadFromStorage();
-    ReadFromSRAM();
+    ReadPersistData();
+    ReadNominalCapacity();
+    ReadCapacity();
     UpdateAndSave();
 }
 
 void LearnedCapacityBackupRestore::Backup() {
-    ReadFromSRAM();
+    ReadCapacity();
     UpdateAndSave();
 }
 
-void LearnedCapacityBackupRestore::ReadFromStorage() {
+void LearnedCapacityBackupRestore::ReadPersistData() {
     std::string buffer;
 
     if (!android::base::ReadFileToString(std::string(kSysCFPersistFile), &buffer)) {
@@ -63,20 +65,36 @@ void LearnedCapacityBackupRestore::SaveToStorage() {
         LOG(ERROR) << "Write file error: " << strerror(errno);
 }
 
-void LearnedCapacityBackupRestore::ReadFromSRAM() {
+void LearnedCapacityBackupRestore::ReadNominalCapacity() {
+    std::string buffer;
+
+    if (!android::base::ReadFileToString(std::string(kChgFullDesignFile), &buffer)) {
+        LOG(ERROR) << "Read nominal capacity error: " << strerror(errno);
+        return;
+    }
+
+    buffer = android::base::Trim(buffer);
+
+    if (sscanf(buffer.c_str(), "%d", &nom_cap_) < 1)
+        LOG(ERROR) << "Failed to parse nominal capacity: " << buffer;
+    else
+        LOG(INFO) << "nominal capacity: " << buffer;
+}
+
+void LearnedCapacityBackupRestore::ReadCapacity() {
     std::string buffer;
 
     if (!android::base::ReadFileToString(std::string(kChgFullFile), &buffer)) {
-        LOG(ERROR) << "Read cycle counter error: " << strerror(errno);
+        LOG(ERROR) << "Read capacity error: " << strerror(errno);
         return;
     }
 
     buffer = android::base::Trim(buffer);
 
     if (sscanf(buffer.c_str(), "%d", &hw_cap_) < 1)
-        LOG(ERROR) << "Failed to parse SRAM bins: " << buffer;
+        LOG(ERROR) << "Failed to parse capacity: " << buffer;
     else
-        LOG(INFO) << "SRAM data: " << buffer;
+        LOG(INFO) << "capacity: " << buffer;
 }
 
 void LearnedCapacityBackupRestore::SaveToSRAM() {
@@ -94,10 +112,11 @@ void LearnedCapacityBackupRestore::UpdateAndSave() {
     bool backup = false;
     bool restore = false;
     if (hw_cap_) {
-        if ((hw_cap_ < sw_cap_) || (sw_cap_ == 0)) {
+        if (((hw_cap_ != sw_cap_) && (hw_cap_ != nom_cap_)) ||
+            (sw_cap_ == 0)) {
             sw_cap_ = hw_cap_;
             backup = true;
-        } else if (hw_cap_ > sw_cap_) {
+        } else if ((sw_cap_ > 0) && (hw_cap_ == nom_cap_)) {
             hw_cap_ = sw_cap_;
             restore = true;
         }

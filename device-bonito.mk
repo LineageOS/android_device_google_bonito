@@ -14,10 +14,6 @@
 # limitations under the License.
 #
 
-PRODUCT_AAPT_CONFIG := normal
-PRODUCT_AAPT_PREF_CONFIG := 400dpi
-PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
-
 PRODUCT_HARDWARE := bonito
 
 include device/google/bonito/device-common.mk
@@ -28,7 +24,7 @@ PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.bonito.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
 
 # Vibrator HAL
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES +=\
+PRODUCT_PRODUCT_PROPERTIES +=\
     ro.vibrator.hal.click.duration=8 \
     ro.vibrator.hal.tick.duration=5 \
     ro.vibrator.hal.heavyclick.duration=12 \

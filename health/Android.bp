@@ -29,6 +29,7 @@ cc_binary {
     cflags: [
         "-Wall",
         "-Werror",
+        "-Wno-implicit-fallthrough", // warning in BatteryRechargingControl.cpp
     ],
 
     static_libs: [
@@ -36,16 +37,15 @@ cc_binary {
         "android.hardware.health@1.0-convert",
         "libhealthservice",
         "libbatterymonitor",
-        "libpixelhealth",
     ],
 
     shared_libs: [
-        "hardware.google.pixelstats@1.0",
         "libbase",
         "libcutils",
         "libhidlbase",
         "libhidltransport",
         "libhwbinder",
+        "libpixelhealth",
         "libutils",
         "android.hardware.health@2.0",
     ],
