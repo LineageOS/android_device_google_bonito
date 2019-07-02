@@ -15,3 +15,8 @@ ssr_setup vendor_ssr_prop file 78460200
 system_app vendor_default_prop file 78460200
 system_server vendor_default_prop file 78460200
 untrusted_app vendor_default_prop file 78460200
+e2fs tmpfs lnk_file 133126350
+hal_bluetooth_default hal_bluetooth_default socket 132313059
+init vendor_firmware_file filesystem 133126350
+installd tmpfs lnk_file 133126350
+ueventd tmpfs lnk_file 133126350
