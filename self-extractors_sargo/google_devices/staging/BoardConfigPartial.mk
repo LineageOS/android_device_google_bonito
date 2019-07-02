@@ -18,3 +18,6 @@ BOARD_PREBUILT_VENDORIMAGE := vendor/google_devices/sargo/proprietary/vendor.img
 ifdef USE_ANDROID_INFO
   TARGET_BOARD_INFO_FILE := vendor/google_devices/sargo/android-info.txt
 endif
+
+AB_OTA_PARTITIONS += \
+    vendor
