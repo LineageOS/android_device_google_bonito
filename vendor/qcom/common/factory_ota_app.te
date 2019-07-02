@@ -19,3 +19,7 @@ binder_call(update_engine, factory_ota_app) # Allow Update Engine to call the Fa
 allow factory_ota_app update_engine_service:service_manager find;
 allow factory_ota_app nfc_service:service_manager find;
 allow factory_ota_app radio_service:service_manager find;
+
+# b/133124196 For suppress the GPU service seploicy error log which Factory OTA does not need it.
+dontaudit factory_ota_app gpu_service:service_manager find;
+
