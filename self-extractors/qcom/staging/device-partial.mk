@@ -25,8 +25,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/ATT_profiles.xml:system/etc/cne/Nexus/ATT/ATT_profiles.xml:qcom \
     vendor/qcom/bonito/proprietary/ROW_profiles.xml:system/etc/cne/Nexus/ROW/ROW_profiles.xml:qcom \
     vendor/qcom/bonito/proprietary/VZW_profiles.xml:system/etc/cne/Nexus/VZW/VZW_profiles.xml:qcom \
-    vendor/qcom/bonito/proprietary/ld.config.28.txt:system/etc/ld.config.28.txt:qcom \
-    vendor/qcom/bonito/proprietary/llndk.libraries.28.txt:system/etc/llndk.libraries.28.txt:qcom \
     vendor/qcom/bonito/proprietary/cneapiclient.xml:system/etc/permissions/cneapiclient.xml:qcom \
     vendor/qcom/bonito/proprietary/com.quicinc.cne.xml:system/etc/permissions/com.quicinc.cne.xml:qcom \
     vendor/qcom/bonito/proprietary/embms.xml:system/etc/permissions/embms.xml:qcom \
@@ -113,7 +111,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/libsdsprpc_system.so:system/lib/libsdsprpc_system.so:qcom \
     vendor/qcom/bonito/proprietary/libsecureui_svcsock_system.so:system/lib/libsecureui_svcsock_system.so:qcom \
     vendor/qcom/bonito/proprietary/libsensorslog.so:system/lib/libsensorslog.so:qcom \
-    vendor/qcom/bonito/proprietary/libsns_device_mode_stub.so:system/lib/libsns_device_mode_stub.so:qcom \
     vendor/qcom/bonito/proprietary/libsns_low_lat_stream_stub.so:system/lib/libsns_low_lat_stream_stub.so:qcom \
     vendor/qcom/bonito/proprietary/libunwind.so:system/lib/libunwind.so:qcom \
     vendor/qcom/bonito/proprietary/libsns_low_lat_stream_skel.so:system/lib/rfsa/adsp/libsns_low_lat_stream_skel.so:qcom \
