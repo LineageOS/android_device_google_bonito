@@ -16,4 +16,5 @@ allow dumpstate debugfs_mmc:dir search;
 allow dumpstate vendor_firmware_file:dir getattr;
 allow dumpstate vendor_firmware_file:filesystem getattr;
 
+dontaudit dumpstate misc_logd_file:dir read;
 dontaudit dumpstate kernel:system module_request;
