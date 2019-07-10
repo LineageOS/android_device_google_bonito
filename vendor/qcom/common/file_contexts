@@ -129,6 +129,7 @@
 /vendor/bin/time_daemon         u:object_r:time_daemon_exec:s0
 /vendor/bin/tcpdump_logger      u:object_r:tcpdump_logger_exec:s0
 /vendor/bin/imsrcsd             u:object_r:hal_rcsservice_exec:s0
+/vendor/bin/init\.edge_sense\.sh                                     u:object_r:init-edge_sense-sh_exec:s0
 /vendor/bin/init\.qcom\.devstart\.sh                                 u:object_r:init-qcom-devstart-sh_exec:s0
 /vendor/bin/init\.qcom\.ipastart\.sh                                 u:object_r:init-qcom-ipastart-sh_exec:s0
 /vendor/bin/init\.qcom\.wlan\.sh                                     u:object_r:init-qcom-wlan-sh_exec:s0
@@ -138,6 +139,7 @@
 /vendor/bin/ftmdaemon           u:object_r:ftmd_exec:s0
 /vendor/bin/hw/qcrild           u:object_r:rild_exec:s0
 /vendor/bin/mm-pp-dpps          u:object_r:mm-pp-daemon_exec:s0
+/vendor/bin/grep                u:object_r:vendor_grep_exec:s0
 
 /vendor/bin/hw/android\.hardware\.confirmationui@1\.0-service-bonito u:object_r:hal_confirmationui_default_exec:s0
 /vendor/bin/hw/android\.hardware\.drm@1\.2-service\.clearkey         u:object_r:hal_drm_clearkey_exec:s0
