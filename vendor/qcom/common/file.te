@@ -128,5 +128,8 @@ type proc_irq, fs_type, proc_type;
 type sysfs_irq, fs_type, sysfs_type;
 type irqbalance_socket, file_type;
 
+# grep
+type vendor_grep_exec, exec_type, vendor_file_type, file_type;
+
 allow rootfs labeledfs:filesystem associate;
 allow vendor_firmware_file self:filesystem associate;
