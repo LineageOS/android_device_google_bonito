@@ -1,6 +1,5 @@
 bootanim vendor_default_prop file 78460200
 cdsprpcd system_file dir 109882276
-crash_dump hexagon_halide_file file 78460200
 dataservice_app vendor_default_prop file 78460200
 drmserver sdcardfs dir 77869200
 e2fs tmpfs lnk_file 133126350
