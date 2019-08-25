@@ -871,6 +871,10 @@ on property:vendor.all.modules.ready=1
 on property:persist.radio.multisim.config=dsds
     start vendor.qcrild2
 
+# Stop 2nd qcrild when the property set to empty string
+on property:persist.radio.multisim.config=
+    stop vendor.qcrild2
+
 on property:sys.boot_completed=1 && property:ro.boot.mode=firstboot
     start init-firstboot-sh
 
