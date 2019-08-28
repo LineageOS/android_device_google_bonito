@@ -14,6 +14,7 @@
 
 # AOSP packages required by the blobs
 PRODUCT_PACKAGES := \
+    ims \
     QtiTelephonyService
 
 #  blob(s) necessary for sargo hardware
