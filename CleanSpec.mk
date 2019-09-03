@@ -181,3 +181,7 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/system/lib64/hw/andro
 # Vibrator HAL 1.2 renamed from 'bonito' to 'drv2624'
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/init/android.hardware.vibrator@1.2-service.bonito.rc)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/bin/hw/android.hardware.vibrator@1.2-service.bonito)
+
+# Move android.hidl.base@1.0.so to system_ext
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/lib/android.hidl.base@1.0.so)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/lib64/android.hidl.base@1.0.so)
