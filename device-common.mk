@@ -21,6 +21,9 @@ LOCAL_PATH := device/google/bonito
 # define hardware platform
 PRODUCT_PLATFORM := sdm670
 
+# Enable updating of APEXes
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+
 include device/google/bonito/device-audio-mfg.mk
 include device/google/bonito/device.mk
 
@@ -35,7 +38,10 @@ PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=4
 PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
 
 # Setting vendor SPL
-VENDOR_SECURITY_PATCH = "2018-09-05"
+VENDOR_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
+
+# Set boot SPL
+BOOT_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
 
 # MIDI feature
 PRODUCT_COPY_FILES += \
@@ -67,7 +73,7 @@ PRODUCT_PROPERTY_OVERRIDES += aaudio.mmap_exclusive_policy=2
 PRODUCT_PROPERTY_OVERRIDES += aaudio.hw_burst_min_usec=2000
 
 # Set lmkd options
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.low=1001 \
     ro.lmk.medium=800 \
     ro.lmk.critical=0 \
@@ -100,3 +106,23 @@ PRODUCT_COPY_FILES += \
 # Dumpstate HAL
 PRODUCT_PACKAGES += \
     android.hardware.dumpstate@1.0-service.bonito
+
+# Enable retrofit dynamic partitions for all bonito
+# and sargo targets
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
+PRODUCT_PACKAGES += \
+    android.hardware.boot@1.0-impl.recovery \
+    bootctrl.sdm710 \
+    bootctrl.sdm710.recovery \
+    check_dynamic_partitions \
+
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_product=true \
+    POSTINSTALL_PATH_product=bin/check_dynamic_partitions \
+    FILESYSTEM_TYPE_product=ext4 \
+    POSTINSTALL_OPTIONAL_product=false \
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.surface_flinger.use_color_management=true
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.surface_flinger.protected_contents=true
+

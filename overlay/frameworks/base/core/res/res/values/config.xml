@@ -67,6 +67,11 @@
         <item>3</item> <!-- COLOR_MODE_AUTOMATIC -->
     </integer-array>
 
+    <!-- Color mode to use when accessibility transforms are enabled. This color mode must be
+     supported by the device, but not necessarily appear in config_availableColorModes. The
+     regularly selected color mode will be used if this value is negative. -->
+    <integer name="config_accessibilityColorMode">2</integer>
+
     <!-- Boolean indicating whether the HWC setColorTransform function can be performed efficiently
          in hardware. -->
     <bool name="config_setColorTransformAccelerated">true</bool>
@@ -128,6 +133,9 @@
     <!-- Max number of advertisers supported by bluetooth controller. 0 if the
          device does not support multiple advertisement-->
     <integer translatable="false" name="config_bluetooth_max_advertisers">4</integer>
+
+    <!-- Whether Hearing Aid profile is supported -->
+    <bool name="config_hearing_aid_profile_supported">true</bool>
 
     <!-- Operating voltage for bluetooth controller. 0 by default-->
     <integer translatable="false" name="config_bluetooth_operating_voltage_mv">3300</integer>
@@ -208,7 +216,7 @@
 
    <!-- Enable doze mode
          ComponentName of a dream to show whenever the system would otherwise have gone to sleep. -->
-    <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+    <string translatable="false" name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
 
     <!-- If true, the doze component is not started until after the screen has been turned off
          and the screen off animation has been performed. -->
@@ -224,7 +232,7 @@
     <bool name="config_displayBlanksAfterDoze">true</bool>
 
     <!-- ImsService package name to bind to by default, if config_dynamic_bind_ims is true -->
-    <string name="config_ims_package">org.codeaurora.ims</string>
+    <string name="config_ims_package" translatable="false">org.codeaurora.ims</string>
 
     <!-- Flag specifying whether or not IMS will use the ImsResolver dynamically -->
     <bool name="config_dynamic_bind_ims">true</bool>
@@ -309,15 +317,16 @@
     <!-- Default list of files pinned by the Pinner Service -->
     <string-array translatable="false" name="config_defaultPinnerServiceFiles">
         <item>"/system/framework/arm64/boot-framework.oat"</item>
-        <item>"/system/framework/boot-framework.vdex"</item>
+        <item>"/system/framework/framework.jar"</item>
         <item>"/system/framework/oat/arm64/services.odex"</item>
-        <item>"/system/framework/oat/arm64/services.vdex"</item>
+        <item>"/system/framework/services.jar"</item>
         <item>"/system/framework/arm64/boot.oat"</item>
-        <item>"/system/framework/boot.vdex"</item>
         <item>"/system/framework/arm64/boot-core-libart.oat"</item>
-        <item>"/system/framework/boot-core-libart.vdex"</item>
-        <item>"/system/priv-app/SystemUIGoogle/oat/arm64/SystemUIGoogle.vdex"</item>
-        <item>"/system/priv-app/SystemUIGoogle/oat/arm64/SystemUIGoogle.odex"</item>
+        <item>"/apex/com.android.runtime/javalib/core-oj.jar"</item>
+        <item>"/apex/com.android.runtime/javalib/core-libart.jar"</item>
+        <item>"/apex/com.android.media/javalib/updatable-media.jar"</item>
+        <item>"/product/priv-app/SystemUIGoogle/SystemUIGoogle.apk"</item>
+        <item>"/product/priv-app/SystemUIGoogle/oat/arm64/SystemUIGoogle.odex"</item>
         <item>"/system/lib64/libsurfaceflinger.so"</item>
     </string-array>
 
@@ -335,9 +344,6 @@
 
     <!-- True if Unprocessed audio source supports the required frequency range and level -->
     <bool name="config_supportAudioSourceUnprocessed">true</bool>
-
-    <!-- Colon separated list of package names that should be granted DND access -->
-    <string name="config_defaultDndAccessPackages" translatable="false">com.google.android.gms:com.google.android.GoogleCamera:com.google.android.settings.intelligence</string>
 
     <!-- Enables or disables haptic effect when the text insertion/selection handle is moved
          manually by the user. -->
@@ -389,14 +395,6 @@
          meanings. -->
     <integer name="config_defaultNotificationVibrationIntensity">3</integer>
 
-    <!-- Boolean indicating whether framework needs to set the tx power limit for meeting SAR
-         requirements -->
-    <bool translatable="false" name="config_wifi_framework_enable_sar_tx_power_limit">true</bool>
-
-    <!-- Boolean indicating whether framework should use detection of softAP mode to set the tx
-         power limit for meeting SAR requirements -->
-    <bool translatable="false" name="config_wifi_framework_enable_soft_ap_sar_tx_power_limit">true</bool>
-
     <!-- Applications which are disabled unless matching a particular sku -->
     <string-array name="config_disableApksUnlessMatchedSku_apk_list" translatable="false">
         <item>com.felicanetworks.mfs</item>
@@ -407,9 +405,11 @@
         <item>com.felicanetworks.mfm</item>
     </string-array>
 
-    <!-- Set lowmemorykiller threshold -->
-    <integer name="config_lowMemoryKillerMinFreeKbytesAdjust">163840</integer>
+    <!-- True if the firmware supports Wi-Fi link probing -->
+    <bool name="config_wifi_link_probing_supported">true</bool>
 
-    <!-- Set direct background reclaim threshold -->
-    <integer name="config_extraFreeKbytesAbsolute">80000</integer>
+    <!-- True if the firmware supports connected MAC randomization -->
+    <bool name="config_wifi_connected_mac_randomization_supported">true</bool>
+    <!-- Enable Zram writeback feature to allow unused pages in zram be written to flash. -->
+    <bool name="config_zramWriteback">true</bool>
 </resources>
