@@ -3,8 +3,8 @@ persist.vendor.camera.     u:object_r:vendor_camera_prop:s0
 persist.camera.            u:object_r:vendor_camera_prop:s0
 persist.vendor.sys.cnd     u:object_r:cnd_prop:s0
 ro.boot.sota               u:object_r:factory_ota_prop:s0
-persist.factoryota.reboot  u:object_r:factory_ota_prop:s0
-persist.radio.bootwithlpm  u:object_r:factory_ota_prop:s0
+persist.factoryota.reboot  u:object_r:exported_system_prop:s0
+persist.radio.bootwithlpm  u:object_r:exported_system_prop:s0
 vendor.ims.                u:object_r:ims_prop:s0
 persist.vendor.ims.        u:object_r:ims_prop:s0
 persist.net.doxlat         u:object_r:vendor_net_radio_prop:s0
@@ -17,6 +17,7 @@ vendor.sys.listeners.registered   u:object_r:vendor_tee_listener_prop:s0
 vendor.thermal.vr_mode     u:object_r:vendor_thermal_prop:s0
 vendor.thermal.hw_mode     u:object_r:vendor_thermal_prop:s0
 ctl.vendor.thermal-engine  u:object_r:vendor_thermal_prop:s0
+vendor.thermal.config      u:object_r:vendor_thermal_prop:s0
 persist.vendor.sys.modem.diag.  u:object_r:vendor_modem_diag_prop:s0
 vendor.sys.modem.diag.     u:object_r:vendor_modem_diag_prop:s0
 persist.vendor.sys.ssr.    u:object_r:vendor_ssr_prop:s0
@@ -29,8 +30,8 @@ vendor.powerhal.state      u:object_r:power_prop:s0
 vendor.powerhal.audio      u:object_r:power_prop:s0
 vendor.powerhal.lpm        u:object_r:power_prop:s0
 vendor.powerhal.init       u:object_r:power_prop:s0
-sys.wlan.driver.version    u:object_r:vendor_wifi_version:s0
-sys.wlan.firmware.version  u:object_r:vendor_wifi_version:s0
+vendor.wlan.driver.version    u:object_r:vendor_wifi_version:s0
+vendor.wlan.firmware.version  u:object_r:vendor_wifi_version:s0
 vendor.peripheral.         u:object_r:per_mgr_state_prop:s0
 vendor.ese.debug_enabled   u:object_r:vendor_secure_element_prop:s0
 vendor.qcom.devup          u:object_r:vendor_device_prop:s0
@@ -69,8 +70,8 @@ persist.data.df.dl_mode    u:object_r:vendor_default_prop:s0
 persist.data.df.iwlan_mux  u:object_r:vendor_default_prop:s0
 persist.data.df.mux_count  u:object_r:vendor_default_prop:s0
 persist.data.df.ul_mode    u:object_r:vendor_default_prop:s0
-persist.data.dont_use_epc  u:object_r:vendor_default_prop:s0
-persist.data.dont_use_npflag  u:object_r:vendor_default_prop:s0
+persist.vendor.data.dont_use_epc  u:object_r:vendor_default_prop:s0
+persist.vendor.data.dont_use_npflag  u:object_r:vendor_default_prop:s0
 persist.data.dpm.enable    u:object_r:vendor_default_prop:s0
 persist.data.dropssdp      u:object_r:vendor_default_prop:s0
 persist.data.ibfc.enable   u:object_r:vendor_default_prop:s0
@@ -83,7 +84,7 @@ persist.data.netmgrd.qos.hybrid  u:object_r:vendor_default_prop:s0
 persist.data.netmgr.log_to_file  u:object_r:vendor_default_prop:s0
 persist.data.netmgr.wl.timeout  u:object_r:vendor_default_prop:s0
 persist.vendor.data.port_bridge.log  u:object_r:vendor_default_prop:s0
-persist.data.profile_update  u:object_r:vendor_default_prop:s0
+persist.vendor.data.profile_update  u:object_r:vendor_default_prop:s0
 persist.data.target.msm8998  u:object_r:vendor_default_prop:s0
 persist.data.tcpackprio.enable  u:object_r:vendor_default_prop:s0
 persist.data.wda.enable    u:object_r:vendor_default_prop:s0
@@ -138,6 +139,7 @@ sdm.video_mode_panel       u:object_r:vendor_default_prop:s0
 sdm.drop_skewed_vsync      u:object_r:vendor_default_prop:s0
 sys.disable_ext_animation  u:object_r:vendor_default_prop:s0
 sys.hwc_disable_hdr        u:object_r:vendor_default_prop:s0
+zeroth.debuglog.logmask    u:object_r:vendor_default_prop:s0
 
 # public_vendor_default_prop
 fastrpc.debug.trace        u:object_r:public_vendor_default_prop:s0
@@ -164,11 +166,14 @@ persist.vendor.radio.custom_ecc  u:object_r:vendor_radio_prop:s0
 persist.vendor.radio.data_con_rprt  u:object_r:vendor_radio_prop:s0
 persist.vendor.radio.data_ltd_sys_ind  u:object_r:vendor_radio_prop:s0
 persist.vendor.radio.is_wps_enabled  u:object_r:vendor_radio_prop:s0
+persist.vendor.radio.multisim_switch_support  u:object_r:vendor_radio_prop:s0
 persist.vendor.radio.sib16_support  u:object_r:vendor_radio_prop:s0
 persist.vendor.radio.snapshot_enabled  u:object_r:vendor_radio_prop:s0
 persist.vendor.radio.snapshot_timer  u:object_r:vendor_radio_prop:s0
 persist.vendor.radio.relay_oprt_change  u:object_r:vendor_radio_prop:s0
+persist.vendor.radio.sap_silent_pin  u:object_r:vendor_radio_prop:s0
 persist.vendor.radio.uicc_se_enabled  u:object_r:vendor_radio_prop:s0
+persist.vendor.radio.simlock.list  u:object_r:vendor_radio_prop:s0
 ro.radio.log_loc           u:object_r:vendor_radio_prop:s0
 ro.radio.log_prefix        u:object_r:vendor_radio_prop:s0
 
@@ -189,9 +194,22 @@ vendor.gralloc.disable_ubwc        u:object_r:vendor_display_prop:s0
 vendor.debug.prerotation.disable   u:object_r:vendor_display_prop:s0
 vendor.debug.egl.changepixelformat u:object_r:vendor_display_prop:s0
 vendor.debug.egl.swapinterval      u:object_r:vendor_display_prop:s0
+ro.vendor.graphics.memory          u:object_r:vendor_display_prop:s0
+vendor.debug.egl.profiler          u:object_r:vendor_display_prop:s0
+vendor.gralloc.disable_ahardware_buffer u:object_r:vendor_display_prop:s0
 
-# persist_nfc_prop
-persist.nfc. u:object_r:persist_nfc_prop:s0
+# vendor_nfc_prop
+persist.vendor.nfc.                u:object_r:vendor_nfc_prop:s0
 
 # Pixel Logger (Bluetooth)
 vendor.sys.logger.bluetooth        u:object_r:vendor_bluetooth_log_prop:s0
+
+#time service
+persist.vendor.delta_time.enable     u:object_r:vendor_time_service_prop:s0
+vendor.debug.time_services.enable    u:object_r:vendor_time_service_prop:s0
+
+# Tcpdump_logger
+persist.vendor.tcpdump.log.alwayson  u:object_r:vendor_tcpdump_log_prop:s0
+vendor.tcpdump.log.ondemand          u:object_r:vendor_tcpdump_log_prop:s0
+vendor.tcpdump.log.alwayson          u:object_r:vendor_tcpdump_log_prop:s0
+vendor.tcpdump.output.dir            u:object_r:vendor_tcpdump_log_prop:s0
