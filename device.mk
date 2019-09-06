@@ -869,10 +869,3 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # Increment the SVN for any official public releases
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.vendor.build.svn=9
-
-# Use /product/etc/fstab.postinstall to mount system_other.
-PRODUCT_PRODUCT_PROPERTIES += \
-    ro.postinstall.fstab.prefix=/product
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/fstab.postinstall:$(TARGET_COPY_OUT_PRODUCT)/etc/fstab.postinstall
