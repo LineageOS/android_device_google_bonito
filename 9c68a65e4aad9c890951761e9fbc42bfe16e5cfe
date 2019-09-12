@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "631d0c6a_13a6fb65",
+        "filename": "BoardConfigLineage.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2195
+      },
+      "writtenOn": "2019-09-12T22:24:56Z",
+      "side": 1,
+      "message": "Google has switched to just Image-lz4",
+      "revId": "9c68a65e4aad9c890951761e9fbc42bfe16e5cfe",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
