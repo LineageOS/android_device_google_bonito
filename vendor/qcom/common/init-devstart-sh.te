@@ -12,7 +12,7 @@ domain_auto_trans(init-qcom-devstart-sh, init-edge_sense-sh_exec, init-edge_sens
 
 # Set the vendor.qcom.devup property
 set_prop(init-qcom-devstart-sh, vendor_device_prop)
-# Set the sys.adsp.firmware.version property.
+# Set the vendor.sys.adsp.firmware.version property.
 set_prop(init-qcom-devstart-sh, public_vendor_system_prop)
 
 # Set boot_adsp and boot_slpi to 1
