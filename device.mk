@@ -316,6 +316,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so \
     ro.hardware.keystore_desede=true \
 
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.telephony.max.active.modems=2
+
 # Disable snapshot timer
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.snapshot_enabled=0 \
