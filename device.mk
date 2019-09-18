@@ -611,13 +611,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     $(LOCAL_PATH)/media_codecs_omx.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_omx.xml
 
-# configures both aac and xaac decoders
-PRODUCT_COPY_FILES += \
-    device/google/bonito/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-# and ensure that the xaac decoder is built
-PRODUCT_PACKAGES += \
-    libstagefright_soft_xaacdec.vendor
-
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.snd_card.open.retries=50
 
