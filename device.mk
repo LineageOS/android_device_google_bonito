@@ -301,7 +301,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.ROTATION_ENABLE=1 \
     persist.radio.VT_ENABLE=1 \
     persist.radio.VT_HYBRID_ENABLE=1 \
-    persist.radio.reboot_on_modem_change=true \
     persist.vendor.radio.apm_sim_not_pwdn=1 \
     persist.vendor.radio.custom_ecc=1 \
     persist.vendor.radio.data_ltd_sys_ind=1 \
@@ -315,6 +314,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.rcs.supported=1 \
     vendor.rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so \
     ro.hardware.keystore_desede=true \
+    ro.zram.mark_idle_delay_mins=60 \
+    ro.zram.first_wb_delay_mins=180 \
+    ro.zram.periodic_wb_delay_hours=24 \
+
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.telephony.max.active.modems=2
 
 # Disable snapshot timer
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -610,13 +615,6 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     $(LOCAL_PATH)/media_codecs_omx.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_omx.xml
-
-# configures both aac and xaac decoders
-PRODUCT_COPY_FILES += \
-    device/google/bonito/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-# and ensure that the xaac decoder is built
-PRODUCT_PACKAGES += \
-    libstagefright_soft_xaacdec.vendor
 
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.snd_card.open.retries=50
