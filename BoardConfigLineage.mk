@@ -3,7 +3,7 @@
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
 
-BOARD_KERNEL_IMAGE_NAME := Image.lz4-dtb
+BOARD_KERNEL_IMAGE_NAME := Image.lz4
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 TARGET_KERNEL_ADDITIONAL_FLAGS := \
     DTC=$(shell pwd)/prebuilts/misc/$(HOST_OS)-x86/dtc/dtc \
