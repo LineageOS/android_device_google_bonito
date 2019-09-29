@@ -19,9 +19,9 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=sargo \
-    PRIVATE_BUILD_DESC="sargo-user 9 PD2A.190115.032 5340326 release-keys"
+    PRIVATE_BUILD_DESC="sargo-user 10 QP1A.190711.020.C3 5869620 release-keys"
 
-BUILD_FINGERPRINT := google/sargo/sargo:9/PD2A.190115.032/5340326:user/release-keys
+BUILD_FINGERPRINT := google/sargo/sargo:10/QP1A.190711.020.C3/5869620:user/release-keys
 
 # Include sargo before bonito to use sargo versions of blobs if they exist
 $(call inherit-product-if-exists, vendor/google/sargo/sargo-vendor.mk)
