@@ -52,19 +52,29 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ -z "$SRC" ]; then
-    SRC=adb
+if [ -z "$SARGO_SRC" ]; then
+    SARGO_SRC=adb
+else
+    SARGO_SYSTEM_SRC="${SARGO_SRC}system"
+    SARGO_PRODUCT_SRC="${SARGO_SRC}product"
+fi
+
+if [ -z "$BONITO_SRC" ]; then
+    BONITO_SRC=adb
+else
+    BONITO_SYSTEM_SRC="${BONITO_SRC}system"
+    BONITO_PRODUCT_SRC="${BONITO_SRC}product"
 fi
 
 # Initialize the helper
 setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
 
-extract "$MY_DIR"/bonito-proprietary-files.txt "$BONITO_SRC" "$SECTION"
+extract2 "$MY_DIR"/bonito-proprietary-files.txt --system "$BONITO_SYSTEM_SRC" --product "$BONITO_PRODUCT_SRC" --section "$SECTION"
 
 # Reinitialize the helper for sargo
 DEVICE=sargo
 setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
 
-extract "$MY_DIR"/sargo-proprietary-files.txt "$SARGO_SRC" "$SECTION"
+extract2 "$MY_DIR"/sargo-proprietary-files.txt --system "$SARGO_SYSTEM_SRC" --product "$SARGO_PRODUCT_SRC" --section "$SECTION"
 
 "$MY_DIR"/setup-makefiles.sh
