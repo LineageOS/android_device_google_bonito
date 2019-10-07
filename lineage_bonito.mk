@@ -19,8 +19,8 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=bonito \
-    PRIVATE_BUILD_DESC="bonito-user 10 QP1A.190711.020.C3 5869620 release-keys"
+    PRIVATE_BUILD_DESC="bonito-user 10 QP1A.191005.007 5878874 release-keys"
 
-BUILD_FINGERPRINT := google/bonito/bonito:10/QP1A.190711.020.C3/5869620:user/release-keys
+BUILD_FINGERPRINT := google/bonito/bonito:10/QP1A.191005.007/5878874:user/release-keys
 
 $(call inherit-product-if-exists, vendor/google/bonito/bonito-vendor.mk)
