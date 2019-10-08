@@ -316,7 +316,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.keystore_desede=true \
 
 PRODUCT_PRODUCT_PROPERTIES += \
-    ro.telephony.max.active.modems=2
+    ro.telephony.max.active.modems=2 \
+    persist.radio.reboot_on_modem_change=false
 
 # Disable snapshot timer
 PRODUCT_PROPERTY_OVERRIDES += \
