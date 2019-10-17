@@ -40,7 +40,7 @@ on property:init.svc.vendor.charger=running
     # Enable thermal mitigation
     write /sys/devices/virtual/thermal/tz-by-name/backup-charge/mode enabled
 
-service vendor.charger /charger
+service vendor.charger /system/bin/charger
     class charger
     seclabel u:r:charger:s0
     user system
