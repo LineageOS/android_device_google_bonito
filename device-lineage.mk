@@ -1,3 +1,16 @@
+# Build vendor img
+AB_OTA_PARTITIONS += \
+    vendor
+
+# Display
+PRODUCT_PACKAGES += \
+    libdisplayconfig
+
+# DRM
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true \
+    media.mediadrmservice.enable=true
+
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/overlay-lineage
 
 # EUICC
@@ -9,6 +22,15 @@ PRODUCT_PACKAGES += \
     com.android.ims.rcsmanager \
     PresencePolling \
     RcsService
+
+# Utilities
+PRODUCT_PACKAGES += \
+    libjson \
+    libtinyxml
+
+# WiFi
+PRODUCT_PACKAGES += \
+    libwifi-hal-qcom
 
 WITH_GMS_FI := true
 

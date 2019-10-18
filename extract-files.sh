@@ -60,11 +60,13 @@ fi
 setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
 
 extract "$MY_DIR"/bonito-proprietary-files.txt "$BONITO_SRC" "$SECTION"
+extract "$MY_DIR"/bonito-proprietary-files-vendor.txt "$BONITO_SRC" "$SECTION"
 
 # Reinitialize the helper for sargo
 DEVICE=sargo
 setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT" false "$CLEAN_VENDOR"
 
 extract "$MY_DIR"/sargo-proprietary-files.txt "$SARGO_SRC" "$SECTION"
+extract "$MY_DIR"/sargo-proprietary-files-vendor.txt "$SARGO_SRC" "$SECTION"
 
 "$MY_DIR"/setup-makefiles.sh
