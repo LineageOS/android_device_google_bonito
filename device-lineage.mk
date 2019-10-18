@@ -1,3 +1,7 @@
+# Build vendor img
+AB_OTA_PARTITIONS += \
+    vendor
+
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/overlay-lineage
 
 # EUICC
