@@ -19,5 +19,7 @@ TARGET_KERNEL_SOURCE := kernel/google/msm-4.9
 DEVICE_MANIFEST_FILE += device/google/bonito/lineage_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += device/google/bonito/lineage_compatibility_matrix.xml
 
+BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 314572800
+
 include device/google/bonito/sepolicy-lineage/bonito-lineage-sepolicy.mk
 -include vendor/google/bonito/BoardConfigVendor.mk
