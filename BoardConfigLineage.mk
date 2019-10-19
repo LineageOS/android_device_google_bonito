@@ -16,5 +16,7 @@ TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_CONFIG := lineageos_bonito_defconfig
 TARGET_KERNEL_SOURCE := kernel/google/msm-4.9
 
+BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 314572800
+
 include device/google/bonito/sepolicy-lineage/bonito-lineage-sepolicy.mk
 -include vendor/google/bonito/BoardConfigVendor.mk
