@@ -48,4 +48,15 @@ $(DM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /product/lib/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(DM_SYMLINKS)
+
+RFS_MSM_MPSS_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/mpss/
+$(RFS_MSM_MPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "RFS MSM MPSS links: $@"
+	$(hide) ln -sf /data/vendor/rfs/mpss $@/readwrite
+	@mkdir -p $(dir $@)/readonly/firmware/image/
+	$(hide) ln -sf /mnt/vendor/persist/rfs/shared $@/shared
+	$(hide) ln -sf /vendor/firmware/wlanmdsp.mbn  $@/readonly/firmware/image/wlanmdsp.mbn
+
+ALL_DEFAULT_INSTALLED_MODULES += $(RFS_MSM_MPSS_SYMLINKS)
+
 endif
