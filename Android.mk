@@ -45,7 +45,7 @@ $(DM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "DMService lib link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /system/lib/$(notdir $@) $@
+	$(hide) ln -sf /product/lib/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(DM_SYMLINKS)
 endif
