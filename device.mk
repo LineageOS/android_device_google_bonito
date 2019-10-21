@@ -514,7 +514,7 @@ WPA += wpa_supplicant_wcn.conf
 WPA += wpa_supplicant
 PRODUCT_PACKAGES += $(WPA)
 
-ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += wpa_cli
 endif
 
@@ -800,8 +800,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 else
 endif
 
-# Enable tcpdump_logger on userdebug and eng
-ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+# Enable tcpdump_logger on and eng
+ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
     PRODUCT_PROPERTY_OVERRIDES += \
         persist.vendor.tcpdump.log.alwayson=false \
         persist.vendor.tcpdump.log.br_num=5
