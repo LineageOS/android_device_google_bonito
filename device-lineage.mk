@@ -14,6 +14,8 @@ PRODUCT_PACKAGES += \
     PresencePolling \
     RcsService
 
+PRODUCT_PRODUCT_PROPERTIES += sys.use_fifo_ui=1
+
 WITH_GMS_FI := true
 
 PRODUCT_COPY_FILES += \
