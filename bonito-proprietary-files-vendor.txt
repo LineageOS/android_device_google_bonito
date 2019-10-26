@@ -522,7 +522,7 @@ vendor/lib64/libbccQTI.so
 vendor/lib64/libbt-hidlclient.so
 vendor/lib64/libbthost_if_qti.so
 vendor/lib64/libbthost_if.so
-vendor/lib64/libbtnv.so
+-vendor/lib64/libbtnv.so
 vendor/lib64/libC2D2.so
 vendor/lib64/libc2d30_bltlib.so
 vendor/lib64/libc2dcolorconvert.so
@@ -599,9 +599,9 @@ vendor/lib64/lib-imsrcs-v2.so
 vendor/lib64/lib-imsxml.so
 vendor/lib64/libizat_core.so
 vendor/lib64/libjson.so
-vendor/lib64/libkeymasterdeviceutils.so
-vendor/lib64/libkeymasterprovision.so
-vendor/lib64/libkeymasterutils.so
+-vendor/lib64/libkeymasterdeviceutils.so
+-vendor/lib64/libkeymasterprovision.so
+-vendor/lib64/libkeymasterutils.so
 vendor/lib64/liblbs_core.so
 vendor/lib64/libllvm-glnext.so
 vendor/lib64/libllvm-qcom.so
@@ -615,7 +615,7 @@ vendor/lib64/libmdsprpc.so
 vendor/lib64/libmm-hdcpmgr.so
 vendor/lib64/libmm-omxcore.so
 vendor/lib64/libmotion_ae.so
-vendor/lib64/libMpeg4SwEncoder.so
+-vendor/lib64/libMpeg4SwEncoder.so
 vendor/lib64/libmulawdec.so
 vendor/lib64/libnetmgr.so
 vendor/lib64/liboemcrypto.so
@@ -655,7 +655,7 @@ vendor/lib64/libqmiservices.so
 vendor/lib64/libqmi.so
 vendor/lib64/libqmi_vs-google-1.so
 vendor/lib64/libqrtr.so
-vendor/lib64/libQSEEComAPI.so
+-vendor/lib64/libQSEEComAPI.so
 vendor/lib64/libqseed3.so
 vendor/lib64/libqservice.so
 vendor/lib64/libqsocket.so
@@ -824,7 +824,7 @@ vendor/lib/libbase64.so
 vendor/lib/libbccQTI.so
 vendor/lib/libbthost_if_qti.so
 vendor/lib/libbthost_if.so
-vendor/lib/libbtnv.so
+-vendor/lib/libbtnv.so
 vendor/lib/libC2D2.so
 vendor/lib/libc2d30_bltlib.so
 vendor/lib/libc2dcolorconvert.so
@@ -899,9 +899,9 @@ vendor/lib/lib-imsrcs-v2.so
 vendor/lib/lib-imsxml.so
 vendor/lib/libizat_core.so
 vendor/lib/libjson.so
-vendor/lib/libkeymasterdeviceutils.so
-vendor/lib/libkeymasterprovision.so
-vendor/lib/libkeymasterutils.so
+-vendor/lib/libkeymasterdeviceutils.so
+-vendor/lib/libkeymasterprovision.so
+-vendor/lib/libkeymasterutils.so
 vendor/lib/liblbs_core.so
 vendor/lib/libllvm-glnext.so
 vendor/lib/libllvm-qcom.so
@@ -915,7 +915,7 @@ vendor/lib/libmdmdetect.so
 vendor/lib/libmdsprpc.so
 vendor/lib/libmm-hdcpmgr.so
 vendor/lib/libmm-omxcore.so
-vendor/lib/libMpeg4SwEncoder.so
+-vendor/lib/libMpeg4SwEncoder.so
 vendor/lib/libmulawdec.so
 vendor/lib/libnetmgr.so
 vendor/lib/liboemcrypto.so
@@ -954,7 +954,7 @@ vendor/lib/libqmiservices.so
 vendor/lib/libqmi.so
 vendor/lib/libqmi_vs-google-1.so
 vendor/lib/libqrtr.so
-vendor/lib/libQSEEComAPI.so
+-vendor/lib/libQSEEComAPI.so
 vendor/lib/libqseed3.so
 vendor/lib/libqservice.so
 vendor/lib/libqsocket.so
