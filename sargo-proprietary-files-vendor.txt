@@ -4,5 +4,7 @@ vendor/etc/thermal-engine-sargo.conf
 vendor/firmware/confirmationui_fonts/LeapFrog_Google_Sans_Display_60.bin
 vendor/firmware/confirmationui_fonts/LeapFrog_Google_Sans_Display_Medium_38.bin
 vendor/firmware/confirmationui_fonts/LeapFrog_Roboto_38.bin
+vendor/firmware/synaptics_0.img
+vendor/firmware/synaptics_0.img:vendor/firmware/synaptics_2.img
 vendor/lib64/hw/sensors.sargo.so
 vendor/lib/hw/sensors.sargo.so
