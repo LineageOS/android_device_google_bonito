@@ -1,0 +1,2 @@
+allow init sysfs_mmc:dir { relabelfrom };
+allow init sysfs_mmc:file { relabelfrom };
