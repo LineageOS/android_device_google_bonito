@@ -1,0 +1,2 @@
+# Allow LiveDisplay to access vendor display property
+get_prop(hal_lineage_livedisplay_sysfs, vendor_display_prop)
