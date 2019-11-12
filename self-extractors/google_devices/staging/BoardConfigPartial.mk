@@ -14,6 +14,8 @@
 
 BOARD_PREBUILT_VENDORIMAGE := vendor/google_devices/bonito/proprietary/vendor.img
 
+VENDOR_BLOBS_NOTICE := vendor/google_devices/bonito/NOTICE
+
 -include vendor/google/tools/android-info.mk
 ifdef USE_ANDROID_INFO
   TARGET_BOARD_INFO_FILE := vendor/google_devices/bonito/android-info.txt
