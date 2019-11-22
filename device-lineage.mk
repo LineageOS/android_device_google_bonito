@@ -23,6 +23,7 @@ PRODUCT_PACKAGES += \
 
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/overlay-lineage
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += device/google/bonito/overlay-lineage/lineage-sdk
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += device/google/bonito/overlay-lineage/packages/apps/Snap
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += device/google/bonito/overlay/packages/apps/Bluetooth
 
 # EUICC
