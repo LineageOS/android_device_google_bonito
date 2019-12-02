@@ -27,6 +27,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.use_psi=true
 
+# Preopt SystemUI
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    SystemUI
+
 # RCS
 PRODUCT_PACKAGES += \
     com.android.ims.rcsmanager \
