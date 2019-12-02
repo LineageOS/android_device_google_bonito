@@ -27,7 +27,7 @@ vendor/bin/hw/android.hardware.drm@1.2-service.widevine
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
 vendor/bin/hw/android.hardware.keymaster@4.0-service-qti
 vendor/bin/hw/android.hardware.neuralnetworks@1.0-service-paintbox
-vendor/bin/hw/android.hardware.neuralnetworks@1.1-service-qti
+vendor/bin/hw/android.hardware.neuralnetworks@1.2-service-qti
 vendor/bin/hw/init_citadel
 vendor/bin/hw/qcrild
 vendor/bin/hw/vendor.google.radioext@1.0-service
@@ -185,7 +185,7 @@ vendor/etc/init/android.hardware.confirmationui@1.0-service-bonito.rc
 vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
 vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
 vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
-vendor/etc/init/android.hardware.neuralnetworks@1.1-service-qti.rc
+vendor/etc/init/android.hardware.neuralnetworks@1.2-service-qti.rc
 vendor/etc/init/easelmanagerd.rc
 vendor/etc/init/init_citadel.rc
 vendor/etc/init/init-ramoops.rc
@@ -421,10 +421,12 @@ vendor/firmware/wlanmdsp.mbn
 vendor/lib64/android.hardware.automotive.vehicle@2.0-manager-lib.so
 vendor/lib64/btaudio_offload_if.so
 vendor/lib64/camera/com.google.tuned.b4s4_imx355.bin
+vendor/lib64/camera/com.google.tuned.b4s4_imx355_s.bin
 vendor/lib64/camera/com.google.tuned.b4s4_imx363.bin
 vendor/lib64/camera/components/com.custom.stats.aec.so
 vendor/lib64/camera/components/com.custom.stats.awb.so
 vendor/lib64/camera/components/com.google.3atuning.b4s4_imx355.so
+vendor/lib64/camera/components/com.google.3atuning.b4s4_imx355_s.so
 vendor/lib64/camera/components/com.google.3atuning.b4s4_imx363.so
 vendor/lib64/camera/components/com.google.3atuning.default.so
 vendor/lib64/camera/components/com.google.node.eis.so
@@ -462,9 +464,11 @@ vendor/lib64/camera/components/com.qti.stats.pdlibsony.so
 vendor/lib64/camera/components/com.qti.stats.pdlibwrapper.so
 vendor/lib64/camera/components/libdepthmapwrapper.so
 vendor/lib64/camera/com.qti.sensor.imx355.so
+vendor/lib64/camera/com.qti.sensor.imx355_s.so
 vendor/lib64/camera/com.qti.sensor.imx363.so
 vendor/lib64/camera/com.qti.sensormodule.metric_imx363.bin
 vendor/lib64/camera/com.qti.sensormodule.primax_imx355.bin
+vendor/lib64/camera/com.qti.sensormodule.primax_imx355_s.bin
 vendor/lib64/camera/com.qti.tuned.default.bin
 vendor/lib64/camera/fdconfigpreview.bin
 vendor/lib64/camera/fdconfigpreviewlite.bin
@@ -692,6 +696,9 @@ vendor/lib64/libwvhidl.so
 vendor/lib64/libxml.so
 vendor/lib64/qcrild_librilutils.so
 vendor/lib64/sensors.ssc.so
+vendor/lib64/unnhal-acc-adreno.so
+vendor/lib64/unnhal-acc-common.so
+vendor/lib64/unnhal-acc-hvx.so
 vendor/lib64/vendor.display.color@1.0.so
 vendor/lib64/vendor.display.color@1.1.so
 vendor/lib64/vendor.display.color@1.2.so
@@ -703,6 +710,7 @@ vendor/lib64/vendor.google_paintbox@1.0.so
 vendor/lib64/vendor.google.radioext@1.0.so
 vendor/lib64/vendor.google.radioext@1.1.so
 vendor/lib64/vendor.google.wifi_ext@1.0.so
+vendor/lib64/vendor-pixelatoms-cpp.so
 vendor/lib64/vendor.qti.esepowermanager@1.0.so
 vendor/lib64/vendor.qti.googleext.imsext@1.0.so
 vendor/lib64/vendor.qti.hardware.automotive.vehicle@1.0.so
@@ -741,6 +749,7 @@ vendor/lib/android.hardware.automotive.vehicle@2.0-manager-lib.so
 vendor/lib/btaudio_offload_if.so
 vendor/lib/camera/com.qti.sensormodule.metric_imx363.bin
 vendor/lib/camera/com.qti.sensormodule.primax_imx355.bin
+vendor/lib/camera/com.qti.sensormodule.primax_imx355_s.bin
 vendor/lib/camera/com.qti.tuned.default.bin
 vendor/lib/camera/fdconfigpreview.bin
 vendor/lib/camera/fdconfigpreviewlite.bin
@@ -1021,8 +1030,11 @@ vendor/lib/vendor.qti.voiceprint@1.0.so
 vendor/media/ensemble_fd_model.emd
 vendor/media/LMspeed_508.emd
 vendor/media/PFFprec_600.emd
+vendor/odm/etc/permissions/sku_G020D/com.google.hardware.pixel.japan.xml
+vendor/odm/etc/permissions/sku_G020H/com.google.hardware.pixel.japan.xml
 vendor/radio/qcril_database/qcril.db
 vendor/radio/qcril_database/upgrade/0_initial.sql
+vendor/radio/qcril_database/upgrade/10_remove_germany_hard_ecc_110.sql
 vendor/radio/qcril_database/upgrade/1_version_intro.sql
 vendor/radio/qcril_database/upgrade/2_version_add_wps_config.sql
 vendor/radio/qcril_database/upgrade/3_version_google_feature.sql
