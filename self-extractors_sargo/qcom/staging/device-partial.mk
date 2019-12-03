@@ -14,6 +14,7 @@
 
 # AOSP packages required by the blobs
 PRODUCT_PACKAGES := \
+    ims \
     QtiTelephonyService
 
 #  blob(s) necessary for sargo hardware
@@ -30,11 +31,7 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/uimremoteclient.xml:system/etc/permissions/uimremoteclient.xml:qcom \
     vendor/qcom/sargo/proprietary/uimremoteserver.xml:system/etc/permissions/uimremoteserver.xml:qcom \
     vendor/qcom/sargo/proprietary/UimService.xml:system/etc/permissions/UimService.xml:qcom \
-    vendor/qcom/sargo/proprietary/com.android.future.usb.accessory.jar:system/framework/com.android.future.usb.accessory.jar:qcom \
-    vendor/qcom/sargo/proprietary/com.android.location.provider.jar:system/framework/com.android.location.provider.jar:qcom \
-    vendor/qcom/sargo/proprietary/com.android.mediadrm.signer.jar:system/framework/com.android.mediadrm.signer.jar:qcom \
     vendor/qcom/sargo/proprietary/com.qualcomm.qti.uceservice-V2.0-java.jar:system/framework/com.qualcomm.qti.uceservice-V2.0-java.jar:qcom \
-    vendor/qcom/sargo/proprietary/javax.obex.jar:system/framework/javax.obex.jar:qcom \
     vendor/qcom/sargo/proprietary/qcrilhook.jar:system/framework/qcrilhook.jar:qcom \
     vendor/qcom/sargo/proprietary/QtiTelephonyServicelibrary.jar:system/framework/QtiTelephonyServicelibrary.jar:qcom \
     vendor/qcom/sargo/proprietary/uimremoteclientlibrary.jar:system/framework/uimremoteclientlibrary.jar:qcom \
@@ -54,7 +51,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/lib64/lib-imsvt.so:system/lib64/lib-imsvt.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/lib-imsvtutils.so:system/lib64/lib-imsvtutils.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/libmdsprpc_system.so:system/lib64/libmdsprpc_system.so:qcom \
-    vendor/qcom/sargo/proprietary/lib64/libminui.so:system/lib64/libminui.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/libQTEEConnector_system.so:system/lib64/libQTEEConnector_system.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/librcc.so:system/lib64/librcc.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/libsdm-disp-apis.so:system/lib64/libsdm-disp-apis.so:qcom \
@@ -72,8 +68,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/lib-imsvt.so:system/lib/lib-imsvt.so:qcom \
     vendor/qcom/sargo/proprietary/lib-imsvtutils.so:system/lib/lib-imsvtutils.so:qcom \
     vendor/qcom/sargo/proprietary/libmdsprpc_system.so:system/lib/libmdsprpc_system.so:qcom \
-    vendor/qcom/sargo/proprietary/libminui.so:system/lib/libminui.so:qcom \
-    vendor/qcom/sargo/proprietary/libnl.so:system/lib/libnl.so:qcom \
     vendor/qcom/sargo/proprietary/libQTEEConnector_system.so:system/lib/libQTEEConnector_system.so:qcom \
     vendor/qcom/sargo/proprietary/librcc.so:system/lib/librcc.so:qcom \
     vendor/qcom/sargo/proprietary/libsdm-disp-apis.so:system/lib/libsdm-disp-apis.so:qcom \

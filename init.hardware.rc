@@ -483,6 +483,7 @@ on property:sys.boot_completed=1
     write /proc/irq/default_smp_affinity 3f
 
     # Enable ZRAM on boot_complete
+    rm /data/unencrypted/zram_swap
     swapon_all /vendor/etc/fstab.${ro.boot.hardware.platform}
     write /proc/sys/vm/swappiness 100
 
