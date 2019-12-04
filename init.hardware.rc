@@ -825,7 +825,7 @@ on property:ro.boot.hardware.sku=G020C
     setprop persist.vendor.radio.uicc_se_enabled true
 on property:ro.boot.hardware.sku=G020D
     setprop persist.vendor.nfc.uicc_enabled false
-    setprop persist.vendor.radio.uicc_se_enabled false
+    setprop persist.vendor.radio.uicc_se_enabled true
     interface_start android.hardware.secure_element@1.1::ISecureElement/eSE1
 on property:ro.boot.hardware.sku=G020E
     setprop persist.vendor.nfc.uicc_enabled true
@@ -838,7 +838,7 @@ on property:ro.boot.hardware.sku=G020G
     setprop persist.vendor.radio.uicc_se_enabled true
 on property:ro.boot.hardware.sku=G020H
     setprop persist.vendor.nfc.uicc_enabled false
-    setprop persist.vendor.radio.uicc_se_enabled false
+    setprop persist.vendor.radio.uicc_se_enabled true
     interface_start android.hardware.secure_element@1.1::ISecureElement/eSE1
 
 # charger driver exposes now finer grain control, map demo mode to those properties
