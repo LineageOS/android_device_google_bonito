@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca99db53_d888ed96",
+        "filename": "bonito-proprietary-files-vendor.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 7118
+      },
+      "writtenOn": "2019-12-26T10:18:35Z",
+      "side": 1,
+      "message": "These 2 are already being added by this new change. https://android.googlesource.com/device/google/bonito/+/521b7e2a0fc42c7adbff86d10fe65c2e935d6643",
+      "range": {
+        "startLine": 1035,
+        "startChar": 0,
+        "endLine": 1036,
+        "endChar": 72
+      },
+      "revId": "116b6c9c58ee5815ee11a80576a0ecf79053c249",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
