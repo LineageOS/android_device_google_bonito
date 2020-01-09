@@ -1,5 +1,5 @@
 #
-# Copyright 2015 The Android Open Source Project
+# Copyright 2020 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,16 +14,9 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_bonito.mk \
-    $(LOCAL_DIR)/aosp_sargo.mk \
-    $(LOCAL_DIR)/aosp_bonito_hwasan.mk \
-    $(LOCAL_DIR)/aosp_sargo_hwasan.mk \
-    $(LOCAL_DIR)/aosp_bonito_gms.mk \
-    $(LOCAL_DIR)/aosp_sargo_gms.mk
+$(call inherit-product, device/google/bonito/aosp_bonito.mk)
 
-COMMON_LUNCH_CHOICES := \
-    aosp_bonito-userdebug \
-    aosp_sargo-userdebug \
-    aosp_bonito_gms-userdebug \
-    aosp_sargo_gms-userdebug
+# Includes only mandatory GMS packages if they exist.
+$(call inherit-product, vendor/partner_gms/products/gms.mk)
+
+PRODUCT_NAME := aosp_bonito_gms
