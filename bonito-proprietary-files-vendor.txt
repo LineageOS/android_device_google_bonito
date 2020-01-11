@@ -729,9 +729,6 @@ vendor/lib64/unnhal-acc-hvx.so
 vendor/lib64/vendor.display.color@1.0.so
 vendor/lib64/vendor.display.color@1.1.so
 vendor/lib64/vendor.display.color@1.2.so
-vendor/lib64/vendor.display.config@1.1.so
-vendor/lib64/vendor.display.config@1.2.so
-vendor/lib64/vendor.display.config@1.3.so
 vendor/lib64/vendor.display.postproc@1.0.so
 vendor/lib64/vendor.google_paintbox@1.0.so
 vendor/lib64/vendor.google.radioext@1.0.so
@@ -1018,9 +1015,6 @@ vendor/lib/sensors.ssc.so
 vendor/lib/vendor.display.color@1.0.so
 vendor/lib/vendor.display.color@1.1.so
 vendor/lib/vendor.display.color@1.2.so
-vendor/lib/vendor.display.config@1.1.so
-vendor/lib/vendor.display.config@1.2.so
-vendor/lib/vendor.display.config@1.3.so
 vendor/lib/vendor.display.postproc@1.0.so
 vendor/lib/vendor.google_paintbox@1.0.so
 vendor/lib/vendor.google.radioext@1.0.so
