@@ -13,6 +13,10 @@ product/etc/firmware/music_detector.sound_model
 # Permissions
 product/etc/permissions/privapp-permissions-google-p.xml
 product/etc/permissions/privapp-permissions-google-ps.xml
+product/etc/sysconfig/pixel_2019_midyear_exclusive.xml
+product/etc/sysconfig/pixel_experience_2017.xml
+product/etc/sysconfig/pixel_experience_2018.xml
+product/etc/sysconfig/pixel_experience_2019_midyear.xml
 
 # Radio
 product/etc/CarrierSettings/airtel_in.pb
@@ -91,6 +95,9 @@ product/etc/permissions/com.google.omadm.trigger.xml
 product/etc/sysconfig/whitelist_com.android.omadm.service.xml
 product/lib/libdmengine.so
 product/lib/libdmjavaplugin.so
+product/lib/vendor.google.wifi_ext@1.0.so
+product/lib64/vendor.google.wifi_ext@1.0.so
+-product/priv-app/CarrierServices/CarrierServices.apk;PRESIGNED
 -product/priv-app/CarrierSettings/CarrierSettings.apk
 -product/priv-app/CarrierSetup/CarrierSetup.apk
 -product/priv-app/DMService/DMService.apk
@@ -135,6 +142,15 @@ system/lib/lib-imsvtutils.so
 system/lib/librcc.so
 -system/priv-app/CNEService/CNEService.apk
 -system/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+
+# SecureUI
+-product/app/com.qualcomm.qti.services.secureui/com.qualcomm.qti.services.secureui.apk
+product/lib/libsecureuisvc_jni.so
+product/lib64/libsecureuisvc_jni.so
+product/lib/vendor.qti.hardware.qdutils_disp@1.0.so
+product/lib64/vendor.qti.hardware.qdutils_disp@1.0.so
+system/lib/libsecureui_svcsock_system.so
+system/lib64/libsecureui_svcsock_system.so
 
 # Sprint
 product/etc/permissions/com.android.sdm.plugins.sprintdm.xml
