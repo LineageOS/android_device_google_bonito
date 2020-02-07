@@ -1,0 +1,3 @@
+# b/149063676
+dontaudit priv_app sysfs_msm_subsys:file read;
+dontaudit priv_app vendor_default_prop:file read;
