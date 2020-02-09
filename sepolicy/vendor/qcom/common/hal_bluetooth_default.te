@@ -4,6 +4,9 @@ allow hal_bluetooth_default bt_device:chr_file rw_file_perms;
 allow hal_bluetooth fwk_scheduler_hwservice:hwservice_manager find;
 allow hal_bluetooth system_server:binder call;
 
+allow hal_bluetooth_default self:socket create;
+allow hal_bluetooth_default kernel:system module_request;
+
 set_prop(hal_bluetooth_default, vendor_bluetooth_prop)
 
 userdebug_or_eng(`
