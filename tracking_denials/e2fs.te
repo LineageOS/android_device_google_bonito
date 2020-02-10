@@ -1,0 +1,2 @@
+# b/149063531
+dontaudit e2fs tmpfs:lnk_file read;

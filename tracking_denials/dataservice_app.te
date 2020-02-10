@@ -1,0 +1,2 @@
+# b/149063685
+dontaudit dataservice_app vendor_default_prop:file read;
