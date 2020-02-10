@@ -349,9 +349,11 @@ PRODUCT_PACKAGES += \
 
 # Light HAL
 PRODUCT_PACKAGES += \
-    lights.$(TARGET_CHIPSET) \
+    lights.qcom \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.lights=qcom
 
 # Memtrack HAL
 PRODUCT_PACKAGES += \
