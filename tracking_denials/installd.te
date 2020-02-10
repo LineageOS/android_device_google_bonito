@@ -1,0 +1,2 @@
+# b/149063192
+dontaudit installd tmpfs:lnk_file read;

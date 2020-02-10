@@ -1,0 +1,4 @@
+# b/149062700
+dontaudit gmscore_app mnt_vendor_file:dir search;
+dontaudit gmscore_app sysfs_msm_subsys:file read;
+dontaudit gmscore_app vendor_firmware_file:filesystem getattr;
