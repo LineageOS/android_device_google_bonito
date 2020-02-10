@@ -814,31 +814,9 @@ on property:wlan.driver.status=ok
 on property:ro.boot.mode=sota
     setprop ro.boot.sota enabled
 
-on property:ro.boot.hardware.sku=G020A
-    setprop persist.vendor.nfc.uicc_enabled true
-    setprop persist.vendor.radio.uicc_se_enabled true
-on property:ro.boot.hardware.sku=G020B
-    setprop persist.vendor.nfc.uicc_enabled true
-    setprop persist.vendor.radio.uicc_se_enabled true
-on property:ro.boot.hardware.sku=G020C
-    setprop persist.vendor.nfc.uicc_enabled true
-    setprop persist.vendor.radio.uicc_se_enabled true
 on property:ro.boot.hardware.sku=G020D
-    setprop persist.vendor.nfc.uicc_enabled false
-    setprop persist.vendor.radio.uicc_se_enabled true
     start vendor.secure_element_hal_service_1_1
-on property:ro.boot.hardware.sku=G020E
-    setprop persist.vendor.nfc.uicc_enabled true
-    setprop persist.vendor.radio.uicc_se_enabled true
-on property:ro.boot.hardware.sku=G020F
-    setprop persist.vendor.nfc.uicc_enabled true
-    setprop persist.vendor.radio.uicc_se_enabled true
-on property:ro.boot.hardware.sku=G020G
-    setprop persist.vendor.nfc.uicc_enabled true
-    setprop persist.vendor.radio.uicc_se_enabled true
 on property:ro.boot.hardware.sku=G020H
-    setprop persist.vendor.nfc.uicc_enabled false
-    setprop persist.vendor.radio.uicc_se_enabled true
     start vendor.secure_element_hal_service_1_1
 
 # charger driver exposes now finer grain control, map demo mode to those properties
