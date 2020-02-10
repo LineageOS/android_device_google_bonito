@@ -22,6 +22,30 @@
       "revId": "1089118de731f34a8e1dd2979c1601563e805f00",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b608246_0adf2486",
+        "filename": "sepolicy/vendor/qcom/common/hal_bluetooth_default.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3671
+      },
+      "writtenOn": "2020-02-10T18:29:19Z",
+      "side": 1,
+      "message": "Maybe, even so this entire PS wasn\u0027t enough to get bt working for me again. Need to find some time to debug...",
+      "parentUuid": "b1bb8054_6e3b6d2b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "1089118de731f34a8e1dd2979c1601563e805f00",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
     }
   ]
 }
