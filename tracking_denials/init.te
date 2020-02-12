@@ -1,3 +1,0 @@
-# b/149063688
-dontaudit init persist_block_device:lnk_file relabelto;
-dontaudit init vendor_firmware_file:filesystem getattr;
