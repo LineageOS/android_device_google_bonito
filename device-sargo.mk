@@ -20,6 +20,9 @@ include device/google/bonito/device-common.mk
 
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/sargo/overlay
 
+PRODUCT_PACKAGES += \
+    TelephonyOverlay2018MidyearSargo
+
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
 
