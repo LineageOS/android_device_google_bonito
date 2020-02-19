@@ -690,7 +690,7 @@ endif
 
 # Dumpstate HAL
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0-service.bonito
+    android.hardware.dumpstate@1.1-service.bonito
 
 # Citadel
 PRODUCT_PACKAGES += \
