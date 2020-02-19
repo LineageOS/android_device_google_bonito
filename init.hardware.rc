@@ -790,9 +790,6 @@ on property:wlan.driver.status=ok
     # Get the wlan driver/fw version
     start vendor.wlan_sh
 
-on property:ro.boot.mode=sota
-    setprop ro.boot.sota enabled
-
 on property:ro.boot.hardware.sku=G020A
     setprop persist.vendor.nfc.uicc_enabled true
     setprop persist.vendor.radio.uicc_se_enabled true
