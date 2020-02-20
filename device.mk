@@ -558,6 +558,10 @@ PRODUCT_PACKAGES += \
 LIB_NL := libnl_2
 PRODUCT_PACKAGES += $(LIB_NL)
 
+# Factory OTA
+PRODUCT_PACKAGES += \
+    FactoryOta
+
 # Audio effects
 PRODUCT_PACKAGES += \
     libvolumelistener \
@@ -905,6 +909,3 @@ else
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.verbose_logging_enabled=false
 endif
-
-# Factory OTA
--include vendor/google/factoryota/client/factoryota.mk
