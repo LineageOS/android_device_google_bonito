@@ -27,9 +27,6 @@ PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.bonito.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020C.conf \
     device/google/bonito/nfc/libnfc-nxp.bonito.ese.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020D.conf
 
-PRODUCT_PACKAGES += \
-    TelephonyOverlay2018MidyearBonito
-
 # Vibrator HAL
 PRODUCT_PRODUCT_PROPERTIES +=\
     ro.vibrator.hal.config.dynamic=1 \
