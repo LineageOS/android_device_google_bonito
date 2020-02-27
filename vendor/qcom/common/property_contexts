@@ -2,9 +2,6 @@ vendor.debug.camera.       u:object_r:vendor_camera_prop:s0
 persist.vendor.camera.     u:object_r:vendor_camera_prop:s0
 persist.camera.            u:object_r:vendor_camera_prop:s0
 persist.vendor.sys.cnd     u:object_r:cnd_prop:s0
-ro.boot.sota               u:object_r:factory_ota_prop:s0
-persist.factoryota.reboot  u:object_r:exported_system_prop:s0
-persist.radio.bootwithlpm  u:object_r:exported_system_prop:s0
 vendor.ims.                u:object_r:ims_prop:s0
 persist.vendor.ims.        u:object_r:ims_prop:s0
 persist.net.doxlat         u:object_r:vendor_net_radio_prop:s0
@@ -221,3 +218,6 @@ vendor.tcpdump.output.dir            u:object_r:vendor_tcpdump_log_prop:s0
 persist.vendor.wifi.sniffer.freq              u:object_r:vendor_wifi_sniffer_prop:s0
 persist.vendor.wifi.sniffer.bandwidth         u:object_r:vendor_wifi_sniffer_prop:s0
 vendor.wifi.sniffer.start                     u:object_r:vendor_wifi_sniffer_prop:s0
+
+# Vendor verbose logging prop
+persist.vendor.verbose_logging_enabled   u:object_r:vendor_logging_prop:s0
