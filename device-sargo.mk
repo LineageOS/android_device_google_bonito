@@ -21,7 +21,11 @@ include device/google/bonito/device-common.mk
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/sargo/overlay
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
+    device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf \
+    device/google/bonito/nfc/libnfc-nxp.sargo.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020E.conf \
+    device/google/bonito/nfc/libnfc-nxp.sargo.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020F.conf \
+    device/google/bonito/nfc/libnfc-nxp.sargo.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020G.conf \
+    device/google/bonito/nfc/libnfc-nxp.sargo.ese.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020H.conf
 
 PRODUCT_PRODUCT_PROPERTIES += ro.com.google.ime.height_ratio=1.2
 

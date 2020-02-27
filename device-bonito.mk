@@ -21,7 +21,11 @@ include device/google/bonito/device-common.mk
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/bonito/overlay
 
 PRODUCT_COPY_FILES += \
-    device/google/bonito/nfc/libnfc-nxp.bonito.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
+    device/google/bonito/nfc/libnfc-nxp.bonito.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf \
+    device/google/bonito/nfc/libnfc-nxp.bonito.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020A.conf \
+    device/google/bonito/nfc/libnfc-nxp.bonito.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020B.conf \
+    device/google/bonito/nfc/libnfc-nxp.bonito.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020C.conf \
+    device/google/bonito/nfc/libnfc-nxp.bonito.ese.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020D.conf
 
 # Vibrator HAL
 PRODUCT_PRODUCT_PROPERTIES +=\
