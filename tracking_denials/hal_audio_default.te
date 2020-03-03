@@ -1,0 +1,2 @@
+# b/150658572
+dontaudit hal_audio_default exported3_system_prop:file read;
