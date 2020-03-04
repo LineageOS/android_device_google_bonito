@@ -190,3 +190,9 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/vintf/manifest/android.h
 # Move android.hidl.base@1.0.so to system_ext
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/lib/android.hidl.base@1.0.so)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/lib64/android.hidl.base@1.0.so)
+
+# Removing GSI keys from the ramdisk.
+# Those keys will be embedded into VTS instead, to verify the GSI image in used.
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/first_stage_ramdisk/avb/q-gsi.avbpubkey)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/first_stage_ramdisk/avb/r-gsi.avbpubkey)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/first_stage_ramdisk/avb/s-gsi.avbpubkey)
