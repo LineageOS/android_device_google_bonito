@@ -31,17 +31,13 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/uimremoteclient.xml:system/etc/permissions/uimremoteclient.xml:qcom \
     vendor/qcom/sargo/proprietary/uimremoteserver.xml:system/etc/permissions/uimremoteserver.xml:qcom \
     vendor/qcom/sargo/proprietary/UimService.xml:system/etc/permissions/UimService.xml:qcom \
-    vendor/qcom/sargo/proprietary/com.qualcomm.qti.uceservice-V2.0-java.jar:system/framework/com.qualcomm.qti.uceservice-V2.0-java.jar:qcom \
     vendor/qcom/sargo/proprietary/qcrilhook.jar:system/framework/qcrilhook.jar:qcom \
     vendor/qcom/sargo/proprietary/QtiTelephonyServicelibrary.jar:system/framework/QtiTelephonyServicelibrary.jar:qcom \
     vendor/qcom/sargo/proprietary/uimremoteclientlibrary.jar:system/framework/uimremoteclientlibrary.jar:qcom \
     vendor/qcom/sargo/proprietary/uimremoteserverlibrary.jar:system/framework/uimremoteserverlibrary.jar:qcom \
-    vendor/qcom/sargo/proprietary/vendor.qti.hardware.alarm-V1.0-java.jar:system/framework/vendor.qti.hardware.alarm-V1.0-java.jar:qcom \
-    vendor/qcom/sargo/proprietary/vendor.qti.hardware.soter-V1.0-java.jar:system/framework/vendor.qti.hardware.soter-V1.0-java.jar:qcom \
     vendor/qcom/sargo/proprietary/lib64/libadsprpc_system.so:system/lib64/libadsprpc_system.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/libcdsprpc_system.so:system/lib64/libcdsprpc_system.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/libDiagService.so:system/lib64/libDiagService.so:qcom \
-    vendor/qcom/sargo/proprietary/lib64/libdiag_system.so:system/lib64/libdiag_system.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/libGPQTEEC_system.so:system/lib64/libGPQTEEC_system.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/libGPTEE_system.so:system/lib64/libGPTEE_system.so:qcom \
     vendor/qcom/sargo/proprietary/lib64/libimscamera_jni.so:system/lib64/libimscamera_jni.so:qcom \
@@ -58,7 +54,6 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/sargo/proprietary/lib64/libsecureui_svcsock_system.so:system/lib64/libsecureui_svcsock_system.so:qcom \
     vendor/qcom/sargo/proprietary/libadsprpc_system.so:system/lib/libadsprpc_system.so:qcom \
     vendor/qcom/sargo/proprietary/libcdsprpc_system.so:system/lib/libcdsprpc_system.so:qcom \
-    vendor/qcom/sargo/proprietary/libdiag_system.so:system/lib/libdiag_system.so:qcom \
     vendor/qcom/sargo/proprietary/libGPQTEEC_system.so:system/lib/libGPQTEEC_system.so:qcom \
     vendor/qcom/sargo/proprietary/libGPTEE_system.so:system/lib/libGPTEE_system.so:qcom \
     vendor/qcom/sargo/proprietary/libimscamera_jni.so:system/lib/libimscamera_jni.so:qcom \

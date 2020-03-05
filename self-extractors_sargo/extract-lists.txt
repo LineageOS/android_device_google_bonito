@@ -21,17 +21,13 @@
             system/etc/permissions/uimremoteclient.xml \
             system/etc/permissions/uimremoteserver.xml \
             system/etc/permissions/UimService.xml \
-            system/framework/com.qualcomm.qti.uceservice-V2.0-java.jar \
             system/framework/qcrilhook.jar \
             system/framework/QtiTelephonyServicelibrary.jar \
             system/framework/uimremoteclientlibrary.jar \
             system/framework/uimremoteserverlibrary.jar \
-            system/framework/vendor.qti.hardware.alarm-V1.0-java.jar \
-            system/framework/vendor.qti.hardware.soter-V1.0-java.jar \
             system/lib64/libadsprpc_system.so \
             system/lib64/libcdsprpc_system.so \
             system/lib64/libDiagService.so \
-            system/lib64/libdiag_system.so \
             system/lib64/libGPQTEEC_system.so \
             system/lib64/libGPTEE_system.so \
             system/lib64/libimscamera_jni.so \
@@ -48,7 +44,6 @@
             system/lib64/libsecureui_svcsock_system.so \
             system/lib/libadsprpc_system.so \
             system/lib/libcdsprpc_system.so \
-            system/lib/libdiag_system.so \
             system/lib/libGPQTEEC_system.so \
             system/lib/libGPTEE_system.so \
             system/lib/libimscamera_jni.so \
