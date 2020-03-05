@@ -63,6 +63,9 @@ $(call inherit-product, $(LOCAL_PATH)/utils.mk)
 # Installs gsi keys into ramdisk, to boot a GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
+# Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
+
 ifeq ($(wildcard vendor/google_devices/bonito/proprietary/device-vendor-bonito.mk),)
     BUILD_WITHOUT_VENDOR := true
 endif
@@ -308,9 +311,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.relay_oprt_change=1 \
     persist.vendor.radio.sap_silent_pin=1 \
     persist.vendor.radio.no_wait_for_card=1 \
+    persist.vendor.radio.manual_nw_rej_ct=1 \
     persist.rcs.supported=1 \
     vendor.rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so \
     ro.hardware.keystore_desede=true \
+    ro.zram.mark_idle_delay_mins=60 \
+    ro.zram.first_wb_delay_mins=180 \
+    ro.zram.periodic_wb_delay_hours=24 \
 
 # Disable snapshot timer
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -864,4 +871,4 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Increment the SVN for any official public releases
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vendor.build.svn=17
+	ro.vendor.build.svn=18
