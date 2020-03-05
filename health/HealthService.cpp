@@ -22,6 +22,7 @@
 #include <health2/service.h>
 #include <healthd/healthd.h>
 #include <hidl/HidlTransportSupport.h>
+#include <pixelhealth/BatteryDefender.h>
 #include <pixelhealth/BatteryMetricsLogger.h>
 #include <pixelhealth/BatteryThermalControl.h>
 #include <pixelhealth/CycleCountBackupRestore.h>
@@ -45,6 +46,7 @@ using android::hardware::health::V2_0::StorageInfo;
 using ::device::google::bonito::health::BatteryRechargingControl;
 using ::device::google::bonito::health::BatteryInfoUpdate;
 using ::device::google::bonito::health::LearnedCapacityBackupRestore;
+using hardware::google::pixel::health::BatteryDefender;
 using hardware::google::pixel::health::BatteryMetricsLogger;
 using hardware::google::pixel::health::BatteryThermalControl;
 using hardware::google::pixel::health::CycleCountBackupRestore;
@@ -57,6 +59,7 @@ constexpr char kBatteryOCV[] {FG_DIR "/bms/voltage_ocv"};
 constexpr char kVoltageAvg[] {FG_DIR "/battery/voltage_now"};
 constexpr char kCycleCountsBins[] {FG_DIR "/bms/device/cycle_counts_bins"};
 
+static BatteryDefender battDefender;
 static BatteryRechargingControl battRechargingControl;
 static BatteryInfoUpdate battInfoUpdate;
 static BatteryThermalControl battThermalControl("sys/devices/virtual/thermal/tz-by-name/soc/mode");
@@ -109,6 +112,7 @@ void fill_emmc_storage_attribute(StorageAttribute* attr) {
 void healthd_board_init(struct healthd_config*) {
     ccBackupRestoreBMS.Restore();
     lcBackupRestore.Restore();
+    battDefender.update();
 }
 
 int healthd_board_battery_update(struct android::BatteryProperties *props) {
@@ -120,6 +124,7 @@ int healthd_board_battery_update(struct android::BatteryProperties *props) {
     shutdownMetrics.logShutdownVoltage(props);
     ccBackupRestoreBMS.Backup(props->batteryLevel);
     lcBackupRestore.Backup();
+    battDefender.update();
     return 0;
 }
 
