@@ -17,3 +17,6 @@ set_prop(init-qcom-devstart-sh, public_vendor_system_prop)
 
 # Set boot_adsp and boot_slpi to 1
 allow init-qcom-devstart-sh sysfs_msm_subsys:file w_file_perms;
+
+# Support for battery defender
+allow init-qcom-devstart-sh sysfs_chargelevel:file rw_file_perms;
