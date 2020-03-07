@@ -505,10 +505,6 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl.recovery \
     android.hardware.boot@1.0-service \
 
-# Vibrator HAL
-PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.3-service.drv2624
-
 # Thermal HAL
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.pixel
@@ -894,7 +890,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Increment the SVN for any official public releases
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vendor.build.svn=19
+	ro.vendor.build.svn=20
 
 # Vendor verbose logging default property
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
@@ -907,3 +903,5 @@ endif
 
 # Factory OTA
 -include vendor/google/factoryota/client/factoryota.mk
+
+include hardware/google/pixel/vibrator/drv2624/device.mk
