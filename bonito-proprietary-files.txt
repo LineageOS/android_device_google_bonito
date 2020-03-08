@@ -167,7 +167,9 @@ product/lib64/libsecureuisvc_jni.so
 product/lib/vendor.qti.hardware.qdutils_disp@1.0.so
 product/lib64/vendor.qti.hardware.qdutils_disp@1.0.so
 system/lib/libsecureui_svcsock_system.so
+system/lib/vendor.qti.hardware.tui_comm@1.0.so
 system/lib64/libsecureui_svcsock_system.so
+system/lib64/vendor.qti.hardware.tui_comm@1.0.so
 
 # Sprint
 product/etc/permissions/com.android.sdm.plugins.sprintdm.xml
