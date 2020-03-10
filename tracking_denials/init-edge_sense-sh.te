@@ -1,0 +1,2 @@
+# b/151049770
+dontaudit init-edge_sense-sh sysfs_chargelevel:file getattr;
