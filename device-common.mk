@@ -77,15 +77,8 @@ PRODUCT_PROPERTY_OVERRIDES += aaudio.hw_burst_min_usec=2000
 
 # Set lmkd options
 PRODUCT_PRODUCT_PROPERTIES += \
-    ro.lmk.low=1001 \
-    ro.lmk.medium=800 \
-    ro.lmk.critical=0 \
-    ro.lmk.critical_upgrade=false \
-    ro.lmk.upgrade_pressure=100 \
-    ro.lmk.downgrade_pressure=100 \
-    ro.lmk.kill_heaviest_task=true \
-    ro.lmk.kill_timeout_ms=100 \
-    ro.lmk.use_minfree_levels=true \
+    ro.config.low_ram = false \
+    ro.lmk.log_stats = true \
 
 # A2DP offload enabled for compilation
 AUDIO_FEATURE_ENABLED_A2DP_OFFLOAD := true
