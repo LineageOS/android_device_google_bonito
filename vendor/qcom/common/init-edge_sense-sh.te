@@ -22,3 +22,4 @@ dontaudit init-edge_sense-sh sysfs_type:dir { read write };
 dontaudit init-edge_sense-sh sysfs_graphics:file getattr;
 dontaudit init-edge_sense-sh sysfs_devices_block:file getattr;
 dontaudit init-edge_sense-sh sysfs_pstore:file getattr;
+dontaudit init-edge_sense-sh sysfs_chargelevel:file getattr;
