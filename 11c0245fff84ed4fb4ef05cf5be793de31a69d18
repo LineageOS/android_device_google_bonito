@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b6772ab_f913ba95",
+        "filename": "BoardConfig-common.mk",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2020-03-17T12:13:02Z",
+      "side": 1,
+      "message": "I suppose that the purpose of not removing the whole line is to be able to git blame, but why not change this to false instead of commenting the line?",
+      "range": {
+        "startLine": 100,
+        "startChar": 32,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "11c0245fff84ed4fb4ef05cf5be793de31a69d18",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
