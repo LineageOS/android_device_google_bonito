@@ -412,4 +412,7 @@
     <bool name="config_wifi_connected_mac_randomization_supported">true</bool>
     <!-- Enable Zram writeback feature to allow unused pages in zram be written to flash. -->
     <bool name="config_zramWriteback">true</bool>
+
+    <!-- True if the firmware supports p2p MAC randomization -->
+    <bool name="config_wifi_p2p_mac_randomization_supported">true</bool>
 </resources>
