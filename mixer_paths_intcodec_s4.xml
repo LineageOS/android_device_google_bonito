@@ -2072,11 +2072,11 @@
     </path>
 
     <path name="mmap-playback">
-        <ctl name="SEC_MI2S_RX Audio Mixer MultiMedia16" value="1" />
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia16" value="1" />
     </path>
 
     <path name="mmap-playback handset">
-        <ctl name="SEC_MI2S_RX Audio Mixer MultiMedia16" value="1" />
+        <ctl name="SEC_TDM_RX_0 Audio Mixer MultiMedia16" value="1" />
     </path>
 
     <path name="mmap-playback speaker">
