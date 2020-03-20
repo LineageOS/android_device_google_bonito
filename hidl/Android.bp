@@ -1,0 +1,44 @@
+// Copyright (C) 2020 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// TODO(b/139369543): remove android.hidl.base@1.0
+cc_prebuilt_library_shared {
+    name: "android.hidl.base@1.0",
+    arch: {
+        arm: {
+            srcs: ["android.hidl.base@1.0.so-32"],
+        },
+        arm64: {
+            srcs: ["android.hidl.base@1.0.so-64"],
+        },
+    },
+    shared_libs: [
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libc++",
+        "libdl",
+        "libc",
+        "libm",
+    ],
+    compile_multilib: "both",
+    vendor_available: true,
+    strip: {
+        none: true,
+    },
+    // This module has broken dependencies, libhidltransport and libhwbinder have
+    // hidden visibility, but this is phasing out anyway so just bypass the check.
+    check_elf_files: false,
+}
