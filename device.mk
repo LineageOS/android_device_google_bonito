@@ -689,7 +689,7 @@ PRODUCT_PACKAGES += \
     android.hardware.authsecret@1.0-service.citadel \
     android.hardware.oemlock@1.0-service.citadel \
     android.hardware.weaver@1.0-service.citadel \
-    android.hardware.keymaster@4.0-service.citadel \
+    android.hardware.keymaster@4.1-service.citadel \
     wait_for_strongbox
 
 # Citadel debug stuff
@@ -739,10 +739,6 @@ PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.fpc
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.fingerprint.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.fingerprint.sh \
-
-# Reliability reporting
-PRODUCT_PACKAGES += \
-    pixelstats-vendor
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
@@ -905,3 +901,4 @@ endif
 -include vendor/google/factoryota/client/factoryota.mk
 
 include hardware/google/pixel/vibrator/drv2624/device.mk
+include hardware/google/pixel/pixelstats/device.mk
