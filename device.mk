@@ -685,8 +685,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGES += \
     vndk-sp
-
-PRODUCT_ENFORCE_RRO_TARGETS := *
+    
+PRODUCT_ENFORCE_RRO_TARGETS := \
+    framework-res
 
 # Override heap growth limit due to high display density on device
 PRODUCT_PROPERTY_OVERRIDES += \
