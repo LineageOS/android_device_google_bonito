@@ -39,10 +39,6 @@ using ::android::sp;
 struct DumpstateDevice : public IDumpstateDevice {
   // Methods from ::android::hardware::dumpstate::V1_0::IDumpstateDevice follow.
   Return<void> dumpstateBoard(const hidl_handle& h) override;
-
-  void dumpLogs(int fd, std::string srcDir, std::string destDir, int maxFileNum,
-                const char *logPrefix);
-  void dumpModem(int fd, int fdModem);
 };
 
 }  // namespace implementation
