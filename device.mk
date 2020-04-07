@@ -505,15 +505,6 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl.recovery \
     android.hardware.boot@1.0-service \
 
-# Thermal HAL
-PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.pixel
-
-ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-PRODUCT_PACKAGES += \
-    thermal_logd
-endif
-
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/thermal_info_config_$(PRODUCT_HARDWARE).json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
 
@@ -902,3 +893,4 @@ endif
 include hardware/google/pixel/vibrator/drv2624/device.mk
 include hardware/google/pixel/pixelstats/device.mk
 include hardware/google/pixel/mm/device_legacy.mk
+include hardware/google/pixel/thermal/device.mk
