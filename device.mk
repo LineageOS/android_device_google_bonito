@@ -721,8 +721,11 @@ PRODUCT_COPY_FILES += \
     device/google/bonito/permissions/com.google.hardware.camera.easel_2018.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.google.hardware.camera.easel_2018.xml
 
 # ConfirmationUI HAL
+# Not support on sdm845 & sdm670
+# TUI_USE_OPTIMAL_BUFFER_SIZE := true
 PRODUCT_PACKAGES += \
-    android.hardware.confirmationui@1.0-service-bonito
+    android.hardware.confirmationui@1.0-service-google
+BOARD_SEPOLICY_DIRS += hardware/google/pixel-sepolicy/confirmationui_hal
 
 # Fingerprint
 PRODUCT_PACKAGES += \
