@@ -29,17 +29,18 @@ userdebug_or_eng(`
   #Dump perfstatsd
   allow hal_dumpstate_impl perfstatsd_exec:file rx_file_perms;
   allow hal_dumpstate_impl perfstatsd_service:service_manager find;
-  vndbinder_use(hal_dumpstate_impl)
   binder_call(hal_dumpstate_impl, perfstatsd)
 
   # Dump sensors log
   allow hal_dumpstate_impl sensors_vendor_data_file:dir r_dir_perms;
   allow hal_dumpstate_impl sensors_vendor_data_file:file r_file_perms;
-
-  # Dump citadel info
-  allow hal_dumpstate_impl citadeld_service:service_manager find;
-  binder_call(hal_dumpstate_impl, citadeld)
 ')
+
+# Citadel communication must be via citadeld
+vndbinder_use(hal_dumpstate_impl)
+binder_call(hal_dumpstate_impl, citadeld)
+allow hal_dumpstate_impl citadeld_service:service_manager find;
+
 allow hal_dumpstate_impl modem_dump_file:dir create_dir_perms;
 allow hal_dumpstate_impl modem_dump_file:file create_file_perms;
 allow hal_dumpstate_impl radio_vendor_data_file:dir r_dir_perms;
@@ -164,5 +165,3 @@ dontaudit hal_dumpstate_impl perfstatsd_exec:file rx_file_perms;
 dontaudit hal_dumpstate_impl perfstatsd_service:service_manager find;
 dontaudit hal_dumpstate_impl mpss_rfs_data_file:dir r_dir_perms;
 dontaudit hal_dumpstate_impl mpss_rfs_data_file:file r_file_perms;
-dontaudit hal_dumpstate_impl citadeld_service:service_manager find;
-dontaudit hal_dumpstate_impl citadeld:binder call;
