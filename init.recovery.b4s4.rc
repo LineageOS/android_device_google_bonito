@@ -1,0 +1,8 @@
+on fs
+    start setup_logical
+
+service setup_logical /system/bin/setup_logical.sh
+    user root
+    group root
+    seclabel u:r:recovery:s0
+    oneshot
