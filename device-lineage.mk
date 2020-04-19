@@ -28,6 +28,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.use_psi=true
 
+# Logical Partitions
+PRODUCT_COPY_FILES += \
+    device/google/bonito/init.recovery.b4s4.rc:recovery/root/init.recovery.b4s4.rc \
+    device/google/bonito/setup_logical.sh:recovery/root/system/bin/setup_logical.sh
+
 # Preopt SystemUI
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI

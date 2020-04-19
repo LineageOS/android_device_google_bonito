@@ -1,6 +1,4 @@
-on fs
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}
-    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+import init.recovery.b4s4.rc
 
 on init
     mount configfs none /config
