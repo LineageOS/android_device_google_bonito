@@ -20,6 +20,17 @@ include device/google/bonito/device-common.mk
 
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/sargo/overlay
 
+# SKU specific RROs
+PRODUCT_PACKAGES += \
+    SettingsOverlayG020E \
+    SettingsOverlayG020E_VN \
+    SettingsOverlayG020F \
+    SettingsOverlayG020F_VN \
+    SettingsOverlayG020G \
+    SettingsOverlayG020G_VN \
+    SettingsOverlayG020H \
+    SettingsOverlayG020H_VN \
+
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf \
     device/google/bonito/nfc/libnfc-nxp.sargo.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020E.conf \
