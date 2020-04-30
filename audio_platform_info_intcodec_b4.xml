@@ -114,7 +114,7 @@
         <usecase name="USECASE_AUDIO_HFP_SCO_WB" type="in" id="12" />
     </pcm_ids>
     <config_params>
-        <param key="input_mic_max_count" value="3"/>
+        <param key="input_mic_max_count" value="2"/>
         <param key="snd_card_name" value="sdm670-intcodec-b4-snd-card"/>
         <param key="operator_info" value="tmus;310260"/>
         <param key="operator_info" value="tmus;310490"/>
