@@ -541,7 +541,8 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wificond \
-    libwpa_client
+    libwpa_client \
+    WifiOverlay
 
 LIB_NL := libnl_2
 PRODUCT_PACKAGES += $(LIB_NL)
@@ -698,12 +699,6 @@ PRODUCT_PACKAGES += \
 # Override heap growth limit due to high display density on device
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapgrowthlimit=256m
-
-PRODUCT_COPY_FILES += \
-    device/google/bonito/hidl/android.hidl.base@1.0.so-32:system_ext/lib/android.hidl.base@1.0.so \
-    device/google/bonito/hidl/android.hidl.base@1.0.so-64:system_ext/lib64/android.hidl.base@1.0.so \
-    device/google/bonito/hidl/android.hidl.base@1.0.so-32:vendor/lib/android.hidl.base@1.0.so \
-    device/google/bonito/hidl/android.hidl.base@1.0.so-64:vendor/lib64/android.hidl.base@1.0.so \
 
 PRODUCT_PACKAGES += \
     ipacm \
