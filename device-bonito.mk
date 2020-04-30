@@ -20,6 +20,13 @@ include device/google/bonito/device-common.mk
 
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/bonito/overlay
 
+# SKU specific RROs
+PRODUCT_PACKAGES += \
+    SettingsOverlayG020A \
+    SettingsOverlayG020B \
+    SettingsOverlayG020C \
+    SettingsOverlayG020D \
+
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.bonito.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf \
     device/google/bonito/nfc/libnfc-nxp.bonito.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020A.conf \
