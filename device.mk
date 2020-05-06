@@ -319,6 +319,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.zram.first_wb_delay_mins=180 \
     ro.zram.periodic_wb_delay_hours=24 \
 
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.telephony.max.active.modems=2 \
+    persist.radio.reboot_on_modem_change=false
+
 # Disable snapshot timer
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.snapshot_enabled=0 \
