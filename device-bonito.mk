@@ -42,7 +42,8 @@ PRODUCT_PRODUCT_PROPERTIES +=\
     ro.vibrator.hal.heavyclick.duration=12 \
     ro.vibrator.hal.short.voltage=120 \
     ro.vibrator.hal.long.voltage=90 \
-    ro.vibrator.hal.long.frequency.shift=10
+    ro.vibrator.hal.long.frequency.shift=10 \
+    ro.vibrator.hal.double_click.duration=182
 
 # DRV2624 Haptics Waveform
 PRODUCT_COPY_FILES += \
