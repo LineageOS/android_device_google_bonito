@@ -10,7 +10,6 @@
             system/app/ims/ims.apk \
             system/app/QtiTelephonyService/QtiTelephonyService.apk \
             system/etc/cne/andsfCne.xml \
-            system/etc/permissions/embms.xml \
             system/etc/permissions/qcrilhook.xml \
             system/etc/permissions/radioconfiginterface.xml \
             system/etc/permissions/radioconfig.xml \
