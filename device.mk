@@ -883,6 +883,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.verbose_logging_enabled=false
 endif
 
+# Set support one-handed mode
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.support_one_handed_mode = true
+
 # Factory OTA
 -include vendor/google/factoryota/client/factoryota.mk
 
