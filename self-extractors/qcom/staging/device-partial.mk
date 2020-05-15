@@ -39,7 +39,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/andsfCne.xml:system/etc/cne/andsfCne.xml:qcom \
-    vendor/qcom/bonito/proprietary/embms.xml:system/etc/permissions/embms.xml:qcom \
     vendor/qcom/bonito/proprietary/qcrilhook.xml:system/etc/permissions/qcrilhook.xml:qcom \
     vendor/qcom/bonito/proprietary/radioconfiginterface.xml:system/etc/permissions/radioconfiginterface.xml:qcom \
     vendor/qcom/bonito/proprietary/radioconfig.xml:system/etc/permissions/radioconfig.xml:qcom \
