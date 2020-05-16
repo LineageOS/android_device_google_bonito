@@ -1,5 +1,5 @@
-PRODUCT_PUBLIC_SEPOLICY_DIRS := device/google/bonito-sepolicy/public
-PRODUCT_PRIVATE_SEPOLICY_DIRS := device/google/bonito-sepolicy/private
+PRODUCT_PUBLIC_SEPOLICY_DIRS += device/google/bonito-sepolicy/public
+PRODUCT_PRIVATE_SEPOLICY_DIRS += device/google/bonito-sepolicy/private
 
 # vendors
 BOARD_VENDOR_SEPOLICY_DIRS += device/google/bonito-sepolicy/vendor/qcom/common
