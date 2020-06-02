@@ -92,6 +92,7 @@ type nfc_vendor_data_file, file_type, data_file_type;
 type radio_vendor_data_file, file_type, data_file_type, mlstrustedobject;
 type cnss_vendor_data_file, file_type, data_file_type, mlstrustedobject;
 type ramdump_vendor_data_file, file_type, data_file_type, mlstrustedobject;
+type ramdump_vendor_mnt_file, file_type, data_file_type, mlstrustedobject;
 type wifidump_vendor_data_file, file_type, data_file_type;
 type modem_dump_file, file_type, data_file_type;
 type sensors_vendor_data_file, file_type, data_file_type;
@@ -109,6 +110,7 @@ type bt_firmware_file, fs_type, contextmount_type;
 
 type vendor_tui_data_file, file_type, data_file_type;
 type wifi_vendor_log_data_file, file_type, data_file_type;
+
 type hal_neuralnetworks_data_file, file_type, data_file_type;
 type modem_stat_data_file, file_type, data_file_type;
 
