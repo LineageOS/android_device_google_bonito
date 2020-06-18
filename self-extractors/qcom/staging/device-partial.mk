@@ -40,8 +40,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES := \
     vendor/qcom/bonito/proprietary/andsfCne.xml:system/etc/cne/andsfCne.xml:qcom \
     vendor/qcom/bonito/proprietary/qcrilhook.xml:system/etc/permissions/qcrilhook.xml:qcom \
-    vendor/qcom/bonito/proprietary/radioconfiginterface.xml:system/etc/permissions/radioconfiginterface.xml:qcom \
-    vendor/qcom/bonito/proprietary/radioconfig.xml:system/etc/permissions/radioconfig.xml:qcom \
     vendor/qcom/bonito/proprietary/telephonyservice.xml:system/etc/permissions/telephonyservice.xml:qcom \
     vendor/qcom/bonito/proprietary/uimremoteclient.xml:system/etc/permissions/uimremoteclient.xml:qcom \
     vendor/qcom/bonito/proprietary/uimremoteserver.xml:system/etc/permissions/uimremoteserver.xml:qcom \
