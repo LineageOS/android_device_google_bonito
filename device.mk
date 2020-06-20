@@ -893,9 +893,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.verbose_logging_enabled=false
 endif
 
-# Factory OTA
--include vendor/google/factoryota/client/factoryota.mk
-
 include hardware/google/pixel/vibrator/drv2624/device.mk
 include hardware/google/pixel/pixelstats/device.mk
 include hardware/google/pixel/mm/device_legacy.mk
