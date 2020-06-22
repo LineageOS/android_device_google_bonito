@@ -893,9 +893,6 @@ endif
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.support_one_handed_mode = true
 
-# Factory OTA
--include vendor/google/factoryota/client/factoryota.mk
-
 include hardware/google/pixel/vibrator/drv2624/device.mk
 include hardware/google/pixel/pixelstats/device.mk
 include hardware/google/pixel/mm/device_legacy.mk
