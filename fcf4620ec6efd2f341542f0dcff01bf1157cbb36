@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b93258ae_997be9c9",
+        "filename": "BoardConfigLineage.mk",
+        "patchSetId": 23
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2020-06-24T01:34:18Z",
+      "side": 1,
+      "message": "I _dislike_ this, but it\u0027s an odd case:\n- we can\u0027t override it from vendor, as this variable is readonly by the point vendor/extra is read out\n- Considering this is a lineage specific boardconfig, and this is a lineage tree where we have partner_gms support, it\u0027s not that out of place",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "fcf4620ec6efd2f341542f0dcff01bf1157cbb36",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
