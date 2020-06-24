@@ -830,8 +830,6 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 
 # Enable stats logging in LMKD
 TARGET_LMKD_STATS_LOG := true
-PRODUCT_PRODUCT_PROPERTIES += \
-    ro.lmk.log_stats=true
 
 # default usb oem functions
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
@@ -892,9 +890,6 @@ endif
 # Set support one-handed mode
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.support_one_handed_mode = true
-
-# Factory OTA
--include vendor/google/factoryota/client/factoryota.mk
 
 include hardware/google/pixel/vibrator/drv2624/device.mk
 include hardware/google/pixel/pixelstats/device.mk
