@@ -885,4 +885,4 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Increment the SVN for any official public releases
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vendor.build.svn=26
+	ro.vendor.build.svn=27
