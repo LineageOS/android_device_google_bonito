@@ -66,7 +66,7 @@ type ipacm_socket, file_type;
 type cnd_socket, file_type;
 type chre_socket, file_type;
 type location_socket, file_type;
-type diag_socket, file_type;
+type diag_socket, file_type, mlstrustedobject;
 
 type cnd_data_file, file_type, data_file_type;
 type location_data_file, file_type, data_file_type;
