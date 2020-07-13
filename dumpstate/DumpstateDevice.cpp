@@ -22,6 +22,7 @@
 #include <android-base/unique_fd.h>
 #include <cutils/properties.h>
 #include <log/log.h>
+#include <pthread.h>
 #include <string.h>
 
 #define _SVID_SOURCE
@@ -31,7 +32,6 @@
 
 #define MODEM_LOG_PREFIX_PROPERTY "ro.radio.log_prefix"
 #define MODEM_LOG_LOC_PROPERTY "ro.radio.log_loc"
-#define MODEM_LOGGING_SWITCH "persist.radio.smlog_switch"
 
 #define DIAG_MDLOG_PERSIST_PROPERTY "persist.vendor.sys.modem.diag.mdlog"
 #define DIAG_MDLOG_PROPERTY "vendor.sys.modem.diag.mdlog"
@@ -61,8 +61,8 @@ namespace implementation {
 #define TCPDUMP_LOG_PREFIX "tcpdump"
 #define EXTENDED_LOG_PREFIX "extended_log_"
 
-void DumpstateDevice::dumpLogs(int fd, std::string srcDir, std::string destDir,
-                               int maxFileNum, const char *logPrefix) {
+static void dumpLogs(int fd, std::string srcDir, std::string destDir,
+                     int maxFileNum, const char *logPrefix) {
     struct dirent **dirent_list = NULL;
     int num_entries = scandir(srcDir.c_str(),
                               &dirent_list,
@@ -107,30 +107,34 @@ void DumpstateDevice::dumpLogs(int fd, std::string srcDir, std::string destDir,
     free(dirent_list);
 }
 
-void DumpstateDevice::dumpModem(int fd, int fdModem)
+static void *dumpModemThread(void *data)
 {
+    long fdModem = (long)data;
+
+    ALOGD("dumpModemThread started\n");
+
     std::string modemLogDir = android::base::GetProperty(MODEM_LOG_LOC_PROPERTY, "");
     if (modemLogDir.empty()) {
-        ALOGD("No modem log place is set\n");
-        return;
+        ALOGD("No modem log place is set");
+        return NULL;
     }
 
     std::string filePrefix = android::base::GetProperty(MODEM_LOG_PREFIX_PROPERTY, "");
 
     if (filePrefix.empty()) {
-        ALOGD("Modem log prefix is not set\n");
-        return;
+        ALOGD("Modem log prefix is not set");
+        return NULL;
     }
+
+    sleep(1);
+    ALOGD("Waited modem for 1 second to flush logs");
 
     const std::string modemLogCombined = modemLogDir + "/" + filePrefix + "all.tar";
     const std::string modemLogAllDir = modemLogDir + "/modem_log";
 
-    RunCommandToFd(fd, "MKDIR MODEM LOG", {"/vendor/bin/mkdir", "-p", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
+    RunCommandToFd(STDOUT_FILENO, "MKDIR MODEM LOG", {"/vendor/bin/mkdir", "-p", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
 
     if (!PropertiesHelper::IsUserBuild()) {
-        RunCommandToFd(fd, "MODEM RFS INFO", {"/vendor/bin/find /data/vendor/rfs/mpss/OEMFI/"}, CommandOptions::WithTimeout(2).Build());
-        RunCommandToFd(fd, "MODEM DIAG SYSTEM PROPERTIES", {"/vendor/bin/getprop | grep vendor.sys.modem.diag"}, CommandOptions::WithTimeout(2).Build());
-
         android::base::SetProperty(MODEM_EFS_DUMP_PROPERTY, "true");
 
         const std::string diagLogDir = "/data/vendor/radio/diag_logs/logs";
@@ -158,55 +162,46 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
               "/data/vendor/rfs/mpss/modem_efs"
             };
 
-        bool smlogEnabled = android::base::GetBoolProperty(MODEM_LOGGING_SWITCH, false) && !access("/vendor/bin/smlog_dump", X_OK);
         bool diagLogEnabled = android::base::GetBoolProperty(DIAG_MDLOG_PERSIST_PROPERTY, false);
         bool tcpdumpEnabled = android::base::GetBoolProperty(TCPDUMP_PERSIST_PROPERTY, false);
 
-        if (smlogEnabled) {
-            RunCommandToFd(fd, "SMLOG DUMP", {"smlog_dump", "-d", "-o", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(10).Build());
-        } else if (diagLogEnabled) {
+        if (diagLogEnabled) {
             bool diagLogStarted = android::base::GetBoolProperty(DIAG_MDLOG_STATUS_PROPERTY, false);
 
             if (diagLogStarted) {
                 android::base::SetProperty(DIAG_MDLOG_PROPERTY, "false");
                 ALOGD("Stopping diag_mdlog...\n");
-            } else {
-                ALOGD("diag_mdlog is not running\n");
-            }
-
-            for (int i = 0; i < 30; i++) {
-                if (!android::base::GetBoolProperty(DIAG_MDLOG_STATUS_PROPERTY, false)) {
-                    ALOGD("diag_mdlog exited\n");
-                    sleep(1);
-                    break;
+                if (android::base::WaitForProperty(DIAG_MDLOG_STATUS_PROPERTY, "false", std::chrono::seconds(10))) {
+                    ALOGD("diag_mdlog exited");
+                } else {
+                    ALOGE("Waited mdlog timeout after 10 second");
                 }
-
-                sleep(1);
+            } else {
+                ALOGD("diag_mdlog is not running");
             }
 
-            dumpLogs(fd, diagLogDir, modemLogAllDir, android::base::GetIntProperty(DIAG_MDLOG_NUMBER_BUGREPORT, 100), DIAG_LOG_PREFIX);
+            dumpLogs(STDOUT_FILENO, diagLogDir, modemLogAllDir, android::base::GetIntProperty(DIAG_MDLOG_NUMBER_BUGREPORT, 100), DIAG_LOG_PREFIX);
 
             if (diagLogStarted) {
-                ALOGD("Restarting diag_mdlog...\n");
+                ALOGD("Restarting diag_mdlog...");
                 android::base::SetProperty(DIAG_MDLOG_PROPERTY, "true");
             }
         }
 
         if (tcpdumpEnabled) {
-            dumpLogs(fd, tcpdumpLogDir, modemLogAllDir, android::base::GetIntProperty(TCPDUMP_NUMBER_BUGREPORT, 5), TCPDUMP_LOG_PREFIX);
+            dumpLogs(STDOUT_FILENO, tcpdumpLogDir, modemLogAllDir, android::base::GetIntProperty(TCPDUMP_NUMBER_BUGREPORT, 5), TCPDUMP_LOG_PREFIX);
         }
 
         for (const auto& logFile : rilAndNetmgrLogs) {
-            RunCommandToFd(fd, "CP MODEM LOG", {"/vendor/bin/cp", logFile.c_str(), modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
+            RunCommandToFd(STDOUT_FILENO, "CP MODEM LOG", {"/vendor/bin/cp", logFile.c_str(), modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
         }
 
-        dumpLogs(fd, extendedLogDir, modemLogAllDir, 100, EXTENDED_LOG_PREFIX);
-
+        dumpLogs(STDOUT_FILENO, extendedLogDir, modemLogAllDir, 100, EXTENDED_LOG_PREFIX);
         android::base::SetProperty(MODEM_EFS_DUMP_PROPERTY, "false");
     }
 
-    RunCommandToFd(fd, "TAR LOG", {"/vendor/bin/tar", "cvf", modemLogCombined.c_str(), "-C", modemLogAllDir.c_str(), "."}, CommandOptions::WithTimeout(120).Build());
-    RunCommandToFd(fd, "CHG PERM", {"/vendor/bin/chmod", "a+w", modemLogCombined.c_str()}, CommandOptions::WithTimeout(2).Build());
+    RunCommandToFd(STDOUT_FILENO, "TAR LOG", {"/vendor/bin/tar", "cvf", modemLogCombined.c_str(), "-C", modemLogAllDir.c_str(), "."}, CommandOptions::WithTimeout(20).Build());
+    RunCommandToFd(STDOUT_FILENO, "CHG PERM", {"/vendor/bin/chmod", "a+w", modemLogCombined.c_str()}, CommandOptions::WithTimeout(2).Build());
 
             std::vector<uint8_t> buffer(65536);
             android::base::unique_fd fdLog(TEMP_FAILURE_RETRY(open(modemLogCombined.c_str(), O_RDONLY | O_CLOEXEC | O_NONBLOCK)));
@@ -231,8 +226,12 @@ void DumpstateDevice::dumpModem(int fd, int fdModem)
                 }
             }
 
-    RunCommandToFd(fd, "RM MODEM DIR", { "/vendor/bin/rm", "-r", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
-    RunCommandToFd(fd, "RM LOG", { "/vendor/bin/rm", modemLogCombined.c_str()}, CommandOptions::WithTimeout(2).Build());
+    RunCommandToFd(STDOUT_FILENO, "RM MODEM DIR", { "/vendor/bin/rm", "-r", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
+    RunCommandToFd(STDOUT_FILENO, "RM LOG", { "/vendor/bin/rm", modemLogCombined.c_str()}, CommandOptions::WithTimeout(2).Build());
+
+    ALOGD("dumpModemThread finished\n");
+
+    return NULL;
 }
 
 static void DumpIPCTRT(int fd) {
@@ -329,6 +328,17 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     }
 
     RunCommandToFd(fd, "Notify modem", {"/vendor/bin/modem_svc", "-s"}, CommandOptions::WithTimeout(1).Build());
+
+    pthread_t modemThreadHandle = 0;
+    if (handle->numFds < 2) {
+        ALOGE("no FD for modem\n");
+    } else {
+        int fdModem = handle->data[1];
+        if (pthread_create(&modemThreadHandle, NULL, dumpModemThread, (void *)((long)fdModem)) != 0) {
+            ALOGE("could not create thread for dumpModem\n");
+        }
+    }
+
     RunCommandToFd(fd, "VENDOR PROPERTIES", {"/vendor/bin/getprop"});
     DumpFileToFd(fd, "SoC serial number", "/sys/devices/soc0/serial_number");
     DumpFileToFd(fd, "CPU present", "/sys/devices/system/cpu/present");
@@ -386,12 +396,10 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpFileToFd(fd, "Modem Stat", "/data/vendor/modem_stat/debug.txt");
     DumpFileToFd(fd, "Pixel trace", "/d/tracing/instances/pixel-trace/trace");
 
-    if (handle->numFds < 2) {
-        ALOGE("no FD for modem\n");
-    } else {
-        int fdModem = handle->data[1];
-        dumpModem(fd, fdModem);
-    }
+    // Citadel info
+    RunCommandToFd(fd, "Citadel VERSION", {"/vendor/bin/hw/citadel_updater", "-lv"});
+    RunCommandToFd(fd, "Citadel STATS", {"/vendor/bin/hw/citadel_updater", "--stats"});
+    RunCommandToFd(fd, "Citadel BOARDID", {"/vendor/bin/hw/citadel_updater", "--board_id"});
 
     // Citadel info
     RunCommandToFd(fd, "Citadel VERSION", {"/vendor/bin/hw/citadel_updater", "-lv"});
@@ -400,6 +408,10 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
 
     // Keep this at the end as very long on not for humans
     DumpFileToFd(fd, "WLAN FW Log Symbol Table", "/vendor/firmware/Data.msc");
+
+    if (modemThreadHandle) {
+        pthread_join(modemThreadHandle, NULL);
+    }
 
     return Void();
 }
