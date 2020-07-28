@@ -20,3 +20,4 @@ system_app vendor_default_prop file b/78460200
 system_server vendor_default_prop file b/78460200
 ueventd tmpfs lnk_file b/133126350
 untrusted_app vendor_default_prop file b/78460200
+pixelstats_vendor sysfs_usb_c dir b/161946931
