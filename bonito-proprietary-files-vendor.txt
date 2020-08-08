@@ -220,6 +220,8 @@ vendor/etc/qdcm_calib_data_nt37700f_cmd_mode_dsi_tianma_panel.xml
 vendor/etc/qdcm_calib_data_s6e3fa7_cmd_mode_dsi_sdc_panel.xml
 vendor/etc/qdcm_calib_data_sofef00_cmd_mode_dsi_sdc_panel.xml
 vendor/etc/sap.conf
+vendor/etc/seccomp_policy/codec2.vendor.base.policy
+vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 vendor/etc/sensors/config/ak991x_dri_0.json
 vendor/etc/sensors/config/b4_ak991x_0.json
 vendor/etc/sensors/config/b4s4_bmi160.json
