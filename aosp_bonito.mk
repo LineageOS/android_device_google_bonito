@@ -51,7 +51,11 @@ PRODUCT_COPY_FILES += \
 # STOPSHIP deal with Qualcomm stuff later
 # PRODUCT_RESTRICT_VENDOR_FILES := all
 
-PRODUCT_PACKAGES += com.android.vndk.current.on_vendor
+# Keep the VNDK APEX in /system partition for REL branches as these branches are
+# expected to have stable API/ABI surfaces.
+ifneq (REL,$(PLATFORM_VERSION_CODENAME))
+  PRODUCT_PACKAGES += com.android.vndk.current.on_vendor
+endif
 
 PRODUCT_MANUFACTURER := Google
 PRODUCT_BRAND := Android
