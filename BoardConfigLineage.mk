@@ -25,5 +25,7 @@ ifneq ($(WITH_GMS),true)
     BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 15728640
 endif
 
-include device/google/bonito/sepolicy-lineage/bonito-lineage-sepolicy.mk
+BOARD_SEPOLICY_DIRS += device/google/bonito/sepolicy-lineage/dynamic
+BOARD_SEPOLICY_DIRS += device/google/bonito/sepolicy-lineage/vendor
+
 -include vendor/google/bonito/BoardConfigVendor.mk
