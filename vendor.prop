@@ -1,0 +1,8 @@
+# vendor.prop for b4s4
+
+# DRM
+drm.service.enabled=true
+media.mediadrmservice.enable=true
+
+# LMK
+ro.lmk.use_psi=true
