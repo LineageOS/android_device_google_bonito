@@ -46,10 +46,6 @@ AB_OTA_PARTITIONS += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/privapp-permissions-aosp-extended.xml:system/etc/permissions/privapp-permissions-aosp-extended.xml
 
-# Preopt SystemUI
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    SystemUI
-
 # Properties
 TARGET_VENDOR_PROP := $(LOCAL_PATH)/vendor.prop
 
