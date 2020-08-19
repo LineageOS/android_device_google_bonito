@@ -15,7 +15,7 @@
 #
 
 # Allow Lineage config to override others
--include device/google/bonito/bonito/BoardConfigLineage.mk
+-include device/google/bonito/bonito/BoardConfig-lineage.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := bonito
 TARGET_SCREEN_DENSITY := 400
