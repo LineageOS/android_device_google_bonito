@@ -15,7 +15,7 @@
 #
 
 # Allow Lineage config to override others
--include device/google/bonito/sargo/BoardConfigLineage.mk
+-include device/google/bonito/sargo/BoardConfig-lineage.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := sargo
 TARGET_SCREEN_DENSITY := 440
