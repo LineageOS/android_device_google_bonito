@@ -1,1 +1,1 @@
-$(call inherit-product, device/google/bonito/device-lineage.mk)
+$(call inherit-product, device/google/bonito/device-carbon.mk)

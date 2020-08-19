@@ -15,11 +15,7 @@
 #
 
 # Allow Lineage config to override others
-<<<<<<< HEAD
 -include device/google/bonito/bonito/BoardConfigCarbon.mk
-=======
--include device/google/bonito/bonito/BoardConfig-lineage.mk
->>>>>>> 71b499b3... b4s4: Organize Lineage makefiles
 
 TARGET_BOOTLOADER_BOARD_NAME := bonito
 TARGET_SCREEN_DENSITY := 400
