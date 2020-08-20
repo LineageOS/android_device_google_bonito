@@ -11,8 +11,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true \
     media.mediadrmservice.enable=true
 
-DEVICE_PACKAGE_OVERLAYS += device/google/bonito/overlay-lineage
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += device/google/bonito/overlay-lineage/lineage-sdk
+DEVICE_PACKAGE_OVERLAYS += device/google/bonito/overlay-carbon
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += device/google/bonito/overlay-carbon/carbon-sdk
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += device/google/bonito/overlay/packages/apps/Bluetooth
 
 # EUICC
@@ -21,8 +21,8 @@ PRODUCT_COPY_FILES += \
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-sdm \
-    vendor.lineage.livedisplay@2.0-service-sysfs
+    vendor.carbon.livedisplay@2.0-service-sdm \
+    vendor.carbon.livedisplay@2.0-service-sysfs
 
 # LMK
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -43,7 +43,7 @@ PRODUCT_PACKAGES += Snap
 
 # Trust HAL
 PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service
+    vendor.carbon.trust@1.0-service
 
 # Utilities
 PRODUCT_PACKAGES += \

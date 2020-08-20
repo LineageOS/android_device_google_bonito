@@ -16,8 +16,8 @@ TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_CONFIG := lineageos_bonito_defconfig
 TARGET_KERNEL_SOURCE := kernel/google/msm-4.9
 
-DEVICE_MANIFEST_FILE += device/google/bonito/lineage_manifest.xml
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += device/google/bonito/lineage_compatibility_matrix.xml
+DEVICE_MANIFEST_FILE += device/google/bonito/carbon_manifest.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += device/google/bonito/carbon_compatibility_matrix.xml
 
 ifneq ($(WITH_GMS),true)
     BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 15728640
@@ -25,5 +25,5 @@ ifneq ($(WITH_GMS),true)
     BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 15728640
 endif
 
-include device/google/bonito/sepolicy-lineage/bonito-lineage-sepolicy.mk
+include device/google/bonito/sepolicy-carbon/bonito-carbon-sepolicy.mk
 -include vendor/google/bonito/BoardConfigVendor.mk

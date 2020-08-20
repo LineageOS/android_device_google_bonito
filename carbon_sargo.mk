@@ -2,16 +2,19 @@
 TARGET_SCREEN_HEIGHT := 2220
 TARGET_SCREEN_WIDTH := 1080
 
-# Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit Carbon GSM telephony parts
+$(call inherit-product, vendor/carbon/config/gsm.mk)
+
+# Inherit Carbon product configuration
+$(call inherit-product, vendor/carbon/config/common.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/google/bonito/aosp_sargo.mk)
 
--include device/google/bonito/sargo/device-lineage.mk
+-include device/google/bonito/sargo/device-carbon.mk
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_NAME := lineage_sargo
+PRODUCT_NAME := carbon_sargo
 PRODUCT_BRAND := google
 PRODUCT_MODEL := Pixel 3a
 TARGET_MANUFACTURER := Google
