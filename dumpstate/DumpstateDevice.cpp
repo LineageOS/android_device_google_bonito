@@ -21,6 +21,7 @@
 #include <android-base/properties.h>
 #include <android-base/unique_fd.h>
 #include <cutils/properties.h>
+#include <hidl/HidlSupport.h>
 #include <log/log.h>
 #include <pthread.h>
 #include <string.h>
@@ -32,6 +33,7 @@
 
 #define MODEM_LOG_PREFIX_PROPERTY "ro.radio.log_prefix"
 #define MODEM_LOG_LOC_PROPERTY "ro.radio.log_loc"
+#define MODEM_LOGGING_SWITCH "persist.radio.smlog_switch"
 
 #define DIAG_MDLOG_PERSIST_PROPERTY "persist.vendor.sys.modem.diag.mdlog"
 #define DIAG_MDLOG_PROPERTY "vendor.sys.modem.diag.mdlog"
@@ -46,6 +48,8 @@
 
 #define MODEM_EFS_DUMP_PROPERTY "vendor.sys.modem.diag.efsdump"
 
+#define VENDOR_VERBOSE_LOGGING_ENABLED_PROPERTY "persist.vendor.verbose_logging_enabled"
+
 using android::os::dumpstate::CommandOptions;
 using android::os::dumpstate::DumpFileToFd;
 using android::os::dumpstate::PropertiesHelper;
@@ -54,7 +58,7 @@ using android::os::dumpstate::RunCommandToFd;
 namespace android {
 namespace hardware {
 namespace dumpstate {
-namespace V1_0 {
+namespace V1_1 {
 namespace implementation {
 
 #define DIAG_LOG_PREFIX "diag_log_"
@@ -134,14 +138,44 @@ static void *dumpModemThread(void *data)
 
     RunCommandToFd(STDOUT_FILENO, "MKDIR MODEM LOG", {"/vendor/bin/mkdir", "-p", modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
 
+    const std::string diagLogDir = "/data/vendor/radio/diag_logs/logs";
+    const std::string diagPoweronLogPath = "/data/vendor/radio/diag_logs/logs/diag_poweron_log.qmdl";
+
+    bool diagLogEnabled = android::base::GetBoolProperty(DIAG_MDLOG_PERSIST_PROPERTY, false);
+
+    if (diagLogEnabled) {
+        bool diagLogStarted = android::base::GetBoolProperty( DIAG_MDLOG_STATUS_PROPERTY, false);
+
+        if (diagLogStarted) {
+            android::base::SetProperty(DIAG_MDLOG_PROPERTY, "false");
+            ALOGD("Stopping diag_mdlog...\n");
+            if (android::base::WaitForProperty(DIAG_MDLOG_STATUS_PROPERTY, "false", std::chrono::seconds(10))) {
+                ALOGD("diag_mdlog exited");
+            } else {
+                ALOGE("Waited mdlog timeout after 10 second");
+            }
+        } else {
+            ALOGD("diag_mdlog is not running");
+        }
+
+        dumpLogs(STDOUT_FILENO, diagLogDir, modemLogAllDir, android::base::GetIntProperty(DIAG_MDLOG_NUMBER_BUGREPORT, 100), DIAG_LOG_PREFIX);
+
+        if (diagLogStarted) {
+            ALOGD("Restarting diag_mdlog...");
+            android::base::SetProperty(DIAG_MDLOG_PROPERTY, "true");
+        }
+    }
+    RunCommandToFd(STDOUT_FILENO, "CP MODEM POWERON LOG", {"/vendor/bin/cp", diagPoweronLogPath.c_str(), modemLogAllDir.c_str()}, CommandOptions::WithTimeout(2).Build());
+
     if (!PropertiesHelper::IsUserBuild()) {
         android::base::SetProperty(MODEM_EFS_DUMP_PROPERTY, "true");
 
-        const std::string diagLogDir = "/data/vendor/radio/diag_logs/logs";
         const std::string tcpdumpLogDir = "/data/vendor/tcpdump_logger/logs";
         const std::string extendedLogDir = "/data/vendor/radio/extended_logs";
         const std::vector <std::string> rilAndNetmgrLogs
             {
+              "/data/vendor/radio/haldebug_ril0",
+              "/data/vendor/radio/haldebug_ril1",
               "/data/vendor/radio/ril_log0",
               "/data/vendor/radio/ril_log0_old",
               "/data/vendor/radio/ril_log1",
@@ -152,42 +186,17 @@ static void *dumpModemThread(void *data)
               "/data/vendor/radio/imsdatadaemon_log_old",
               "/data/vendor/netmgr/netmgr_log",
               "/data/vendor/netmgr/netmgr_log_old",
+              "/data/vendor/radio/omadm_logs.txt",
               "/data/vendor/radio/power_anomaly_data.txt",
               "/data/vendor/radio/diag_logs/diag_trace.txt",
               "/data/vendor/radio/diag_logs/diag_trace_old.txt",
-              "/data/vendor/radio/diag_logs/logs/diag_poweron_log.qmdl",
               "/data/vendor/radio/metrics_data",
               "/data/vendor/ssrlog/ssr_log.txt",
               "/data/vendor/ssrlog/ssr_log_old.txt",
               "/data/vendor/rfs/mpss/modem_efs"
             };
 
-        bool diagLogEnabled = android::base::GetBoolProperty(DIAG_MDLOG_PERSIST_PROPERTY, false);
         bool tcpdumpEnabled = android::base::GetBoolProperty(TCPDUMP_PERSIST_PROPERTY, false);
-
-        if (diagLogEnabled) {
-            bool diagLogStarted = android::base::GetBoolProperty(DIAG_MDLOG_STATUS_PROPERTY, false);
-
-            if (diagLogStarted) {
-                android::base::SetProperty(DIAG_MDLOG_PROPERTY, "false");
-                ALOGD("Stopping diag_mdlog...\n");
-                if (android::base::WaitForProperty(DIAG_MDLOG_STATUS_PROPERTY, "false", std::chrono::seconds(10))) {
-                    ALOGD("diag_mdlog exited");
-                } else {
-                    ALOGE("Waited mdlog timeout after 10 second");
-                }
-            } else {
-                ALOGD("diag_mdlog is not running");
-            }
-
-            dumpLogs(STDOUT_FILENO, diagLogDir, modemLogAllDir, android::base::GetIntProperty(DIAG_MDLOG_NUMBER_BUGREPORT, 100), DIAG_LOG_PREFIX);
-
-            if (diagLogStarted) {
-                ALOGD("Restarting diag_mdlog...");
-                android::base::SetProperty(DIAG_MDLOG_PROPERTY, "true");
-            }
-        }
-
         if (tcpdumpEnabled) {
             dumpLogs(STDOUT_FILENO, tcpdumpLogDir, modemLogAllDir, android::base::GetIntProperty(TCPDUMP_NUMBER_BUGREPORT, 5), TCPDUMP_LOG_PREFIX);
         }
@@ -275,9 +284,24 @@ static void DumpTouch(int fd) {
     }
 }
 
+static void DumpSensorLog(int fd) {
+    const std::string logPath = "/data/vendor/sensors/log/sensor_log.txt";
+    const std::string lastlogPath = "/data/vendor/sensors/log/sensor_lastlog.txt";
+
+    if (!access(logPath.c_str(), R_OK)) {
+        DumpFileToFd(fd, "sensor log", logPath);
+    }
+    if (!access(lastlogPath.c_str(), R_OK)) {
+        DumpFileToFd(fd, "sensor lastlog", lastlogPath);
+    }
+}
+
 static void DumpF2FS(int fd) {
     DumpFileToFd(fd, "F2FS", "/sys/kernel/debug/f2fs/status");
-    DumpFileToFd(fd, "F2FS - fragmentation", "/proc/fs/f2fs/dm-6/segment_info");
+    RunCommandToFd(fd, "F2FS - fragmentation", {"/vendor/bin/sh", "-c",
+                       "for d in $(ls /proc/fs/f2fs/); do "
+                       "echo $d: /dev/block/mapper/`ls -l /dev/block/mapper | grep $d | awk '{print $8,$9,$10}'`; "
+                       "cat /proc/fs/f2fs/$d/segment_info; done"});
 }
 
 static void DumpPower(int fd) {
@@ -316,26 +340,57 @@ static void DumpeMMC(int fd) {
 
 // Methods from ::android::hardware::dumpstate::V1_0::IDumpstateDevice follow.
 Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
+    // Ignore return value, just return an empty status.
+    dumpstateBoard_1_1(handle, DumpstateMode::DEFAULT, 30 * 1000 /* timeoutMillis */);
+    return Void();
+}
+
+// Methods from ::android::hardware::dumpstate::V1_1::IDumpstateDevice follow.
+Return<DumpstateStatus> DumpstateDevice::dumpstateBoard_1_1(const hidl_handle& handle,
+                                                            const DumpstateMode mode,
+                                                            const uint64_t timeoutMillis) {
+    // Unused arguments.
+    (void) timeoutMillis;
+
     if (handle == nullptr || handle->numFds < 1) {
         ALOGE("no FDs\n");
-        return Void();
+        return DumpstateStatus::ILLEGAL_ARGUMENT;
     }
 
     int fd = handle->data[0];
     if (fd < 0) {
         ALOGE("invalid FD: %d\n", handle->data[0]);
-        return Void();
+        return DumpstateStatus::ILLEGAL_ARGUMENT;
+    }
+
+    bool isModeValid = false;
+    for (const auto dumpstateMode : hidl_enum_range<DumpstateMode>()) {
+        if (mode == dumpstateMode) {
+            isModeValid = true;
+            break;
+        }
+    }
+    if (!isModeValid) {
+        ALOGE("Invalid mode: %d\n", mode);
+        return DumpstateStatus::ILLEGAL_ARGUMENT;
+    } else if (mode == DumpstateMode::WEAR) {
+        // We aren't a Wear device.
+        ALOGE("Unsupported mode: %d\n", mode);
+        return DumpstateStatus::UNSUPPORTED_MODE;
     }
 
     RunCommandToFd(fd, "Notify modem", {"/vendor/bin/modem_svc", "-s"}, CommandOptions::WithTimeout(1).Build());
 
     pthread_t modemThreadHandle = 0;
-    if (handle->numFds < 2) {
-        ALOGE("no FD for modem\n");
-    } else {
-        int fdModem = handle->data[1];
-        if (pthread_create(&modemThreadHandle, NULL, dumpModemThread, (void *)((long)fdModem)) != 0) {
-            ALOGE("could not create thread for dumpModem\n");
+    if (getVerboseLoggingEnabled()) {
+        ALOGD("Verbose logging is enabled.\n");
+        if (handle->numFds < 2) {
+            ALOGE("no FD for modem\n");
+        } else {
+            int fdModem = handle->data[1];
+            if (pthread_create(&modemThreadHandle, NULL, dumpModemThread, (void *)((long)fdModem)) != 0) {
+                ALOGE("could not create thread for dumpModem\n");
+            }
         }
     }
 
@@ -351,11 +406,16 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     DumpF2FS(fd);
     DumpeMMC(fd);
 
+    DumpSensorLog(fd);
+
     DumpFileToFd(fd, "INTERRUPTS", "/proc/interrupts");
 
     DumpPower(fd);
 
     DumpFileToFd(fd, "LL-Stats", "/d/wlan0/ll_stats");
+    DumpFileToFd(fd, "WLAN Connect Info", "/d/wlan0/connect_info");
+    DumpFileToFd(fd, "WLAN Offload Info", "/d/wlan0/offload_info");
+    DumpFileToFd(fd, "WLAN Roaming Stats", "/d/wlan0/roam_stats");
     DumpFileToFd(fd, "ICNSS Stats", "/d/icnss/stats");
     DumpFileToFd(fd, "SMD Log", "/d/ipc_logging/smd/log");
     RunCommandToFd(fd, "ION HEAPS", {"/vendor/bin/sh", "-c", "for d in $(ls -d /d/ion/*); do for f in $(ls $d); do echo --- $d/$f; cat $d/$f; done; done"});
@@ -401,6 +461,9 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     RunCommandToFd(fd, "Citadel STATS", {"/vendor/bin/hw/citadel_updater", "--stats"});
     RunCommandToFd(fd, "Citadel BOARDID", {"/vendor/bin/hw/citadel_updater", "--board_id"});
 
+    // Dump various events in WiFi data path
+    DumpFileToFd(fd, "WLAN DP Trace", "/d/wlan/dpt_stats/dump_set_dpt_logs");
+
     // Keep this at the end as very long on not for humans
     DumpFileToFd(fd, "WLAN FW Log Symbol Table", "/vendor/firmware/Data.msc");
 
@@ -408,11 +471,20 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
         pthread_join(modemThreadHandle, NULL);
     }
 
+    return DumpstateStatus::OK;
+}
+
+Return<void> DumpstateDevice::setVerboseLoggingEnabled(const bool enable) {
+    android::base::SetProperty(VENDOR_VERBOSE_LOGGING_ENABLED_PROPERTY, enable ? "true" : "false");
     return Void();
 }
 
+Return<bool> DumpstateDevice::getVerboseLoggingEnabled() {
+    return android::base::GetBoolProperty(VENDOR_VERBOSE_LOGGING_ENABLED_PROPERTY, false);
+}
+
 }  // namespace implementation
-}  // namespace V1_0
+}  // namespace V1_1
 }  // namespace dumpstate
 }  // namespace hardware
 }  // namespace android
