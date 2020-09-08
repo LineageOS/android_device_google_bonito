@@ -1,2 +1,0 @@
-# b/149063293
-dontaudit hal_bluetooth_default self:socket create;

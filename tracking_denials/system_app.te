@@ -1,4 +1,6 @@
 # b/149064421
-dontaudit system_app apk_verity_prop:file read;
 dontaudit system_app sysfs_msm_subsys:dir search;
-dontaudit system_app vendor_default_prop:file read;
+
+# b/151803074
+dontaudit system_app hal_tui_comm_hwservice:hwservice_manager find;
+

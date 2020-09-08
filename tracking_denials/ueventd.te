@@ -1,2 +1,0 @@
-# b/149064065
-dontaudit ueventd tmpfs:lnk_file read;
