@@ -23,3 +23,6 @@ allow pixelstats_vendor sysfs_pixelstats:dir search;
 allow pixelstats_vendor sysfs_pixelstats:file rw_file_perms;
 allow pixelstats_vendor self:netlink_kobject_uevent_socket { create getopt setopt bind read };
 allow pixelstats_vendor sysfs_msm_subsys:dir search;
+
+allow pixelstats_vendor sysfs_usb_c:dir   search;
+allow pixelstats_vendor sysfs_usb_c:file  r_file_perms;
