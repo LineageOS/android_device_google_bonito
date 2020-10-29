@@ -92,6 +92,9 @@ persist.bluetooth.a2dp_offload.disabled=false
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac
 
+# TODO(b/171462631): Remove this once it is the default
+PRODUCT_PROPERTY_OVERRIDES += ro.vold.level_from_user=1
+
 # Modem loging file
 PRODUCT_COPY_FILES += \
     device/google/bonito/init.logging.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(PRODUCT_PLATFORM).logging.rc
