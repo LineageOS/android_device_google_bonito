@@ -857,6 +857,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service.pixel
 
+# fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd
+
 # GTS ACSA(Agreement for Carrier Service Application) verification
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.com.google.acsa=true
