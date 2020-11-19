@@ -34,6 +34,7 @@
 /dev/mnh_sm                                     u:object_r:easel_device:s0
 /dev/easelcomm-client                           u:object_r:easel_device:s0
 /dev/pn81a                                      u:object_r:secure_element_device:s0
+/dev/qce                                        u:object_r:qce_device:s0
 # camera rainbow sensor
 /dev/vd6281                                     u:object_r:camera_device:s0
 # pcm device receiving rainbow sensor data
