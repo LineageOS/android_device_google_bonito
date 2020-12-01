@@ -488,9 +488,9 @@ endif
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl-pixel-legacy \
-    android.hardware.boot@1.1-impl-pixel-legacy.recovery \
-    android.hardware.boot@1.1-service \
+    android.hardware.boot@1.2-impl-pixel-legacy \
+    android.hardware.boot@1.2-impl-pixel-legacy.recovery \
+    android.hardware.boot@1.2-service \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/thermal_info_config_$(PRODUCT_HARDWARE).json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
