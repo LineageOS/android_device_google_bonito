@@ -73,6 +73,10 @@ PRODUCT_PACKAGES += \
     libcodec2_vndk.vendor \
     libstagefright_bufferpool@2.0.1.vendor
 
+# Configstore
+PRODUCT_PACKAGES += \
+    disable_configstore
+
 # Confirmation UI
 PRODUCT_PACKAGES += \
     android.hardware.confirmationui@1.0.vendor:64 \
