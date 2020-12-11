@@ -458,6 +458,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.c2inputsurface=-1 \
 
+#  Maximum operating rate for codecs.
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.media.transcoding.codec_max_operating_rate=120 \
+
 PRODUCT_PACKAGES += \
     libqcodec2 \
     vendor.qti.media.c2@1.0-service \
