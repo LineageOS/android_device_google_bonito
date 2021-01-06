@@ -295,6 +295,7 @@ system_ext/lib/vendor.qti.hardware.scve.objecttracker@1.0-adapter-helper.so
 system_ext/lib/vendor.qti.hardware.scve.panorama@1.0.so
 system_ext/lib/vendor.qti.hardware.scve.panorama@1.0-adapter-helper.so
 system_ext/lib/vendor.qti.hardware.soter@1.0.so
+system_ext/lib/vendor.qti.hardware.trustedui@1.0.so
 system_ext/lib/vendor.qti.hardware.tui_comm@1.0.so
 system_ext/lib/vendor.qti.ims.callinfo@1.0.so
 system_ext/lib/vendor.qti.imsrtpservice@1.0.so
@@ -351,6 +352,7 @@ system_ext/lib64/vendor.qti.hardware.scve.objecttracker@1.0-adapter-helper.so
 system_ext/lib64/vendor.qti.hardware.scve.panorama@1.0.so
 system_ext/lib64/vendor.qti.hardware.scve.panorama@1.0-adapter-helper.so
 system_ext/lib64/vendor.qti.hardware.soter@1.0.so
+system_ext/lib64/vendor.qti.hardware.trustedui@1.0.so
 system_ext/lib64/vendor.qti.hardware.tui_comm@1.0.so
 system_ext/lib64/vendor.qti.ims.callinfo@1.0.so
 system_ext/lib64/vendor.qti.imsrtpservice@1.0.so
