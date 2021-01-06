@@ -875,7 +875,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Increment the SVN for any official public releases
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vendor.build.svn=32
+	ro.vendor.build.svn=33
 
 # Vendor verbose logging default property
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
