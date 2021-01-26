@@ -235,6 +235,7 @@ product/priv-app/MyVerizonServices/lib/arm64/libmotricity.so
 system_ext/etc/permissions/com.android.hotwordenrollment.common.util.xml
 system_ext/etc/permissions/com.android.omadm.radioconfig.xml
 system_ext/etc/permissions/com.verizon.llkagent.xml
+system_ext/etc/permissions/privapp-permissions-google-se.xml
 -system_ext/framework/com.android.hotwordenrollment.common.util.jar
 -system_ext/framework/com.qualcomm.qti.uceservice-V2.0-java.jar
 -system_ext/framework/com.qualcomm.qti.uceservice-V2.1-java.jar
