@@ -898,3 +898,6 @@ include hardware/google/pixel/citadel/citadel.mk
 
 # power HAL
 -include hardware/google/pixel/power-libperfmgr/aidl/device.mk
+
+# Pixel Logger
+include hardware/google/pixel/PixelLogger/PixelLogger.mk
