@@ -1,0 +1,3 @@
+# b/179444837
+dontaudit dumpstate debugfs_dma_bufinfo:file read ;
+dontaudit dumpstate debugfs_dma_bufinfo:file read ;
