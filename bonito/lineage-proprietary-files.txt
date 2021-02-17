@@ -213,6 +213,7 @@ product/lib64/libsecureuisvc_jni.so
 -product/priv-app/CarrierWifi/CarrierWifi.apk;PRESIGNED
 -product/priv-app/ConnMO/ConnMO.apk
 -product/priv-app/DCMO/DCMO.apk
+-product/priv-app/DevicePersonalizationPrebuiltPixel3/DevicePersonalizationPrebuiltPixel3.apk;PRESIGNED
 -product/priv-app/DiagMon/DiagMon.apk
 -product/priv-app/DMService/DMService.apk
 -product/priv-app/EuiccGoogle/EuiccGoogle.apk;PRESIGNED
