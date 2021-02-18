@@ -1,3 +1,8 @@
 # b/179444837
 dontaudit dumpstate debugfs_dma_bufinfo:file read ;
 dontaudit dumpstate debugfs_dma_bufinfo:file read ;
+# b/180559623
+dontaudit dumpstate incident:process signal ;
+dontaudit dumpstate incident:process sigkill ;
+dontaudit dumpstate incident:process signal ;
+dontaudit dumpstate incident:process sigkill ;
