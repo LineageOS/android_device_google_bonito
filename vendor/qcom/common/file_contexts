@@ -77,6 +77,12 @@
 # Block devices for the drive that holds the xbl_a and xbl_b partitions.
 /dev/block/sd[bc]1?                             u:object_r:xbl_block_device:s0
 
+###################################
+# ramdumpfs files
+#
+/mnt/vendor/ramdump(/.*)?                       u:object_r:ramdump_vendor_mnt_file:s0
+/ramdump(/.*)?                                  u:object_r:ramdump_vendor_mnt_file:s0
+
 # Block device for hal_bootctl
 /dev/block/sde                                  u:object_r:boot_block_device:s0
 
@@ -108,6 +114,7 @@
 /vendor/bin/netmgrd             u:object_r:netmgrd_exec:s0
 /vendor/bin/port-bridge         u:object_r:port-bridge_exec:s0
 /vendor/bin/qti                 u:object_r:qti_exec:s0
+/vendor/bin/ramdump             u:object_r:ramdump_exec:s0
 /vendor/bin/smlog_dump          u:object_r:smlog_dump_exec:s0
 /vendor/bin/loc_launcher        u:object_r:location_exec:s0
 /vendor/bin/lowi-server         u:object_r:location_exec:s0
@@ -215,6 +222,7 @@
 /data/vendor/radio(/.*)?               u:object_r:radio_vendor_data_file:s0
 /data/vendor/wifi/cnss_diag(/.*)?      u:object_r:cnss_vendor_data_file:s0
 /data/vendor/wifi/wlan_logs(/.*)?      u:object_r:wifi_vendor_log_data_file:s0
+/data/vendor/ramdump(/.*)?             u:object_r:ramdump_vendor_data_file:s0
 /data/vendor/ssrdump(/.*)?             u:object_r:ramdump_vendor_data_file:s0
 /data/vendor/wifidump(/.*)?            u:object_r:wifidump_vendor_data_file:s0
 /data/vendor/modem_dump(/.*)?          u:object_r:modem_dump_file:s0
@@ -257,6 +265,7 @@
 /mnt/vendor/persist/data(/.*)?       u:object_r:persist_data_file:s0
 /mnt/vendor/persist/display(/.*)?    u:object_r:persist_display_file:s0
 /mnt/vendor/persist/drm(/.*)?        u:object_r:persist_drm_file:s0
+/mnt/vendor/persist/haptics(/.*)?    u:object_r:persist_haptics_file:s0
 /mnt/vendor/persist/hlos_rfs(/.*)?   u:object_r:persist_rfs_file:s0
 /mnt/vendor/persist/rfs(/.*)?        u:object_r:persist_rfs_file:s0
 /mnt/vendor/persist/sensors(/.*)?    u:object_r:persist_sensors_file:s0
