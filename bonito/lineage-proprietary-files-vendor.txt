@@ -17,6 +17,7 @@ vendor/bin/hw/citadel_updater
 vendor/bin/hw/citadeld
 vendor/bin/hw/init_citadel
 vendor/bin/hw/qcrild
+vendor/bin/hw/vendor.google.google_battery@1.1-service-vendor
 vendor/bin/hw/vendor.google.radioext@1.0-service
 vendor/bin/hw/vendor.google.wifi_ext@1.0-service-vendor
 vendor/bin/hw/vendor.qti.esepowermanager@1.0-service
@@ -203,6 +204,7 @@ vendor/etc/init/init_citadel.rc
 vendor/etc/init/init-ramoops.rc
 vendor/etc/init/qcrild.rc
 vendor/etc/init/rebootescrow-citadel.rc
+vendor/etc/init/vendor.google.google_battery@1.1-service.rc
 vendor/etc/init/vendor.google.radioext@1.0-service.rc
 vendor/etc/init/vendor.google.wifi_ext@1.0-service.rc
 vendor/etc/init/vendor.qti.esepowermanager@1.0-service.rc
@@ -998,6 +1000,8 @@ vendor/lib64/vendor.display.color@1.0.so
 vendor/lib64/vendor.display.color@1.1.so
 vendor/lib64/vendor.display.color@1.2.so
 vendor/lib64/vendor.display.postproc@1.0.so
+vendor/lib64/vendor.google.google_battery@1.0.so
+vendor/lib64/vendor.google.google_battery@1.1.so
 vendor/lib64/vendor.google.radioext@1.0.so
 vendor/lib64/vendor.google.radioext@1.1.so
 vendor/lib64/vendor.google.radioext@1.2.so
@@ -1069,6 +1073,7 @@ vendor/radio/qcril_database/upgrade/9_remove_germany_ecc_110.sql
 vendor/radio/qcril_database/upgrade/10_remove_germany_hard_ecc_110.sql
 vendor/radio/qcril_database/upgrade/11_israel_normal_ecc.sql
 vendor/radio/qcril_database/upgrade/12_brazil_ecc.sql
+vendor/radio/qcril_database/upgrade/13_show_emer_ui_in_india.sql
 vendor/rfs/msm/mpss/readonly/vendor/mbn/mcfg.version
 vendor/rfs/msm/mpss/readonly/vendor/mbn/mcfg_hw/generic/common/Default/cust_Default/mcfg_hw.mbn
 vendor/rfs/msm/mpss/readonly/vendor/mbn/mcfg_hw/generic/common/MDM9x55/7+7_mode/DR_DSDS/mcfg_hw.mbn
