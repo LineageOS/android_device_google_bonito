@@ -19,6 +19,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=bonito \
     PRIVATE_BUILD_DESC="bonito-user 11 RQ2A.210305.006 7119741 release-keys"
 
-BUILD_FINGERPRINT := google/sargo/sargo:11/RQ2A.210305.006/7119741:user/release-keys
+BUILD_FINGERPRINT := google/bonito/bonito:11/RQ2A.210305.006/7119741:user/release-keys
 
 $(call inherit-product-if-exists, vendor/google/bonito/bonito-vendor.mk)
