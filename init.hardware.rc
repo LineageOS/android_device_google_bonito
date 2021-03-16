@@ -791,12 +791,6 @@ on property:sys.retaildemo.enabled=1
     setprop persist.vendor.charge.stop.level 35
     setprop persist.vendor.charge.start.level 30
 
-# For Japan radio builds, always enforce camera shutter sound
-# Since this property is read by the audio server in system service,
-# it should be written by the system init.
-on property:ro.boot.hardware.radio.subtype=0
-    setprop audio.camerasound.force true
-
 # Touch
 on property:vendor.all.modules.ready=1
     wait /sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input2/read_report
