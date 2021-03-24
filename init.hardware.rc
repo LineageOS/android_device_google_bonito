@@ -401,6 +401,12 @@ on early-boot
     chown system system /sys/devices/platform/soc/a88000.i2c/i2c-0/0-0061/txlen
     chown system system /sys/devices/platform/soc/a88000.i2c/i2c-0/0-0061/ccreset
 
+    # FG cycle counts read from dumpstate + backup restore from health HAL
+    chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/cycle_counts_bins
+
+    # HardwareInfo needs to be able to read CC bins
+    chmod 644 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/cycle_counts_bins
+
     # Permission for Pixelstats
     chown system system /sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_read_cnt
     chown system system /sys/devices/platform/soc/7c4000.sdhci/mmc_host/mmc0/slowio_write_cnt
@@ -515,12 +521,6 @@ on property:sys.boot_completed=1
     chown system system /d/fg/sram/data
     chown system system /d/fg/sram/count
     chown system system /d/fg/sram/address
-
-    # Dump QCOM FG cycle counts for dumpstate
-    chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/cycle_counts_bins
-
-    # HardwareInfo needs to be able to read CC bins
-    chmod 644 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/cycle_counts_bins
 
     # dumpstate needs to read, vendor.health-hal needs to be able to RW
     chown system system /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm660@0:qpnp,fg/power_supply/bms/charge_full
