@@ -561,6 +561,10 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     WifiOverlay
 
+# Connectivity
+PRODUCT_PACKAGES += \
+    ConnectivityOverlay
+
 LIB_NL := libnl_2
 PRODUCT_PACKAGES += $(LIB_NL)
 
