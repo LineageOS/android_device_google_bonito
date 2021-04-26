@@ -1,0 +1,2 @@
+# b/186176982
+dontaudit incidentd sysfs_msm_subsys:dir search;
