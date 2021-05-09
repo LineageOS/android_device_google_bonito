@@ -54,5 +54,4 @@ BOARD_SEPOLICY_DIRS += device/google/bonito/sepolicy-lineage/dynamic
 BOARD_SEPOLICY_DIRS += device/google/bonito/sepolicy-lineage/vendor
 
 # Verified Boot
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
