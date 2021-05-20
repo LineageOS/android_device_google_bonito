@@ -206,6 +206,7 @@ product/etc/res/images/charger/battery_scale.png
 product/etc/res/images/charger/main_font.png
 product/etc/res/values/charger/animation.txt
 product/etc/sysconfig/google_build.xml
+product/etc/sysconfig/google-hiddenapi-package-whitelist.xml
 product/etc/sysconfig/nexus.xml
 product/etc/sysconfig/pixel_2019_midyear_exclusive.xml
 product/etc/sysconfig/pixel_experience_2017.xml
