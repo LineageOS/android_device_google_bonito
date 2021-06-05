@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
@@ -29,5 +30,8 @@
         <item>restart_fastboot</item>
         <item>restart_bootloader</item>
     </string-array>
+
+    <!-- Whether the device supports wireless charging or not -->
+    <bool name="config_deviceSupportsWirelessCharging">true</bool>
 
 </resources>
