@@ -1,6 +1,5 @@
 vendor_internal_prop(vendor_ramoops_prop)
 vendor_internal_prop(vendor_shutdown_prop)
-vendor_internal_prop(vendor_vibrator_prop)
 
 # fingerprint
 vendor_internal_prop(vendor_fingerprint_prop)
