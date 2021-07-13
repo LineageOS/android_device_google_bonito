@@ -153,6 +153,7 @@ on init && property:vendor.skip.init=0
     chown system system /sys/devices/platform/soc/soc:google,charger/bd_trigger_time
     chown system system /sys/devices/platform/soc/soc:google,charger/bd_trigger_voltage
     chown system system /sys/devices/platform/soc/soc:google,charger/bd_temp_enable
+    chown system system /sys/devices/platform/soc/soc:google,charger/bd_clear
 
 on late-init
     chown system system /sys/devices/virtual/thermal/tz-by-name/mb-therm-monitor/trip_point_0_temp
