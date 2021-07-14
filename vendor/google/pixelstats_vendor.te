@@ -11,6 +11,7 @@ binder_call(pixelstats_vendor, pixelstats_system)
 
 binder_use(pixelstats_vendor)
 allow pixelstats_vendor fwk_stats_service:service_manager find;
+allow pixelstats_vendor fwk_stats_hwservice:hwservice_manager find;
 
 unix_socket_connect(pixelstats_vendor, chre, chre)
 
