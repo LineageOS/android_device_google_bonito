@@ -703,4 +703,6 @@
     <dimen name="rounded_corner_radius_top">38px</dimen>
     <dimen name="rounded_corner_radius_bottom">39px</dimen>
 
+    <!-- the number of the max cached processes in the system. -->
+    <integer name="config_customizedMaxCachedProcesses">64</integer>
 </resources>
