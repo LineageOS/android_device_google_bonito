@@ -30,7 +30,7 @@ BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
 
 # Manifests
 DEVICE_MANIFEST_FILE += device/google/bonito/lineage_manifest.xml
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += device/google/bonito/lineage_compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += vendor/lineage/config/device_framework_matrix.xml
 
 # Partitions
 AB_OTA_PARTITIONS += \
