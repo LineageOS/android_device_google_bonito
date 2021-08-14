@@ -3,6 +3,7 @@ cdsprpcd system_file dir b/109882276
 dataservice_app vendor_default_prop file b/78460200
 drmserver sdcardfs dir b/77869200
 e2fs tmpfs lnk_file b/133126350
+google_camera_app selinuxfs file b/175910397
 hal_bluetooth_default hal_bluetooth_default socket b/132313059
 hal_rcsservice sysfs_soc dir b/78460200
 hardware_info_app sysfs_msm_subsys dir b/78460200
