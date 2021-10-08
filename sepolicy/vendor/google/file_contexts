@@ -13,7 +13,6 @@
 /vendor/bin/init\.fingerprint\.sh                                           u:object_r:init-fingerprint_exec:s0
 /vendor/bin/ramoops                                                         u:object_r:ramoops_exec:s0
 /vendor/bin/init\.ramoops\.sh                                               u:object_r:ramoops_exec:s0
-/vendor/bin/pixelstats-vendor                                               u:object_r:pixelstats_vendor_exec:s0
 /vendor/bin/hw/vendor\.google\.wifi_ext@1\.0-service-vendor                 u:object_r:hal_wifi_ext_exec:s0
 /vendor/bin/hw/vendor\.google\.wifi_ext@1\.0-service-vendor-lazy            u:object_r:hal_wifi_ext_exec:s0
 
