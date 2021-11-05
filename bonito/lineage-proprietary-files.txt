@@ -102,6 +102,7 @@ product/etc/CarrierSettings/fi_us.pb
 product/etc/CarrierSettings/fizz_ca.pb
 product/etc/CarrierSettings/free_fr.pb
 product/etc/CarrierSettings/freedommobile_ca.pb
+product/etc/CarrierSettings/gamma_gb.pb
 product/etc/CarrierSettings/h3_at.pb
 product/etc/CarrierSettings/h3_gb.pb
 product/etc/CarrierSettings/h3_se.pb
