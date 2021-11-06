@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.usb@1.3-service.crosshatch"
+#define LOG_TAG "android.hardware.usb@1.3-service.bonito"
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
