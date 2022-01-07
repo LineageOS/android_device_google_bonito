@@ -24,3 +24,5 @@ else
   include device/google/bonito/BoardConfig-common.mk
   -include vendor/google_devices/bonito/proprietary/BoardConfigVendor.mk
 endif
+
+include device/google/bonito/bonito/BoardConfigLineage.mk
