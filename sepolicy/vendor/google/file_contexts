@@ -7,6 +7,8 @@
 /vendor/bin/hw/android\.hardware\.contexthub@1\.2-service\.generic          u:object_r:hal_contexthub_default_exec:s0
 /vendor/bin/hw/android\.hardware\.secure_element@1\.1-service-disabled      u:object_r:hal_secure_element_default_exec:s0
 /vendor/bin/hw/android\.hardware\.power\.stats@1\.0-service\.pixel     u:object_r:hal_power_stats_default_exec:s0
+/vendor/bin/hw/android\.hardware\.usb-service\.bonito                       u:object_r:hal_usb_impl_exec:s0
+/vendor/bin/hw/android\.hardware\.usb\.gadget-service\.bonito               u:object_r:hal_usb_gadget_impl_exec:s0
 /vendor/bin/modem_svc                                                       u:object_r:modem_svc_exec:s0
 /vendor/bin/perfstatsd                                                      u:object_r:perfstatsd_exec:s0
 /vendor/bin/init\.firstboot\.sh                                             u:object_r:init-firstboot_exec:s0
