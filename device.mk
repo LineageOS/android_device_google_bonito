@@ -427,8 +427,11 @@ PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/com.google.hardware.pixel.japan.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_G020D/com.google.hardware.pixel.japan.xml \
     device/google/bonito/nfc/com.google.hardware.pixel.japan.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_G020H/com.google.hardware.pixel.japan.xml
 
+# USB HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service.bonito
+    android.hardware.usb-service.bonito
+PRODUCT_PACKAGES += \
+    android.hardware.usb.gadget-service.bonito
 
 PRODUCT_PACKAGES += \
     libmm-omxcore \
