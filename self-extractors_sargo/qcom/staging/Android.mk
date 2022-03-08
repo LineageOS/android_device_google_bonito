@@ -1,5 +1,9 @@
 LOCAL_PATH := $(call my-dir)
 
+$(eval $(call declare-copy-files-license-metadata,vendor/qcom/sargo,:qcom,legacy_proprietary,proprietary,vendor/qcom/sargo/LICENSE,))
+$(eval $(call declare-copy-files-license-metadata,vendor/qcom/sargo,.jar,legacy_proprietary,proprietary,vendor/qcom/sargo/LICENSE,))
+$(eval $(call declare-copy-files-license-metadata,vendor/qcom/sargo,.xml,legacy_proprietary,proprietary,vendor/qcom/sargo/LICENSE,))
+
 ifneq ($(filter sargo, $(TARGET_DEVICE)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
