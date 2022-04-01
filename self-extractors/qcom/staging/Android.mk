@@ -1,5 +1,9 @@
 LOCAL_PATH := $(call my-dir)
 
+$(eval $(call declare-copy-files-license-metadata,vendor/qcom/bonito,:qcom,legacy_proprietary,proprietary,vendor/qcom/bonito/LICENSE,))
+$(eval $(call declare-copy-files-license-metadata,vendor/qcom/bonito,.jar,legacy_proprietary,proprietary,vendor/qcom/bonito/LICENSE,))
+$(eval $(call declare-copy-files-license-metadata,vendor/qcom/bonito,.xml,legacy_proprietary,proprietary,vendor/qcom/bonito/LICENSE,))
+
 ifneq ($(filter bonito, $(TARGET_DEVICE)),)
 include $(CLEAR_VARS)
 LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
