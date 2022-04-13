@@ -1,5 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
+$(call declare-license-metadata,$(LOCAL_PATH)/vendor.img,legacy_proprietary,proprietary,$(LOCAL_PATH)/../LICENSE,"Vendor Image",vendor)
+
 $(eval $(call declare-copy-files-license-metadata,vendor/qcom/bonito,:qcom,legacy_proprietary,proprietary,vendor/qcom/bonito/LICENSE,))
 $(eval $(call declare-copy-files-license-metadata,vendor/qcom/bonito,.jar,legacy_proprietary,proprietary,vendor/qcom/bonito/LICENSE,))
 $(eval $(call declare-copy-files-license-metadata,vendor/qcom/bonito,.xml,legacy_proprietary,proprietary,vendor/qcom/bonito/LICENSE,))
