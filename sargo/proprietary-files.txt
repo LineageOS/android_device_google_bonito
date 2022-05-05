@@ -310,7 +310,7 @@ system_ext/priv-app/EuiccSupportPixel/esim-full-v0.img
 system_ext/priv-app/EuiccSupportPixel/esim-v1.img
 system_ext/priv-app/EuiccSupportPixelPermissions/EuiccSupportPixelPermissions.apk;PRESIGNED
 system_ext/priv-app/RilConfigService/RilConfigService.apk
-system_ext/priv-app/grilservice/grilservice.apk
+system_ext/priv-app/grilservice/grilservice.apk;PRESIGNED
 
 # Qualcomm misc
 system_ext/framework/com.qualcomm.qti.uceservice-V2.0-java.jar
