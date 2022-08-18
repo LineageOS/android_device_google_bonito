@@ -55,10 +55,17 @@ fi
 
 function blob_fixup() {
     case "${1}" in
-    # Fix typo in qcrilmsgtunnel whitelist
-    product/etc/sysconfig/nexus.xml)
-        sed -i 's/qulacomm/qualcomm/' "${2}"
-        ;;
+        # Fix typo in qcrilmsgtunnel whitelist
+        product/etc/sysconfig/nexus.xml)
+            sed -i 's/qulacomm/qualcomm/' "${2}"
+            ;;
+        product/lib/libsecureuisvc_jni.so)
+            ;&
+        product/lib64/libsecureuisvc_jni.so)
+            for LIBGUI_SHIM in $(grep -L "libgui_shim.so" "${2}"); do
+                "${PATCHELF}" --add-needed "libgui_shim.so" "${LIBGUI_SHIM}"
+            done
+            ;;
     esac
 }
 
