@@ -227,6 +227,7 @@ product/etc/CarrierSettings/virgin_ca.pb
 product/etc/CarrierSettings/virgin_gb.pb
 product/etc/CarrierSettings/virgin_us.pb
 product/etc/CarrierSettings/visible_us.pb
+product/etc/CarrierSettings/visiblev_us.pb
 product/etc/CarrierSettings/vodafone_au.pb
 product/etc/CarrierSettings/vodafone_cz.pb
 product/etc/CarrierSettings/vodafone_de.pb
