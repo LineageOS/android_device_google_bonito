@@ -13,10 +13,9 @@
 # limitations under the License.
 
 ifneq ($(filter sargo,$(TARGET_DEVICE)),)
-LOCAL_STEM := sargo/BoardConfigPartial.mk
+-include vendor/google_devices/sargo/BoardConfigPartial.mk
+-include vendor/qcom/sargo/BoardConfigPartial.mk
 else
-LOCAL_STEM := bonito/BoardConfigPartial.mk
+-include vendor/google_devices/bonito/BoardConfigPartial.mk
+-include vendor/qcom/bonito/BoardConfigPartial.mk
 endif
-
--include vendor/google_devices/$(LOCAL_STEM)
--include vendor/qcom/$(LOCAL_STEM)
