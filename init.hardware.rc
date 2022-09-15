@@ -617,54 +617,6 @@ service cnss-daemon /vendor/bin/cnss-daemon -n -l
    user system
    group system inet wifi
 
-service imsqmidaemon /vendor/bin/imsqmidaemon
-   class main
-   user system
-   socket ims_qmid stream 0660 system radio
-   group radio log diag
-
-service imsdatadaemon /vendor/bin/imsdatadaemon
-   class main
-   user system
-   socket ims_datad stream 0660 system radio
-   group system wifi radio inet log
-   disabled
-
-on property:vendor.ims.QMI_DAEMON_STATUS=1
-   start imsdatadaemon
-
-service ims_rtp_daemon /vendor/bin/ims_rtp_daemon
-   class main
-   user system
-   group radio diag inet log
-   disabled
-
-service imsrcsservice /vendor/bin/imsrcsd
-   class main
-   user system
-   group radio diag inet log
-   disabled
-
-on property:vendor.ims.DATA_DAEMON_STATUS=1
-   start ims_rtp_daemon
-   start imsrcsservice
-
-service cnd /vendor/bin/cnd
-   class main
-   user radio
-   group system wifi inet radio wakelock
-
-service netmgrd /vendor/bin/netmgrd
-    class main
-    user root
-    group root wifi wakelock radio inet
-
-service port-bridge /vendor/bin/port-bridge
-    class main
-    user radio
-    group radio system inet
-    oneshot
-
 service ipacm /vendor/bin/ipacm
     class main
     user radio
@@ -783,6 +735,9 @@ on property:vendor.radio.sim_num.switch=1to2 && property:persist.radio.multisim.
 
 on property:vendor.radio.sim_num.switch=2to1 && property:persist.radio.multisim.config=
     restart vendor.qcrild
+
+on property:ro.boot.hardware.dsds=1
+    setprop persist.radio.multisim.config dsds
 
 # Enable 2nd qcrild when the property set to dsds
 on property:persist.radio.multisim.config=dsds

@@ -68,6 +68,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.media.c2@1.0.vendor:32 \
     libavservices_minijail_vendor:32 \
+    libavservices_minijail.vendor:64 \
     libcodec2_hidl@1.0.vendor:32 \
     libcodec2_vndk.vendor \
     libstagefright_bufferpool@2.0.1.vendor
@@ -109,6 +110,20 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
     libprotobuf-cpp-lite-3.9.1-vendorcompat
 
+# Telephony
+PRODUCT_PACKAGES += \
+    qti-telephony-hidl-wrapper \
+    qti-telephony-hidl-wrapper-prd \
+    qti_telephony_hidl_wrapper.xml \
+    qti_telephony_hidl_wrapper_prd.xml \
+    qti-telephony-utils \
+    qti_telephony_utils.xml
+
+# VNDK FWK detect
+PRODUCT_PACKAGES += \
+    libqti_vndfwk_detect.vendor \
+    libvndfwk_detect_jni.qti.vendor
+
 # Wi-Fi
 PRODUCT_PACKAGES += \
     android.hardware.wifi-V2-ndk.vendor:64 \
@@ -134,9 +149,14 @@ PRODUCT_PACKAGES += \
     android.hardware.oemlock@1.0.vendor:64 \
     android.hardware.radio.config@1.0.vendor:64 \
     android.hardware.radio.config@1.1.vendor:64 \
+    android.hardware.radio.config@1.2.vendor:64 \
     android.hardware.radio.deprecated@1.0.vendor:64 \
     android.hardware.radio@1.2.vendor:64 \
     android.hardware.radio@1.3.vendor:64 \
+    android.hardware.radio@1.4.vendor:64 \
+    android.hardware.radio@1.5.vendor:64 \
+    android.hardware.secure_element@1.1.vendor:64 \
+    android.hardware.secure_element@1.2.vendor:64 \
     android.hardware.sensors@1.0.vendor:32 \
     android.hardware.sensors@2.0.vendor \
     android.hardware.thermal@1.0.vendor:64 \

@@ -32,6 +32,7 @@ write_headers
 
 write_makefiles "${MY_DIR}/proprietary-files.txt" true
 write_makefiles "${MY_DIR}/proprietary-files-carriersettings.txt" true
+write_makefiles "${MY_DIR}/proprietary-files-radio.txt" true
 write_makefiles "${MY_DIR}/proprietary-files-vendor.txt" true
 
 append_firmware_calls_to_makefiles "${MY_DIR}/proprietary-firmware.txt"
