@@ -55,15 +55,9 @@ fi
 
 function blob_fixup() {
     case "${1}" in
-        product/etc/permissions/uimremoteclient.xml | product/etc/permissions/uimremoteserver.xml)
-            sed -i "s|/system/framework/|/product/framework/|g" "${2}"
-            ;;
         # Fix typo in qcrilmsgtunnel whitelist
         product/etc/sysconfig/nexus.xml)
             sed -i 's/qulacomm/qualcomm/' "${2}"
-            ;;
-        system_ext/etc/permissions/qcrilhook.xml)
-            sed -i 's|/system/framework/|/system_ext/framework/|g' "${2}"
             ;;
         vendor/bin/hw/android.hardware.rebootescrow-service.citadel)
             "${PATCHELF}" --replace-needed "libcrypto.so" "libcrypto-v33.so" "${2}"
@@ -82,6 +76,7 @@ setup_vendor "${DEVICE}" "${VENDOR}" "${ANDROID_ROOT}" false "${CLEAN_VENDOR}"
 
 extract "${MY_DIR}/proprietary-files.txt" "${SRC}" "${KANG}" --section "${SECTION}"
 extract "${MY_DIR}/proprietary-files-carriersettings.txt" "${SRC}" "${KANG}" --section "${SECTION}"
+extract "${MY_DIR}/proprietary-files-radio.txt" "${SRC}" "${KANG}" --section "${SECTION}"
 extract "${MY_DIR}/proprietary-files-vendor.txt" "${SRC}" "${KANG}" --section "${SECTION}"
 
 if [ -z "${SECTION}" ]; then
