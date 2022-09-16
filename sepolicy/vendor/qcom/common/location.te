@@ -52,7 +52,6 @@ userdebug_or_eng(`
   allow location diag_device:chr_file rw_file_perms;
 ')
 
-allow location hal_cne_hwservice:hwservice_manager find;
 binder_call(location, cnd)
 
 get_prop(location, wifi_hal_prop)
