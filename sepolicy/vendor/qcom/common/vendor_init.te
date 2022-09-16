@@ -23,6 +23,7 @@ set_prop(vendor_init, vendor_radio_prop)
 set_prop(vendor_init, vendor_nfc_prop)
 set_prop(vendor_init, vendor_display_prop)
 set_prop(vendor_init, vendor_ssr_prop)
+set_prop(vendor_init, ims_prop)
 
 allow vendor_init unlabeled:dir { getattr relabelfrom };
 

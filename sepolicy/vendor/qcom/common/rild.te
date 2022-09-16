@@ -16,8 +16,9 @@ userdebug_or_eng(`
   allow rild diag_device:chr_file rw_file_perms;
 ')
 
-add_hwservice(rild, vnd_ims_radio_hwservice)
 add_hwservice(rild, vnd_qcrilhook_hwservice)
+add_hwservice(rild, hal_iwlan_hwservice)
+add_hwservice(rild, hal_dataconnection_hwservice)
 
 allow rild self:socket ioctl;
 allowxperm rild self:socket ioctl msm_sock_ipc_ioctls;
@@ -32,6 +33,7 @@ allow rild radio_vendor_data_file:file create_file_perms;
 
 get_prop(rild, sota_prop)
 set_prop(rild, vendor_radio_prop)
+set_prop(rild, vendor_xlat_prop)
 
 # Allow vendor native process to read the proc file of xt_qtaguid
 allow rild proc_qtaguid_stat:file r_file_perms;

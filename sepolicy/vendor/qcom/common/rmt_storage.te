@@ -7,6 +7,7 @@ wakelock_use(rmt_storage)
 
 r_dir_file(rmt_storage, sysfs_msm_subsys)
 
+get_prop(rmt_storage, radio_control_prop)
 set_prop(rmt_storage, ctl_vendor_rmt_storage_prop)
 
 allow rmt_storage self:capability { net_bind_service setgid setpcap setuid };

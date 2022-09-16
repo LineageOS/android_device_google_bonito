@@ -24,6 +24,7 @@ vendor_internal_prop(vendor_radio_sku_prop)
 vendor_internal_prop(vendor_tcpdump_log_prop)
 vendor_internal_prop(ctl_vendor_rmt_storage_prop)
 vendor_internal_prop(vendor_wifi_sniffer_prop)
+vendor_internal_prop(vendor_xlat_prop)
 
 #imsrcsservice
 vendor_internal_prop(ctl_vendor_imsrcsservice_prop)
