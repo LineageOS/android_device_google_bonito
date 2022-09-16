@@ -1,11 +1,16 @@
 user=system seinfo=platform name=com.google.SSRestartDetector domain=ssr_detector_app type=system_app_data_file levelFrom=user
 user=_app seinfo=platform name=com.android.ramdump domain=ramdump_app type=app_data_file levelFrom=all
 
-user=_app seinfo=platform name=com.qualcomm.telephony domain=qtelephony type=app_data_file levelFrom=all
+user=_app isPrivApp=true seinfo=platform name=org.codeaurora.ims domain=qtelephony type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qualcomm.qti.devicestatisticsservice domain=qtelephony type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qualcomm.qti.telephonyservice domain=qtelephony type=app_data_file levelFrom=all
+user=_app seinfo=platform name=com.qti.phone domain=qtelephony type=app_data_file levelFrom=all
 
-#Add new domain for DataServices
-# Domain for CNEService , uceShimService and other connectivity services
-user=radio seinfo=platform name=.dataservices domain=dataservice_app type=radio_data_file levelFrom=user
+#TODO(b/126137625): moving dataservice app from system to radio process
+#user=radio seinfo=platform name=.dataservices domain=dataservice_app type=radio_data_file
+user=system seinfo=platform name=.dataservices domain=dataservice_app type=system_app_data_file levelFrom=user
+
+user=_app seinfo=platform name=.qtidataservices domain=qtidataservices_app type=app_data_file levelFrom=all
 
 # The default domain for tango_core process
 user=_app seinfo=tango name=com.google.tango domain=tango_core type=app_data_file levelFrom=user
