@@ -39,7 +39,7 @@ r_dir_file(ims, sysfs_msm_subsys)
 r_dir_file(ims, sysfs_diag)
 
 hwbinder_use(ims)
-allow ims hal_cne_hwservice:hwservice_manager find;
+allow ims hal_datafactory_hwservice:hwservice_manager find;
 binder_call(ims, cnd)
 
 dontaudit ims kernel:system module_request;

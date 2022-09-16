@@ -1,0 +1,14 @@
+type qtidataservices_app, domain;
+app_domain(qtidataservices_app)
+net_domain(qtidataservices_app)
+
+hwbinder_use(qtidataservices_app)
+
+allow qtidataservices_app hal_datafactory_hwservice:hwservice_manager find;
+allow qtidataservices_app location_service:service_manager find;
+allow qtidataservices_app radio_service:service_manager find;
+allow qtidataservices_app registry_service:service_manager find;
+allow qtidataservices_app thermal_service:service_manager find;
+allow qtidataservices_app wifi_service:service_manager find;
+
+binder_call(qtidataservices_app, cnd)
