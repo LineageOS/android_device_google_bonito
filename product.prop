@@ -115,3 +115,6 @@ bluetooth.profile.pan.nap.enabled?=true
 bluetooth.profile.pan.panu.enabled?=true
 bluetooth.profile.pbap.server.enabled?=true
 bluetooth.profile.sap.server.enabled?=true
+
+# RIL
+ro.telephony.block_binder_thread_on_incoming_calls=false
