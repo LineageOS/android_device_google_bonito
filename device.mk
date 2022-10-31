@@ -318,6 +318,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so \
     ro.hardware.keystore_desede=true \
 
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.telephony.block_binder_thread_on_incoming_calls=false
+
 # Enable reboot free DSDS
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.radio.reboot_on_modem_change=false
