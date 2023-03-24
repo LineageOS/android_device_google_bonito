@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d993a43f_16c3f017",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2023-03-24T20:14:16Z",
+      "side": 1,
+      "message": "I checked, though we don\u0027t directly pull handheld_system in aosp_* targets, we do pull generic_system which pulls it.",
+      "revId": "d5e38c13dd50ee6d8a8adf6672e7f90c4763efea",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
