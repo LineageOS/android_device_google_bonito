@@ -100,7 +100,8 @@ PRODUCT_PACKAGES += \
 
 # Protobuf
 PRODUCT_PACKAGES += \
-    libprotobuf-cpp-full-vendorcompat
+    libprotobuf-cpp-full-vendorcompat \
+    libprotobuf-cpp-lite-3.9.1-vendorcompat
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
