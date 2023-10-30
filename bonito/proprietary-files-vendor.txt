@@ -878,6 +878,7 @@ vendor/lib64/liboemcrypto.so
 vendor/lib64/libpdmapper.so
 vendor/lib64/libpdnotifier.so
 vendor/lib64/libperipheral_client.so
+vendor/lib64/libpixelstats.so
 vendor/lib64/libpower_anomaly_data.so
 vendor/lib64/libqcbor.so
 vendor/lib64/libqcci_legacy.so
@@ -952,6 +953,7 @@ vendor/lib64/nos_app_avb.so
 vendor/lib64/nos_app_identity.so
 vendor/lib64/nos_app_keymaster.so
 vendor/lib64/nos_app_weaver.so
+vendor/lib64/pixelatoms-cpp.so
 vendor/lib64/qcrild_librilutils.so
 vendor/lib64/sensors.ssc.so
 vendor/lib64/unnhal-acc-adreno.so
