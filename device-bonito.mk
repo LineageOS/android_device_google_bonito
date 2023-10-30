@@ -27,10 +27,6 @@ PRODUCT_PACKAGES += \
     SettingsOverlayG020C \
     SettingsOverlayG020D \
 
-# Setup wizard overlay packages for ActiveEdge
-PRODUCT_PACKAGES += \
-    PixelSetupWizardOverlayActiveEdge \
-
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.bonito.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf \
     device/google/bonito/nfc/libnfc-nxp.bonito.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020A.conf \

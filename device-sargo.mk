@@ -31,10 +31,6 @@ PRODUCT_PACKAGES += \
     SettingsOverlayG020H \
     SettingsOverlayG020H_VN \
 
-# Setup wizard overlay packages for ActiveEdge
-PRODUCT_PACKAGES += \
-    PixelSetupWizardOverlayActiveEdge \
-
 PRODUCT_COPY_FILES += \
     device/google/bonito/nfc/libnfc-nxp.sargo.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf \
     device/google/bonito/nfc/libnfc-nxp.sargo.uicc.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp-G020E.conf \
