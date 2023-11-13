@@ -59,13 +59,6 @@ function blob_fixup() {
         product/etc/sysconfig/nexus.xml)
             sed -i 's/qulacomm/qualcomm/' "${2}"
             ;;
-        product/lib/libsecureuisvc_jni.so)
-            ;&
-        product/lib64/libsecureuisvc_jni.so)
-            for LIBGUI_SHIM in $(grep -L "libgui_shim.so" "${2}"); do
-                "${PATCHELF}" --add-needed "libgui_shim.so" "${LIBGUI_SHIM}"
-            done
-            ;;
         vendor/bin/hw/android.hardware.rebootescrow-service.citadel)
             "${PATCHELF}" --replace-needed "libcrypto.so" "libcrypto-v33.so" "${2}"
             ;;
