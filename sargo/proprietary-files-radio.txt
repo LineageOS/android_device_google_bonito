@@ -244,7 +244,6 @@ system_ext/framework/RadioConfigLib.jar|c027959a0b6168bd0d97cdd6cf90d8a695529e5a
 system_ext/framework/google-ril.jar|d834f888a126b4d1e38094603b17a535753bb6b8
 system_ext/framework/qcrilhook.jar|737b9f01c0dde7f90c9bb9185bb299883adab879
 system_ext/priv-app/RilConfigService/RilConfigService.apk|a0e3a1006c0b25a71dc7c48fb6f7d5fee5137b5d
-system_ext/priv-app/grilservice/grilservice.apk;PRESIGNED|970f009d227a115eab6d0f17ec138f9c9efc5ea6
 system_ext/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|341327fd5f2a3501bf4529d6cf24fdb884262bdb
 vendor/app/IWlanService/IWlanService.apk|49e42ee85789158ac854403e126d93b21425a9b9
 vendor/bin/hw/qcrild|13ae63e2c8b611483fb5c9f4b2697fbd87f6994c
@@ -355,3 +354,6 @@ vendor/radio/qcril_database/upgrade/6_singapore_ecc_995.sql|65b912f849c878fdaa66
 vendor/radio/qcril_database/upgrade/7_remove_germany_hard_ecc_110.sql|9ffd72a41f9a730be50bbdb5f1c8dbe8d11573f4
 vendor/radio/qcril_database/upgrade/8_USCC_update_ecc_table.sql|4bb27866aaad4624efb794e261d3ae85ffdac8da
 vendor/radio/qcril_database/upgrade/9_taiwan_ecc_110_and_119.sql|419d8a936bbff38e96146d2bb7913658bffd48bd
+
+# RIL - from redfin - UP1A.231105.001.B2
+system_ext/priv-app/grilservice/grilservice.apk;PRESIGNED|2d876f7cfce6a9dc46467f356b930766f00aa47b
