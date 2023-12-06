@@ -34,6 +34,24 @@
       "parentUuid": "fcda1918_25e2f8b2",
       "revId": "594509cf0cdace9b603aa7767913e48a5c9cdaac",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9995b848_f62ba480",
+        "filename": "BoardConfigLineage.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2023-12-06T19:14:15Z",
+      "side": 1,
+      "message": "Yes, it would be better.",
+      "parentUuid": "a91b1505_80c97e04",
+      "revId": "594509cf0cdace9b603aa7767913e48a5c9cdaac",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
