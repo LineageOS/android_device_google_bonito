@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcda1918_25e2f8b2",
+        "filename": "BoardConfigLineage.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2023-12-06T18:08:17Z",
+      "side": 1,
+      "message": "PRODUCT_* flags should be set in device.mk",
+      "revId": "594509cf0cdace9b603aa7767913e48a5c9cdaac",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
