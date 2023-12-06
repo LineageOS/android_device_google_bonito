@@ -16,6 +16,24 @@
       "message": "PRODUCT_* flags should be set in device.mk",
       "revId": "594509cf0cdace9b603aa7767913e48a5c9cdaac",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91b1505_80c97e04",
+        "filename": "BoardConfigLineage.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2023-12-06T19:07:59Z",
+      "side": 1,
+      "message": "Then we might as well rename it to BOARD since it\u0027s just used for the file below",
+      "parentUuid": "fcda1918_25e2f8b2",
+      "revId": "594509cf0cdace9b603aa7767913e48a5c9cdaac",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
