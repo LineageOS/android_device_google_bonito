@@ -112,6 +112,7 @@ PRODUCT_PACKAGES += \
 # Wi-Fi
 PRODUCT_PACKAGES += \
     libwifi-hal:64 \
+    libwifi-hal-ctl:64 \
     libwifi-hal-qcom
 
 # Misc interfaces
