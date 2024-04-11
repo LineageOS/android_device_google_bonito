@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "318306a8_8248ebfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-11T23:44:34Z",
+      "side": 1,
+      "message": "nuke atcmdfwd manifest/framework compat entries that are user debug only in boardconfig, can just nuke the files and entries all together as it\u0027s in prop files on system_ext now",
+      "revId": "2394272e9a9dd0efefcebb8005350bf8d91bbe91",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
