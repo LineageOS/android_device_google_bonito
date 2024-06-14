@@ -857,7 +857,6 @@ PRODUCT_VENDOR_PROPERTIES += ro.soc.manufacturer=Qualcomm
 PRODUCT_VENDOR_PROPERTIES += ro.soc.model=SDM670
 
 include hardware/google/pixel/vibrator/drv2624/device.mk
-include hardware/google/pixel/pixelstats/device.mk
 include hardware/google/pixel/mm/device_legacy.mk
 include device/google/gs-common/thermal/thermal_hal/device.mk
 
