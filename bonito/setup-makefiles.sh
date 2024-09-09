@@ -29,7 +29,7 @@ setup_vendor "${DEVICE}" "${VENDOR}" "${ANDROID_ROOT}"
 # Warning headers and guards
 write_headers
 
-write_makefiles "${MY_DIR}/proprietary-files.txt" true
+write_makefiles "${MY_DIR}/proprietary-files.txt"
 write_makefiles "${MY_DIR}/proprietary-files-carriersettings.txt" true
 write_makefiles "${MY_DIR}/proprietary-files-radio.txt" true
 write_makefiles "${MY_DIR}/proprietary-files-vendor.txt" true
