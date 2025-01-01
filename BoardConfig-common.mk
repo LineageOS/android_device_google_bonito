@@ -180,16 +180,6 @@ AUDIO_FEATURE_ENABLED_MAXX_AUDIO := true
 BOARD_SUPPORTS_SOUND_TRIGGER_5514 := true
 AUDIO_FEATURE_ENABLED_24BITS_CAMCORDER := true
 
-# Graphics
-TARGET_USES_GRALLOC1 := true
-TARGET_USES_HWC2 := true
-TARGET_USES_NV21_CAMERA_PREVIEW := true
-
-# Display
-TARGET_USES_DISPLAY_RENDER_INTENTS := true
-TARGET_USES_COLOR_METADATA := true
-TARGET_USES_DRM_PP := true
-
 # Vendor Interface Manifest
 DEVICE_MANIFEST_FILE := device/google/bonito/manifest.xml
 DEVICE_MATRIX_FILE := device/google/bonito/compatibility_matrix.xml

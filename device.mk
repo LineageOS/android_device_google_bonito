@@ -336,11 +336,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini \
 
 PRODUCT_PACKAGES += \
-    hwcomposer.$(TARGET_CHIPSET) \
+    hwcomposer.qcom \
     android.hardware.graphics.composer@2.2-service \
     gralloc.$(TARGET_CHIPSET) \
     android.hardware.graphics.mapper@2.0-impl-qti-display \
     vendor.qti.hardware.display.allocator@1.0-service
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.hwcomposer=qcom
 
 # Health HAL
 PRODUCT_PACKAGES += \
@@ -355,6 +358,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.qcom \
     hardware.google.light@1.0-service
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.lights=qcom
 
