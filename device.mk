@@ -121,6 +121,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.recovery.hardware.device.rc:recovery/root/init.recovery.bonito.rc \
     $(LOCAL_PATH)/init.recovery.hardware.device.rc:recovery/root/init.recovery.sargo.rc \
 
+# Partitions
+PRODUCT_PACKAGES += \
+    vendor_firmware_mnt_mountpoint
+
 MSM_VIDC_TARGET_LIST := sdm710 # Get the color format from kernel headers
 MASTER_SIDE_CP_TARGET_LIST := sdm710 # ION specific settings
 
