@@ -20,6 +20,9 @@ include device/google/bonito/device-common.mk
 
 DEVICE_PACKAGE_OVERLAYS += device/google/bonito/sargo/overlay
 
+# CHRE
+$(call soong_config_set,chre,chre_daemon_dsp_library,//vendor/google/sargo:libadsprpc)
+
 # SKU specific RROs
 PRODUCT_PACKAGES += \
     SettingsOverlayG020E \
